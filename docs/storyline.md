@@ -92,7 +92,22 @@ Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
 | Licence | Apache 2.0 | **Licence propriétaire « Qwen Community 1.0 »** (open weights, pas open source) |
 | Particularité | | Architecture expérimentale, aperçu de Qwen4 : nécessite un moteur récent qui la supporte |
 
-Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tient qu'au chausse-pied : il ne reste presque rien pour le KV cache. Comment on le fait tenir (quantization plus agressive, embeddings n-gram déportés en RAM comme le suggère la fiche, …) : _à compléter_. Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
+Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tiendrait qu'au chausse-pied. **Comment on le fait tenir en production** (retour du serveur, 17/10/2026) :
+
+- FP8 officiel de Qwen, réparti sur les 2 cartes (tensor parallel = 2), dans le même serveur
+- Les 51B d'embeddings n-gram sont **déportés en RAM CPU** (`VLLM_PLE_CPU_OFFLOAD=1`) : le conteneur occupe 133 Go de RAM système. Possible parce que ces embeddings sont de simples consultations de table, pas des calculs
+- Résultat par carte : 64,5 Gio de poids, **18,2 Gio de KV cache**, 89,7 Go occupés sur 97,9 Go
+- Grâce à l'attention hybride, ces 2 × 18 Gio suffisent pour **1,17 million de tokens** de KV cache, soit environ 6 conversations simultanées au contexte maximal
+- Communication entre les cartes : PCIe entre deux ponts du même nœud NUMA, sans NVLink
+
+Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
+
+**Ce que la formule ne dit pas** (mesures réelles vs plafond théorique) :
+
+- Mesuré, 1 utilisateur, thinking désactivé, décodage spéculatif MTP actif : **~200 tok/s**
+- Production, 3 semaines, ~9 400 requêtes réelles, thinking actif : **~127 tok/s par requête** sous charge, premier token en 0,64 s en moyenne, 10,4 s de bout en bout en moyenne
+- Plafond théorique sans spéculatif : ~300 tok/s pour 6 Go lus par token sur une carte (le double si la lecture est parfaitement répartie sur les deux)
+- [Déduction] Avec 2,8 tokens produits par passe grâce au MTP, 200 tok/s correspondent à environ 70 passes par seconde, très loin de ce que permettrait la bande passante. Sur un MoE avec si peu de paramètres actifs, ce sont les surcoûts qui dominent : échanges entre cartes à chaque couche en PCIe sans NVLink, kernels MoE non optimisés pour la carte, coût du brouillon. La formule donne un plafond, pas une prévision
 
 Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par token. Specs vérifiées sur les fiches constructeurs le 17/10/2026 (sources en fin de section). Puissance de calcul : FP16 dense, accumulation FP32, quand le constructeur la publie.
 
@@ -160,6 +175,15 @@ Sources matériel :
 - vLLM et SGLang, les deux moteurs utilisés
 - Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
 - Le cycle observé : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs « leaders » l'intègrent rapidement
+
+**Matière disponible : le vécu sur Blackwell** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
+
+- **Le même cycle pour les modèles** : Qwen3.8-Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une release stable (vLLM 0.30.0, adoptée le 25/09, sans patch). Gain au passage : +11 % (180 → 200 tok/s)
+- **Fork ou upstream ?** Avant Qwen, un autre gros MoE tournait sur ces cartes. Un fork communautaire de vLLM optimisé Blackwell a été essayé, puis un retour à vLLM upstream 0.26, qui échouait faute de kernel (`no kernel exists for this layer type`)
+- **Les cartes récentes sont moins bien servies** : pas de réglages MoE fournis pour la RTX PRO 6000 (« Using default MoE config »), un mécanisme de communication non supporté, des compilations à la volée au premier passage de certaines formes de calcul (pics de latence ponctuels). Lien avec la question « est-ce que ça tourne ? » du chapitre matériel
+- **Un défaut qui ne convient pas sans NVLink** : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes (all-reduce FlashInfer) est actif par défaut. Il a fallu le désactiver et revenir à NCCL seul. Les réglages NCCL eux-mêmes viennent de comparaisons au benchmark faites sur le déploiement précédent
+- **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
+
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
@@ -192,12 +216,23 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 - Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
 - Passerelle unique compatible OpenAI (LiteLLM), interface de chat (Open WebUI)
 - Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
+
+**Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
+
+- **Trop gourmand, ça casse** : réserver 95 % de la VRAM a provoqué un crash du moteur (`EngineDeadError`), vraisemblablement sur un long prompt. Retour à 90 %, lots plus petits, découpage des longs prompts
+- **Dimensionner sur l'usage observé, pas sur la fiche** : après analyse de la distribution des longueurs de prompts réels, contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum. Résultat : de 116 préemptions (requêtes suspendues faute de mémoire) à 0
+- **La réflexion a un coût** : le niveau de réflexion `high` posait problème, `medium` est imposé par défaut côté serveur (lien avec les tokens de réflexion)
+- **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
+- **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
+- **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
+
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
 
 ### 6a. Usages : focus développeurs
 
+- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
@@ -236,3 +271,5 @@ Candidats proposés au fil de la conception des slides (à valider) :
 - **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
 - **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
 - **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
+- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
+- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
