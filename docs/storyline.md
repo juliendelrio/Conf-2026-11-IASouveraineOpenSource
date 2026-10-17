@@ -90,7 +90,7 @@ Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant
 - **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
   - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
   - OVHcloud, en louant les GPU : par exemple 8 × H200 (8 × 141 Go) à ~30 700 €/mois, de quoi héberger soi-même un modèle de catégorie 4. Son offre d'API (AI Endpoints) s'arrête à Qwen3.5-397B-A17B, sans modèle de catégorie 4 au 17/10/2026 : https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
-  - Mistral AI distribue GLM-5.2 et GLM-5.3 depuis août 2026 (information de l'orateur)
+  - Mistral AI, par API (modèles hébergés par Mistral, servis sans modification) : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09/2026 au profit de GLM-5.3, disponible depuis le 15 septembre 2026. Contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie (0,14 $ en entrée mise en cache). https://docs.mistral.ai/fr/models/zai-glm-5-3 , https://docs.mistral.ai/fr/models/zai-glm-5-2
 
 **Évolution des modèles**
 
