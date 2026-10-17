@@ -344,7 +344,11 @@ Sources matériel :
 ### 5. La plateforme LLM
 
 - Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
-- Passerelle unique compatible OpenAI (LiteLLM), interface de chat (Open WebUI)
+- Passerelle unique compatible OpenAI (LiteLLM)
+- **Deux interfaces de chat, selon le public** :
+  - On a commencé par Open WebUI, mais c'est trop complexe pour les utilisateurs « de base »
+  - Les utilisateurs auront **LibreChat**, bien plus simple à prendre en main
+  - L'équipe IA garde **Open WebUI** : ses très nombreuses options dans l'interface permettent de pousser certains tests très loin
 - Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
 - C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
 

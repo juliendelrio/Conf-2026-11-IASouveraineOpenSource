@@ -13,7 +13,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 - **Storyline**: an on-demand AI platform covering the whole chain, from local GPUs to large clouds, with a fully open source orchestration layer:
   - 3× RTX 6000 Pro running open-weights Qwen-family models served by **vLLM**
   - **LiteLLM** as the single OpenAI-compatible gateway
-  - **Open WebUI** as the self-hosted chat interface
+  - Self-hosted chat interfaces: **LibreChat** for end users (simpler), **Open WebUI** kept for the AI team (many options for testing)
   - Tiered routing: internal models first, then larger models hosted in France, US clouds only when needed (e.g. agentic development)
   - Architecture, pitfalls, and lessons learned from 4 months of POC + 2 months in production
 - **Narrative**: the talk tells a story; see `docs/storyline.md` for the arc, chapters and timing.
