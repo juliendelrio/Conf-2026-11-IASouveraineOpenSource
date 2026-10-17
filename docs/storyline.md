@@ -61,7 +61,7 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 
 **Ensuite : l'achat**
 
-- 3 RTX 6000 Pro réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
+- 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
 - Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
 
 **Grille de lecture : les questions à se poser avant d'acheter**
@@ -106,7 +106,7 @@ Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes
 
 - Mesuré, 1 utilisateur, thinking désactivé, décodage spéculatif MTP actif : **~200 tok/s**
 - Production, 3 semaines, ~9 400 requêtes réelles, thinking actif : **~127 tok/s par requête** sous charge, premier token en 0,64 s en moyenne, 10,4 s de bout en bout en moyenne
-- Plafond théorique sans spéculatif : ~300 tok/s pour 6 Go lus par token sur une carte (le double si la lecture est parfaitement répartie sur les deux)
+- Plafond théorique sans spéculatif : ~265 tok/s pour 6 Go lus par token sur une carte Server Edition à 1 597 Go/s (le double si la lecture est parfaitement répartie sur les deux)
 - [Déduction] Avec 2,8 tokens produits par passe grâce au MTP, 200 tok/s correspondent à environ 70 passes par seconde, très loin de ce que permettrait la bande passante. Sur un MoE avec si peu de paramètres actifs, ce sont les surcoûts qui dominent : échanges entre cartes à chaque couche en PCIe sans NVLink, kernels MoE non optimisés pour la carte, coût du brouillon. La formule donne un plafond, pas une prévision
 
 Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par token. Specs vérifiées sur les fiches constructeurs le 17/10/2026 (sources en fin de section). Puissance de calcul : FP16 dense, accumulation FP32, quand le constructeur la publie.
@@ -124,15 +124,15 @@ Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par t
 | L40S | 48 Go | 864 Go/s | 362 TFLOPS | non | ~54 tok/s | ne tient pas |
 | RTX 4090 | 24 Go | 1 008 Go/s | 165 TFLOPS | non | ~63 tok/s | ne tient pas |
 | RTX 5090 | 32 Go | 1 792 Go/s | 210 TFLOPS | non | ~112 tok/s | ne tient pas |
-| **RTX PRO 6000 Blackwell (Workstation)** | **96 Go** | **1 792 Go/s** | **504 TFLOPS** | **non** | **~112 tok/s** | **2 cartes : tient tout juste, ~300 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) |
-| RTX PRO 6000 Blackwell (Server Edition) | 96 Go | **1 597 Go/s** | ~500 TFLOPS | non | ~100 tok/s | 2 cartes : tient tout juste, ~265 tok/s théoriques |
+| RTX PRO 6000 Blackwell (Workstation) | 96 Go | 1 792 Go/s | 504 TFLOPS | non | ~112 tok/s | 2 cartes : tient tout juste, ~300 tok/s théoriques |
+| **RTX PRO 6000 Blackwell Server Edition (les nôtres)** | **96 Go** | **1 597 Go/s** | **~500 TFLOPS** | **non** | **~100 tok/s** | **2 cartes : tient tout juste, ~265 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) ; ~200 tok/s mesurés avec MTP |
 | H100 SXM | 80 Go | 3,35 To/s | 990 TFLOPS | oui, 900 Go/s | ~210 tok/s | ne tient pas sur une carte |
 | H200 SXM | 141 Go | 4,8 To/s | 990 TFLOPS | oui, 900 Go/s | ~300 tok/s | ne tient pas sur une carte |
 | B200 (HGX) | 180 Go | 8 To/s | 2 250 TFLOPS | oui, 1,8 To/s | ~500 tok/s | ne tient pas sur une carte (186 > 180 Go) |
 
 Notes :
 
-- Quelle édition de RTX PRO 6000 avons-nous (Workstation, Max-Q ou Server) ? _à compléter_. La Server Edition a 11 % de bande passante en moins
+- Nos cartes sont des **RTX PRO 6000 Blackwell Server Edition** : refroidissement passif (châssis serveur obligatoire), 11 % de bande passante en moins que l'édition Workstation
 - NVLink : NVIDIA ne le mentionne pour aucune édition de la RTX PRO 6000 ; les fiches GeForce (4090, 5090) disent explicitement « non »
 - Apple ne publie pas la puissance de calcul de ses puces : c'est justement ce qui limite la lecture du prompt
 - Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go : il faut la version 40 cœurs pour 128 Go
