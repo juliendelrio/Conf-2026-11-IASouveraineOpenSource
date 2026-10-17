@@ -55,16 +55,22 @@ Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de mat
 - Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
 - C'est une excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget
 
-Prix de location constatés, par mois :
+Prix de location par mois. Fourchettes constatées (OVH et Scaleway) et tarifs publics Scaleway relevés sur l'API produits le 17/10/2026 (zone fr-par-2, hors taxes, 730 h par mois) :
 
-| Machine | Mémoire | Prix par mois |
-|---|---|---|
-| 1 × L4 | 24 Go | 500 à 600 € |
-| 1 × L40S | 48 Go | 1 000 à 1 200 € |
-| 1 × H100 | 80 Go | 2 000 à 2 500 € |
-| 2 × H100 | 160 Go | 4 500 à 5 000 € |
+| Machine | Mémoire GPU | Fourchette constatée | Scaleway (instance) |
+|---|---|---|---|
+| 1 × L4 | 24 Go | 500 à 600 € | 575 € (L4-1-24G) |
+| 1 × L40S | 48 Go | 1 000 à 1 200 € | 1 073 € (L40S-1-48G) |
+| 1 × H100 PCIe | 80 Go | 2 000 à 2 500 € | 2 093 € (H100-1-80G) |
+| 2 × H100 PCIe | 160 Go | 4 500 à 5 000 € | 4 185 € (H100-2-80G) |
+| 2 × H100 SXM | 160 Go | | 4 832 € (H100-SXM-2-80G) |
+| 4 × L40S | 192 Go | | 4 292 € (L40S-4-48G) |
+| 4 × H100 SXM | 320 Go | | 9 323 € (H100-SXM-4-80G) |
+| 8 × B300 SXM | 8 × 288 Go | | 43 800 € (B300-SXM-8-288G) |
 
-[Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse.
+Source : https://www.scaleway.com/en/pricing/gpu/ (n'affiche les prix que pour la zone PAR-1, où seules les L4 sont disponibles) ; chiffres complets via `https://api.scaleway.com/instance/v1/zones/fr-par-2/products/servers`. Pas de RTX PRO 6000 au catalogue Scaleway.
+
+[Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse. En location chez Scaleway, il faudrait 4 × L40S (192 Go, comme nos deux cartes, à 4 292 €/mois mais réparti sur 4 cartes en PCIe, non testé) ou 4 × H100 SXM (9 323 €/mois).
 
 **Aparté : des cartes pour les serveurs « traditionnels »**
 
@@ -83,6 +89,14 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 
 - 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
 - Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter (voir les alternatives en fin de chapitre)
+
+**Trois seuils d'équipement** (ébauche : le dimensionnement par seuil est déduit du tableau des plafonds, à valider)
+
+| Seuil | Ce qu'on fait tourner | Ce qu'il faut (déduction) | Exemples |
+|---|---|---|---|
+| 1 | Qwen3.8-Flash-Next : un modèle au niveau des meilleurs modèles fermés, y compris pour le code | ~190 Go de VRAM au total, dans un même serveur | 2 × RTX PRO 6000 (les nôtres) ; en location 4 × L40S ou 4 × H100 SXM ; 2 × H100 ne suffisent pas |
+| 2 | Qwen3.8-27B | ~31 Go en FP8 (~16 Go en 4 bits) + KV cache | 1 × RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits |
+| 3 | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Une carte d'entrée de gamme, possible dans un serveur « traditionnel » | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF. Modèles : _à compléter_ |
 
 **Grille de lecture : les questions à se poser avant d'acheter**
 
@@ -158,7 +172,7 @@ Notes :
 - Apple ne publie pas la puissance de calcul de ses puces : c'est justement ce qui limite la lecture du prompt
 - Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go : il faut la version 40 cœurs pour 128 Go
 - Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 *avec sparsité* : 2 à 4 fois les chiffres utiles en pratique
-- H100 : la version PCIe (2 To/s) et la version SXM (3,35 To/s) ont les mêmes 80 Go mais pas la même vitesse. [À vérifier] quelle version proposent les offres de location OVH et Scaleway correspondant aux prix ci-dessus. Specs de la version PCIe données de mémoire, pas encore revérifiées sur la fiche NVIDIA
+- H100 : la version PCIe (2 To/s) et la version SXM (3,35 To/s) ont les mêmes 80 Go mais pas la même vitesse. Scaleway loue les deux (80 Go HBM2e à 2 To/s confirmés sur sa page H100 PCIe). Puissance de calcul de la version PCIe donnée de mémoire, pas encore revérifiée sur la fiche NVIDIA
 
 Messages :
 
@@ -290,6 +304,7 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 - **Tensor parallelism** : répartir un modèle sur plusieurs GPU
 - **API compatible OpenAI** : le standard de fait pour brancher les outils
 - **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
+- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
 
 Candidats proposés au fil de la conception des slides (à valider) :
 
