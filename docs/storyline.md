@@ -68,7 +68,7 @@ Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'
 Notes :
 
 - [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
-- [À valider] Mistral Large 4 : introuvable sur Hugging Face (le dernier « Large » publié par Mistral est Mistral-Large-3-675B, décembre 2025). S'il n'est disponible que par API, il n'est pas open weights
+- [À mettre à jour fin octobre 2026] Mistral Large 4 : publication prévue fin octobre, avant la conférence. En attendant, la taille de référence est celle de Mistral-Large-3-675B (décembre 2025)
 
 Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
 
@@ -86,10 +86,10 @@ Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des
 | 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
 | 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
 
-Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go.
-
-[Déduction, à valider] Le « plus d'un million d'euros » vaut pour le haut de la catégorie (Qwen3.8-2.4T, DeepSeek-V4-Pro). Le bas de la catégorie (MiniMax-M3, DeepSeek-V4.1-Flash, Kimi-K2.6) tiendrait dans un serveur à 8 RTX PRO 6000 (768 Go), sans NVLink donc avec des échanges lents entre 8 cartes, pour un coût à chiffrer mais bien inférieur.
-- [À valider] lien avec le recours par paliers du chapitre plateforme : les modèles de catégorie 4 restent accessibles via des hébergeurs français (palier 2)
+Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go. Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté.
+- **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
+  - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
+  - OVHcloud AI Endpoints : au plus Qwen3.5-397B-A17B (0,6 € / 3,6 € par million de tokens en entrée / sortie), gpt-oss-120b, Qwen3.8-27B ; aucun modèle de la catégorie 4 au catalogue à cette date. https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
 
 **Évolution des modèles**
 
@@ -306,6 +306,7 @@ Sources matériel :
 - Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
 - Passerelle unique compatible OpenAI (LiteLLM), interface de chat (Open WebUI)
 - Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
+- C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
 
 **Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
 
