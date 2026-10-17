@@ -268,10 +268,17 @@ Messages :
 
 Visuel envisagé : graphique en barres animé des plafonds de vitesse, même modèle sur toutes les machines.
 
-**Pour finir : des alternatives pour une salle serveur interne**
+**Pour finir : deux approches pour héberger en interne**
 
-- **Mac Studio** et **NVIDIA DGX Spark** : des alternatives très intéressantes pour une salle serveur interne
-- Beaucoup de mémoire unifiée (jusqu'à 512 Go pour le Mac Studio M5 Ultra, 128 Go pour le DGX Spark) dans une machine compacte, plus lents que les GPU de datacenter (voir le tableau)
+| | Approche « salle serveur » | Approche « datacenter » |
+|---|---|---|
+| Principe | Non industrialisée : on pose des machines sur le réseau | Vraie industrialisation, avec des ressources prévues pour (alimentation, refroidissement, baies, exploitation) |
+| Matériel | Mac Studio, NVIDIA DGX Spark, cartes qui ne sont pas « Server Edition » (RTX PRO 2000 / 4000 SFF, cartes Workstation) | Cartes Server Edition / datacenter dans des serveurs conçus pour (nos RTX PRO 6000 Server Edition, H100, H200…) |
+| Pour qui | L'interne et les labs | **Obligatoire pour une offre aux clients** |
+| Attention | Électricité et dissipation de chaleur, même pour quelques machines | Coût et délai de mise en place |
+
+- **Mac Studio** et **DGX Spark** : des alternatives très intéressantes pour l'approche salle serveur. Beaucoup de mémoire unifiée (jusqu'à 512 Go pour le Mac Studio M5 Ultra, 128 Go pour le DGX Spark) dans une machine compacte, mais plus lents que les GPU de datacenter (voir le tableau)
+- Lien avec le point licence du chapitre modèles : une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise
 
 Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
 
