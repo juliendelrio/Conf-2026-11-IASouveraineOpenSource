@@ -41,6 +41,26 @@ Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de mat
 
 ### 2. Le matériel
 
+**Première étape : louer avant d'acheter**
+
+- Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
+- C'est une excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget
+
+**Aparté : des cartes pour les serveurs « traditionnels »**
+
+Toutes les cartes ne demandent pas un serveur conçu pour l'IA. Certaines rentrent dans les serveurs qu'on a déjà, dès lors qu'ils ont un port PCIe libre. Utile pour des projets en full interne.
+
+| Carte | Mémoire / bande passante | Format et alimentation | Pour quoi faire | Statut |
+|---|---|---|---|---|
+| **L4** (Ada, 2023) | 24 Go / 300 Go/s | 72 W, alimentée par le seul port PCIe (aucun connecteur), demi-hauteur, demi-longueur, une seule largeur de slot. Refroidissement passif : il faut le flux d'air d'un châssis serveur | Très petits LLM, stack RAG, modèles de type _à préciser_ | Vieillissante ; plus produite selon notre expérience mais encore trouvable. Pas d'avis de fin de vie officiel NVIDIA trouvé : dire « remplacée par la RTX PRO 4500 Server Edition » plutôt que « plus produite » |
+| **RTX PRO 4500 Blackwell Server Edition** (2026) | 32 Go / 800 Go/s | 165 W via un connecteur PCIe 16 broches, pleine hauteur, pleine longueur, **une seule largeur de slot**, passive. MIG (jusqu'à 2 × 16 Go) et vGPU | La remplaçante de la L4 : à creuser pour des serveurs plus basiques, pas conçus pour l'IA | Actuelle. Ne pas confondre avec l'édition Workstation (200 W, double slot, ventilée, 896 Go/s) |
+| **RTX PRO 2000 Blackwell** | 16 Go / 288 Go/s | 70 W, profil bas (demi-hauteur), double slot, ventilée ; pas « Server Edition » | À garder pour des tests ou de l'interne | Actuelle |
+| **RTX PRO 4000 Blackwell SFF** | 24 Go / 432 Go/s | 70 W, profil bas (demi-hauteur), double slot, ventilée ; pas « Server Edition » | À garder pour des tests ou de l'interne | Actuelle |
+
+Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine hauteur, double slot, passive.
+
+**Ensuite : l'achat**
+
 - 3 RTX 6000 Pro réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
 - Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
 
@@ -56,7 +76,7 @@ Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de mat
 
 **Le réflexe à retenir** : bande passante ÷ taille des poids lus par token = plafond de vitesse pour un utilisateur seul. Un bon moteur atteint environ 80 % de ce plafond. Seul le décodage spéculatif permet de le dépasser (voir chapitre moteurs).
 
-**Exemples de matériel** (chiffres de mémoire, à vérifier sur les fiches constructeurs avant de les mettre sur une slide)
+**Exemples de matériel**
 
 Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
 
@@ -82,6 +102,11 @@ Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par t
 | NVIDIA DGX Spark (GB10) | 128 Go | 273 Go/s | non publié | non (réseau 200 Gb/s) | ~17 tok/s | ne tient pas |
 | Apple M5 Max 40 cœurs GPU | 128 Go | 614 Go/s | non publié | non | ~38 tok/s | ne tient pas |
 | Apple M5 Ultra (Mac Studio, sorti en sept. 2026) | 512 Go | 1,2 To/s | non publié | non | ~75 tok/s | ~200 tok/s |
+| RTX PRO 2000 Blackwell | 16 Go | 288 Go/s | non publié | non | ne tient pas (16 Go de poids pour 16 Go de VRAM) | ne tient pas |
+| L4 | 24 Go | 300 Go/s | ~121 TFLOPS | non | ~19 tok/s | ne tient pas |
+| RTX PRO 4000 Blackwell SFF | 24 Go | 432 Go/s | non publié | non | ~27 tok/s | ne tient pas |
+| RTX PRO 4500 Blackwell Server Edition | 32 Go | 800 Go/s | ~200 TFLOPS (déduit, base non précisée) | non | ~50 tok/s | ne tient pas |
+| L40S | 48 Go | 864 Go/s | 362 TFLOPS | non | ~54 tok/s | ne tient pas |
 | RTX 4090 | 24 Go | 1 008 Go/s | 165 TFLOPS | non | ~63 tok/s | ne tient pas |
 | RTX 5090 | 32 Go | 1 792 Go/s | 210 TFLOPS | non | ~112 tok/s | ne tient pas |
 | **RTX PRO 6000 Blackwell (Workstation)** | **96 Go** | **1 792 Go/s** | **504 TFLOPS** | **non** | **~112 tok/s** | **2 cartes : tient tout juste, ~300 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) |
@@ -119,6 +144,12 @@ Sources matériel :
 - Ryzen AI Max+ 395 : https://www.amd.com/en/products/processors/desktops/ryzen/ryzen-ai-halo/ryzen-ai-max-plus-395.html
 - Mac Studio M5 Ultra : https://www.apple.com/mac-studio/specs/
 - M5 Max : https://www.apple.com/macbook-pro/specs/
+- L4 : https://www.nvidia.com/en-us/data-center/l4/ , fiche produit https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/l4/PB-11316-001_v01.pdf
+- L40S : https://www.nvidia.com/en-us/data-center/l40s/
+- RTX PRO 4500 Server Edition : https://www.nvidia.com/en-us/data-center/rtx-pro-4500-blackwell-server-edition/
+- RTX PRO 4500 Workstation : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/
+- RTX PRO 2000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/
+- RTX PRO 4000 SFF : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
