@@ -105,6 +105,7 @@ Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant
 | Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
 | Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
 | Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
+| Lit les images | Non, texte seul | Oui, multimodal |
 | Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
 
 Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
@@ -325,7 +326,7 @@ Sources matériel :
 ### 6a. Usages : focus développeurs
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision
+- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
@@ -367,3 +368,4 @@ Candidats proposés au fil de la conception des slides (à valider) :
 - **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
 - **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
 - **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
+- **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
