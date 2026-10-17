@@ -6,7 +6,7 @@ Retour d'expérience **global** : on s'appuie sur une expérience professionnell
 
 ## Fil rouge
 
-**On construit la plateforme dans l'ordre où on l'a vraiment construite** : on déballe les cartes, on choisit comment faire tourner les modèles, on choisit les modèles, on les partage, puis les gens s'en servent. L'ordre chronologique et l'ordre de la stack (du plus bas niveau vers les utilisateurs) sont les mêmes, donc l'histoire avance naturellement.
+**On avance dans l'ordre où il faut se poser les questions** : on commence par la finalité, les modèles, parce que c'est ce qu'on veut faire tourner. On fixe un budget, on le met en rapport avec les catégories de modèles, et on regarde quel matériel ce budget permet. Viennent ensuite comment faire tourner les modèles (moteurs), comment les partager (plateforme), puis ce que les gens en font (usages). Après les modèles, on remonte la stack du plus bas niveau vers les utilisateurs.
 
 Chaque chapitre suit le même schéma :
 
@@ -22,9 +22,9 @@ Chaque chapitre suit le même schéma :
 |---|--------|-------|
 | 0 | Ouverture : l'aveu | 2 min |
 | 1 | Petit lexique | 5 min |
-| 2 | Le matériel | 6 min |
-| 3 | Les moteurs d'inférence | 6 min |
-| 4 | Les modèles | 7 min |
+| 2 | Les modèles | 7 min |
+| 3 | Le matériel | 6 min |
+| 4 | Les moteurs d'inférence | 6 min |
 | 5 | La plateforme LLM | 6 min |
 | 6a | Usages : focus développeurs | 6 min |
 | 6b | Usages : autres usages | 4 min |
@@ -48,29 +48,80 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 
 Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Voir la liste plus bas.
 
-### 2. Le matériel
+### 2. Les modèles
+
+**Pourquoi commencer par les modèles** : c'est la finalité. Avant de parler cartes et serveurs, il faut savoir ce qu'on veut faire tourner. La démarche proposée : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet (chapitre suivant).
+
+**Août 2026, le cap franchi** (à placer dès le début du chapitre : c'est l'accroche du talk) : des modèles au niveau des meilleurs modèles fermés tiennent désormais sur 2 cartes. Le détail plus bas.
+
+**Quatre catégories pour aider à la décision**
+
+| Catégorie | Pour quoi faire | Modèles |
+|---|---|---|
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) |
+| 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B |
+| 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 |
+| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 |
+
+Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'un million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous, pour du serveur interne, et des coûts de location au GPU accessibles à une PME.
+
+Notes :
+
+- [À vérifier] tailles des modèles de la catégorie 4 sur Hugging Face, pour chiffrer la VRAM nécessaire
+- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits
+- [À valider] lien avec le recours par paliers du chapitre plateforme : les modèles de catégorie 4 restent accessibles via des hébergeurs français (palier 2)
+
+**Évolution des modèles**
+
+- Les modèles testés
+- Leur évolution ces derniers mois
+- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
+
+| | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
+|---|---|---|
+| Sortie | 31 juillet 2026 | 24 août 2026 |
+| Paramètres | MoE 284B, 13B actifs | MoE 125B, 6B actifs (+ 51B d'embeddings n-gram, 4B de MTP) |
+| Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
+| Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
+| Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
+| Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
+
+Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
+
+Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
+- Open weights ≠ open source : le 27B est sous Apache 2.0, le Flash-Next sous licence propriétaire « Qwen Community 1.0 »
+- Ce qu'on voulait faire : _à compléter_
+- Le piège : _à compléter_
+- Ce qu'on en retient : _à compléter_
+
+### 3. Le matériel
 
 **Première étape : louer avant d'acheter**
 
 - Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
 - C'est une excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget
 
-Prix de location par mois. Fourchettes constatées (OVH et Scaleway) et tarifs publics Scaleway relevés sur l'API produits le 17/10/2026 (zone fr-par-2, hors taxes, 730 h par mois) :
+Prix de location par mois, en fourchettes arrondies à la centaine d'euros (tarifs publics OVH et Scaleway hors taxes, relevés le 17/10/2026) :
 
-| Machine | Mémoire GPU | Fourchette constatée | Scaleway (instance) |
-|---|---|---|---|
-| 1 × L4 | 24 Go | 500 à 600 € | 575 € (L4-1-24G) |
-| 1 × L40S | 48 Go | 1 000 à 1 200 € | 1 073 € (L40S-1-48G) |
-| 1 × H100 PCIe | 80 Go | 2 000 à 2 500 € | 2 093 € (H100-1-80G) |
-| 2 × H100 PCIe | 160 Go | 4 500 à 5 000 € | 4 185 € (H100-2-80G) |
-| 2 × H100 SXM | 160 Go | | 4 832 € (H100-SXM-2-80G) |
-| 4 × L40S | 192 Go | | 4 292 € (L40S-4-48G) |
-| 4 × H100 SXM | 320 Go | | 9 323 € (H100-SXM-4-80G) |
-| 8 × B300 SXM | 8 × 288 Go | | 43 800 € (B300-SXM-8-288G) |
+| Machine | Mémoire GPU | Prix par mois |
+|---|---|---|
+| 1 × L4 | 24 Go | 500 à 600 € |
+| 1 × L40S | 48 Go | 1 000 à 1 100 € |
+| 1 × A100 | 80 Go | ~1 100 € (OVH seulement) |
+| 1 × H100 | 80 Go | 1 900 à 2 100 € |
+| 2 × L40S | 96 Go | 2 000 à 2 100 € |
+| 2 × H100 | 160 Go | 3 900 à 4 800 € (haut de fourchette : version SXM chez Scaleway) |
+| 4 × L40S | 192 Go | 4 000 à 4 300 € |
+| 4 × H100 | 320 Go | 7 800 à 9 300 € |
+| 8 × H200 | 8 × 141 Go | ~30 700 € (OVH) |
+| 8 × B300 | 8 × 288 Go | ~43 800 € (Scaleway) |
 
-Source : https://www.scaleway.com/en/pricing/gpu/ (n'affiche les prix que pour la zone PAR-1, où seules les L4 sont disponibles) ; chiffres complets via `https://api.scaleway.com/instance/v1/zones/fr-par-2/products/servers`. Pas de RTX PRO 6000 au catalogue Scaleway.
+Sources :
 
-[Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse. En location chez Scaleway, il faudrait 4 × L40S (192 Go, comme nos deux cartes, à 4 292 €/mois mais réparti sur 4 cartes en PCIe, non testé) ou 4 × H100 SXM (9 323 €/mois).
+- OVH : https://www.ovhcloud.com/fr/public-cloud/prices/ ; chiffres relevés dans le catalogue public `https://eu.api.ovh.com/1.0/order/catalog/public/cloud?ovhSubsidiary=FR` (forfaits mensuels : L4 540 €, L40S 1 008 €, A100 1 100 €, H100 1 940 €, 2 × H100 3 880 €, 4 × L40S 4 032 €, 4 × H100 7 770 €, 8 × H200 30 660 €). Le catalogue ne précise pas si les H100 sont en PCIe ou SXM
+- Scaleway : https://www.scaleway.com/en/pricing/gpu/ (n'affiche les prix que pour la zone PAR-1, où seules les L4 sont disponibles) ; chiffres relevés via `https://api.scaleway.com/instance/v1/zones/fr-par-2/products/servers`, 730 h par mois (L4 575 €, L40S 1 073 €, H100 PCIe 2 093 €, 2 × H100 PCIe 4 185 €, 2 × H100 SXM 4 832 €, 4 × L40S 4 292 €, 4 × H100 SXM 9 323 €, 8 × B300 43 800 €). Pas de RTX PRO 6000 au catalogue
+
+[Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse. En location, il faudrait 4 × L40S (192 Go comme nos deux cartes, 4 000 à 4 300 €/mois, mais réparti sur 4 cartes en PCIe, non testé) ou 4 × H100 (7 800 à 9 300 €/mois).
 
 **Aparté : des cartes pour les serveurs « traditionnels »**
 
@@ -90,13 +141,14 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 - 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
 - Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter (voir les alternatives en fin de chapitre)
 
-**Trois seuils d'équipement** (ébauche : le dimensionnement par seuil est déduit du tableau des plafonds, à valider)
+**Le matériel par catégorie de modèles** (les 4 catégories sont présentées au chapitre modèles ; matériel et budgets déduits du tableau des plafonds et des prix de location, à valider)
 
-| Seuil | Ce qu'on fait tourner | Ce qu'il faut (déduction) | Exemples |
-|---|---|---|---|
-| 1 | Qwen3.8-Flash-Next : un modèle au niveau des meilleurs modèles fermés, y compris pour le code | ~190 Go de VRAM au total, dans un même serveur | 2 × RTX PRO 6000 (les nôtres) ; en location 4 × L40S ou 4 × H100 SXM ; 2 × H100 ne suffisent pas |
-| 2 | Qwen3.8-27B | ~31 Go en FP8 (~16 Go en 4 bits) + KV cache | 1 × RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits |
-| 3 | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Une carte d'entrée de gamme, possible dans un serveur « traditionnel » | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF. Modèles : _à compléter_ |
+| Catégorie | Ce qu'il faut | Exemples de matériel | Interne | Location |
+|---|---|---|---|---|
+| 1. Petits modèles | Une carte d'entrée de gamme, possible dans un serveur « traditionnel » | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) |
+| 2. Milieu de gamme (27B) | ~31 Go en FP8 (~16 Go en 4 bits) + KV cache | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois |
+| 3. Le cap d'août | ~190 Go de VRAM dans un même serveur | 2 RTX PRO 6000 (les nôtres) ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S, non testé) ; 7 800 à 9 300 €/mois (4 H100) |
+| 4. Hors de portée | Plusieurs centaines de Go à plusieurs To de VRAM, NVLink | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) |
 
 **Grille de lecture : les questions à se poser avant d'acheter**
 
@@ -211,7 +263,7 @@ Sources matériel :
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
 
-### 3. Les moteurs d'inférence
+### 4. Les moteurs d'inférence
 
 - vLLM et SGLang, les deux moteurs utilisés
 - Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
@@ -225,29 +277,6 @@ Sources matériel :
 - **Un défaut qui ne convient pas sans NVLink** : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes (all-reduce FlashInfer) est actif par défaut. Il a fallu le désactiver et revenir à NCCL seul. Les réglages NCCL eux-mêmes viennent de comparaisons au benchmark faites sur le déploiement précédent
 - **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
 
-- Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
-- Ce qu'on en retient : _à compléter_
-
-### 4. Les modèles
-
-- Les modèles testés
-- Leur évolution ces derniers mois
-- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
-
-| | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
-|---|---|---|
-| Sortie | 31 juillet 2026 | 24 août 2026 |
-| Paramètres | MoE 284B, 13B actifs | MoE 125B, 6B actifs (+ 51B d'embeddings n-gram, 4B de MTP) |
-| Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
-| Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
-| Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
-| Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
-
-Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
-
-Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
-- Open weights ≠ open source : le 27B est sous Apache 2.0, le Flash-Next sous licence propriétaire « Qwen Community 1.0 »
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
