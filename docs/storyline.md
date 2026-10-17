@@ -94,8 +94,27 @@ Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant
 
 **Évolution des modèles**
 
-- Les modèles testés
-- Leur évolution ces derniers mois
+| Quand | Étape | Sur quoi |
+|---|---|---|
+| Fin 2025 | Premiers tests, dont Chocolatine (modèle affiné pour le français) | |
+| Février 2026 | **Première vraie étape** : génération Qwen 3.5, le 35B et le 27B | L40S louées |
+| Avril 2026 | Qwen 3.6 : chaque modèle s'améliore | |
+| Juin 2026 | Tests des Qwen 3.6 sur les RTX PRO 6000, avec la possibilité de les déployer en FP8 | RTX PRO 6000 |
+| Août 2026 | Qwen 3.8, avec le Flash-Next | RTX PRO 6000 |
+
+En parallèle : tests de modèles de transcription (STT), avec ou sans diarisation, contextualisation, etc.
+
+**Le code, version par version** :
+
+- **Qwen3.6-27B** : le premier modèle à commencer à coder, mais avec beaucoup de limitations (tendance à boucler et à planter). Utile pour quelques actions de code ponctuelles
+- **Août 2026, Qwen3.8-27B et Flash-Next** : on peut enfin produire du vrai code. C'est surtout le Flash-Next qui est autonome et travaille comme Opus 4.6 ou 4.7 quelques mois plus tôt, qui étaient déjà très utilisables au quotidien
+- Le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 : pour les tests, ça suffit
+
+**Capacité estimée** (tests de charge pas complètement poussés) :
+
+- Flash-Next : entre 5 et 10 développeurs
+- Qwen3.8-27B : 30 à 50 utilisateurs avec un outil de chat comme LibreChat
+
 - **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
 
 | | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
@@ -123,9 +142,10 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 - [Déduction] C'est sans doute pourquoi Flash-Next n'apparaît pas au catalogue des API de Scaleway, qui propose pourtant Qwen3.8-27B et DeepSeek-V4-Flash-0731 (MIT)
 - **La question pour la suite** : Flash-Next est un aperçu de l'architecture Qwen4 (`qwen4_exp`), et la famille Qwen 4 est attendue d'ici quelques semaines. Restera-t-elle sous Apache 2.0, ou suivra-t-elle cette licence maison ? Pour une plateforme interne ça passe, pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins
 - À dire sur scène : on lit la licence avant de choisir un modèle, comme pour n'importe quelle dépendance (ce n'est pas un avis juridique)
+
 - Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
-- Ce qu'on en retient : _à compléter_
+- Le piège (plutôt la difficulté) : le rythme soutenu des sorties de modèles. Il faut pouvoir en déployer pour les utilisateurs tout en testant les nouveaux, et c'est extrêmement exigeant et chronophage
+- Ce qu'on en retient : avec un saut de version tous les 3 mois, l'obsolescence des GPU est clairement compensée par les performances croissantes des modèles. Le même matériel fait tourner des modèles de plus en plus capables
 
 ### 3. Le matériel
 
@@ -387,3 +407,6 @@ Candidats proposés au fil de la conception des slides (à valider) :
 - **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
 - **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
+- **STT** (*speech-to-text*, transcription) : transformer la parole en texte
+- **Diarisation** : savoir qui parle quand dans un enregistrement
+- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
