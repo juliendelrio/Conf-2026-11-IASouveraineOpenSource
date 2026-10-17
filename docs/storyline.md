@@ -65,18 +65,18 @@ Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
 | Sortie | 5 août 2026 | 24 août 2026 |
 | Type | Dense : tous les poids servent à chaque token | MoE : 512 experts, 10 + 1 partagé actifs par token |
 | Paramètres | 27B | 125B dont **6B actifs**, + 51B d'embeddings n-gram + 4B de MTP |
-| Poids BF16 / FP8 officiels | ~56 Go / ~31 Go | ~357 Go / ~184 Go |
+| Poids BF16 / FP8 officiels | ~56 Go / ~31 Go | ~357 Go / ~186 Go |
 | En 4 bits | ~16 Go (chiffre de la vidéo, cohérent avec 27B × 0,5 octet + embeddings) | non calculé |
 | Lu par token (FP8) | ~27 Go (≈ 16 Go en 4 bits) | ~6 Go : seuls les paramètres actifs sont relus |
 | KV cache (BF16) | ~64 Kio par token : seule 1 couche sur 4 a une attention complète. Contexte complet de 262k tokens ≈ 16 Gio par conversation | ~24 Kio par token (12 couches d'attention complète, 2 têtes KV), ≈ 6 Gio pour 262k tokens |
 | Licence | Apache 2.0 | **Licence propriétaire « Qwen Community 1.0 »** (open weights, pas open source) |
 | Particularité | | Architecture expérimentale, aperçu de Qwen4 : nécessite un moteur récent qui la supporte |
 
-Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~184 Go) ne tient qu'au chausse-pied : il ne reste presque rien pour le KV cache. Comment on le fait tenir (quantization plus agressive, embeddings n-gram déportés en RAM comme le suggère la fiche, …) : _à compléter_. Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
+Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tient qu'au chausse-pied : il ne reste presque rien pour le KV cache. Comment on le fait tenir (quantization plus agressive, embeddings n-gram déportés en RAM comme le suggère la fiche, …) : _à compléter_. Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
 
 Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par token. Les specs des machines sont de mémoire, à vérifier sur les fiches constructeurs.
 
-| Machine | Mémoire | Bande passante | Qwen3.8-27B en 4 bits (16 Go lus/token) | Qwen3.8-Flash-Next en FP8 (6 Go lus/token, 184 Go à loger) |
+| Machine | Mémoire | Bande passante | Qwen3.8-27B en 4 bits (16 Go lus/token) | Qwen3.8-Flash-Next en FP8 (6 Go lus/token, 186 Go à loger) |
 |---|---|---|---|---|
 | AMD Ryzen AI Max+ 395 / DGX Spark | 128 Go | ~250 Go/s | ~16 tok/s | ne tient pas |
 | M5 Max 40 cœurs | jusqu'à 128 Go | 614 Go/s | ~38 tok/s | ne tient pas |
@@ -96,7 +96,7 @@ Messages :
 
 Visuel envisagé : graphique en barres animé des plafonds de vitesse, même modèle sur toutes les machines.
 
-Source : vidéo sur Lithos Metal et le plafond de bande passante, _lien à compléter_. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
+Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
@@ -115,7 +115,20 @@ Source : vidéo sur Lithos Metal et le plafond de bande passante, _lien à compl
 
 - Les modèles testés
 - Leur évolution ces derniers mois
-- Août 2026 : l'étape franchie, et pourquoi : _à compléter_. Piste relevée sur Hugging Face, à confirmer : toute la famille Qwen3.8 sort ce mois-là (27B le 5, 2.4T-A95B le 8, FP8 le 13, Flash-Next le 24). La fiche du 27B le compare à Claude Opus 4.6 Max sur du code agentique (Terminal Bench 2.1 : 73,0 contre 78,2), soit un modèle qui tient sur une seule carte presque au niveau des modèles de pointe
+- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
+
+| | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
+|---|---|---|
+| Sortie | 31 juillet 2026 | 24 août 2026 |
+| Paramètres | MoE 284B, 13B actifs | MoE 125B, 6B actifs (+ 51B d'embeddings n-gram, 4B de MTP) |
+| Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
+| Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
+| Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
+| Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
+
+Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
+
+Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
 - Open weights ≠ open source : le 27B est sous Apache 2.0, le Flash-Next sous licence propriétaire « Qwen Community 1.0 »
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
