@@ -74,22 +74,33 @@ Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
 
 Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tient qu'au chausse-pied : il ne reste presque rien pour le KV cache. Comment on le fait tenir (quantization plus agressive, embeddings n-gram déportés en RAM comme le suggère la fiche, …) : _à compléter_. Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
 
-Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par token. Les specs des machines sont de mémoire, à vérifier sur les fiches constructeurs.
+Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par token. Specs vérifiées sur les fiches constructeurs le 17/10/2026 (sources en fin de section). Puissance de calcul : FP16 dense, accumulation FP32, quand le constructeur la publie.
 
-| Machine | Mémoire | Bande passante | Qwen3.8-27B en 4 bits (16 Go lus/token) | Qwen3.8-Flash-Next en FP8 (6 Go lus/token, 186 Go à loger) |
-|---|---|---|---|---|
-| AMD Ryzen AI Max+ 395 / DGX Spark | 128 Go | ~250 Go/s | ~16 tok/s | ne tient pas |
-| M5 Max 40 cœurs | jusqu'à 128 Go | 614 Go/s | ~38 tok/s | ne tient pas |
-| Mac Studio M3 Ultra | jusqu'à 512 Go | ~800 Go/s | ~50 tok/s | ~130 tok/s |
-| RTX 4090 | 24 Go | ~1 To/s | ~60 tok/s | ne tient pas |
-| RTX 5090 | 32 Go | ~1,8 To/s | ~110 tok/s | ne tient pas |
-| **RTX 6000 Pro** | **96 Go** | **~1,8 To/s** | **~110 tok/s** | **2 cartes : tient tout juste, ~300 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) |
-| H100 / H200 | 80 / 141 Go | 3,3 / 4,8 To/s | ~200 / 300 tok/s | ne tient pas sur une carte |
-| B200 | 192 Go | ~8 To/s | ~500 tok/s | tient tout juste, ~1 300 tok/s |
+| Machine | Mémoire max | Bande passante | Calcul FP16 dense | NVLink | Qwen3.8-27B en 4 bits (16 Go lus/token) | Qwen3.8-Flash-Next en FP8 (6 Go lus/token, 186 Go à loger) |
+|---|---|---|---|---|---|---|
+| AMD Ryzen AI Max+ 395 | 128 Go | 256 Go/s | ~60 TFLOPS (base non précisée) | non | ~16 tok/s | ne tient pas |
+| NVIDIA DGX Spark (GB10) | 128 Go | 273 Go/s | non publié | non (réseau 200 Gb/s) | ~17 tok/s | ne tient pas |
+| Apple M5 Max 40 cœurs GPU | 128 Go | 614 Go/s | non publié | non | ~38 tok/s | ne tient pas |
+| Apple M5 Ultra (Mac Studio, sorti en sept. 2026) | 512 Go | 1,2 To/s | non publié | non | ~75 tok/s | ~200 tok/s |
+| RTX 4090 | 24 Go | 1 008 Go/s | 165 TFLOPS | non | ~63 tok/s | ne tient pas |
+| RTX 5090 | 32 Go | 1 792 Go/s | 210 TFLOPS | non | ~112 tok/s | ne tient pas |
+| **RTX PRO 6000 Blackwell (Workstation)** | **96 Go** | **1 792 Go/s** | **504 TFLOPS** | **non** | **~112 tok/s** | **2 cartes : tient tout juste, ~300 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) |
+| RTX PRO 6000 Blackwell (Server Edition) | 96 Go | **1 597 Go/s** | ~500 TFLOPS | non | ~100 tok/s | 2 cartes : tient tout juste, ~265 tok/s théoriques |
+| H100 SXM | 80 Go | 3,35 To/s | 990 TFLOPS | oui, 900 Go/s | ~210 tok/s | ne tient pas sur une carte |
+| H200 SXM | 141 Go | 4,8 To/s | 990 TFLOPS | oui, 900 Go/s | ~300 tok/s | ne tient pas sur une carte |
+| B200 (HGX) | 180 Go | 8 To/s | 2 250 TFLOPS | oui, 1,8 To/s | ~500 tok/s | ne tient pas sur une carte (186 > 180 Go) |
+
+Notes :
+
+- Quelle édition de RTX PRO 6000 avons-nous (Workstation, Max-Q ou Server) ? _à compléter_. La Server Edition a 11 % de bande passante en moins
+- NVLink : NVIDIA ne le mentionne pour aucune édition de la RTX PRO 6000 ; les fiches GeForce (4090, 5090) disent explicitement « non »
+- Apple ne publie pas la puissance de calcul de ses puces : c'est justement ce qui limite la lecture du prompt
+- Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go : il faut la version 40 cœurs pour 128 Go
+- Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 *avec sparsité* : 2 à 4 fois les chiffres utiles en pratique
 
 Messages :
 
-- La bande passante varie d'un facteur 30 entre une machine de bureau et un GPU de datacenter
+- La bande passante varie d'un facteur 30 entre une machine de bureau et un GPU de datacenter ; la puissance de calcul d'un facteur 40
 - On ne maximise pas à la fois mémoire et vitesse sans payer cher (Mac et DGX Spark : beaucoup de mémoire mais lents ; 5090 : rapide mais tient peu) ; la RTX 6000 Pro est le compromis entre les deux
 - Le MoE change la donne : un modèle 5 fois plus gros que le 27B va presque 3 fois plus vite, parce qu'il relit 6 Go par token au lieu de 16. En contrepartie, il faut pouvoir le loger en entier
 - L'architecture compte aussi pour la mémoire : grâce à l'attention hybride, le KV cache de ces modèles est plusieurs fois plus petit qu'avec une attention classique
@@ -97,6 +108,17 @@ Messages :
 Visuel envisagé : graphique en barres animé des plafonds de vitesse, même modèle sur toutes les machines.
 
 Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
+
+Sources matériel :
+
+- RTX PRO 6000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/ , https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/ , livre blanc https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf
+- RTX 5090 et 4090 : https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf
+- H100 / H200 : https://www.nvidia.com/en-us/data-center/h100/ , https://www.nvidia.com/en-us/data-center/h200/
+- B200 : https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory-h100-h200-b200/latest/components.html
+- DGX Spark : https://www.nvidia.com/en-us/products/workstations/dgx-spark/
+- Ryzen AI Max+ 395 : https://www.amd.com/en/products/processors/desktops/ryzen/ryzen-ai-halo/ryzen-ai-max-plus-395.html
+- Mac Studio M5 Ultra : https://www.apple.com/mac-studio/specs/
+- M5 Max : https://www.apple.com/macbook-pro/specs/
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
