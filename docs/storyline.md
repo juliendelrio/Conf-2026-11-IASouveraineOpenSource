@@ -111,7 +111,18 @@ Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant
 Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
 
 Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
-- Open weights ≠ open source : le 27B est sous Apache 2.0, le Flash-Next sous licence propriétaire « Qwen Community 1.0 »
+
+**Point très important : open weights ≠ open source, et les licences changent**
+
+- Jusqu'ici, la famille Qwen était sous Apache 2.0 (Qwen3.5-397B, Qwen3.6-35B, Qwen3.8-27B). Avec Qwen3.8-Flash-Next et Qwen3.8-2.4T, Qwen passe à des licences maison
+- Ce que dit la licence « Qwen Community 1.0 » du Flash-Next (lue le 17/10/2026, https://hf.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE) :
+  - Usage interne libre, tant que ni le modèle, ni ses réponses, ni ses capacités ne sont mis à disposition de tiers
+  - Toute entreprise qui fait du *Model as a Service* (donner accès au modèle à des tiers par API) ou un assistant IA de code ou de bureautique doit obtenir une licence séparée de Qwen avant tout usage commercial, quelle que soit sa taille
+  - Au-delà de 100 millions d'utilisateurs actifs mensuels ou 20 M$ de revenus mensuels, le nom du modèle doit être affiché dans l'interface
+- La licence « Qwen3.8-Max » du 2.4T est identique, sauf que la licence séparée n'est exigée qu'au-delà de 50 M$ de revenus sur 12 mois
+- [Déduction] C'est sans doute pourquoi Flash-Next n'apparaît pas au catalogue des API de Scaleway, qui propose pourtant Qwen3.8-27B et DeepSeek-V4-Flash-0731 (MIT)
+- **La question pour la suite** : Flash-Next est un aperçu de l'architecture Qwen4 (`qwen4_exp`), et la famille Qwen 4 est attendue d'ici quelques semaines. Restera-t-elle sous Apache 2.0, ou suivra-t-elle cette licence maison ? Pour une plateforme interne ça passe, pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins
+- À dire sur scène : on lit la licence avant de choisir un modèle, comme pour n'importe quelle dépendance (ce n'est pas un avis juridique)
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
