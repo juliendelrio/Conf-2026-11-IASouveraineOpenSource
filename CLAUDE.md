@@ -5,7 +5,8 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 ## The talk
 
 - **Title**: Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain
-- **When / where**: Saturday 14 November 2026, 15:00–15:55 (55 min, Q&A included), room A202, Capitole du Libre, Toulouse
+- **When / where**: Saturday 14 November 2026, 15:00–15:55, room A202, Capitole du Libre, Toulouse
+- **Length**: 40–45 min of content, the rest of the 55 min slot is kept for Q&A
 - **Audience**: developers and sovereign-hosting experts
 - **Language**: French (slide content in French; code, comments and commits in English)
 - **Abstract**: https://capitoledulibre.org/programme/talk/LSBRQY/
@@ -14,7 +15,15 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
   - **LiteLLM** as the single OpenAI-compatible gateway
   - **Open WebUI** as the self-hosted chat interface
   - Tiered routing: internal models first, then larger models hosted in France, US clouds only when needed (e.g. agentic development)
-  - Architecture, pitfalls, and lessons learned from 4 months of POC + 2 months in production (Numih France internal AI programme)
+  - Architecture, pitfalls, and lessons learned from 4 months of POC + 2 months in production
+- **Narrative**: the talk tells a story; see `docs/storyline.md` for the arc, chapters and timing.
+
+## Content rules
+
+- **Generic lessons learned only**: the experience comes from the speaker's job, but never name or detail the company (no internal names, org details, business figures or identifiable use cases).
+- **Glossary**: the talk opens with a short glossary of AI terms (inference, weights, quantization, …). Whenever a slide uses a term the audience may not know, propose adding it to the glossary in `docs/storyline.md` instead of adding it silently.
+- The opening deliberately admits the talk was built with Claude's help; keep that tone light and honest. It is not a running gag: only the opening and one callback in the conclusion.
+- Never invent the pitfalls or lessons learned: chapter content is filled in from the speaker's input, leave `_à compléter_` placeholders otherwise.
 
 ## Stack
 
@@ -24,6 +33,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 
 ## Layout
 
+- `docs/storyline.md` — narrative arc, chapter timing, glossary
 - `src/deck.ts` — ordered list of slides: single source of truth for the presenter, the Remotion Studio and the PPTX
 - `src/slides/` — one component per slide
 - `src/theme.ts` — dimensions, colors, fonts
