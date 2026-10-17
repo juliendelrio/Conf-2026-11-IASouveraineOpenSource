@@ -67,8 +67,28 @@ Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'
 
 Notes :
 
-- [À vérifier] tailles des modèles de la catégorie 4 sur Hugging Face, pour chiffrer la VRAM nécessaire
-- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits
+- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
+- [À valider] Mistral Large 4 : introuvable sur Hugging Face (le dernier « Large » publié par Mistral est Mistral-Large-3-675B, décembre 2025). S'il n'est disponible que par API, il n'est pas open weights
+
+Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
+
+| Catégorie | Modèle | Poids | Licence |
+|---|---|---|---|
+| 1 | [Qwen3.5-9B](https://hf.co/Qwen/Qwen3.5-9B) | ~19 Go (BF16) | Apache 2.0 |
+| 1 | [gpt-oss-20b](https://hf.co/openai/gpt-oss-20b) | ~14 Go (nativement en 4 bits, MXFP4) | Apache 2.0 |
+| 1 | [Mistral-Small-3.2-24B](https://hf.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) | ~48 Go (BF16 ; le dépôt contient deux copies) | Apache 2.0 |
+| 1 | [Qwen3.6-35B-A3B](https://hf.co/Qwen/Qwen3.6-35B-A3B) | ~72 Go (BF16), MoE à 3B actifs | Apache 2.0 |
+| 4 | [MiniMax-M3](https://hf.co/MiniMaxAI/MiniMax-M3-MXFP8) | ~444 Go (MXFP8) | autre |
+| 4 | [DeepSeek-V4.1-Flash](https://hf.co/deepseek-ai/DeepSeek-V4.1-Flash) (10/09/2026) | ~510 Go | MIT |
+| 4 | [Kimi-K2.6](https://hf.co/moonshotai/Kimi-K2.6) | ~595 Go (nativement en 4 bits) | autre |
+| 4 | [Mistral-Large-3-675B](https://hf.co/mistralai/Mistral-Large-3-675B-Instruct-2512) (à défaut de Large 4) | ~682 Go | Apache 2.0 |
+| 4 | [GLM-5.1](https://hf.co/zai-org/GLM-5.1-FP8) / [5.2](https://hf.co/zai-org/GLM-5.2-FP8) / [5.3](https://hf.co/zai-org/GLM-5.3) | ~756 Go chacun (FP8, 754B) | MIT (5.1, 5.2), autre (5.3) |
+| 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
+| 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
+
+Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go.
+
+[Déduction, à valider] Le « plus d'un million d'euros » vaut pour le haut de la catégorie (Qwen3.8-2.4T, DeepSeek-V4-Pro). Le bas de la catégorie (MiniMax-M3, DeepSeek-V4.1-Flash, Kimi-K2.6) tiendrait dans un serveur à 8 RTX PRO 6000 (768 Go), sans NVLink donc avec des échanges lents entre 8 cartes, pour un coût à chiffrer mais bien inférieur.
 - [À valider] lien avec le recours par paliers du chapitre plateforme : les modèles de catégorie 4 restent accessibles via des hébergeurs français (palier 2)
 
 **Évolution des modèles**
