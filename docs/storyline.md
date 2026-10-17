@@ -35,6 +35,15 @@ Chaque chapitre suit le même schéma :
 
 Le titre parle d'IA souveraine 100 % open source… et tout a été conçu avec l'aide de Claude, y compris ces slides. « Et globalement, je recommande. » Présentation rapide et promesse du talk.
 
+**L'objectif** : démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec.
+
+**Les ordres de grandeur du budget** :
+
+- En interne : entre 50 et 70 k€ d'investissement
+- En location chez OVH ou Scaleway : entre 2 et 5 k€ par mois
+
+On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses très bien avec ces cartes : c'est justement le sujet du talk.
+
 ### 1. Petit lexique
 
 Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Voir la liste plus bas.
@@ -45,6 +54,17 @@ Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de mat
 
 - Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
 - C'est une excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget
+
+Prix de location constatés, par mois :
+
+| Machine | Mémoire | Prix par mois |
+|---|---|---|
+| 1 × L4 | 24 Go | 500 à 600 € |
+| 1 × L40S | 48 Go | 1 000 à 1 200 € |
+| 1 × H100 | 80 Go | 2 000 à 2 500 € |
+| 2 × H100 | 160 Go | 4 500 à 5 000 € |
+
+[Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse.
 
 **Aparté : des cartes pour les serveurs « traditionnels »**
 
@@ -62,7 +82,7 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 **Ensuite : l'achat**
 
 - 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : un investissement coûteux, mais qui permet beaucoup de choses
-- Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
+- Tests sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter (voir les alternatives en fin de chapitre)
 
 **Grille de lecture : les questions à se poser avant d'acheter**
 
@@ -126,7 +146,8 @@ Plafonds de vitesse pour un utilisateur seul = bande passante ÷ poids lus par t
 | RTX 5090 | 32 Go | 1 792 Go/s | 210 TFLOPS | non | ~112 tok/s | ne tient pas |
 | RTX PRO 6000 Blackwell (Workstation) | 96 Go | 1 792 Go/s | 504 TFLOPS | non | ~112 tok/s | 2 cartes : tient tout juste, ~300 tok/s théoriques |
 | **RTX PRO 6000 Blackwell Server Edition (les nôtres)** | **96 Go** | **1 597 Go/s** | **~500 TFLOPS** | **non** | **~100 tok/s** | **2 cartes : tient tout juste, ~265 tok/s théoriques** (plus si la lecture est répartie sur les deux cartes, moins à cause des échanges en PCIe sans NVLink) ; ~200 tok/s mesurés avec MTP |
-| H100 SXM | 80 Go | 3,35 To/s | 990 TFLOPS | oui, 900 Go/s | ~210 tok/s | ne tient pas sur une carte |
+| H100 PCIe | 80 Go | 2 To/s | ~756 TFLOPS | pont NVLink optionnel, 600 Go/s | ~125 tok/s | ne tient pas, même sur 2 cartes (160 Go) |
+| H100 SXM | 80 Go | 3,35 To/s | 990 TFLOPS | oui, 900 Go/s | ~210 tok/s | ne tient pas, même sur 2 cartes (160 Go) |
 | H200 SXM | 141 Go | 4,8 To/s | 990 TFLOPS | oui, 900 Go/s | ~300 tok/s | ne tient pas sur une carte |
 | B200 (HGX) | 180 Go | 8 To/s | 2 250 TFLOPS | oui, 1,8 To/s | ~500 tok/s | ne tient pas sur une carte (186 > 180 Go) |
 
@@ -137,6 +158,7 @@ Notes :
 - Apple ne publie pas la puissance de calcul de ses puces : c'est justement ce qui limite la lecture du prompt
 - Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go : il faut la version 40 cœurs pour 128 Go
 - Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 *avec sparsité* : 2 à 4 fois les chiffres utiles en pratique
+- H100 : la version PCIe (2 To/s) et la version SXM (3,35 To/s) ont les mêmes 80 Go mais pas la même vitesse. [À vérifier] quelle version proposent les offres de location OVH et Scaleway correspondant aux prix ci-dessus. Specs de la version PCIe données de mémoire, pas encore revérifiées sur la fiche NVIDIA
 
 Messages :
 
@@ -146,6 +168,11 @@ Messages :
 - L'architecture compte aussi pour la mémoire : grâce à l'attention hybride, le KV cache de ces modèles est plusieurs fois plus petit qu'avec une attention classique
 
 Visuel envisagé : graphique en barres animé des plafonds de vitesse, même modèle sur toutes les machines.
+
+**Pour finir : des alternatives pour une salle serveur interne**
+
+- **Mac Studio** et **NVIDIA DGX Spark** : des alternatives très intéressantes pour une salle serveur interne
+- Beaucoup de mémoire unifiée (jusqu'à 512 Go pour le Mac Studio M5 Ultra, 128 Go pour le DGX Spark) dans une machine compacte, plus lents que les GPU de datacenter (voir le tableau)
 
 Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
 
