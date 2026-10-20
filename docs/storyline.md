@@ -395,7 +395,9 @@ Sources matériel :
 
 ### 6b. Usages : les développeurs
 
-- À travers des applications de développement comme OpenCode ou DeepSeek harness
+- À travers des applications de développement comme OpenCode ou DeepSeek Harness
+  - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
+  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), application de bureau ou interface web ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
 - **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
