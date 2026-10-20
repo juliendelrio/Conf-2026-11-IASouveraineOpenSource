@@ -345,7 +345,7 @@ Sources matériel :
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
-- Ce qu'on en retient : _à compléter_
+- Ce qu'on en retient : faire de la veille sur les moteurs, une mise à jour peut rapporter autant qu'un changement de matériel
 
 ### 5. La plateforme LLM
 
