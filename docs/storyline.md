@@ -385,7 +385,7 @@ Sources matériel :
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
-- Ce qu'on en retient : _à compléter_
+- Ce qu'on en retient : avec une passerelle centralisée, le routage par paliers n'est plus une question technique mais une question de gouvernance
 
 ### 6. Les usages : trois types
 
