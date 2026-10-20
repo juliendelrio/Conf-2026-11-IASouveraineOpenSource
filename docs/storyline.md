@@ -374,6 +374,18 @@ Sources matériel :
 | Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
 | Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
 
+**Ce qu'on constate sur les trois types** :
+
+- Dès des modèles comme Qwen3.8-27B et Flash-Next, on commence à faire des choses intéressantes
+- Les besoins les plus intenses sont ceux des développeurs : c'est là qu'il faut le plus de compromis
+- Pour le chat généraliste et les intégrations dans les applications, on fait déjà des choses vraiment très impressionnantes
+
+**Le harness compte autant que le modèle** :
+
+- Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
+- Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
+- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : en auto-hébergé, un token de plus ne coûte rien de plus
+
 ### 6a. Usages : le chat généraliste
 
 - À travers un outil de chat type LibreChat ou Open WebUI (voir le choix des interfaces au chapitre plateforme)
@@ -393,7 +405,7 @@ Sources matériel :
 
 ### 6c. Usages : les intégrations sur mesure
 
-Le modèle s'intègre dans des applications tierces. Exemples :
+Le modèle s'intègre dans des applications tierces. Les trois intégrations ci-dessous sont déployées chez nous, chacune avec des itérations un peu différentes :
 
 - Un RAG au sein d'un outil de gestion documentaire
 - Une transcription (STT) dans un assistant de compte rendu
@@ -439,4 +451,5 @@ Candidats proposés au fil de la conception des slides (à valider) :
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
 - **Diarisation** : savoir qui parle quand dans un enregistrement
+- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
