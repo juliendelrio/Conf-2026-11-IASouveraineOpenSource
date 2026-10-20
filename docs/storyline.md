@@ -371,6 +371,7 @@ Sources matériel :
   - Les utilisateurs auront **LibreChat**, bien plus simple à prendre en main
   - L'équipe IA garde **Open WebUI** : ses très nombreuses options dans l'interface permettent de pousser certains tests très loin
 - Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
+- **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
 - C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
 
 **Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
