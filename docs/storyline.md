@@ -331,7 +331,7 @@ Sources matériel :
   - **vLLM** principalement ; **SGLang** ponctuellement
   - Certains modèles sont mieux optimisés sur un moteur que sur l'autre
   - Le matériel joue aussi : sur Mac par exemple, un moteur dédié peut s'envisager (MLX ; Lithos et OMLX dans la vidéo citée au chapitre matériel)
-- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : une mise à jour de vLLM a suffi, à elle seule, à faire gagner environ 10 % de vitesse de génération sur le Qwen 27B (souvenir de l'orateur ; à rapprocher du +11 % mesuré sur Flash-Next lors du passage à vLLM 0.30.0)
+- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : le passage à vLLM 0.30.0 a suffi, à lui seul, à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s, voir ci-dessous)
 - Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
 - Le cycle observé : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs « leaders » l'intègrent rapidement
 
