@@ -417,7 +417,7 @@ Sources matériel :
 - Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
 - Ce qu'on voulait faire : proposer un ChatGPT interne
 - Le piège : partir sur le candidat naturel, Open WebUI, dont l'interface est trop complexe pour des utilisateurs standards
-- Ce qu'on en retient : _à compléter_
+- Ce qu'on en retient : pour les utilisateurs finaux, il faut faire simple et ergonomique
 
 ### 6b. Usages : les développeurs
 
