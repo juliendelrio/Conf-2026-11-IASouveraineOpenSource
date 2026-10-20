@@ -26,8 +26,9 @@ Chaque chapitre suit le même schéma :
 | 3 | Le matériel | 6 min |
 | 4 | Les moteurs d'inférence | 6 min |
 | 5 | La plateforme LLM | 6 min |
-| 6a | Usages : focus développeurs | 6 min |
-| 6b | Usages : autres usages | 4 min |
+| 6a | Usages : le chat généraliste | 3 min |
+| 6b | Usages : les développeurs | 4 min |
+| 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min |
 | | **Total** | **45 min** |
 
@@ -365,7 +366,24 @@ Sources matériel :
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
 
-### 6a. Usages : focus développeurs
+### 6. Les usages : trois types
+
+| Type | Pour qui | Par quoi |
+|---|---|---|
+| Généraliste | Tous les utilisateurs | Un outil de chat : LibreChat (Open WebUI pour l'équipe IA) |
+| Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
+| Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
+
+### 6a. Usages : le chat généraliste
+
+- À travers un outil de chat type LibreChat ou Open WebUI (voir le choix des interfaces au chapitre plateforme)
+- Ce qu'on voulait faire : _à compléter_
+- Le piège : _à compléter_
+- Ce qu'on en retient : _à compléter_
+
+### 6b. Usages : les développeurs
+
+- À travers des applications de développement comme OpenCode ou DeepSeek harness
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
 - **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
@@ -373,7 +391,15 @@ Sources matériel :
 - Le piège : _à compléter_
 - Ce qu'on en retient : _à compléter_
 
-### 6b. Usages : autres usages
+### 6c. Usages : les intégrations sur mesure
+
+Le modèle s'intègre dans des applications tierces. Exemples :
+
+- Un RAG au sein d'un outil de gestion documentaire
+- Une transcription (STT) dans un assistant de compte rendu
+- Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 au chapitre matériel)
+
+Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
 
 - Ce qu'on voulait faire : _à compléter_
 - Le piège : _à compléter_
