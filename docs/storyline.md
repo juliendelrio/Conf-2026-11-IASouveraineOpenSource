@@ -383,7 +383,7 @@ Sources matériel :
 - **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
 
 - Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
+- Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
 - Ce qu'on en retient : _à compléter_
 
 ### 6. Les usages : trois types
