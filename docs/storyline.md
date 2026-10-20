@@ -346,7 +346,26 @@ Sources matériel :
 ### 5. La plateforme LLM
 
 - Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
-- Passerelle unique compatible OpenAI (LiteLLM)
+
+**Le chemin parcouru, en trois étapes**
+
+1. **Déployer les modèles et les consommer directement via le moteur.** Souvent des versions préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur (lien avec le chapitre moteurs). On se rend vite compte des limites pour diversifier les usages autour du moteur
+2. **Notre propre passerelle devant chaque moteur.** On développe une passerelle LLM maison, placée devant chaque moteur, notamment pour gérer les jetons d'accès. Limite : on multiplie d'autant les points d'accès que doivent connaître les services qui consomment les API
+3. **Une passerelle centralisée : LiteLLM.** C'est en cherchant une passerelle unique qu'on découvre LiteLLM, qui répond à tous nos besoins
+
+**Ce que LiteLLM apporte**
+
+- **En entrée** : s'interface nativement avec une centaine de types d'API différentes, de moteurs d'inférence ou de plateformes cloud
+- **En sortie** : présente les modèles sous une quarantaine de formats d'API différents (chiffre de l'orateur)
+- **Les droits** : gestion assez fine des droits sur les modèles, par équipes, utilisateurs et clés d'API
+- **Le suivi** : monitoring natif dans la plateforme, et on peut brancher une architecture OpenTelemetry (OTel) pour des métriques encore plus fines
+
+**Communautaire ou entreprise ?**
+
+- La version communautaire est très permissive et permet déjà beaucoup de choses
+- Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
+- D'après la doc LiteLLM (relevée le 20/10/2026, https://docs.litellm.ai/docs/enterprise) : la version open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation. L'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
+- Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
 - **Deux interfaces de chat, selon le public** :
   - On a commencé par Open WebUI, mais c'est trop complexe pour les utilisateurs « de base »
   - Les utilisateurs auront **LibreChat**, bien plus simple à prendre en main
@@ -454,5 +473,8 @@ Candidats proposés au fil de la conception des slides (à valider) :
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
 - **Diarisation** : savoir qui parle quand dans un enregistrement
+- **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
+- **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
+- **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
 - **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
