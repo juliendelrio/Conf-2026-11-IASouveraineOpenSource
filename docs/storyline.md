@@ -145,7 +145,7 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 - **La question pour la suite** : Flash-Next est un aperçu de l'architecture Qwen4 (`qwen4_exp`), et la famille Qwen 4 est attendue d'ici quelques semaines. Restera-t-elle sous Apache 2.0, ou suivra-t-elle cette licence maison ? Pour une plateforme interne ça passe, pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins
 - À dire sur scène : on lit la licence avant de choisir un modèle, comme pour n'importe quelle dépendance (ce n'est pas un avis juridique)
 
-- Ce qu'on voulait faire : _à compléter_
+- Ce qu'on voulait faire : trouver un modèle assez bon pour être utilisé au quotidien, code compris, sur notre propre matériel
 - Le piège (plutôt la difficulté) : le rythme soutenu des sorties de modèles. Il faut pouvoir en déployer pour les utilisateurs tout en testant les nouveaux, et c'est extrêmement exigeant et chronophage
 - Ce qu'on en retient : avec un saut de version tous les 3 mois, l'obsolescence des GPU est clairement compensée par les performances croissantes des modèles. Le même matériel fait tourner des modèles de plus en plus capables
 
@@ -321,8 +321,8 @@ Sources matériel :
 - RTX PRO 2000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/
 - RTX PRO 4000 SFF : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/
 
-- Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
+- Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
+- Le piège : obtenir de petits volumes de cartes est compliqué. Un fournisseur nous a aidés grâce à son offre *try and buy*
 - Ce qu'on en retient : _à compléter_
 
 ### 4. Les moteurs d'inférence
@@ -343,8 +343,8 @@ Sources matériel :
 - **Un défaut qui ne convient pas sans NVLink** : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes (all-reduce FlashInfer) est actif par défaut. Il a fallu le désactiver et revenir à NCCL seul. Les réglages NCCL eux-mêmes viennent de comparaisons au benchmark faites sur le déploiement précédent
 - **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
 
-- Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
+- Ce qu'on voulait faire : tout simplement tester les modèles
+- Le piège : l'inférence, c'est très technique. Se plonger dans la documentation devient utile pour affiner l'usage des modèles sur nos équipements
 - Ce qu'on en retient : faire de la veille sur les moteurs, une mise à jour peut rapporter autant qu'un changement de matériel
 
 ### 5. La plateforme LLM
@@ -387,7 +387,7 @@ Sources matériel :
 - **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
 - **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
 
-- Ce qu'on voulait faire : _à compléter_
+- Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
 - Ce qu'on en retient : avec une passerelle centralisée, le routage par paliers n'est plus une question technique mais une question de gouvernance
 
