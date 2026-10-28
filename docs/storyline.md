@@ -423,7 +423,7 @@ Sources matériel :
 
 - À travers des applications de développement comme OpenCode ou DeepSeek Harness
   - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
-  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), application de bureau ou interface web ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
+  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), interface web (`dsh web`, servie en local sur `127.0.0.1:3080`) ; l'application de bureau n'est qu'une coquille Electron autour de cette même application web, servie en local sur un port choisi par le système (source : README du dépôt et `apps/desktop/README.md`, consultés le 28/10/2026) ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
 - **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
@@ -431,7 +431,7 @@ Sources matériel :
 - **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
 - **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
   - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
-  - DeepSeek Harness : l'approche web only et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
+  - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
 - Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
 - Le piège : _à compléter_ (plutôt la difficulté : la capacité minimale des modèles, insuffisante avant août ?)
 - Ce qu'on en retient : _à compléter_
