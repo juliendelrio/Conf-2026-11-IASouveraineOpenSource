@@ -21,7 +21,8 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 ## Content rules
 
 - **Generic lessons learned only**: the experience comes from the speaker's job, but never name or detail the company (no internal names, org details, business figures or identifiable use cases).
-- **Glossary**: the talk opens with a short glossary of AI terms (inference, weights, quantization, …). Whenever a slide uses a term the audience may not know, propose adding it to the glossary in `docs/storyline.md` instead of adding it silently.
+- **Glossary**: the talk opens with a short glossary of about ten AI terms (inference, weights, quantization, …); the other terms are explained in one sentence where they first appear. Whenever a slide uses a term the audience may not know, propose adding it to the glossary in `docs/storyline.md` instead of adding it silently.
+- **Never delete content from the storyline**: when trimming, move sources, exact figures, full tables and field notes to the annex at the end of `docs/storyline.md`.
 - The opening deliberately admits the talk was built with Claude's help; keep that tone light and honest. It is not a running gag: only the opening and one callback in the conclusion.
 - Never invent the pitfalls or lessons learned: chapter content is filled in from the speaker's input, leave `_à compléter_` placeholders otherwise.
 
@@ -33,7 +34,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 
 ## Layout
 
-- `docs/storyline.md` — narrative arc, chapter timing, glossary
+- `docs/storyline.md` — narrative arc, chapter timing, glossary, annex (material kept for Q&A)
 - `src/deck.ts` — ordered list of slides: single source of truth for the presenter, the Remotion Studio and the PPTX
 - `src/slides/` — one component per slide
 - `src/theme.ts` — dimensions, colors, fonts

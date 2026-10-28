@@ -21,16 +21,18 @@ Chaque chapitre suit le même schéma :
 | # | Partie | Durée |
 |---|--------|-------|
 | 0 | Ouverture : l'aveu | 2 min |
-| 1 | Petit lexique | 5 min |
-| 2 | Les modèles | 7 min |
-| 3 | Le matériel | 6 min |
-| 4 | Les moteurs d'inférence | 6 min |
+| 1 | Petit lexique | 3 min |
+| 2 | Les modèles | 8 min |
+| 3 | Le matériel | 8 min |
+| 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 6 min |
-| 6a | Usages : le chat généraliste | 3 min |
-| 6b | Usages : les développeurs | 4 min |
+| 6a | Usages : le chat généraliste | 2 min |
+| 6b | Usages : les développeurs | 5 min |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min |
-| | **Total** | **45 min** |
+| | **Total** | **44 min** |
+
+Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
 ### 0. Ouverture : l'aveu
 
@@ -47,13 +49,13 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 
 ### 1. Petit lexique
 
-Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Voir la liste plus bas.
+Une dizaine de mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Les autres termes sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
 
 ### 2. Les modèles
 
 **Pourquoi commencer par les modèles** : c'est la finalité. Avant de parler cartes et serveurs, il faut savoir ce qu'on veut faire tourner. La démarche proposée : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet (chapitre suivant).
 
-**Août 2026, le cap franchi** (à placer dès le début du chapitre : c'est l'accroche du talk) : des modèles au niveau des meilleurs modèles fermés tiennent désormais sur 2 cartes. Le détail plus bas.
+**Août 2026, le cap franchi** (à placer dès le début du chapitre : c'est l'accroche du talk) : sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next. Ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages. Le détail plus bas.
 
 **Quatre catégories pour aider à la décision**
 
@@ -66,32 +68,9 @@ Les mots nécessaires pour suivre la suite, une métaphore par terme, pas de mat
 
 Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'un million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous, pour du serveur interne, et des coûts de location au GPU accessibles à une PME.
 
-Notes :
+**Pour la catégorie 4** : entre 444 Go et 2,5 To de poids, de 2,3 à 13 fois nos 192 Go (tailles relevées sur Hugging Face, détail en annexe).
 
-- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
-- [À mettre à jour fin octobre 2026] Mistral Large 4 : publication prévue fin octobre, avant la conférence. En attendant, la taille de référence est celle de Mistral-Large-3-675B (décembre 2025)
-
-Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
-
-| Catégorie | Modèle | Poids | Licence |
-|---|---|---|---|
-| 1 | [Qwen3.5-9B](https://hf.co/Qwen/Qwen3.5-9B) | ~19 Go (BF16) | Apache 2.0 |
-| 1 | [gpt-oss-20b](https://hf.co/openai/gpt-oss-20b) | ~14 Go (nativement en 4 bits, MXFP4) | Apache 2.0 |
-| 1 | [Mistral-Small-3.2-24B](https://hf.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) | ~48 Go (BF16 ; le dépôt contient deux copies) | Apache 2.0 |
-| 1 | [Qwen3.6-35B-A3B](https://hf.co/Qwen/Qwen3.6-35B-A3B) | ~72 Go (BF16), MoE à 3B actifs | Apache 2.0 |
-| 4 | [MiniMax-M3](https://hf.co/MiniMaxAI/MiniMax-M3-MXFP8) | ~444 Go (MXFP8) | autre |
-| 4 | [DeepSeek-V4.1-Flash](https://hf.co/deepseek-ai/DeepSeek-V4.1-Flash) (10/09/2026) | ~510 Go | MIT |
-| 4 | [Kimi-K2.6](https://hf.co/moonshotai/Kimi-K2.6) | ~595 Go (nativement en 4 bits) | autre |
-| 4 | [Mistral-Large-3-675B](https://hf.co/mistralai/Mistral-Large-3-675B-Instruct-2512) (à défaut de Large 4) | ~682 Go | Apache 2.0 |
-| 4 | [GLM-5.1](https://hf.co/zai-org/GLM-5.1-FP8) / [5.2](https://hf.co/zai-org/GLM-5.2-FP8) / [5.3](https://hf.co/zai-org/GLM-5.3) | ~756 Go chacun (FP8, 754B) | MIT (5.1, 5.2), autre (5.3) |
-| 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
-| 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
-
-Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go. Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté.
-- **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
-  - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
-  - OVHcloud, en louant les GPU : par exemple 8 × H200 (8 × 141 Go) à ~30 700 €/mois, de quoi héberger soi-même un modèle de catégorie 4. Son offre d'API (AI Endpoints) s'arrête à Qwen3.5-397B-A17B, sans modèle de catégorie 4 au 17/10/2026 : https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
-  - Mistral AI, par API (modèles hébergés par Mistral, servis sans modification) : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09/2026 au profit de GLM-5.3, disponible depuis le 15 septembre 2026. Contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie (0,14 $ en entrée mise en cache). https://docs.mistral.ai/fr/models/zai-glm-5-3 , https://docs.mistral.ai/fr/models/zai-glm-5-2
+**Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles chez des hébergeurs français, c'est le palier 2. Scaleway par API (GLM, DeepSeek, Qwen), OVHcloud en louant les GPU, Mistral AI par API (GLM-5.3). Catalogues détaillés en annexe.
 
 **Évolution des modèles**
 
@@ -116,7 +95,6 @@ En parallèle : tests de modèles de transcription (STT), avec ou sans diarisati
 - Flash-Next : entre 5 et 10 développeurs
 - Qwen3.8-27B : 30 à 50 utilisateurs avec un outil de chat comme LibreChat
 
-- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
 - **Le harness participe à la rupture** : DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 (31 juillet), comme démonstrateur de code pour cette version du modèle (dépôt créé le 13 août 2026). Août, ce n'est pas seulement de meilleurs modèles, c'est aussi les outils pour les exploiter (voir « Le harness compte autant que le modèle » au chapitre usages)
 
 | | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
@@ -156,7 +134,7 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 - Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
 - C'est une excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget
 
-Prix de location par mois, en fourchettes arrondies à la centaine d'euros (tarifs publics OVH et Scaleway hors taxes, relevés le 17/10/2026) :
+Prix de location par mois, en fourchettes arrondies à la centaine d'euros (tarifs publics OVH et Scaleway hors taxes, relevés le 17/10/2026 ; chiffres exacts et sources en annexe) :
 
 | Machine | Mémoire GPU | Prix par mois |
 |---|---|---|
@@ -170,11 +148,6 @@ Prix de location par mois, en fourchettes arrondies à la centaine d'euros (tari
 | 4 × H100 | 320 Go | 7 800 à 9 300 € |
 | 8 × H200 | 8 × 141 Go | ~30 700 € (OVH) |
 | 8 × B300 | 8 × 288 Go | ~43 800 € (Scaleway) |
-
-Sources :
-
-- OVH : https://www.ovhcloud.com/fr/public-cloud/prices/ ; chiffres relevés dans le catalogue public `https://eu.api.ovh.com/1.0/order/catalog/public/cloud?ovhSubsidiary=FR` (forfaits mensuels : L4 540 €, L40S 1 008 €, A100 1 100 €, H100 1 940 €, 2 × H100 3 880 €, 4 × L40S 4 032 €, 4 × H100 7 770 €, 8 × H200 30 660 €). Le catalogue ne précise pas si les H100 sont en PCIe ou SXM
-- Scaleway : https://www.scaleway.com/en/pricing/gpu/ (n'affiche les prix que pour la zone PAR-1, où seules les L4 sont disponibles) ; chiffres relevés via `https://api.scaleway.com/instance/v1/zones/fr-par-2/products/servers`, 730 h par mois (L4 575 €, L40S 1 073 €, H100 PCIe 2 093 €, 2 × H100 PCIe 4 185 €, 2 × H100 SXM 4 832 €, 4 × L40S 4 292 €, 4 × H100 SXM 9 323 €, 8 × B300 43 800 €). Pas de RTX PRO 6000 au catalogue
 
 [Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse. En location, il faudrait 4 × L40S (192 Go comme nos deux cartes, 4 000 à 4 300 €/mois, mais réparti sur 4 cartes en PCIe, non testé) ou 4 × H100 (7 800 à 9 300 €/mois).
 
@@ -219,19 +192,16 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 
 **Exemples de matériel**
 
-Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
+Deux modèles de référence, vus sous l'angle mémoire et vitesse (la fiche complète, avec sortie et licence, est au chapitre modèles et en annexe) :
 
-| | [Qwen3.8-27B](https://hf.co/Qwen/Qwen3.8-27B) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
+| | Qwen3.8-27B | Qwen3.8-Flash-Next |
 |---|---|---|
-| Sortie | 5 août 2026 | 24 août 2026 |
 | Type | Dense : tous les poids servent à chaque token | MoE : 512 experts, 10 + 1 partagé actifs par token |
 | Paramètres | 27B | 125B dont **6B actifs**, + 51B d'embeddings n-gram + 4B de MTP |
 | Poids BF16 / FP8 officiels | ~56 Go / ~31 Go | ~357 Go / ~186 Go |
-| En 4 bits | ~16 Go (chiffre de la vidéo, cohérent avec 27B × 0,5 octet + embeddings) | non calculé |
+| En 4 bits | ~16 Go | non calculé |
 | Lu par token (FP8) | ~27 Go (≈ 16 Go en 4 bits) | ~6 Go : seuls les paramètres actifs sont relus |
-| KV cache (BF16) | ~64 Kio par token : seule 1 couche sur 4 a une attention complète. Contexte complet de 262k tokens ≈ 16 Gio par conversation | ~24 Kio par token (12 couches d'attention complète, 2 têtes KV), ≈ 6 Gio pour 262k tokens |
-| Licence | Apache 2.0 | **Licence propriétaire « Qwen Community 1.0 »** (open weights, pas open source) |
-| Particularité | | Architecture expérimentale, aperçu de Qwen4 : nécessite un moteur récent qui la supporte |
+| KV cache (BF16) | ~64 Kio par token, ≈ 16 Gio pour 262k tokens | ~24 Kio par token, ≈ 6 Gio pour 262k tokens |
 
 Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tiendrait qu'au chausse-pied. **Comment on le fait tenir en production** (retour du serveur, 17/10/2026) :
 
@@ -302,25 +272,6 @@ Visuel envisagé : graphique en barres animé des plafonds de vitesse, même mod
 - **Mac Studio** et **DGX Spark** : des alternatives très intéressantes pour l'approche salle serveur. Beaucoup de mémoire unifiée (jusqu'à 512 Go pour le Mac Studio M5 Ultra, 128 Go pour le DGX Spark) dans une machine compacte, mais plus lents que les GPU de datacenter (voir le tableau)
 - Lien avec le point licence du chapitre modèles : une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise
 
-Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
-
-Sources matériel :
-
-- RTX PRO 6000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/ , https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/ , livre blanc https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf
-- RTX 5090 et 4090 : https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf
-- H100 / H200 : https://www.nvidia.com/en-us/data-center/h100/ , https://www.nvidia.com/en-us/data-center/h200/
-- B200 : https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory-h100-h200-b200/latest/components.html
-- DGX Spark : https://www.nvidia.com/en-us/products/workstations/dgx-spark/
-- Ryzen AI Max+ 395 : https://www.amd.com/en/products/processors/desktops/ryzen/ryzen-ai-halo/ryzen-ai-max-plus-395.html
-- Mac Studio M5 Ultra : https://www.apple.com/mac-studio/specs/
-- M5 Max : https://www.apple.com/macbook-pro/specs/
-- L4 : https://www.nvidia.com/en-us/data-center/l4/ , fiche produit https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/l4/PB-11316-001_v01.pdf
-- L40S : https://www.nvidia.com/en-us/data-center/l40s/
-- RTX PRO 4500 Server Edition : https://www.nvidia.com/en-us/data-center/rtx-pro-4500-blackwell-server-edition/
-- RTX PRO 4500 Workstation : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/
-- RTX PRO 2000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/
-- RTX PRO 4000 SFF : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/
-
 - Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
 - Le piège : obtenir de petits volumes de cartes est compliqué. Un fournisseur nous a aidés grâce à son offre *try and buy*
 - Ce qu'on en retient : passer par la location permet d'y aller petit à petit
@@ -331,25 +282,15 @@ Sources matériel :
   - **vLLM** principalement ; **SGLang** ponctuellement
   - Certains modèles sont mieux optimisés sur un moteur que sur l'autre
   - Le matériel joue aussi : sur Mac par exemple, un moteur dédié peut s'envisager (MLX ; Lithos et OMLX dans la vidéo citée au chapitre matériel)
-- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : le passage à vLLM 0.30.0 a suffi, à lui seul, à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s, voir ci-dessous)
+- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : le passage à vLLM 0.30.0 a suffi, à lui seul, à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s, détail en annexe)
 - Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
 - Le cycle observé : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs « leaders » l'intègrent rapidement
-
-**Matière disponible : le vécu sur Blackwell** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
-
-- **Le même cycle pour les modèles** : Qwen3.8-Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une release stable (vLLM 0.30.0, adoptée le 25/09, sans patch). Gain au passage : +11 % (180 → 200 tok/s)
-- **Fork ou upstream ?** Avant Qwen, un autre gros MoE tournait sur ces cartes. Un fork communautaire de vLLM optimisé Blackwell a été essayé, puis un retour à vLLM upstream 0.26, qui échouait faute de kernel (`no kernel exists for this layer type`)
-- **Les cartes récentes sont moins bien servies** : pas de réglages MoE fournis pour la RTX PRO 6000 (« Using default MoE config »), un mécanisme de communication non supporté, des compilations à la volée au premier passage de certaines formes de calcul (pics de latence ponctuels). Lien avec la question « est-ce que ça tourne ? » du chapitre matériel
-- **Un défaut qui ne convient pas sans NVLink** : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes (all-reduce FlashInfer) est actif par défaut. Il a fallu le désactiver et revenir à NCCL seul. Les réglages NCCL eux-mêmes viennent de comparaisons au benchmark faites sur le déploiement précédent
-- **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
 
 - Ce qu'on voulait faire : tout simplement tester les modèles
 - Le piège : l'inférence, c'est très technique. Se plonger dans la documentation devient utile pour affiner l'usage des modèles sur nos équipements
 - Ce qu'on en retient : faire de la veille sur les moteurs, une mise à jour peut rapporter autant qu'un changement de matériel
 
 ### 5. La plateforme LLM
-
-- Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
 
 **Le chemin parcouru, en trois étapes**
 
@@ -368,24 +309,11 @@ Sources matériel :
 
 - La version communautaire est très permissive et permet déjà beaucoup de choses
 - Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
-- D'après la doc LiteLLM (relevée le 20/10/2026, https://docs.litellm.ai/docs/enterprise) : la version open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation. L'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
 - Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
-- **Deux interfaces de chat, selon le public** :
-  - On a commencé par Open WebUI, mais c'est trop complexe pour les utilisateurs « de base »
-  - Les utilisateurs auront **LibreChat**, bien plus simple à prendre en main
-  - L'équipe IA garde **Open WebUI** : ses très nombreuses options dans l'interface permettent de pousser certains tests très loin
+- Les interfaces de chat branchées sur la passerelle (LibreChat, Open WebUI) : voir 6a
 - Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
 - **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
 - C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
-
-**Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
-
-- **Trop gourmand, ça casse** : réserver 95 % de la VRAM a provoqué un crash du moteur (`EngineDeadError`), vraisemblablement sur un long prompt. Retour à 90 %, lots plus petits, découpage des longs prompts
-- **Dimensionner sur l'usage observé, pas sur la fiche** : après analyse de la distribution des longueurs de prompts réels, contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum. Résultat : de 116 préemptions (requêtes suspendues faute de mémoire) à 0
-- **La réflexion a un coût** : le niveau de réflexion `high` posait problème, `medium` est imposé par défaut côté serveur (lien avec les tokens de réflexion)
-- **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
-- **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
-- **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -476,6 +404,8 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 
 ## Petit lexique
 
+Dans l'introduction (une dizaine de termes) :
+
 - **Inférence** : utiliser un modèle déjà entraîné (par opposition à l'entraînement)
 - **Paramètres / poids** : ce qu'un modèle « sait », sous forme de nombres ; la taille d'un modèle (7B, 32B, 235B…)
 - **Open weights vs open source** : on récupère les poids, pas forcément les données ni le code d'entraînement
@@ -484,23 +414,152 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 - **VRAM** : la mémoire de la carte graphique, la vraie ressource rare
 - **Fenêtre de contexte / KV cache** : pourquoi la longueur des conversations consomme de la mémoire
 - **MoE (Mixture of Experts)** : un gros modèle dont seule une partie travaille pour chaque token
-- **Batching continu** : servir plusieurs utilisateurs en même temps sur la même carte
-- **Tensor parallelism** : répartir un modèle sur plusieurs GPU
-- **API compatible OpenAI** : le standard de fait pour brancher les outils
 - **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
-- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
-- **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
-- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
-- **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
-- **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
-- **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
-- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
-- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
+- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
+
+Expliqués en une phrase là où ils apparaissent :
+
+*Les modèles*
+
+- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
 - **Diarisation** : savoir qui parle quand dans un enregistrement
+- **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
+
+*Le matériel*
+
+- **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
+- **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
+- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
+- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
+- **Tensor parallelism** : répartir un modèle sur plusieurs GPU
+- **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
+- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
+
+*Les moteurs d'inférence*
+
+- **Batching continu** : servir plusieurs utilisateurs en même temps sur la même carte
+
+*La plateforme LLM*
+
+- **API compatible OpenAI** : le standard de fait pour brancher les outils
 - **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
 - **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
 - **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
-- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
-- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
+
+*Usages : les développeurs*
+
+- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
+
+## Annexe : matière pour les questions
+
+Tout ce qui a été sorti des chapitres lors du nettoyage, sans rien supprimer : sources, chiffres exacts, tableaux complets et notes de terrain. Réserve pour les questions, et éventuellement pour des slides cachées.
+
+### Annexe du chapitre 2 : les modèles
+
+Notes :
+
+- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
+- [À mettre à jour fin octobre 2026] Mistral Large 4 : publication prévue fin octobre, avant la conférence. En attendant, la taille de référence est celle de Mistral-Large-3-675B (décembre 2025)
+
+Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
+
+| Catégorie | Modèle | Poids | Licence |
+|---|---|---|---|
+| 1 | [Qwen3.5-9B](https://hf.co/Qwen/Qwen3.5-9B) | ~19 Go (BF16) | Apache 2.0 |
+| 1 | [gpt-oss-20b](https://hf.co/openai/gpt-oss-20b) | ~14 Go (nativement en 4 bits, MXFP4) | Apache 2.0 |
+| 1 | [Mistral-Small-3.2-24B](https://hf.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) | ~48 Go (BF16 ; le dépôt contient deux copies) | Apache 2.0 |
+| 1 | [Qwen3.6-35B-A3B](https://hf.co/Qwen/Qwen3.6-35B-A3B) | ~72 Go (BF16), MoE à 3B actifs | Apache 2.0 |
+| 4 | [MiniMax-M3](https://hf.co/MiniMaxAI/MiniMax-M3-MXFP8) | ~444 Go (MXFP8) | autre |
+| 4 | [DeepSeek-V4.1-Flash](https://hf.co/deepseek-ai/DeepSeek-V4.1-Flash) (10/09/2026) | ~510 Go | MIT |
+| 4 | [Kimi-K2.6](https://hf.co/moonshotai/Kimi-K2.6) | ~595 Go (nativement en 4 bits) | autre |
+| 4 | [Mistral-Large-3-675B](https://hf.co/mistralai/Mistral-Large-3-675B-Instruct-2512) (à défaut de Large 4) | ~682 Go | Apache 2.0 |
+| 4 | [GLM-5.1](https://hf.co/zai-org/GLM-5.1-FP8) / [5.2](https://hf.co/zai-org/GLM-5.2-FP8) / [5.3](https://hf.co/zai-org/GLM-5.3) | ~756 Go chacun (FP8, 754B) | MIT (5.1, 5.2), autre (5.3) |
+| 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
+| 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
+
+Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go. Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté.
+
+- **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
+  - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
+  - OVHcloud, en louant les GPU : par exemple 8 × H200 (8 × 141 Go) à ~30 700 €/mois, de quoi héberger soi-même un modèle de catégorie 4. Son offre d'API (AI Endpoints) s'arrête à Qwen3.5-397B-A17B, sans modèle de catégorie 4 au 17/10/2026 : https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+  - Mistral AI, par API (modèles hébergés par Mistral, servis sans modification) : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09/2026 au profit de GLM-5.3, disponible depuis le 15 septembre 2026. Contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie (0,14 $ en entrée mise en cache). https://docs.mistral.ai/fr/models/zai-glm-5-3 , https://docs.mistral.ai/fr/models/zai-glm-5-2
+
+Ancien paragraphe sur le cap d'août, fusionné dans l'accroche du chapitre :
+
+- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
+
+### Annexe du chapitre 3 : le matériel
+
+Sources :
+
+- OVH : https://www.ovhcloud.com/fr/public-cloud/prices/ ; chiffres relevés dans le catalogue public `https://eu.api.ovh.com/1.0/order/catalog/public/cloud?ovhSubsidiary=FR` (forfaits mensuels : L4 540 €, L40S 1 008 €, A100 1 100 €, H100 1 940 €, 2 × H100 3 880 €, 4 × L40S 4 032 €, 4 × H100 7 770 €, 8 × H200 30 660 €). Le catalogue ne précise pas si les H100 sont en PCIe ou SXM
+- Scaleway : https://www.scaleway.com/en/pricing/gpu/ (n'affiche les prix que pour la zone PAR-1, où seules les L4 sont disponibles) ; chiffres relevés via `https://api.scaleway.com/instance/v1/zones/fr-par-2/products/servers`, 730 h par mois (L4 575 €, L40S 1 073 €, H100 PCIe 2 093 €, 2 × H100 PCIe 4 185 €, 2 × H100 SXM 4 832 €, 4 × L40S 4 292 €, 4 × H100 SXM 9 323 €, 8 × B300 43 800 €). Pas de RTX PRO 6000 au catalogue
+
+Fiche complète des deux modèles de référence :
+
+Deux modèles de référence (vérifiés sur Hugging Face le 17/10/2026) :
+
+| | [Qwen3.8-27B](https://hf.co/Qwen/Qwen3.8-27B) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
+|---|---|---|
+| Sortie | 5 août 2026 | 24 août 2026 |
+| Type | Dense : tous les poids servent à chaque token | MoE : 512 experts, 10 + 1 partagé actifs par token |
+| Paramètres | 27B | 125B dont **6B actifs**, + 51B d'embeddings n-gram + 4B de MTP |
+| Poids BF16 / FP8 officiels | ~56 Go / ~31 Go | ~357 Go / ~186 Go |
+| En 4 bits | ~16 Go (chiffre de la vidéo, cohérent avec 27B × 0,5 octet + embeddings) | non calculé |
+| Lu par token (FP8) | ~27 Go (≈ 16 Go en 4 bits) | ~6 Go : seuls les paramètres actifs sont relus |
+| KV cache (BF16) | ~64 Kio par token : seule 1 couche sur 4 a une attention complète. Contexte complet de 262k tokens ≈ 16 Gio par conversation | ~24 Kio par token (12 couches d'attention complète, 2 têtes KV), ≈ 6 Gio pour 262k tokens |
+| Licence | Apache 2.0 | **Licence propriétaire « Qwen Community 1.0 »** (open weights, pas open source) |
+| Particularité | | Architecture expérimentale, aperçu de Qwen4 : nécessite un moteur récent qui la supporte |
+
+Source : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc. Le chiffre de 614 Go/s pour le M5 Max et l'exemple du Qwen 3.8 27B en viennent.
+
+Sources matériel :
+
+- RTX PRO 6000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/ , https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/ , livre blanc https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1.0.pdf
+- RTX 5090 et 4090 : https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf
+- H100 / H200 : https://www.nvidia.com/en-us/data-center/h100/ , https://www.nvidia.com/en-us/data-center/h200/
+- B200 : https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory-h100-h200-b200/latest/components.html
+- DGX Spark : https://www.nvidia.com/en-us/products/workstations/dgx-spark/
+- Ryzen AI Max+ 395 : https://www.amd.com/en/products/processors/desktops/ryzen/ryzen-ai-halo/ryzen-ai-max-plus-395.html
+- Mac Studio M5 Ultra : https://www.apple.com/mac-studio/specs/
+- M5 Max : https://www.apple.com/macbook-pro/specs/
+- L4 : https://www.nvidia.com/en-us/data-center/l4/ , fiche produit https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/l4/PB-11316-001_v01.pdf
+- L40S : https://www.nvidia.com/en-us/data-center/l40s/
+- RTX PRO 4500 Server Edition : https://www.nvidia.com/en-us/data-center/rtx-pro-4500-blackwell-server-edition/
+- RTX PRO 4500 Workstation : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/
+- RTX PRO 2000 : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/
+- RTX PRO 4000 SFF : https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/
+
+### Annexe du chapitre 4 : les moteurs d'inférence
+
+**Matière disponible : le vécu sur Blackwell** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
+
+- **Le même cycle pour les modèles** : Qwen3.8-Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une release stable (vLLM 0.30.0, adoptée le 25/09, sans patch). Gain au passage : +11 % (180 → 200 tok/s)
+- **Fork ou upstream ?** Avant Qwen, un autre gros MoE tournait sur ces cartes. Un fork communautaire de vLLM optimisé Blackwell a été essayé, puis un retour à vLLM upstream 0.26, qui échouait faute de kernel (`no kernel exists for this layer type`)
+- **Les cartes récentes sont moins bien servies** : pas de réglages MoE fournis pour la RTX PRO 6000 (« Using default MoE config »), un mécanisme de communication non supporté, des compilations à la volée au premier passage de certaines formes de calcul (pics de latence ponctuels). Lien avec la question « est-ce que ça tourne ? » du chapitre matériel
+- **Un défaut qui ne convient pas sans NVLink** : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes (all-reduce FlashInfer) est actif par défaut. Il a fallu le désactiver et revenir à NCCL seul. Les réglages NCCL eux-mêmes viennent de comparaisons au benchmark faites sur le déploiement précédent
+- **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
+
+### Annexe du chapitre 5 : la plateforme LLM
+
+Formulation initiale de l'objectif : Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
+
+- D'après la doc LiteLLM (relevée le 20/10/2026, https://docs.litellm.ai/docs/enterprise) : la version open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation. L'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
+
+Le choix des interfaces, tel qu'il était décrit au chapitre plateforme (repris au 6a) :
+
+- **Deux interfaces de chat, selon le public** :
+  - On a commencé par Open WebUI, mais c'est trop complexe pour les utilisateurs « de base »
+  - Les utilisateurs auront **LibreChat**, bien plus simple à prendre en main
+  - L'équipe IA garde **Open WebUI** : ses très nombreuses options dans l'interface permettent de pousser certains tests très loin
+
+**Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
+
+- **Trop gourmand, ça casse** : réserver 95 % de la VRAM a provoqué un crash du moteur (`EngineDeadError`), vraisemblablement sur un long prompt. Retour à 90 %, lots plus petits, découpage des longs prompts
+- **Dimensionner sur l'usage observé, pas sur la fiche** : après analyse de la distribution des longueurs de prompts réels, contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum. Résultat : de 116 préemptions (requêtes suspendues faute de mémoire) à 0
+- **La réflexion a un coût** : le niveau de réflexion `high` posait problème, `medium` est imposé par défaut côté serveur (lien avec les tokens de réflexion)
+- **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
+- **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
+- **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
