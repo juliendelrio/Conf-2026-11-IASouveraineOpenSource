@@ -53,75 +53,32 @@ Une dizaine de mots nécessaires pour suivre la suite, une métaphore par terme,
 
 ### 2. Les modèles
 
-**Pourquoi commencer par les modèles** : c'est la finalité. Avant de parler cartes et serveurs, il faut savoir ce qu'on veut faire tourner. La démarche proposée : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet (chapitre suivant).
+Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce qui est extrapolé** (fiches des éditeurs, benchmarks publiés par eux-mêmes). La version de travail complète du chapitre est en annexe.
 
-**Août 2026, le cap franchi** (à placer dès le début du chapitre : c'est l'accroche du talk) : sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next. Ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages. Le détail plus bas.
+Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Quatre catégories pour aider à la décision**
+**Les slides (8 min)**
 
-| Catégorie | Pour quoi faire | Modèles |
-|---|---|---|
-| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) |
-| 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B |
-| 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 |
-| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 |
+| # | Slide | Contenu | Testé ou extrapolé |
+|---|---|---|---|
+| 1 | Pourquoi commencer par les modèles | C'est la finalité : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet | Démarche |
+| 2 | Août 2026, le cap franchi | DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) | Testé ; niveau « Opus » selon les éditeurs |
+| 3 | Quatre catégories | Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
+| 4 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
+| 5 | Ce qu'on a vécu | Frise : fin 2025 Chocolatine ; février 2026 Qwen 3.5 sur L40S louées ; avril Qwen 3.6 ; juin RTX PRO 6000 en FP8 ; août Qwen 3.8 et Flash-Next. En parallèle, la transcription | Testé |
+| 6 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
+| 7 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+| 8 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 9 | Objectif, piège, leçon | Voir ci-dessous | |
 
-Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'un million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous, pour du serveur interne, et des coûts de location au GPU accessibles à une PME.
+**Quatre catégories pour aider à la décision** (slide 3)
 
-**Pour la catégorie 4** : entre 444 Go et 2,5 To de poids, de 2,3 à 13 fois nos 192 Go (tailles relevées sur Hugging Face, détail en annexe).
-
-**Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles chez des hébergeurs français, c'est le palier 2. Scaleway par API (GLM, DeepSeek, Qwen), OVHcloud en louant les GPU, Mistral AI par API (GLM-5.3). Catalogues détaillés en annexe.
-
-**Évolution des modèles**
-
-| Quand | Étape | Sur quoi |
-|---|---|---|
-| Fin 2025 | Premiers tests, dont Chocolatine (modèle affiné pour le français) | |
-| Février 2026 | **Première vraie étape** : génération Qwen 3.5, le 35B et le 27B | L40S louées |
-| Avril 2026 | Qwen 3.6 : chaque modèle s'améliore | |
-| Juin 2026 | Tests des Qwen 3.6 sur les RTX PRO 6000, avec la possibilité de les déployer en FP8 | RTX PRO 6000 |
-| Août 2026 | Qwen 3.8, avec le Flash-Next | RTX PRO 6000 |
-
-En parallèle : tests de modèles de transcription (STT), avec ou sans diarisation, contextualisation, etc.
-
-**Le code, version par version** :
-
-- **Qwen3.6-27B** : le premier modèle à commencer à coder, mais avec beaucoup de limitations (tendance à boucler et à planter). Utile pour quelques actions de code ponctuelles
-- **Août 2026, Qwen3.8-27B et Flash-Next** : on peut enfin produire du vrai code. C'est surtout le Flash-Next qui est autonome et travaille comme Opus 4.6 ou 4.7 quelques mois plus tôt, qui étaient déjà très utilisables au quotidien
-- Le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 : pour les tests, ça suffit
-
-**Capacité estimée** (tests de charge pas complètement poussés) :
-
-- Flash-Next : entre 5 et 10 développeurs
-- Qwen3.8-27B : 30 à 50 utilisateurs avec un outil de chat comme LibreChat
-
-- **Le harness participe à la rupture** : DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 (31 juillet), comme démonstrateur de code pour cette version du modèle (dépôt créé le 13 août 2026). Août, ce n'est pas seulement de meilleurs modèles, c'est aussi les outils pour les exploiter (voir « Le harness compte autant que le modèle » au chapitre usages)
-
-| | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
-|---|---|---|
-| Sortie | 31 juillet 2026 | 24 août 2026 |
-| Paramètres | MoE 284B, 13B actifs | MoE 125B, 6B actifs (+ 51B d'embeddings n-gram, 4B de MTP) |
-| Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
-| Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
-| Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
-| Lit les images | Non, texte seul | Oui, multimodal |
-| Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
-
-Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
-
-Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
-
-**Point très important : open weights ≠ open source, et les licences changent**
-
-- Jusqu'ici, la famille Qwen était sous Apache 2.0 (Qwen3.5-397B, Qwen3.6-35B, Qwen3.8-27B). Avec Qwen3.8-Flash-Next et Qwen3.8-2.4T, Qwen passe à des licences maison
-- Ce que dit la licence « Qwen Community 1.0 » du Flash-Next (lue le 17/10/2026, https://hf.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE) :
-  - Usage interne libre, tant que ni le modèle, ni ses réponses, ni ses capacités ne sont mis à disposition de tiers
-  - Toute entreprise qui fait du *Model as a Service* (donner accès au modèle à des tiers par API) ou un assistant IA de code ou de bureautique doit obtenir une licence séparée de Qwen avant tout usage commercial, quelle que soit sa taille
-  - Au-delà de 100 millions d'utilisateurs actifs mensuels ou 20 M$ de revenus mensuels, le nom du modèle doit être affiché dans l'interface
-- La licence « Qwen3.8-Max » du 2.4T est identique, sauf que la licence séparée n'est exigée qu'au-delà de 50 M$ de revenus sur 12 mois
-- [Déduction] C'est sans doute pourquoi Flash-Next n'apparaît pas au catalogue des API de Scaleway, qui propose pourtant Qwen3.8-27B et DeepSeek-V4-Flash-0731 (MIT)
-- **La question pour la suite** : Flash-Next est un aperçu de l'architecture Qwen4 (`qwen4_exp`), et la famille Qwen 4 est attendue d'ici quelques semaines. Restera-t-elle sous Apache 2.0, ou suivra-t-elle cette licence maison ? Pour une plateforme interne ça passe, pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins
-- À dire sur scène : on lit la licence avant de choisir un modèle, comme pour n'importe quelle dépendance (ce n'est pas un avis juridique)
+| Catégorie | Pour quoi faire | Modèles | Testé chez nous |
+|---|---|---|---|
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; autres _à confirmer_ |
+| 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B | Oui |
+| 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
+| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 | Non (accessibles au palier 2) |
 
 - Ce qu'on voulait faire : trouver un modèle assez bon pour être utilisé au quotidien, code compris, sur notre propre matériel
 - Le piège (plutôt la difficulté) : le rythme soutenu des sorties de modèles. Il faut pouvoir en déployer pour les utilisateurs tout en testant les nouveaux, et c'est extrêmement exigeant et chronophage
@@ -344,6 +301,79 @@ Expliqués en une phrase là où ils apparaissent :
 Tout ce qui a été sorti des chapitres lors du nettoyage, sans rien supprimer : sources, chiffres exacts, tableaux complets et notes de terrain. Réserve pour les questions, et éventuellement pour des slides cachées.
 
 ### Annexe du chapitre 2 : les modèles
+
+Version de travail complète du chapitre, avant le passage en slides (28/10/2026) :
+
+**Pourquoi commencer par les modèles** : c'est la finalité. Avant de parler cartes et serveurs, il faut savoir ce qu'on veut faire tourner. La démarche proposée : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet (chapitre suivant).
+
+**Août 2026, le cap franchi** (à placer dès le début du chapitre : c'est l'accroche du talk) : sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next. Ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages. Le détail plus bas.
+
+**Quatre catégories pour aider à la décision**
+
+| Catégorie | Pour quoi faire | Modèles |
+|---|---|---|
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) |
+| 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B |
+| 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 |
+| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 |
+
+Message : la catégorie 4 n'est pas accessible sans un investissement de plus d'un million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous, pour du serveur interne, et des coûts de location au GPU accessibles à une PME.
+
+**Pour la catégorie 4** : entre 444 Go et 2,5 To de poids, de 2,3 à 13 fois nos 192 Go (tailles relevées sur Hugging Face, détail en annexe).
+
+**Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles chez des hébergeurs français, c'est le palier 2. Scaleway par API (GLM, DeepSeek, Qwen), OVHcloud en louant les GPU, Mistral AI par API (GLM-5.3). Catalogues détaillés en annexe.
+
+**Évolution des modèles**
+
+| Quand | Étape | Sur quoi |
+|---|---|---|
+| Fin 2025 | Premiers tests, dont Chocolatine (modèle affiné pour le français) | |
+| Février 2026 | **Première vraie étape** : génération Qwen 3.5, le 35B et le 27B | L40S louées |
+| Avril 2026 | Qwen 3.6 : chaque modèle s'améliore | |
+| Juin 2026 | Tests des Qwen 3.6 sur les RTX PRO 6000, avec la possibilité de les déployer en FP8 | RTX PRO 6000 |
+| Août 2026 | Qwen 3.8, avec le Flash-Next | RTX PRO 6000 |
+
+En parallèle : tests de modèles de transcription (STT), avec ou sans diarisation, contextualisation, etc.
+
+**Le code, version par version** :
+
+- **Qwen3.6-27B** : le premier modèle à commencer à coder, mais avec beaucoup de limitations (tendance à boucler et à planter). Utile pour quelques actions de code ponctuelles
+- **Août 2026, Qwen3.8-27B et Flash-Next** : on peut enfin produire du vrai code. C'est surtout le Flash-Next qui est autonome et travaille comme Opus 4.6 ou 4.7 quelques mois plus tôt, qui étaient déjà très utilisables au quotidien
+- Le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 : pour les tests, ça suffit
+
+**Capacité estimée** (tests de charge pas complètement poussés) :
+
+- Flash-Next : entre 5 et 10 développeurs
+- Qwen3.8-27B : 30 à 50 utilisateurs avec un outil de chat comme LibreChat
+
+- **Le harness participe à la rupture** : DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 (31 juillet), comme démonstrateur de code pour cette version du modèle (dépôt créé le 13 août 2026). Août, ce n'est pas seulement de meilleurs modèles, c'est aussi les outils pour les exploiter (voir « Le harness compte autant que le modèle » au chapitre usages)
+
+| | [DeepSeek-V4-Flash-0731](https://hf.co/deepseek-ai/DeepSeek-V4-Flash-0731) | [Qwen3.8-Flash-Next](https://hf.co/Qwen/Qwen3.8-Flash-Next) |
+|---|---|---|
+| Sortie | 31 juillet 2026 | 24 août 2026 |
+| Paramètres | MoE 284B, 13B actifs | MoE 125B, 6B actifs (+ 51B d'embeddings n-gram, 4B de MTP) |
+| Poids officiels | ~167 Go (experts en précision réduite + FP8) | ~186 Go en FP8 |
+| Licence | MIT | Licence propriétaire « Qwen Community 1.0 » |
+| Comparaison publiée par l'éditeur | Terminal Bench 2.1 : 82,7 contre 85,0 pour Opus 4.8 | Comparé à Opus 4.6 Max dans la fiche |
+| Lit les images | Non, texte seul | Oui, multimodal |
+| Décodage spéculatif intégré | Oui : module DSpark (le « brouillon » de la vidéo Lithos), activable dans vLLM et SGLang | MTP |
+
+Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est le vrai sujet (lien avec le chapitre matériel). Benchmarks publiés par les éditeurs eux-mêmes : à présenter comme tels.
+
+Également sortis en août : Qwen3.8-27B (le 5), qui tient sur une seule carte (Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche), et Qwen3.8-2.4T-A95B (le 8)
+
+**Point très important : open weights ≠ open source, et les licences changent**
+
+- Jusqu'ici, la famille Qwen était sous Apache 2.0 (Qwen3.5-397B, Qwen3.6-35B, Qwen3.8-27B). Avec Qwen3.8-Flash-Next et Qwen3.8-2.4T, Qwen passe à des licences maison
+- Ce que dit la licence « Qwen Community 1.0 » du Flash-Next (lue le 17/10/2026, https://hf.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE) :
+  - Usage interne libre, tant que ni le modèle, ni ses réponses, ni ses capacités ne sont mis à disposition de tiers
+  - Toute entreprise qui fait du *Model as a Service* (donner accès au modèle à des tiers par API) ou un assistant IA de code ou de bureautique doit obtenir une licence séparée de Qwen avant tout usage commercial, quelle que soit sa taille
+  - Au-delà de 100 millions d'utilisateurs actifs mensuels ou 20 M$ de revenus mensuels, le nom du modèle doit être affiché dans l'interface
+- La licence « Qwen3.8-Max » du 2.4T est identique, sauf que la licence séparée n'est exigée qu'au-delà de 50 M$ de revenus sur 12 mois
+- [Déduction] C'est sans doute pourquoi Flash-Next n'apparaît pas au catalogue des API de Scaleway, qui propose pourtant Qwen3.8-27B et DeepSeek-V4-Flash-0731 (MIT)
+- **La question pour la suite** : Flash-Next est un aperçu de l'architecture Qwen4 (`qwen4_exp`), et la famille Qwen 4 est attendue d'ici quelques semaines. Restera-t-elle sous Apache 2.0, ou suivra-t-elle cette licence maison ? Pour une plateforme interne ça passe, pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins
+- À dire sur scène : on lit la licence avant de choisir un modèle, comme pour n'importe quelle dépendance (ce n'est pas un avis juridique)
+
 
 Notes :
 
