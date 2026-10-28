@@ -433,8 +433,8 @@ Sources matériel :
   - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
   - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
 - Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
-- Le piège : _à compléter_ (plutôt la difficulté : la capacité minimale des modèles, insuffisante avant août ?)
-- Ce qu'on en retient : _à compléter_
+- Le piège : la capacité des modèles. C'est pourquoi on garde actuellement Claude pour les profils architecte, lead, etc. (palier 3, rappel de l'aveu du début)
+- Ce qu'on en retient : le harness est un levier aussi important que le modèle ; en proposer deux permet de contourner les limites de chacun
 
 ### 6c. Usages : les intégrations sur mesure
 
@@ -452,7 +452,7 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 
 ### 7. Conclusion
 
-- Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus
+- Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus (aujourd'hui les profils architecte, lead, etc., voir chapitre 6b)
 - Les recommandations à retenir (une par chapitre)
 - Ressources et contact
 
