@@ -409,7 +409,7 @@ Sources matériel :
 
 - Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
 - Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
-- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : en auto-hébergé, un token de plus ne coûte rien de plus
+- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : quand on ne compte plus au jeton, le harness peut demander plus d'itérations pour arriver au résultat attendu. Oui, ça consomme plus d'électricité, mais ça reste négligeable sur l'ensemble
 
 ### 6a. Usages : le chat généraliste
 
@@ -427,8 +427,13 @@ Sources matériel :
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
 - **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
-- Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
+- **Deux leviers vers un code utilisable** : avant août, ce qui coinçait, c'était la capacité minimale des modèles. DeepSeek-V4-Flash-0731 a été un premier levier, Qwen3.8-Flash-Next un second. On note clairement un palier avec les modèles d'août
+- **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
+- **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
+  - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
+  - DeepSeek Harness : l'approche web only et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
+- Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
+- Le piège : _à compléter_ (plutôt la difficulté : la capacité minimale des modèles, insuffisante avant août ?)
 - Ce qu'on en retient : _à compléter_
 
 ### 6c. Usages : les intégrations sur mesure
