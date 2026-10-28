@@ -323,7 +323,7 @@ Sources matériel :
 
 - Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
 - Le piège : obtenir de petits volumes de cartes est compliqué. Un fournisseur nous a aidés grâce à son offre *try and buy*
-- Ce qu'on en retient : _à compléter_
+- Ce qu'on en retient : passer par la location permet d'y aller petit à petit
 
 ### 4. Les moteurs d'inférence
 
@@ -455,8 +455,19 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 ### 7. Conclusion
 
 - Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus (aujourd'hui les profils architecte, lead, etc., voir chapitre 6b)
-- Les recommandations à retenir (une par chapitre)
-- Ressources et contact
+- Les recommandations à retenir (une par chapitre, reprises des « Ce qu'on en retient ») :
+
+| Chapitre | Ce qu'on en retient |
+|---|---|
+| Modèles | Avec un saut de version tous les 3 mois, l'obsolescence des GPU est compensée par les performances croissantes des modèles |
+| Matériel | Passer par la location permet d'y aller petit à petit |
+| Moteurs | Faire de la veille : une mise à jour peut rapporter autant qu'un changement de matériel |
+| Plateforme | Avec une passerelle centralisée, le routage par paliers devient une question de gouvernance |
+| Chat généraliste | Pour les utilisateurs finaux, faire simple et ergonomique |
+| Développeurs | Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun |
+| Intégrations | Malgré tout, on peut faire des choses impressionnantes en souverain |
+
+- Ressources et contact : _à compléter_
 
 ## Petit lexique
 
