@@ -448,9 +448,9 @@ Le modèle s'intègre dans des applications tierces. Trois intégrations, chacun
 
 Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
 
-- Ce qu'on voulait faire : _à compléter_
-- Le piège : _à compléter_
-- Ce qu'on en retient : _à compléter_
+- Ce qu'on voulait faire : mettre à disposition des outils pour augmenter la productivité des collaborateurs. C'est pour ça que l'assistant de réunion est sorti en premier
+- Le piège : penser que l'IA est magique. En souverain, ce n'est pas le cas : ça demande du travail de veille et d'adaptation
+- Ce qu'on en retient : malgré tout, on peut faire des choses impressionnantes en souverain
 
 ### 7. Conclusion
 
