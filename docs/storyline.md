@@ -471,6 +471,8 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
   - Slides : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/
   - Site : https://juliendelrio.fr
   - LinkedIn : https://www.linkedin.com/in/juliendelrio/
+  - X : https://twitter.com/juliendelrio
+- **Message final** : la preuve est là, c'est possible. Les modèles déjà disponibles permettent de faire des choses incroyables, même si demain les Américains et les Chinois arrêtent de partager
 
 ## Petit lexique
 
