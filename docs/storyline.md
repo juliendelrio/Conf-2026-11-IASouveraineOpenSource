@@ -467,7 +467,10 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 | Développeurs | Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun |
 | Intégrations | Malgré tout, on peut faire des choses impressionnantes en souverain |
 
-- Ressources et contact : _à compléter_
+- Ressources et contact :
+  - Slides : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/
+  - Site : https://juliendelrio.fr
+  - LinkedIn : https://www.linkedin.com/in/juliendelrio/
 
 ## Petit lexique
 
