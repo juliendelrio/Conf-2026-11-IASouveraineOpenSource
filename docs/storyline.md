@@ -489,9 +489,6 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 - **API compatible OpenAI** : le standard de fait pour brancher les outils
 - **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
 - **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
-
-Candidats proposés au fil de la conception des slides (à valider) :
-
 - **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
 - **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
 - **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
