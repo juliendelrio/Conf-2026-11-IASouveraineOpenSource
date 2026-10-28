@@ -129,6 +129,258 @@ Les deux tiennent tout juste dans 192 Go : la VRAM restante pour le KV cache est
 
 ### 3. Le matériel
 
+Principe : montrer ce qui est possible, en distinguant toujours **ce qu'on a testé** de **ce qui est extrapolé** (calculé à partir des fiches constructeurs et des prix publics). Pas de détail de configuration sur scène : la version de travail complète du chapitre est en annexe.
+
+Ce qu'on a réellement testé :
+
+- En location chez OVH et Scaleway : L4 et L40S (génération Qwen 3.5, 35B et 27B, sur L40S)
+- À l'achat : 3 RTX PRO 6000 Blackwell Server Edition sur 2 serveurs ; Qwen3.8-Flash-Next en production sur 2 de ces cartes
+- Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
+
+**Les slides (8 min)**
+
+| # | Slide | Contenu | Testé ou extrapolé |
+|---|---|---|---|
+| 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
+| 2 | 5 questions avant d'acheter | Est-ce que ça tourne ? Ça tient (VRAM) ? Ça écrit vite (bande passante) ? Ça lit vite (calcul) ? Les cartes se parlent bien (NVLink) ? | Grille de lecture |
+| 3 | Le réflexe | Bande passante ÷ poids lus par token = plafond de vitesse pour un utilisateur seul | Formule |
+| 4 | Les plafonds | Barres animées, Qwen3.8-27B en 4 bits sur 8 machines : DGX Spark, M5 Max, M5 Ultra, L4, L40S, RTX PRO 6000, H100, H200 | Extrapolé, sauf la RTX PRO 6000 : badge « testé » |
+| 5 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
+| 6 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
+| 7 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
+| 8 | Objectif, piège, leçon | Voir ci-dessous | |
+
+**Le matériel par catégorie de modèles** (slide 6)
+
+| Catégorie | Exemples de matériel | Interne | Location | Testé ou extrapolé |
+|---|---|---|---|---|
+| 1. Petits modèles | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) | L4 testée en location ; autres cartes extrapolées |
+| 2. Milieu de gamme (27B) | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois | Testé : L40S louée, RTX PRO 6000 ; autres extrapolées |
+| 3. Le cap d'août | 2 RTX PRO 6000 dans un même serveur ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
+| 4. Hors de portée | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) | Extrapolé |
+
+- Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
+- Le piège : obtenir de petits volumes de cartes est compliqué. Un fournisseur nous a aidés grâce à son offre *try and buy*
+- Ce qu'on en retient : passer par la location permet d'y aller petit à petit
+
+### 4. Les moteurs d'inférence
+
+- vLLM et SGLang, les deux moteurs utilisés
+  - **vLLM** principalement ; **SGLang** ponctuellement
+  - Certains modèles sont mieux optimisés sur un moteur que sur l'autre
+  - Le matériel joue aussi : sur Mac par exemple, un moteur dédié peut s'envisager (MLX ; Lithos et OMLX dans la vidéo citée en annexe du chapitre matériel)
+- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : le passage à vLLM 0.30.0 a suffi, à lui seul, à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s, détail en annexe)
+- Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
+- Le cycle observé : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs « leaders » l'intègrent rapidement
+
+- Ce qu'on voulait faire : tout simplement tester les modèles
+- Le piège : l'inférence, c'est très technique. Se plonger dans la documentation devient utile pour affiner l'usage des modèles sur nos équipements
+- Ce qu'on en retient : faire de la veille sur les moteurs, une mise à jour peut rapporter autant qu'un changement de matériel
+
+### 5. La plateforme LLM
+
+**Le chemin parcouru, en trois étapes**
+
+1. **Déployer les modèles et les consommer directement via le moteur.** Souvent des versions préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur (lien avec le chapitre moteurs). On se rend vite compte des limites pour diversifier les usages autour du moteur
+2. **Notre propre passerelle devant chaque moteur.** On développe une passerelle LLM maison, placée devant chaque moteur, notamment pour gérer les jetons d'accès. Limite : on multiplie d'autant les points d'accès que doivent connaître les services qui consomment les API
+3. **Une passerelle centralisée : LiteLLM.** C'est en cherchant une passerelle unique qu'on découvre LiteLLM, qui répond à tous nos besoins
+
+**Ce que LiteLLM apporte**
+
+- **En entrée** : s'interface nativement avec une centaine de types d'API différentes, de moteurs d'inférence ou de plateformes cloud
+- **En sortie** : présente les modèles sous une quarantaine de formats d'API différents (chiffre de l'orateur)
+- **Les droits** : gestion assez fine des droits sur les modèles, par équipes, utilisateurs et clés d'API
+- **Le suivi** : monitoring natif dans la plateforme, et on peut brancher une architecture OpenTelemetry (OTel) pour des métriques encore plus fines
+
+**Communautaire ou entreprise ?**
+
+- La version communautaire est très permissive et permet déjà beaucoup de choses
+- Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
+- Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
+- Les interfaces de chat branchées sur la passerelle (LibreChat, Open WebUI) : voir 6a
+- Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
+- **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
+- C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
+
+- Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
+- Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
+- Ce qu'on en retient : avec une passerelle centralisée, le routage par paliers n'est plus une question technique mais une question de gouvernance
+
+### 6. Les usages : trois types
+
+| Type | Pour qui | Par quoi |
+|---|---|---|
+| Généraliste | Tous les utilisateurs | Un outil de chat : LibreChat (Open WebUI pour l'équipe IA) |
+| Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
+| Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
+
+**Ce qu'on constate sur les trois types** :
+
+- Dès des modèles comme Qwen3.8-27B et Flash-Next, on commence à faire des choses intéressantes
+- Les besoins les plus intenses sont ceux des développeurs : c'est là qu'il faut le plus de compromis
+- Pour le chat généraliste et les intégrations dans les applications, on fait déjà des choses vraiment très impressionnantes
+
+**Le harness compte autant que le modèle** :
+
+- Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
+- Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
+- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : quand on ne compte plus au jeton, le harness peut demander plus d'itérations pour arriver au résultat attendu. Oui, ça consomme plus d'électricité, mais ça reste négligeable sur l'ensemble
+
+### 6a. Usages : le chat généraliste
+
+- À travers un outil de chat type LibreChat ou Open WebUI (voir le choix des interfaces au chapitre plateforme)
+- Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
+- Ce qu'on voulait faire : proposer un ChatGPT interne
+- Le piège : partir sur le candidat naturel, Open WebUI, dont l'interface est trop complexe pour des utilisateurs standards
+- Ce qu'on en retient : pour les utilisateurs finaux, il faut faire simple et ergonomique
+
+### 6b. Usages : les développeurs
+
+- À travers des applications de développement comme OpenCode ou DeepSeek Harness
+  - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
+  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), interface web (`dsh web`, servie en local sur `127.0.0.1:3080`) ; l'application de bureau n'est qu'une coquille Electron autour de cette même application web, servie en local sur un port choisi par le système (source : README du dépôt et `apps/desktop/README.md`, consultés le 28/10/2026) ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
+
+- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
+- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
+- **Deux leviers vers un code utilisable** : avant août, ce qui coinçait, c'était la capacité minimale des modèles. DeepSeek-V4-Flash-0731 a été un premier levier, Qwen3.8-Flash-Next un second. On note clairement un palier avec les modèles d'août
+- **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
+- **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
+  - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
+  - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
+- Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
+- Le piège : la capacité des modèles. C'est pourquoi on garde actuellement Claude pour les profils architecte, lead, etc. (palier 3, rappel de l'aveu du début)
+- Ce qu'on en retient : le harness est un levier aussi important que le modèle ; en proposer deux permet de contourner les limites de chacun
+
+### 6c. Usages : les intégrations sur mesure
+
+Le modèle s'intègre dans des applications tierces. Trois intégrations, chacune avec des itérations un peu différentes, et une maturité qui n'est pas la même :
+
+| Intégration | Maturité |
+|---|---|
+| Une transcription (STT) dans un assistant de compte rendu de réunions | La plus mature : utilisée tous les jours, même si elle n'a pas atteint la v1 |
+| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. On se rend compte que ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
+| Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 en annexe du chapitre matériel) | Preuve de concept |
+
+Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
+
+- Ce qu'on voulait faire : mettre à disposition des outils pour augmenter la productivité des collaborateurs. C'est pour ça que l'assistant de réunion est sorti en premier
+- Le piège : penser que l'IA est magique. En souverain, ce n'est pas le cas : ça demande du travail de veille et d'adaptation
+- Ce qu'on en retient : malgré tout, on peut faire des choses impressionnantes en souverain
+
+### 7. Conclusion
+
+- Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus (aujourd'hui les profils architecte, lead, etc., voir chapitre 6b)
+- Les recommandations à retenir (une par chapitre, reprises des « Ce qu'on en retient ») :
+
+| Chapitre | Ce qu'on en retient |
+|---|---|
+| Modèles | Avec un saut de version tous les 3 mois, l'obsolescence des GPU est compensée par les performances croissantes des modèles |
+| Matériel | Passer par la location permet d'y aller petit à petit |
+| Moteurs | Faire de la veille : une mise à jour peut rapporter autant qu'un changement de matériel |
+| Plateforme | Avec une passerelle centralisée, le routage par paliers devient une question de gouvernance |
+| Chat généraliste | Pour les utilisateurs finaux, faire simple et ergonomique |
+| Développeurs | Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun |
+| Intégrations | Malgré tout, on peut faire des choses impressionnantes en souverain |
+
+- Ressources et contact :
+  - Slides : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/
+  - Site : https://juliendelrio.fr
+  - LinkedIn : https://www.linkedin.com/in/juliendelrio/
+  - X : https://twitter.com/juliendelrio
+- **Message final** : la preuve est là, c'est possible. Les modèles déjà disponibles permettent de faire des choses incroyables, même si demain les Américains et les Chinois arrêtent de partager
+
+## Petit lexique
+
+Dans l'introduction (une dizaine de termes) :
+
+- **Inférence** : utiliser un modèle déjà entraîné (par opposition à l'entraînement)
+- **Paramètres / poids** : ce qu'un modèle « sait », sous forme de nombres ; la taille d'un modèle (7B, 32B, 235B…)
+- **Open weights vs open source** : on récupère les poids, pas forcément les données ni le code d'entraînement
+- **Quantization** : compresser les poids (16 bits, 8 bits, 4 bits) pour faire tenir le modèle en mémoire, au prix d'un peu de qualité
+- **Token** : l'unité de texte que le modèle lit et produit ; c'est l'unité des débits et des prix
+- **VRAM** : la mémoire de la carte graphique, la vraie ressource rare
+- **Fenêtre de contexte / KV cache** : pourquoi la longueur des conversations consomme de la mémoire
+- **MoE (Mixture of Experts)** : un gros modèle dont seule une partie travaille pour chaque token
+- **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
+- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
+
+Expliqués en une phrase là où ils apparaissent :
+
+*Les modèles*
+
+- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
+- **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
+- **STT** (*speech-to-text*, transcription) : transformer la parole en texte
+- **Diarisation** : savoir qui parle quand dans un enregistrement
+- **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
+
+*Le matériel*
+
+- **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
+- **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
+- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
+- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
+- **Tensor parallelism** : répartir un modèle sur plusieurs GPU
+- **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
+- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
+
+*Les moteurs d'inférence*
+
+- **Batching continu** : servir plusieurs utilisateurs en même temps sur la même carte
+
+*La plateforme LLM*
+
+- **API compatible OpenAI** : le standard de fait pour brancher les outils
+- **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
+- **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
+- **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
+
+*Usages : les développeurs*
+
+- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
+
+## Annexe : matière pour les questions
+
+Tout ce qui a été sorti des chapitres lors du nettoyage, sans rien supprimer : sources, chiffres exacts, tableaux complets et notes de terrain. Réserve pour les questions, et éventuellement pour des slides cachées.
+
+### Annexe du chapitre 2 : les modèles
+
+Notes :
+
+- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
+- [À mettre à jour fin octobre 2026] Mistral Large 4 : publication prévue fin octobre, avant la conférence. En attendant, la taille de référence est celle de Mistral-Large-3-675B (décembre 2025)
+
+Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
+
+| Catégorie | Modèle | Poids | Licence |
+|---|---|---|---|
+| 1 | [Qwen3.5-9B](https://hf.co/Qwen/Qwen3.5-9B) | ~19 Go (BF16) | Apache 2.0 |
+| 1 | [gpt-oss-20b](https://hf.co/openai/gpt-oss-20b) | ~14 Go (nativement en 4 bits, MXFP4) | Apache 2.0 |
+| 1 | [Mistral-Small-3.2-24B](https://hf.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) | ~48 Go (BF16 ; le dépôt contient deux copies) | Apache 2.0 |
+| 1 | [Qwen3.6-35B-A3B](https://hf.co/Qwen/Qwen3.6-35B-A3B) | ~72 Go (BF16), MoE à 3B actifs | Apache 2.0 |
+| 4 | [MiniMax-M3](https://hf.co/MiniMaxAI/MiniMax-M3-MXFP8) | ~444 Go (MXFP8) | autre |
+| 4 | [DeepSeek-V4.1-Flash](https://hf.co/deepseek-ai/DeepSeek-V4.1-Flash) (10/09/2026) | ~510 Go | MIT |
+| 4 | [Kimi-K2.6](https://hf.co/moonshotai/Kimi-K2.6) | ~595 Go (nativement en 4 bits) | autre |
+| 4 | [Mistral-Large-3-675B](https://hf.co/mistralai/Mistral-Large-3-675B-Instruct-2512) (à défaut de Large 4) | ~682 Go | Apache 2.0 |
+| 4 | [GLM-5.1](https://hf.co/zai-org/GLM-5.1-FP8) / [5.2](https://hf.co/zai-org/GLM-5.2-FP8) / [5.3](https://hf.co/zai-org/GLM-5.3) | ~756 Go chacun (FP8, 754B) | MIT (5.1, 5.2), autre (5.3) |
+| 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
+| 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
+
+Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go. Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté.
+
+- **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
+  - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
+  - OVHcloud, en louant les GPU : par exemple 8 × H200 (8 × 141 Go) à ~30 700 €/mois, de quoi héberger soi-même un modèle de catégorie 4. Son offre d'API (AI Endpoints) s'arrête à Qwen3.5-397B-A17B, sans modèle de catégorie 4 au 17/10/2026 : https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+  - Mistral AI, par API (modèles hébergés par Mistral, servis sans modification) : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09/2026 au profit de GLM-5.3, disponible depuis le 15 septembre 2026. Contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie (0,14 $ en entrée mise en cache). https://docs.mistral.ai/fr/models/zai-glm-5-3 , https://docs.mistral.ai/fr/models/zai-glm-5-2
+
+Ancien paragraphe sur le cap d'août, fusionné dans l'accroche du chapitre :
+
+- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
+
+### Annexe du chapitre 3 : le matériel
+
+Version de travail complète du chapitre, avant le passage en slides (28/10/2026) :
+
 **Première étape : louer avant d'acheter**
 
 - Pour commencer, on a loué des L40S et des L4 chez Scaleway et OVH (hébergeurs français, donc déjà dans l'esprit souverain)
@@ -272,225 +524,6 @@ Visuel envisagé : graphique en barres animé des plafonds de vitesse, même mod
 - **Mac Studio** et **DGX Spark** : des alternatives très intéressantes pour l'approche salle serveur. Beaucoup de mémoire unifiée (jusqu'à 512 Go pour le Mac Studio M5 Ultra, 128 Go pour le DGX Spark) dans une machine compacte, mais plus lents que les GPU de datacenter (voir le tableau)
 - Lien avec le point licence du chapitre modèles : une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise
 
-- Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
-- Le piège : obtenir de petits volumes de cartes est compliqué. Un fournisseur nous a aidés grâce à son offre *try and buy*
-- Ce qu'on en retient : passer par la location permet d'y aller petit à petit
-
-### 4. Les moteurs d'inférence
-
-- vLLM et SGLang, les deux moteurs utilisés
-  - **vLLM** principalement ; **SGLang** ponctuellement
-  - Certains modèles sont mieux optimisés sur un moteur que sur l'autre
-  - Le matériel joue aussi : sur Mac par exemple, un moteur dédié peut s'envisager (MLX ; Lithos et OMLX dans la vidéo citée au chapitre matériel)
-- **Faire de la veille sur les capacités des moteurs** : une simple mise à jour peut apporter un gain de performance notable. Exemple : le passage à vLLM 0.30.0 a suffi, à lui seul, à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s, détail en annexe)
-- Un paysage qui bouge vite : on cite d'autres moteurs (llama.cpp, Ollama, TensorRT-LLM, MLX, …)
-- Le cycle observé : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs « leaders » l'intègrent rapidement
-
-- Ce qu'on voulait faire : tout simplement tester les modèles
-- Le piège : l'inférence, c'est très technique. Se plonger dans la documentation devient utile pour affiner l'usage des modèles sur nos équipements
-- Ce qu'on en retient : faire de la veille sur les moteurs, une mise à jour peut rapporter autant qu'un changement de matériel
-
-### 5. La plateforme LLM
-
-**Le chemin parcouru, en trois étapes**
-
-1. **Déployer les modèles et les consommer directement via le moteur.** Souvent des versions préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur (lien avec le chapitre moteurs). On se rend vite compte des limites pour diversifier les usages autour du moteur
-2. **Notre propre passerelle devant chaque moteur.** On développe une passerelle LLM maison, placée devant chaque moteur, notamment pour gérer les jetons d'accès. Limite : on multiplie d'autant les points d'accès que doivent connaître les services qui consomment les API
-3. **Une passerelle centralisée : LiteLLM.** C'est en cherchant une passerelle unique qu'on découvre LiteLLM, qui répond à tous nos besoins
-
-**Ce que LiteLLM apporte**
-
-- **En entrée** : s'interface nativement avec une centaine de types d'API différentes, de moteurs d'inférence ou de plateformes cloud
-- **En sortie** : présente les modèles sous une quarantaine de formats d'API différents (chiffre de l'orateur)
-- **Les droits** : gestion assez fine des droits sur les modèles, par équipes, utilisateurs et clés d'API
-- **Le suivi** : monitoring natif dans la plateforme, et on peut brancher une architecture OpenTelemetry (OTel) pour des métriques encore plus fines
-
-**Communautaire ou entreprise ?**
-
-- La version communautaire est très permissive et permet déjà beaucoup de choses
-- Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
-- Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
-- Les interfaces de chat branchées sur la passerelle (LibreChat, Open WebUI) : voir 6a
-- Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
-- **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
-- C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
-
-- Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
-- Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
-- Ce qu'on en retient : avec une passerelle centralisée, le routage par paliers n'est plus une question technique mais une question de gouvernance
-
-### 6. Les usages : trois types
-
-| Type | Pour qui | Par quoi |
-|---|---|---|
-| Généraliste | Tous les utilisateurs | Un outil de chat : LibreChat (Open WebUI pour l'équipe IA) |
-| Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
-| Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
-
-**Ce qu'on constate sur les trois types** :
-
-- Dès des modèles comme Qwen3.8-27B et Flash-Next, on commence à faire des choses intéressantes
-- Les besoins les plus intenses sont ceux des développeurs : c'est là qu'il faut le plus de compromis
-- Pour le chat généraliste et les intégrations dans les applications, on fait déjà des choses vraiment très impressionnantes
-
-**Le harness compte autant que le modèle** :
-
-- Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
-- Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
-- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : quand on ne compte plus au jeton, le harness peut demander plus d'itérations pour arriver au résultat attendu. Oui, ça consomme plus d'électricité, mais ça reste négligeable sur l'ensemble
-
-### 6a. Usages : le chat généraliste
-
-- À travers un outil de chat type LibreChat ou Open WebUI (voir le choix des interfaces au chapitre plateforme)
-- Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
-- Ce qu'on voulait faire : proposer un ChatGPT interne
-- Le piège : partir sur le candidat naturel, Open WebUI, dont l'interface est trop complexe pour des utilisateurs standards
-- Ce qu'on en retient : pour les utilisateurs finaux, il faut faire simple et ergonomique
-
-### 6b. Usages : les développeurs
-
-- À travers des applications de développement comme OpenCode ou DeepSeek Harness
-  - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
-  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), interface web (`dsh web`, servie en local sur `127.0.0.1:3080`) ; l'application de bureau n'est qu'une coquille Electron autour de cette même application web, servie en local sur un port choisi par le système (source : README du dépôt et `apps/desktop/README.md`, consultés le 28/10/2026) ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
-
-- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
-- **Deux leviers vers un code utilisable** : avant août, ce qui coinçait, c'était la capacité minimale des modèles. DeepSeek-V4-Flash-0731 a été un premier levier, Qwen3.8-Flash-Next un second. On note clairement un palier avec les modèles d'août
-- **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
-- **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
-  - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
-  - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
-- Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
-- Le piège : la capacité des modèles. C'est pourquoi on garde actuellement Claude pour les profils architecte, lead, etc. (palier 3, rappel de l'aveu du début)
-- Ce qu'on en retient : le harness est un levier aussi important que le modèle ; en proposer deux permet de contourner les limites de chacun
-
-### 6c. Usages : les intégrations sur mesure
-
-Le modèle s'intègre dans des applications tierces. Trois intégrations, chacune avec des itérations un peu différentes, et une maturité qui n'est pas la même :
-
-| Intégration | Maturité |
-|---|---|
-| Une transcription (STT) dans un assistant de compte rendu de réunions | La plus mature : utilisée tous les jours, même si elle n'a pas atteint la v1 |
-| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. On se rend compte que ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
-| Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 au chapitre matériel) | Preuve de concept |
-
-Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
-
-- Ce qu'on voulait faire : mettre à disposition des outils pour augmenter la productivité des collaborateurs. C'est pour ça que l'assistant de réunion est sorti en premier
-- Le piège : penser que l'IA est magique. En souverain, ce n'est pas le cas : ça demande du travail de veille et d'adaptation
-- Ce qu'on en retient : malgré tout, on peut faire des choses impressionnantes en souverain
-
-### 7. Conclusion
-
-- Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus (aujourd'hui les profils architecte, lead, etc., voir chapitre 6b)
-- Les recommandations à retenir (une par chapitre, reprises des « Ce qu'on en retient ») :
-
-| Chapitre | Ce qu'on en retient |
-|---|---|
-| Modèles | Avec un saut de version tous les 3 mois, l'obsolescence des GPU est compensée par les performances croissantes des modèles |
-| Matériel | Passer par la location permet d'y aller petit à petit |
-| Moteurs | Faire de la veille : une mise à jour peut rapporter autant qu'un changement de matériel |
-| Plateforme | Avec une passerelle centralisée, le routage par paliers devient une question de gouvernance |
-| Chat généraliste | Pour les utilisateurs finaux, faire simple et ergonomique |
-| Développeurs | Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun |
-| Intégrations | Malgré tout, on peut faire des choses impressionnantes en souverain |
-
-- Ressources et contact :
-  - Slides : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/
-  - Site : https://juliendelrio.fr
-  - LinkedIn : https://www.linkedin.com/in/juliendelrio/
-  - X : https://twitter.com/juliendelrio
-- **Message final** : la preuve est là, c'est possible. Les modèles déjà disponibles permettent de faire des choses incroyables, même si demain les Américains et les Chinois arrêtent de partager
-
-## Petit lexique
-
-Dans l'introduction (une dizaine de termes) :
-
-- **Inférence** : utiliser un modèle déjà entraîné (par opposition à l'entraînement)
-- **Paramètres / poids** : ce qu'un modèle « sait », sous forme de nombres ; la taille d'un modèle (7B, 32B, 235B…)
-- **Open weights vs open source** : on récupère les poids, pas forcément les données ni le code d'entraînement
-- **Quantization** : compresser les poids (16 bits, 8 bits, 4 bits) pour faire tenir le modèle en mémoire, au prix d'un peu de qualité
-- **Token** : l'unité de texte que le modèle lit et produit ; c'est l'unité des débits et des prix
-- **VRAM** : la mémoire de la carte graphique, la vraie ressource rare
-- **Fenêtre de contexte / KV cache** : pourquoi la longueur des conversations consomme de la mémoire
-- **MoE (Mixture of Experts)** : un gros modèle dont seule une partie travaille pour chaque token
-- **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
-- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
-
-Expliqués en une phrase là où ils apparaissent :
-
-*Les modèles*
-
-- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
-- **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
-- **STT** (*speech-to-text*, transcription) : transformer la parole en texte
-- **Diarisation** : savoir qui parle quand dans un enregistrement
-- **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
-
-*Le matériel*
-
-- **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
-- **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
-- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
-- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
-- **Tensor parallelism** : répartir un modèle sur plusieurs GPU
-- **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
-- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
-
-*Les moteurs d'inférence*
-
-- **Batching continu** : servir plusieurs utilisateurs en même temps sur la même carte
-
-*La plateforme LLM*
-
-- **API compatible OpenAI** : le standard de fait pour brancher les outils
-- **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
-- **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
-- **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
-
-*Usages : les développeurs*
-
-- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
-
-## Annexe : matière pour les questions
-
-Tout ce qui a été sorti des chapitres lors du nettoyage, sans rien supprimer : sources, chiffres exacts, tableaux complets et notes de terrain. Réserve pour les questions, et éventuellement pour des slides cachées.
-
-### Annexe du chapitre 2 : les modèles
-
-Notes :
-
-- [Déduction] Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 (24B) ne tiennent qu'en 4 bits ; sur une L40S (48 Go), ils tiennent en 8 bits
-- [À mettre à jour fin octobre 2026] Mistral Large 4 : publication prévue fin octobre, avant la conférence. En attendant, la taille de référence est celle de Mistral-Large-3-675B (décembre 2025)
-
-Tailles des poids officiels, relevées sur Hugging Face le 17/10/2026 (somme des fichiers safetensors, dans la précision publiée par l'éditeur) :
-
-| Catégorie | Modèle | Poids | Licence |
-|---|---|---|---|
-| 1 | [Qwen3.5-9B](https://hf.co/Qwen/Qwen3.5-9B) | ~19 Go (BF16) | Apache 2.0 |
-| 1 | [gpt-oss-20b](https://hf.co/openai/gpt-oss-20b) | ~14 Go (nativement en 4 bits, MXFP4) | Apache 2.0 |
-| 1 | [Mistral-Small-3.2-24B](https://hf.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506) | ~48 Go (BF16 ; le dépôt contient deux copies) | Apache 2.0 |
-| 1 | [Qwen3.6-35B-A3B](https://hf.co/Qwen/Qwen3.6-35B-A3B) | ~72 Go (BF16), MoE à 3B actifs | Apache 2.0 |
-| 4 | [MiniMax-M3](https://hf.co/MiniMaxAI/MiniMax-M3-MXFP8) | ~444 Go (MXFP8) | autre |
-| 4 | [DeepSeek-V4.1-Flash](https://hf.co/deepseek-ai/DeepSeek-V4.1-Flash) (10/09/2026) | ~510 Go | MIT |
-| 4 | [Kimi-K2.6](https://hf.co/moonshotai/Kimi-K2.6) | ~595 Go (nativement en 4 bits) | autre |
-| 4 | [Mistral-Large-3-675B](https://hf.co/mistralai/Mistral-Large-3-675B-Instruct-2512) (à défaut de Large 4) | ~682 Go | Apache 2.0 |
-| 4 | [GLM-5.1](https://hf.co/zai-org/GLM-5.1-FP8) / [5.2](https://hf.co/zai-org/GLM-5.2-FP8) / [5.3](https://hf.co/zai-org/GLM-5.3) | ~756 Go chacun (FP8, 754B) | MIT (5.1, 5.2), autre (5.3) |
-| 4 | [DeepSeek-V4-Pro-0813](https://hf.co/deepseek-ai/DeepSeek-V4-Pro-0813) | ~893 Go | MIT |
-| 4 | [Qwen3.8-2.4T-A95B](https://hf.co/Qwen/Qwen3.8-2.4T-A95B-FP8) | ~2,5 To (FP8) | autre |
-
-Pour la catégorie 4, il faut entre 444 Go et 2,5 To pour les poids seuls, avant le KV cache : de 2,3 à 13 fois nos 192 Go. Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté.
-
-- **Passer à l'échelle sans quitter la France** (lien avec le recours par paliers du chapitre plateforme) : les modèles hors de portée en interne restent accessibles par API chez des hébergeurs français, c'est le palier 2. Catalogues relevés le 17/10/2026 :
-  - Scaleway Generative APIs, en serverless : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash (catégorie 4), DeepSeek-V4-Flash-0731 et Qwen3.8-27B (catégories 3 et 2), Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement. https://www.scaleway.com/en/docs/generative-apis/reference-content/supported-models/
-  - OVHcloud, en louant les GPU : par exemple 8 × H200 (8 × 141 Go) à ~30 700 €/mois, de quoi héberger soi-même un modèle de catégorie 4. Son offre d'API (AI Endpoints) s'arrête à Qwen3.5-397B-A17B, sans modèle de catégorie 4 au 17/10/2026 : https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
-  - Mistral AI, par API (modèles hébergés par Mistral, servis sans modification) : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09/2026 au profit de GLM-5.3, disponible depuis le 15 septembre 2026. Contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie (0,14 $ en entrée mise en cache). https://docs.mistral.ai/fr/models/zai-glm-5-3 , https://docs.mistral.ai/fr/models/zai-glm-5-2
-
-Ancien paragraphe sur le cap d'août, fusionné dans l'accroche du chapitre :
-
-- **Août 2026 : l'étape franchie.** Sortent DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next : ils tournent sur 2 RTX 6000 Pro avec des performances autour de Claude Opus 4.6 à 4.8. Ce sont les premiers modèles vraiment utilisables en contexte d'entreprise pour des tâches générales, codage compris, sans avoir besoin d'un cluster de H200. C'est le tournant de l'histoire : y faire référence aussi dans les chapitres plateforme et usages
-
-### Annexe du chapitre 3 : le matériel
 
 Sources :
 
