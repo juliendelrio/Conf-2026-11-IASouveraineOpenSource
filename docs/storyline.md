@@ -438,11 +438,13 @@ Sources matériel :
 
 ### 6c. Usages : les intégrations sur mesure
 
-Le modèle s'intègre dans des applications tierces. Les trois intégrations ci-dessous sont déployées chez nous, chacune avec des itérations un peu différentes :
+Le modèle s'intègre dans des applications tierces. Trois intégrations, chacune avec des itérations un peu différentes, et une maturité qui n'est pas la même :
 
-- Un RAG au sein d'un outil de gestion documentaire
-- Une transcription (STT) dans un assistant de compte rendu
-- Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 au chapitre matériel)
+| Intégration | Maturité |
+|---|---|
+| Une transcription (STT) dans un assistant de compte rendu de réunions | La plus mature : utilisée tous les jours, même si elle n'a pas atteint la v1 |
+| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. On se rend compte que ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
+| Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 au chapitre matériel) | Preuve de concept |
 
 Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
 
