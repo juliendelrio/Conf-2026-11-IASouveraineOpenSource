@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import { clicksBefore, framesFor } from './components/animation';
+import { withPageNumber } from './components/PageNumber';
 import { ConfessionSlide } from './slides/ConfessionSlide';
 import { ConfessionCallbackSlide, FinalMessageSlide, LessonsSlide, ThanksSlide } from './slides/conclusion';
 import { EngineCycleSlide, EnginesTrioSlide, EngineWatchSlide, OurEnginesSlide } from './slides/engines';
@@ -49,7 +50,7 @@ export type Slide = {
 };
 
 // Order and numbering follow the slide outlines in docs/storyline.md
-export const SLIDES: Slide[] = [
+const DECK: Slide[] = [
   // 0. Opening
   { id: 'title', component: TitleSlide, durationInFrames: 30, pauses: [] },
   { id: 'confession', component: ConfessionSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
@@ -105,3 +106,8 @@ export const SLIDES: Slide[] = [
   { id: 'final-message', component: FinalMessageSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   { id: 'thanks', component: ThanksSlide, durationInFrames: framesFor(3), pauses: [] },
 ];
+
+// Every slide but the title gets its page number and the total in the bottom-right corner
+export const SLIDES: Slide[] = DECK.map((slide, index) =>
+  index === 0 ? slide : { ...slide, component: withPageNumber(slide.component, index + 1, DECK.length) },
+);

@@ -1,5 +1,5 @@
 // Reusable slide templates: each slide in src/slides/ is a small component passing its content to one of these.
-import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { COLORS, FONT_FAMILY } from '../theme';
 import { BODY_START, fadeUp, itemStart, progress } from './animation';
 import { Badge, type Status } from './Badge';
@@ -129,31 +129,31 @@ type StepsSlideProps = Common & {
   numbered?: boolean;
 };
 
+const STEP_GAP = 40;
+
 export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, ...common }) => {
   const frame = useCurrentFrame();
   const marker = 56;
 
   return (
     <SlideLayout {...common} footerDelay={itemStart(steps.length)}>
-      <div style={{ position: 'relative', marginTop: 60 }}>
-        <div
-          style={{
-            position: 'absolute',
-            top: marker / 2 - 2,
-            left: 0,
-            height: 4,
-            // Linear from the first marker to the last one: it reaches each marker as that step enters,
-            // and waits there during a click pause
-            width: `${interpolate(frame, [itemStart(1), itemStart(steps.length)], [0, ((steps.length - 1) / steps.length) * 100], {
-              extrapolateLeft: 'clamp',
-              extrapolateRight: 'clamp',
-            })}%`,
-            backgroundColor: COLORS.border,
-          }}
-        />
-        <div style={{ display: 'flex', gap: 40 }}>
+      <div style={{ marginTop: 60 }}>
+        <div style={{ display: 'flex', gap: STEP_GAP }}>
           {steps.map((step, index) => (
-            <div key={step.label} style={{ flex: 1, ...fadeUp(frame, itemStart(index)) }}>
+            <div key={step.label} style={{ position: 'relative', flex: 1, ...fadeUp(frame, itemStart(index)) }}>
+              {index < steps.length - 1 && (
+                // Connector from this marker to the next one, drawn while the next step enters
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: marker / 2 - 2,
+                    left: marker,
+                    height: 4,
+                    width: `calc((100% + ${STEP_GAP - marker}px) * ${progress(frame, itemStart(index + 1))})`,
+                    backgroundColor: COLORS.border,
+                  }}
+                />
+              )}
               <div
                 style={{
                   position: 'relative',

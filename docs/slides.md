@@ -14,6 +14,8 @@ Durée cible : 44 min (voir le déroulé du storyline).
 
 **Progression au clic** : chaque slide avance clic par clic. À l'arrivée, le titre et le premier élément apparaissent ; chaque clic (flèche droite, Espace, Entrée, Page suivante, télécommande ou clic de souris) fait apparaître l'élément suivant ; quand tout est affiché, le clic suivant passe à la slide suivante. La flèche gauche retire le dernier élément affiché, ou revient à la slide précédente complète. La ligne « Progression » de chaque slide détaille ce qui apparaît à chaque clic. Le PPTX et Remotion Studio montrent toujours la slide complète.
 
+**Numéro de page** : toutes les slides sauf la première affichent « n / 46 » en bas à droite, y compris dans le PPTX.
+
 ---
 
 ## 0. Ouverture (2 min)
