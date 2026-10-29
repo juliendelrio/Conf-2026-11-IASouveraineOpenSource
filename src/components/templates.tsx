@@ -398,22 +398,22 @@ export const GlossarySlide: React.FC<GlossarySlideProps> = ({ terms, ...common }
 
   return (
     <SlideLayout {...common}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: -16 }}>
         {terms.map((item, index) => (
           <div
             key={item.term}
             style={{
               display: 'grid',
-              gridTemplateColumns: '480px 1fr',
+              gridTemplateColumns: '440px 1fr',
               gap: 40,
               alignItems: 'baseline',
-              paddingBottom: 22,
+              paddingBottom: 18,
               borderBottom: `1px solid ${COLORS.border}`,
               ...fadeUp(frame, itemStart(index)),
             }}
           >
-            <span style={{ fontSize: 40, fontWeight: 700, color: COLORS.accent }}>{fr(item.term)}</span>
-            <span style={{ fontSize: 36, lineHeight: 1.3 }}>{fr(item.definition)}</span>
+            <span style={{ fontSize: 38, fontWeight: 700, color: COLORS.accent }}>{fr(item.term)}</span>
+            <span style={{ fontSize: 32, lineHeight: 1.3 }}>{fr(item.definition)}</span>
           </div>
         ))}
       </div>
