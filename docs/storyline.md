@@ -36,6 +36,15 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 
 ### 0. Ouverture : l'aveu
 
+| # | Slide | Contenu |
+|---|---|---|
+| 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
+| 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Et globalement, je recommande. » |
+| 0.3 | La promesse | Une IA 100 % souveraine, dès maintenant. Budget : 50 à 70 k€ en interne, ou 2 à 5 k€ par mois en location |
+| 0.4 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
+
+Notes pour l'oral :
+
 Le titre parle d'IA souveraine 100 % open source… et tout a été conçu avec l'aide de Claude, y compris ces slides. « Et globalement, je recommande. » Présentation rapide et promesse du talk.
 
 **L'objectif** : démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec.
@@ -48,6 +57,12 @@ Le titre parle d'IA souveraine 100 % open source… et tout a été conçu avec 
 On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses très bien avec ces cartes : c'est justement le sujet du talk.
 
 ### 1. Petit lexique
+
+| # | Slide | Contenu |
+|---|---|---|
+| 1.1 | Lexique (1/2) | Inférence, paramètres / poids, open weights vs open source, quantization, token |
+| 1.2 | Lexique (2/2) | VRAM, fenêtre de contexte / KV cache, MoE, agentique, harness |
+
 
 Une dizaine de mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Les autres termes sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
 
@@ -212,6 +227,15 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 - Ce qu'on en retient : malgré tout, on peut faire des choses impressionnantes en souverain
 
 ### 7. Conclusion
+
+| # | Slide | Contenu |
+|---|---|---|
+| 7.1 | Ce qu'on retient | Les 7 leçons, une par chapitre (tableau ci-dessous) |
+| 7.2 | Retour à l'aveu | Claude reste le palier 3, utilisé là où il apporte le plus : aujourd'hui les profils architecte, lead |
+| 7.3 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager |
+| 7.4 | Merci, questions ? | Slides, site, LinkedIn, X |
+
+Notes pour l'oral :
 
 - Retour sur l'aveu du début : Claude, c'est le palier 3, utilisé là où il apporte le plus (aujourd'hui les profils architecte, lead, etc., voir chapitre 6b)
 - Les recommandations à retenir (une par chapitre, reprises des « Ce qu'on en retient ») :
