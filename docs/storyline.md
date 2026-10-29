@@ -75,7 +75,7 @@ Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 
 
 | Catégorie | Pour quoi faire | Modèles | Testé chez nous |
 |---|---|---|---|
-| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés mais trop limités ; Qwen3.5-9B et Mistral Small 3.2 _à confirmer_ |
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés : limités, c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 _à confirmer_ |
 | 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B | Oui |
 | 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 | Non (accessibles au palier 2) |
@@ -136,28 +136,17 @@ Ce qu'on a réellement testé :
 
 ### 5. La plateforme LLM
 
-**Le chemin parcouru, en trois étapes**
+Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de **ce qui vient de la documentation**. La version de travail complète du chapitre est en annexe.
 
-1. **Déployer les modèles et les consommer directement via le moteur.** Souvent des versions préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur (lien avec le chapitre moteurs). On se rend vite compte des limites pour diversifier les usages autour du moteur
-2. **Notre propre passerelle devant chaque moteur.** On développe une passerelle LLM maison, placée devant chaque moteur, notamment pour gérer les jetons d'accès. Limite : on multiplie d'autant les points d'accès que doivent connaître les services qui consomment les API
-3. **Une passerelle centralisée : LiteLLM.** C'est en cherchant une passerelle unique qu'on découvre LiteLLM, qui répond à tous nos besoins
+**Les slides (6 min)**
 
-**Ce que LiteLLM apporte**
-
-- **En entrée** : s'interface nativement avec une centaine de types d'API différentes, de moteurs d'inférence ou de plateformes cloud
-- **En sortie** : présente les modèles sous une quarantaine de formats d'API différents (chiffre de l'orateur)
-- **Les droits** : gestion assez fine des droits sur les modèles, par équipes, utilisateurs et clés d'API
-- **Le suivi** : monitoring natif dans la plateforme, et on peut brancher une architecture OpenTelemetry (OTel) pour des métriques encore plus fines
-
-**Communautaire ou entreprise ?**
-
-- La version communautaire est très permissive et permet déjà beaucoup de choses
-- Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
-- Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
-- Les interfaces de chat branchées sur la passerelle (LibreChat, Open WebUI) : voir 6a
-- Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
-- **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
-- C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
+| # | Slide | Contenu | Testé ou extrapolé |
+|---|---|---|---|
+| 1 | Le chemin en 3 étapes | Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
+| 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
+| 3 | Communautaire ou entreprise | La version communautaire, très permissive, suffit en interne. Pour une offre aux clients, l'entreprise apporte organisations, monitoring plus fin, refacturation, SSO | Communautaire testée ; entreprise d'après la doc |
+| 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
+| 5 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -606,6 +595,32 @@ Sources matériel :
 - **Le décodage spéculatif en vrai** : MTP à 3 tokens proposés, 61 % d'acceptation globale (76 % / 59 % / 48 % selon la position), soit 2,8 tokens produits par passe. À comparer aux 2,5 acceptés en moyenne mesurés par l'équipe Lithos dans la vidéo
 
 ### Annexe du chapitre 5 : la plateforme LLM
+
+Version de travail complète du chapitre, avant le passage en slides (29/10/2026) :
+
+**Le chemin parcouru, en trois étapes**
+
+1. **Déployer les modèles et les consommer directement via le moteur.** Souvent des versions préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur (lien avec le chapitre moteurs). On se rend vite compte des limites pour diversifier les usages autour du moteur
+2. **Notre propre passerelle devant chaque moteur.** On développe une passerelle LLM maison, placée devant chaque moteur, notamment pour gérer les jetons d'accès. Limite : on multiplie d'autant les points d'accès que doivent connaître les services qui consomment les API
+3. **Une passerelle centralisée : LiteLLM.** C'est en cherchant une passerelle unique qu'on découvre LiteLLM, qui répond à tous nos besoins
+
+**Ce que LiteLLM apporte**
+
+- **En entrée** : s'interface nativement avec une centaine de types d'API différentes, de moteurs d'inférence ou de plateformes cloud
+- **En sortie** : présente les modèles sous une quarantaine de formats d'API différents (chiffre de l'orateur)
+- **Les droits** : gestion assez fine des droits sur les modèles, par équipes, utilisateurs et clés d'API
+- **Le suivi** : monitoring natif dans la plateforme, et on peut brancher une architecture OpenTelemetry (OTel) pour des métriques encore plus fines
+
+**Communautaire ou entreprise ?**
+
+- La version communautaire est très permissive et permet déjà beaucoup de choses
+- Pour commercialiser soi-même une plateforme basée sur LiteLLM, les fonctionnalités de la version entreprise (payante) deviennent très intéressantes : la notion d'**organisation** pour une granularité plus fine des jetons, un monitoring plus précis, la refacturation, et le **SSO**
+- Lien avec les autres « deux approches » du talk : comme pour l'hébergement (salle serveur vs datacenter) et les licences de modèles, une offre aux clients change les exigences
+- Les interfaces de chat branchées sur la passerelle (LibreChat, Open WebUI) : voir 6a
+- Recours aux modèles par paliers : internes, puis hébergés en France, puis clouds US si besoin
+- **Une fois la passerelle en place, tout est possible fonctionnellement** : qui accède à quel modèle, quand on bascule vers un hébergeur français ou un cloud US, avec quelles données… Ce n'est plus une question technique, c'est une question de gouvernance
+- C'est la mise à l'échelle : les modèles de catégorie 4, hors de portée en interne, passent par le palier 2 (API d'hébergeurs français, voir chapitre modèles)
+
 
 Formulation initiale de l'objectif : Consommer les modèles presque aussi simplement que sur les plateformes des géants américains
 
