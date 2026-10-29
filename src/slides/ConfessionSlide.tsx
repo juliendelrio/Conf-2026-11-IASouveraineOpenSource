@@ -1,10 +1,10 @@
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { fadeUp, itemStart } from '../components/animation';
-import { fr } from '../components/typography';
+import { emphasized, inline } from '../components/inline';
 import { COLORS, FONT_FAMILY } from '../theme';
 
-// 0.2 — The opening confession: the talk was built with Claude's help (one line per click)
-export const ConfessionSlide: React.FC = () => {
+// The opening confession: one line per click, the punchline (a `==…==` line) large, bold and italic
+export const ConfessionSlide: React.FC<{ lines: string[] }> = ({ lines }) => {
   const frame = useCurrentFrame();
 
   return (
@@ -17,24 +17,28 @@ export const ConfessionSlide: React.FC = () => {
         padding: 160,
       }}
     >
-      <p style={{ fontSize: 64, lineHeight: 1.3, margin: 0, ...fadeUp(frame, itemStart(0)) }}>
-        Un talk sur l'IA souveraine <span style={{ color: COLORS.accent }}>100 % open source</span>…
-      </p>
-      <p style={{ fontSize: 64, lineHeight: 1.3, margin: '32px 0 0', ...fadeUp(frame, itemStart(1)) }}>
-        entièrement conçu avec l'aide de <strong>Claude</strong>, ces slides comprises.
-      </p>
-      <p
-        style={{
-          fontSize: 80,
-          fontWeight: 700,
-          fontStyle: 'italic',
-          color: COLORS.accent,
-          margin: '96px 0 0',
-          ...fadeUp(frame, itemStart(2)),
-        }}
-      >
-        {fr('Cynique, mais opérationnel et efficace.')}
-      </p>
+      {lines.map((line, index) => {
+        const punchline = emphasized(line);
+        return punchline === undefined ? (
+          <p key={line} style={{ fontSize: 64, lineHeight: 1.3, margin: index === 0 ? 0 : '32px 0 0', ...fadeUp(frame, itemStart(index)) }}>
+            {inline(line)}
+          </p>
+        ) : (
+          <p
+            key={line}
+            style={{
+              fontSize: 80,
+              fontWeight: 700,
+              fontStyle: 'italic',
+              color: COLORS.accent,
+              margin: '96px 0 0',
+              ...fadeUp(frame, itemStart(index)),
+            }}
+          >
+            {inline(punchline)}
+          </p>
+        );
+      })}
     </AbsoluteFill>
   );
 };

@@ -5,11 +5,12 @@ import path from 'node:path';
 import { bundle } from '@remotion/bundler';
 import { getCompositions, renderStill } from '@remotion/renderer';
 import PptxGenJS from 'pptxgenjs';
+import { webpackOverride } from '../remotion/webpack-override.mjs';
 
 const STILLS_DIR = 'out/stills';
 mkdirSync(STILLS_DIR, { recursive: true });
 
-const serveUrl = await bundle({ entryPoint: path.resolve('remotion/index.ts') });
+const serveUrl = await bundle({ entryPoint: path.resolve('remotion/index.ts'), webpackOverride });
 // Compositions are returned in the order of src/deck.ts
 const compositions = await getCompositions(serveUrl);
 

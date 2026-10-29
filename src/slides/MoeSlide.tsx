@@ -1,20 +1,13 @@
 import { useCurrentFrame } from 'remotion';
 import { fadeUp, itemStart, progress } from '../components/animation';
-import { Badge } from '../components/Badge';
+import { Badge, type Status } from '../components/Badge';
 import { SlideLayout } from '../components/SlideLayout';
 import { fr } from '../components/typography';
 import { COLORS } from '../theme';
 
-type Bar = { label: string; value: number; unit: string; note?: string; highlight?: boolean };
+export type Bar = { label: string; value: number; unit: string; note?: string; highlight?: boolean };
 
-const SCALE_MAX = 200;
-
-const BarGroup: React.FC<{ title: string; bars: Bar[]; delay: number; children?: React.ReactNode }> = ({
-  title,
-  bars,
-  delay,
-  children,
-}) => {
+const BarGroup: React.FC<{ title: string; bars: Bar[]; max: number; delay: number }> = ({ title, bars, max, delay }) => {
   const frame = useCurrentFrame();
   return (
     <div style={{ ...fadeUp(frame, delay) }}>
@@ -31,7 +24,7 @@ const BarGroup: React.FC<{ title: string; bars: Bar[]; delay: number; children?:
                 <div
                   style={{
                     height: 46,
-                    width: `${(bar.value / SCALE_MAX) * 80 * grow}%`,
+                    width: `${(bar.value / max) * 80 * grow}%`,
                     backgroundColor: bar.highlight ? COLORS.chartHighlight : COLORS.chartBar,
                     borderRadius: '0 4px 4px 0',
                   }}
@@ -45,48 +38,45 @@ const BarGroup: React.FC<{ title: string; bars: Bar[]; delay: number; children?:
           );
         })}
       </div>
-      {children}
     </div>
   );
 };
 
-// 3.5 — MoE: fewer weights read per token (faster), but the whole model must fit in VRAM
-export const MoeSlide: React.FC = () => {
+type MoeSlideProps = {
+  kicker: string;
+  title: string;
+  status: Status[];
+  /** Bar groups, one per click; all bars share the same scale. */
+  groups: { title: string; bars: Bar[] }[];
+  /** Measured figure, shown with a « Mesuré » badge after the groups. */
+  measure?: string;
+  footer?: string;
+};
+
+// MoE: fewer weights read per token (faster), but the whole model must fit in VRAM
+export const MoeSlide: React.FC<MoeSlideProps> = ({ kicker, title, status, groups, measure, footer }) => {
   const frame = useCurrentFrame();
+  const max = Math.max(...groups.flatMap((group) => group.bars.map((bar) => bar.value)));
+  const measureGroup = groups.length;
 
   return (
     <SlideLayout
-      kicker="Le matériel"
-      title="Le MoE change la donne"
-      status={[
-        { kind: 'tested', label: '2 RTX PRO 6000 testées' },
-        { kind: 'extrapolated', label: 'H100 extrapolé' },
-      ]}
-      footer="Le Flash-Next va plus vite que le 27B, mais il faut pouvoir le loger en entier : la mémoire compte autant que la vitesse"
-      footerDelay={itemStart(3)}
+      kicker={kicker}
+      title={title}
+      status={status}
+      footer={footer}
+      footerDelay={itemStart(measureGroup + (measure ? 1 : 0))}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 44 }}>
-        <BarGroup
-          title="Lu à chaque token : la vitesse"
-          delay={itemStart(0)}
-          bars={[
-            { label: 'Qwen3.8-27B (4 bits)', value: 16, unit: 'Go' },
-            { label: 'Qwen3.8-Flash-Next', value: 6, unit: 'Go', note: 'seuls les paramètres actifs', highlight: true },
-          ]}
-        />
-        <BarGroup
-          title="À loger en mémoire : la capacité"
-          delay={itemStart(1)}
-          bars={[
-            { label: 'Qwen3.8-Flash-Next', value: 186, unit: 'Go', highlight: true },
-            { label: '2 RTX PRO 6000', value: 192, unit: 'Go', note: 'ça tient' },
-            { label: '2 H100', value: 160, unit: 'Go', note: 'ça ne tient pas' },
-          ]}
-        />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 30, ...fadeUp(frame, itemStart(2)) }}>
-          <Badge kind="tested">Mesuré</Badge>
-          {fr('~200 tok/s sur 2 RTX PRO 6000 avec un utilisateur, ~127 tok/s par requête en production')}
-        </div>
+        {groups.map((group, index) => (
+          <BarGroup key={group.title} title={group.title} bars={group.bars} max={max} delay={itemStart(index)} />
+        ))}
+        {measure && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 30, ...fadeUp(frame, itemStart(measureGroup)) }}>
+            <Badge kind="tested">Mesuré</Badge>
+            {fr(measure)}
+          </div>
+        )}
       </div>
     </SlideLayout>
   );

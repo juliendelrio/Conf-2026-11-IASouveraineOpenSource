@@ -1,41 +1,43 @@
 import { useCurrentFrame } from 'remotion';
 import { fadeUp, itemStart, progress } from '../components/animation';
-import { Badge } from '../components/Badge';
+import { Badge, type Status } from '../components/Badge';
 import { SlideLayout } from '../components/SlideLayout';
+import { fr } from '../components/typography';
 import { COLORS } from '../theme';
 
-type Machine = { name: string; tokensPerSecond: number; ours?: boolean; group: number };
+export type Machine = { name: string; tokensPerSecond: number; ours?: boolean; group: number };
 
-// Theoretical ceiling = memory bandwidth ÷ 16 GB read per token (Qwen3.8-27B in 4 bits), see docs/storyline.md
-const MACHINES: Machine[] = [
-  { name: 'DGX Spark', tokensPerSecond: 17, group: 0 },
-  { name: 'L4', tokensPerSecond: 19, group: 0 },
-  { name: 'Mac M5 Max', tokensPerSecond: 38, group: 0 },
-  { name: 'L40S', tokensPerSecond: 54, group: 0 },
-  { name: 'Mac Studio M5 Ultra', tokensPerSecond: 75, group: 0 },
-  { name: 'RTX PRO 6000', tokensPerSecond: 100, ours: true, group: 1 },
-  { name: 'H100 SXM', tokensPerSecond: 210, group: 2 },
-  { name: 'H200', tokensPerSecond: 300, group: 2 },
-];
-
-const MAX = 300;
 // Stagger inside a click group; a group of five bars must still fit in ITEM_DELAY
 const BAR_DELAY = 3;
 const BAR_GROW = 16;
 
-// 3.4 — Theoretical single-user speed ceilings, one model on several machines
-export const SpeedCeilingSlide: React.FC = () => {
+type SpeedCeilingSlideProps = {
+  kicker: string;
+  title: string;
+  subtitle: string;
+  status: Status[];
+  /** Bars in display order; `group` is the click group the bar enters with. */
+  machines: Machine[];
+};
+
+// Theoretical single-user speed ceilings, one model on several machines
+export const SpeedCeilingSlide: React.FC<SpeedCeilingSlideProps> = ({ kicker, title, subtitle, status, machines }) => {
   const frame = useCurrentFrame();
+  const max = Math.max(...machines.map((machine) => machine.tokensPerSecond));
 
   return (
-    <SlideLayout kicker="Le matériel" title="Plafond de vitesse, un utilisateur seul">
+    <SlideLayout kicker={kicker} title={title}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 24, fontSize: 30, color: COLORS.muted, marginTop: -24, ...fadeUp(frame, 0) }}>
-        Qwen3.8-27B en 4 bits · bande passante ÷ 16 Go lus par token
-        <Badge kind="extrapolated">Extrapolé</Badge>
+        {fr(subtitle)}
+        {status.map((item) => (
+          <Badge key={item.label} kind={item.kind}>
+            {fr(item.label)}
+          </Badge>
+        ))}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 48 }}>
-        {MACHINES.map((machine, index) => {
-          const indexInGroup = MACHINES.filter((other, otherIndex) => other.group === machine.group && otherIndex < index).length;
+        {machines.map((machine, index) => {
+          const indexInGroup = machines.filter((other, otherIndex) => other.group === machine.group && otherIndex < index).length;
           const grow = progress(frame, itemStart(machine.group) + indexInGroup * BAR_DELAY, BAR_GROW);
           return (
             <div key={machine.name} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -46,7 +48,7 @@ export const SpeedCeilingSlide: React.FC = () => {
                 <div
                   style={{
                     height: 48,
-                    width: `${(machine.tokensPerSecond / MAX) * 85 * grow}%`,
+                    width: `${(machine.tokensPerSecond / max) * 85 * grow}%`,
                     backgroundColor: machine.ours ? COLORS.chartHighlight : COLORS.chartBar,
                     borderRadius: '0 4px 4px 0',
                   }}

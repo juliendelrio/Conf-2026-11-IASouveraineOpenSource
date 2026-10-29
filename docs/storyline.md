@@ -259,38 +259,7 @@ Notes pour l'oral :
 
 ## Petit lexique
 
-Dans l'introduction (une dizaine de termes) :
-
-- **Inférence** : utiliser un modèle déjà entraîné (par opposition à l'entraînement)
-- **Paramètres / poids** : ce qu'un modèle « sait », sous forme de nombres ; la taille d'un modèle (7B, 32B, 235B…)
-- **Open weights vs open source** : on récupère les poids, pas forcément les données ni le code d'entraînement
-- **Quantization** : compresser les poids (16 bits, 8 bits, 4 bits) pour faire tenir le modèle en mémoire, au prix d'un peu de qualité
-- **Token** : l'unité de texte que le modèle lit et produit ; c'est l'unité des débits et des prix
-- **VRAM** : la mémoire de la carte graphique, la vraie ressource rare
-- **Fenêtre de contexte / KV cache** : pourquoi la longueur des conversations consomme de la mémoire
-- **MoE (Mixture of Experts)** : un gros modèle dont seule une partie travaille pour chaque token
-- **Agentique** : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une seule fois
-- **Harness** : l'application qui encapsule le modèle avec ses outils, ses skills et ses prompts système
-
-Expliqués en une phrase là où ils apparaissent :
-
-*Les modèles*
-
-- **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
-- **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
-- **STT** (*speech-to-text*, transcription) : transformer la parole en texte
-
-*Le matériel*
-
-- **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
-- **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
-- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
-
-*La plateforme LLM*
-
-- **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
-- **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
-- **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
+Le lexique complet est dans `docs/contenu/lexique.md` : les termes des slides de l'introduction, ceux à expliquer à l'oral par chapitre, la réserve pour les questions et les formulations d'origine. C'est la source des définitions affichées sur les slides.
 
 ## Annexe : matière pour les questions
 
@@ -717,14 +686,4 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 
 ### Annexe du lexique
 
-Termes qui n'apparaissent plus dans les slides après le passage en slides (29/10/2026), gardés pour les questions :
-
-- **Diarisation** : savoir qui parle quand dans un enregistrement
-- **Décodage spéculatif** : un petit modèle brouillon propose plusieurs tokens, le gros les vérifie en une seule lecture
-- **SXM vs PCIe** : le même GPU existe en carte enfichable (PCIe) ou soudé sur une carte mère dédiée (SXM) ; le format change la bande passante et la liaison entre les cartes (H100 : 2 To/s en PCIe, 3,35 To/s et NVLink en SXM)
-- **Tensor parallelism** : répartir un modèle sur plusieurs GPU
-- **Tokens de réflexion** (mode *thinking*) : ce que le modèle écrit pour « réfléchir » avant de répondre, et qui coûte du temps
-- **Temps avant le premier token** (*TTFT*) : ce que l'utilisateur ressent comme la réactivité
-- **Batching continu** : servir plusieurs utilisateurs en même temps sur la même carte
-- **API compatible OpenAI** : le standard de fait pour brancher les outils
-- **Cache de préfixes** : ne pas relire le début d'une conversation déjà lu au tour précédent
+Déplacée dans `docs/contenu/lexique.md`, section « Réserve pour les questions ».

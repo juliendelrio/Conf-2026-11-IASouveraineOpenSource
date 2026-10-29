@@ -29,20 +29,26 @@ const Operator: React.FC<{ symbol: string; delay: number }> = ({ symbol, delay }
   return <div style={{ fontSize: 80, fontWeight: 300, color: COLORS.accent, marginTop: -50, ...fadeUp(frame, delay) }}>{symbol}</div>;
 };
 
-// 3.3 — The rule of thumb: bandwidth ÷ weights read per token = single-user speed ceiling
-export const SpeedFormulaSlide: React.FC = () => (
-  <SlideLayout
-    kicker="Le matériel"
-    title="Le réflexe à retenir"
-    footer="Pour chaque token généré, la carte relit tous les poids utiles : un bon moteur atteint environ 80 % de ce plafond"
-    footerDelay={itemStart(3)}
-  >
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48 }}>
-      <Term label="Bande passante mémoire" sub="ex. 1,6 To/s" delay={itemStart(0)} />
-      <Operator symbol="÷" delay={itemStart(1)} />
-      <Term label="Poids lus par token" sub="ex. 16 Go" delay={itemStart(1) + 6} />
-      <Operator symbol="=" delay={itemStart(2)} />
-      <Term label="Plafond de vitesse" sub="~100 tokens/s, un utilisateur seul" delay={itemStart(2) + 6} />
-    </div>
-  </SlideLayout>
-);
+type SpeedFormulaSlideProps = {
+  kicker: string;
+  title: string;
+  /** The three terms of `a ÷ b = c`, each with an example under it. */
+  terms: { label: string; sub: string }[];
+  footer?: string;
+};
+
+// The rule of thumb: bandwidth ÷ weights read per token = single-user speed ceiling (one term per click)
+export const SpeedFormulaSlide: React.FC<SpeedFormulaSlideProps> = ({ kicker, title, terms, footer }) => {
+  const [bandwidth, weights, ceiling] = terms;
+  return (
+    <SlideLayout kicker={kicker} title={title} footer={footer} footerDelay={itemStart(3)}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48 }}>
+        <Term label={bandwidth.label} sub={bandwidth.sub} delay={itemStart(0)} />
+        <Operator symbol="÷" delay={itemStart(1)} />
+        <Term label={weights.label} sub={weights.sub} delay={itemStart(1) + 6} />
+        <Operator symbol="=" delay={itemStart(2)} />
+        <Term label={ceiling.label} sub={ceiling.sub} delay={itemStart(2) + 6} />
+      </div>
+    </SlideLayout>
+  );
+};
