@@ -41,7 +41,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 - `src/slides/` — layouts that are not generic templates (title, confession, speed formula, speed ceilings, MoE, thanks), all fed by the content
 - `src/components/` — `SlideLayout`, `Badge` (tested / extrapolated), slide templates (`templates.tsx`: bullets, table, steps, cards, key figure, goal-pitfall-lesson, statement, glossary) and `fr()` for French typography
 - `src/theme.ts` — dimensions, colors, fonts
-- `src/web/` — browser presenter (keyboard navigation, `#n` hash = current slide, `f` = fullscreen, `d` = light/dark theme, also a top-right button on the title slide only; light is the default and the only theme in Studio and the PPTX)
+- `src/web/` — browser presenter (keyboard navigation, `#n` hash = current slide, `f` = fullscreen, `d` = light/dark theme, also a top-right button on the title slide only; `p` = speaker view in a second window (`?vue=orateur`: current slide, next click preview, `####` notes, timer), kept in sync with the audience window through a BroadcastChannel; light is the default and the only theme in Studio and the PPTX)
 - `remotion/` — Remotion entry point (`registerRoot`) registering every slide as a composition
 - `.agents/skills/` — Remotion Agent Skills (`npx remotion skills add` recreates the `.claude/skills` symlinks, which are git-ignored)
 

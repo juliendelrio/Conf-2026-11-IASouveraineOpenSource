@@ -17,6 +17,7 @@ L'ordre du deck est celui des fichiers (`00` à `07`), puis celui des slides dan
 
 - Chaque clic (flèche droite, Espace, Entrée, Page suivante, télécommande ou clic de souris) fait apparaître l'élément suivant ; quand tout est affiché, le clic suivant passe à la slide suivante. La flèche gauche retire le dernier élément affiché, ou revient à la slide précédente complète. Le PPTX et Remotion Studio montrent toujours la slide complète
 - `f` : plein écran ; `d` : thème clair ou sombre (aussi un bouton sur la première slide) ; l'adresse `#n` ouvre la slide n
+- `p` : ouvre la **vue orateur** dans une deuxième fenêtre (ou l'adresse `?vue=orateur`) : la slide en cours, ce qu'affichera le prochain clic, les notes `####` de la slide (« À l'oral » en premier, en grand), le chronomètre (sur 44 minutes, démarre au premier clic) et l'heure. Les deux fenêtres restent synchronisées : clics, flèches, télécommande et thème fonctionnent dans l'une comme dans l'autre. On met la fenêtre principale en plein écran sur le vidéoprojecteur et la vue orateur sur son propre écran
 - Toutes les slides sauf la première affichent « n / total » en bas à droite, y compris dans le PPTX
 - Badges : **testé** (plein) = vécu sur notre infrastructure ; **extrapolé** (pointillés) = calculé à partir des fiches constructeurs, de la documentation ou des prix publics
 - Notes de chaque slide : sous `#### Progression`, `#### À l'oral` et `#### Compléments` (chiffres, sources et détails pour les questions, la plupart venant de l'annexe du storyline)
@@ -53,7 +54,7 @@ Ce que je raconte : ignoré par les slides.
 - Une ligne `- …` ajoute un élément (point de liste, ligne de déclaration, terme de lexique).
 - `### Titre` ouvre une section : une carte, une étape, un terme de formule, un groupe de barres.
 - Un tableau Markdown classique (`| … |` avec la ligne `|---|`) remplit un tableau.
-- **Tout ce qui suit un `####`** (jusqu'à la slide ou la section suivante) est une note pour toi : progression, oral, compléments. Les paragraphes libres et les titres `#` sont aussi ignorés.
+- **Tout ce qui suit un `####`** (jusqu'à la slide ou la section suivante) est une note pour toi : progression, oral, compléments. Elle n'apparaît pas sur la slide, seulement dans la vue orateur (paragraphes, listes `- `, `**gras**` et `` `code` ``). Les paragraphes libres et les titres `#` sont ignorés.
 
 ### Mise en forme dans le texte
 

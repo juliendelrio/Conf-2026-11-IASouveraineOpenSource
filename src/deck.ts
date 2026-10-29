@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import { withPageNumber } from './components/PageNumber';
 import { CONTENT_SLIDES } from './content';
+import type { Note } from './content/parse';
 
 export type Slide = {
   /** Unique id, also used as Remotion composition id and PPTX still name. */
@@ -13,6 +14,8 @@ export type Slide = {
    * src/components/animation.ts). Studio and the PPTX ignore them and show the whole animation.
    */
   pauses: number[];
+  /** Speaker notes (`#### …` under the slide in the content), shown in the speaker view. */
+  notes: Note[];
 };
 
 // The deck is written in docs/contenu/*.md (order, texts, click steps); see docs/contenu/README.md.

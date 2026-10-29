@@ -40,12 +40,16 @@ export type Block = {
   table?: Table;
 };
 
+/** A `#### Titre` note under a slide (oral, compléments…): shown in the speaker view only. */
+export type Note = { title: string; text: string };
+
 export type SlideContent = Block & {
   /** The `## id` of the slide, also its Remotion composition id. */
   id: string;
   /** Content file, for error messages. */
   file: string;
   sections: Block[];
+  notes: Note[];
 };
 
 export class ContentError extends Error {}
@@ -63,15 +67,20 @@ const splitRow = (line: string) =>
     .map((cell) => cell.trim());
 
 /**
- * Reads one content file. `#` titles, `####` notes (oral, compléments…), HTML comments and plain
- * paragraphs are ignored; `## id` starts a slide, `### titre` a section (card, step…).
+ * Reads one content file. `## id` starts a slide, `### titre` a section (card, step…), `#### titre` a speaker
+ * note that runs until the next section or slide. `#` titles, HTML comments and plain paragraphs are ignored.
  */
 export const parseSlides = (file: string, source: string): SlideContent[] => {
   const slides: SlideContent[] = [];
   let slide: SlideContent | undefined;
   let block: Block | undefined;
-  let inNotes = false;
+  let note: { title: string; lines: string[] } | undefined;
   let tableLines: string[] = [];
+
+  const flushNote = () => {
+    if (note && slide) slide.notes.push({ title: note.title, text: note.lines.join('\n').trim() });
+    note = undefined;
+  };
 
   const fail = (message: string): never => {
     throw new ContentError(`${file}${slide ? ` › ${slide.id}` : ''} : ${message}`);
@@ -90,18 +99,21 @@ export const parseSlides = (file: string, source: string): SlideContent[] => {
     if (!line.startsWith('|')) flushTable();
 
     if (line.startsWith('#### ')) {
-      inNotes = true;
+      flushNote();
+      if (slide) note = { title: line.slice(5).trim(), lines: [] };
     } else if (line.startsWith('### ')) {
+      flushNote();
       if (!slide) fail(`section « ${line} » avant la première slide`);
       block = newBlock(line.slice(4).trim());
       slide!.sections.push(block);
-      inNotes = false;
     } else if (line.startsWith('## ')) {
-      slide = { ...newBlock(''), id: line.slice(3).trim(), file, sections: [] };
+      flushNote();
+      slide = { ...newBlock(''), id: line.slice(3).trim(), file, sections: [], notes: [] };
       slides.push(slide);
       block = slide;
-      inNotes = false;
-    } else if (inNotes || !block || line.startsWith('# ') || line.startsWith('<!--') || line.trim() === '') {
+    } else if (note) {
+      note.lines.push(line);
+    } else if (!block || line.startsWith('# ') || line.startsWith('<!--') || line.trim() === '') {
       continue;
     } else if (line.startsWith('|')) {
       tableLines.push(line);
@@ -116,6 +128,7 @@ export const parseSlides = (file: string, source: string): SlideContent[] => {
     }
   }
   flushTable();
+  flushNote();
   return slides;
 };
 

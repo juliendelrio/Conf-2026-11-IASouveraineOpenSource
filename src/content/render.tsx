@@ -207,6 +207,6 @@ export const buildSlides = (contents: SlideContent[], glossary: Map<string, stri
     ids.add(content.id);
     const built = build(content, glossary);
     const durationInFrames = content.fields.type === 'titre' ? TITLE_DURATION : framesFor(built.groups);
-    return { id: content.id, component: built.component, durationInFrames, pauses: pausesFor(content, built) };
+    return { id: content.id, component: built.component, durationInFrames, pauses: pausesFor(content, built), notes: content.notes };
   });
 };
