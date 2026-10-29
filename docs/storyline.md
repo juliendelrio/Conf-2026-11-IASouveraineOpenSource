@@ -75,7 +75,7 @@ Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 
 
 | Catégorie | Pour quoi faire | Modèles | Testé chez nous |
 |---|---|---|---|
-| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; autres _à confirmer_ |
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés mais trop limités ; Qwen3.5-9B et Mistral Small 3.2 _à confirmer_ |
 | 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B | Oui |
 | 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 | Non (accessibles au palier 2) |
@@ -90,7 +90,7 @@ Principe : montrer ce qui est possible, en distinguant toujours **ce qu'on a tes
 
 Ce qu'on a réellement testé :
 
-- En location chez OVH et Scaleway : L4 et L40S (génération Qwen 3.5, 35B et 27B, sur L40S)
+- En location chez OVH et Scaleway : L4 et L40S, avec des modèles qui ont tourné sur les deux (génération Qwen 3.5, 35B et 27B, sur L40S)
 - À l'achat : 3 RTX PRO 6000 Blackwell Server Edition sur 2 serveurs ; Qwen3.8-Flash-Next en production sur 2 de ces cartes
 - Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
 
@@ -111,7 +111,7 @@ Ce qu'on a réellement testé :
 
 | Catégorie | Exemples de matériel | Interne | Location | Testé ou extrapolé |
 |---|---|---|---|---|
-| 1. Petits modèles | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) | L4 testée en location ; autres cartes extrapolées |
+| 1. Petits modèles | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) | L4 testée en location, avec des modèles ; autres cartes extrapolées |
 | 2. Milieu de gamme (27B) | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois | Testé : L40S louée, RTX PRO 6000 ; autres extrapolées |
 | 3. Le cap d'août | 2 RTX PRO 6000 dans un même serveur ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
 | 4. Hors de portée | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) | Extrapolé |
