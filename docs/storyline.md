@@ -157,60 +157,55 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 ### 6. Les usages : trois types
 
+Tout ce chapitre est du vécu : tout a été testé. La version de travail complète est en annexe.
+
+| # | Slide | Contenu |
+|---|---|---|
+| 6.1 | Trois types d'usages | Le tableau ci-dessous. Constat : dès Qwen3.8-27B et Flash-Next, on fait des choses intéressantes ; les développeurs sont les plus exigeants et demandent le plus de compromis ; le chat et les intégrations sont déjà vraiment très impressionnants |
+
 | Type | Pour qui | Par quoi |
 |---|---|---|
 | Généraliste | Tous les utilisateurs | Un outil de chat : LibreChat (Open WebUI pour l'équipe IA) |
 | Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
 | Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
 
-**Ce qu'on constate sur les trois types** :
-
-- Dès des modèles comme Qwen3.8-27B et Flash-Next, on commence à faire des choses intéressantes
-- Les besoins les plus intenses sont ceux des développeurs : c'est là qu'il faut le plus de compromis
-- Pour le chat généraliste et les intégrations dans les applications, on fait déjà des choses vraiment très impressionnantes
-
-**Le harness compte autant que le modèle** :
-
-- Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
-- Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
-- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : quand on ne compte plus au jeton, le harness peut demander plus d'itérations pour arriver au résultat attendu. Oui, ça consomme plus d'électricité, mais ça reste négligeable sur l'ensemble
-
 ### 6a. Usages : le chat généraliste
 
-- À travers un outil de chat type LibreChat ou Open WebUI
-- Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
+| # | Slide | Contenu |
+|---|---|---|
+| 6a.1 | Un ChatGPT interne | Open WebUI (anciennement Ollama WebUI), le candidat naturel : on a la main sur énormément de paramètres, mais l'interface est trop complexe pour des utilisateurs standards. On passe à LibreChat, ergonomique ; Open WebUI reste l'outil de l'équipe IA |
+| 6a.2 | Objectif, piège, leçon | Voir ci-dessous |
+
 - Ce qu'on voulait faire : proposer un ChatGPT interne
 - Le piège : partir sur le candidat naturel, Open WebUI, dont l'interface est trop complexe pour des utilisateurs standards
 - Ce qu'on en retient : pour les utilisateurs finaux, il faut faire simple et ergonomique
 
 ### 6b. Usages : les développeurs
 
-- À travers des applications de développement comme OpenCode ou DeepSeek Harness
-  - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
-  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), interface web (`dsh web`, servie en local sur `127.0.0.1:3080`) ; l'application de bureau n'est qu'une coquille Electron autour de cette même application web, servie en local sur un port choisi par le système (source : README du dépôt et `apps/desktop/README.md`, consultés le 28/10/2026) ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
+| # | Slide | Contenu |
+|---|---|---|
+| 6b.1 | Deux leviers | Avant août, la capacité minimale des modèles coinçait. DeepSeek-V4-Flash-0731, premier levier ; Qwen3.8-Flash-Next, second : un palier net |
+| 6b.2 | Le harness, un vrai levier | Le harness (outils, skills, prompts système) pousse le modèle. Quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu ; l'électricité consommée en plus reste négligeable sur l'ensemble |
+| 6b.3 | Deux harness open source | Pour s'adapter aux limites de chacun : OpenCode (MIT) gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness (MIT, août 2026) : approche web only et jeunesse du système, même si les promesses sont très belles |
+| 6b.4 | La vision | DeepSeek-V4-Flash ne lit que du texte : Qwen3.8-27B décrivait les images à sa place. Un vrai modèle multimodal reste bien meilleur : depuis Flash-Next, le modèle lit lui-même captures et maquettes |
+| 6b.5 | Objectif, piège, leçon | Voir ci-dessous ; le piège rappelle l'aveu du début (Claude pour les profils architecte, lead) |
 
-- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
-- **Deux leviers vers un code utilisable** : avant août, ce qui coinçait, c'était la capacité minimale des modèles. DeepSeek-V4-Flash-0731 a été un premier levier, Qwen3.8-Flash-Next un second. On note clairement un palier avec les modèles d'août
-- **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
-- **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
-  - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
-  - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
 - Ce qu'on voulait faire : un agent de code avec un minimum de qualité dans la production de code, pour que le gain soit significatif
 - Le piège : la capacité des modèles. C'est pourquoi on garde actuellement Claude pour les profils architecte, lead, etc. (palier 3, rappel de l'aveu du début)
 - Ce qu'on en retient : le harness est un levier aussi important que le modèle ; en proposer deux permet de contourner les limites de chacun
 
 ### 6c. Usages : les intégrations sur mesure
 
-Le modèle s'intègre dans des applications tierces. Trois intégrations, chacune avec des itérations un peu différentes, et une maturité qui n'est pas la même :
+| # | Slide | Contenu |
+|---|---|---|
+| 6c.1 | Trois intégrations, trois maturités | Le tableau ci-dessous. Elles reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel |
+| 6c.2 | Objectif, piège, leçon | Voir ci-dessous |
 
 | Intégration | Maturité |
 |---|---|
 | Une transcription (STT) dans un assistant de compte rendu de réunions | La plus mature : utilisée tous les jours, même si elle n'a pas atteint la v1 |
-| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. On se rend compte que ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
+| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. Ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
 | Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 en annexe du chapitre matériel) | Preuve de concept |
-
-Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
 
 - Ce qu'on voulait faire : mettre à disposition des outils pour augmenter la productivité des collaborateurs. C'est pour ça que l'assistant de réunion est sorti en premier
 - Le piège : penser que l'IA est magique. En souverain, ce n'est pas le cas : ça demande du travail de veille et d'adaptation
@@ -655,3 +650,58 @@ Le choix des interfaces, tel qu'il était décrit au chapitre plateforme (repris
 - **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
 - **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
 - **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
+
+### Annexe du chapitre 6 : les usages
+
+Versions de travail complètes, avant le passage en slides (29/10/2026).
+
+**Introduction des usages**
+
+| Type | Pour qui | Par quoi |
+|---|---|---|
+| Généraliste | Tous les utilisateurs | Un outil de chat : LibreChat (Open WebUI pour l'équipe IA) |
+| Développeurs | Les équipes de développement | Des outils de développement branchés sur les modèles : OpenCode, DeepSeek harness |
+| Intégrations sur mesure | Les applications tierces | Le modèle intégré dans un outil existant, via l'API |
+
+**Ce qu'on constate sur les trois types** :
+
+- Dès des modèles comme Qwen3.8-27B et Flash-Next, on commence à faire des choses intéressantes
+- Les besoins les plus intenses sont ceux des développeurs : c'est là qu'il faut le plus de compromis
+- Pour le chat généraliste et les intégrations dans les applications, on fait déjà des choses vraiment très impressionnantes
+
+**Le harness compte autant que le modèle** :
+
+- Le *harness*, c'est l'application qui encapsule le modèle : ses outils, ses skills, ses prompts système
+- Dans beaucoup de cas, c'est lui qui pousse le modèle dans ses retranchements et lui fait faire des choses impressionnantes
+- Surtout quand on n'est plus limité à compter les tokens dont on a besoin : quand on ne compte plus au jeton, le harness peut demander plus d'itérations pour arriver au résultat attendu. Oui, ça consomme plus d'électricité, mais ça reste négligeable sur l'ensemble
+
+**6a**
+
+- À travers un outil de chat type LibreChat ou Open WebUI
+- Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
+
+**6b**
+
+- À travers des applications de développement comme OpenCode ou DeepSeek Harness
+  - **OpenCode** : agent de code open source (MIT), https://github.com/sst/opencode
+  - **DeepSeek Harness** (`dsh`) : harness d'agents open source (MIT) publié par DeepSeek en août 2026, architecture « tout est plugin » (basée sur Cordis), interface web (`dsh web`, servie en local sur `127.0.0.1:3080`) ; l'application de bureau n'est qu'une coquille Electron autour de cette même application web, servie en local sur un port choisi par le système (source : README du dépôt et `apps/desktop/README.md`, consultés le 28/10/2026) ; pour le code, les tâches courantes et les configurations sur mesure. En *developer preview* : changements incompatibles annoncés. Publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code de ce modèle : il fait partie du cap d'août (chapitre modèles). https://www.deepseek.com/en/harness/ , https://github.com/deepseek-ai/deepseek-harness
+
+- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
+- **Simuler un modèle multimodal en combinant deux modèles** : DeepSeek-V4-Flash-0731 ne lit que du texte, ce qui limitait son usage en développement (captures d'écran, maquettes…). Les images étaient donc analysées par Qwen3.8-27B, qui comprend les images, et sa description envoyée à DeepSeek-V4-Flash. Un vrai modèle multimodal reste bien plus performant sur la vision. Depuis le passage à Qwen3.8-Flash-Next, qui est multimodal, la qualité a progressé en développement : le modèle analyse lui-même les captures d'écran et les maquettes
+- **Deux leviers vers un code utilisable** : avant août, ce qui coinçait, c'était la capacité minimale des modèles. DeepSeek-V4-Flash-0731 a été un premier levier, Qwen3.8-Flash-Next un second. On note clairement un palier avec les modèles d'août
+- **Le harness est un vrai levier** (voir l'introduction des usages) : quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu
+- **Proposer deux harness open source** permet de s'adapter aux limites de chacun :
+  - OpenCode ne gère pas encore très bien l'arrivée en limite de contexte
+  - DeepSeek Harness : l'approche web only (même l'application de bureau sert son interface par le web, en local) et la jeunesse du système demandent encore de pousser la solution, même si les promesses sont très belles
+
+**6c**
+
+Le modèle s'intègre dans des applications tierces. Trois intégrations, chacune avec des itérations un peu différentes, et une maturité qui n'est pas la même :
+
+| Intégration | Maturité |
+|---|---|
+| Une transcription (STT) dans un assistant de compte rendu de réunions | La plus mature : utilisée tous les jours, même si elle n'a pas atteint la v1 |
+| Un RAG au sein d'un outil de gestion documentaire | En test auprès des premiers utilisateurs. On se rend compte que ce n'est pas magique : il faut aussi retravailler la documentation pour que sa qualité permette une remontée pertinente |
+| Un modèle « System One » pour le tri automatique de tickets (voir Decision 2.0 en annexe du chapitre matériel) | Preuve de concept |
+
+Lien avec les catégories : ces intégrations reposent surtout sur des modèles de catégorie 1, qui tiennent sur une L4 dans un serveur traditionnel.
