@@ -38,7 +38,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 - `src/deck.ts` — ordered list of slides: single source of truth for the presenter, the Remotion Studio and the PPTX
 - `src/slides/` — one component per slide
 - `src/theme.ts` — dimensions, colors, fonts
-- `src/web/` — browser presenter (keyboard navigation, `#n` hash = current slide, `f` = fullscreen)
+- `src/web/` — browser presenter (keyboard navigation, `#n` hash = current slide, `f` = fullscreen, `d` or the top-right button = light/dark theme; light is the default and the only theme in Studio and the PPTX)
 - `remotion/` — Remotion entry point (`registerRoot`) registering every slide as a composition
 - `.agents/skills/` — Remotion Agent Skills (`npx remotion skills add` recreates the `.claude/skills` symlinks, which are git-ignored)
 
