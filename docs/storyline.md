@@ -174,7 +174,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 ### 6a. Usages : le chat généraliste
 
-- À travers un outil de chat type LibreChat ou Open WebUI (voir le choix des interfaces au chapitre plateforme)
+- À travers un outil de chat type LibreChat ou Open WebUI
 - Open WebUI (anciennement Ollama WebUI) était le candidat naturel. L'application reste intéressante, car on a la main sur énormément de paramètres du LLM, mais son interface est trop complexe pour des utilisateurs standards. On est parti sur LibreChat pour son ergonomie, orientée utilisateurs standards ; Open WebUI reste l'outil de l'équipe IA
 - Ce qu'on voulait faire : proposer un ChatGPT interne
 - Le piège : partir sur le candidat naturel, Open WebUI, dont l'interface est trop complexe pour des utilisateurs standards
