@@ -1,8 +1,12 @@
 import { COLORS } from '../theme';
 
+/** Tested in our own setup (filled) or extrapolated from specs, docs and public prices (dashed outline). */
+export type StatusKind = 'tested' | 'extrapolated';
+
+export type Status = { kind: StatusKind; label: string };
+
 type BadgeProps = {
-  /** Tested in our own setup (filled) or extrapolated from specs and public prices (dashed outline). */
-  kind: 'tested' | 'extrapolated';
+  kind: StatusKind;
   children: React.ReactNode;
 };
 
