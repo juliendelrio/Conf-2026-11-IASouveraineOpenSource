@@ -92,28 +92,31 @@ export const Presenter: React.FC = () => {
       }}
     >
       <SlidePlayer key={slide.id} slide={slide} />
-      <button
-        type="button"
-        // Out of the tab order so Space and Enter keep moving slides instead of clicking the button
-        tabIndex={-1}
-        onClick={toggleTheme}
-        title="Changer de thème (touche d)"
-        style={{
-          position: 'fixed',
-          top: 12,
-          right: 12,
-          padding: '6px 12px',
-          border: `1px solid ${COLORS.border}`,
-          borderRadius: 6,
-          background: 'transparent',
-          color: COLORS.muted,
-          font: '14px system-ui, sans-serif',
-          cursor: 'pointer',
-          opacity: 0.6,
-        }}
-      >
-        {theme === 'light' ? 'Thème sombre' : 'Thème clair'}
-      </button>
+      {/* Theme button on the title slide only, to keep the other slides clean; the d key works everywhere */}
+      {current === 0 && (
+        <button
+          type="button"
+          // Out of the tab order so Space and Enter keep moving slides instead of clicking the button
+          tabIndex={-1}
+          onClick={toggleTheme}
+          title="Changer de thème (touche d)"
+          style={{
+            position: 'fixed',
+            top: 12,
+            right: 12,
+            padding: '6px 12px',
+            border: `1px solid ${COLORS.border}`,
+            borderRadius: 6,
+            background: 'transparent',
+            color: COLORS.muted,
+            font: '14px system-ui, sans-serif',
+            cursor: 'pointer',
+            opacity: 0.6,
+          }}
+        >
+          {theme === 'light' ? 'Thème sombre' : 'Thème clair'}
+        </button>
+      )}
     </div>
   );
 };
