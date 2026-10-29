@@ -1,5 +1,5 @@
 import { useCurrentFrame } from 'remotion';
-import { fadeUp } from '../components/animation';
+import { fadeUp, itemStart } from '../components/animation';
 import { SlideLayout } from '../components/SlideLayout';
 import { fr } from '../components/typography';
 import { COLORS } from '../theme';
@@ -35,14 +35,14 @@ export const SpeedFormulaSlide: React.FC = () => (
     kicker="Le matériel"
     title="Le réflexe à retenir"
     footer="Pour chaque token généré, la carte relit tous les poids utiles : un bon moteur atteint environ 80 % de ce plafond"
-    footerDelay={55}
+    footerDelay={itemStart(3)}
   >
     <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 48 }}>
-      <Term label="Bande passante mémoire" sub="ex. 1,6 To/s" delay={10} />
-      <Operator symbol="÷" delay={20} />
-      <Term label="Poids lus par token" sub="ex. 16 Go" delay={30} />
-      <Operator symbol="=" delay={40} />
-      <Term label="Plafond de vitesse" sub="~100 tokens/s, un utilisateur seul" delay={45} />
+      <Term label="Bande passante mémoire" sub="ex. 1,6 To/s" delay={itemStart(0)} />
+      <Operator symbol="÷" delay={itemStart(1)} />
+      <Term label="Poids lus par token" sub="ex. 16 Go" delay={itemStart(1) + 6} />
+      <Operator symbol="=" delay={itemStart(2)} />
+      <Term label="Plafond de vitesse" sub="~100 tokens/s, un utilisateur seul" delay={itemStart(2) + 6} />
     </div>
   </SlideLayout>
 );

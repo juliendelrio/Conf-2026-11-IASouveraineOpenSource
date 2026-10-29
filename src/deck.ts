@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { durationFor, statementDuration, TRIO_DURATION } from './components/templates';
+import { clicksBefore, framesFor } from './components/animation';
 import { ConfessionSlide } from './slides/ConfessionSlide';
 import { ConfessionCallbackSlide, FinalMessageSlide, LessonsSlide, ThanksSlide } from './slides/conclusion';
 import { EngineCycleSlide, EnginesTrioSlide, EngineWatchSlide, OurEnginesSlide } from './slides/engines';
@@ -41,62 +41,67 @@ export type Slide = {
   component: ComponentType;
   /** Length of the entrance animation; the last frame is the slide's resting state. */
   durationInFrames: number;
+  /**
+   * Frames where the presenter stops and waits for a click before playing on (see the click steps in
+   * src/components/animation.ts). Studio and the PPTX ignore them and show the whole animation.
+   */
+  pauses: number[];
 };
 
 // Order and numbering follow the slide outlines in docs/storyline.md
 export const SLIDES: Slide[] = [
   // 0. Opening
-  { id: 'title', component: TitleSlide, durationInFrames: 30 },
-  { id: 'confession', component: ConfessionSlide, durationInFrames: 75 },
-  { id: 'promise', component: PromiseSlide, durationInFrames: durationFor(4) },
-  { id: 'thread', component: ThreadSlide, durationInFrames: durationFor(5) },
+  { id: 'title', component: TitleSlide, durationInFrames: 30, pauses: [] },
+  { id: 'confession', component: ConfessionSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'promise', component: PromiseSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'thread', component: ThreadSlide, durationInFrames: framesFor(6), pauses: clicksBefore(1, 2, 3, 4, 5) },
   // 1. Glossary
-  { id: 'glossary-1', component: GlossaryOneSlide, durationInFrames: durationFor(5) },
-  { id: 'glossary-2', component: GlossaryTwoSlide, durationInFrames: durationFor(5) },
+  { id: 'glossary-1', component: GlossaryOneSlide, durationInFrames: framesFor(5), pauses: clicksBefore(1, 2, 3, 4) },
+  { id: 'glossary-2', component: GlossaryTwoSlide, durationInFrames: framesFor(5), pauses: clicksBefore(1, 2, 3, 4) },
   // 2. Models
-  { id: 'models-why', component: ModelsWhySlide, durationInFrames: durationFor(3) },
-  { id: 'august', component: AugustSlide, durationInFrames: durationFor(4) },
-  { id: 'categories', component: CategoriesSlide, durationInFrames: durationFor(4) },
-  { id: 'out-of-reach', component: OutOfReachSlide, durationInFrames: durationFor(4) },
-  { id: 'model-timeline', component: ModelTimelineSlide, durationInFrames: durationFor(5) },
-  { id: 'code-versions', component: CodeVersionsSlide, durationInFrames: durationFor(4) },
-  { id: 'august-models', component: AugustModelsSlide, durationInFrames: durationFor(5) },
-  { id: 'license', component: LicenseSlide, durationInFrames: durationFor(5) },
-  { id: 'models-trio', component: ModelsTrioSlide, durationInFrames: TRIO_DURATION },
+  { id: 'models-why', component: ModelsWhySlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'august', component: AugustSlide, durationInFrames: framesFor(5), pauses: clicksBefore(1, 2, 3, 4) },
+  { id: 'categories', component: CategoriesSlide, durationInFrames: framesFor(5), pauses: clicksBefore(1, 2, 3, 4) },
+  { id: 'out-of-reach', component: OutOfReachSlide, durationInFrames: framesFor(2), pauses: clicksBefore(1) },
+  { id: 'model-timeline', component: ModelTimelineSlide, durationInFrames: framesFor(6), pauses: clicksBefore(1, 2, 3, 4, 5) },
+  { id: 'code-versions', component: CodeVersionsSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'august-models', component: AugustModelsSlide, durationInFrames: framesFor(6), pauses: clicksBefore(3, 4, 5) },
+  { id: 'license', component: LicenseSlide, durationInFrames: framesFor(6), pauses: clicksBefore(1, 2, 3, 4, 5) },
+  { id: 'models-trio', component: ModelsTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   // 3. Hardware
-  { id: 'rent-first', component: RentFirstSlide, durationInFrames: durationFor(5) },
-  { id: 'five-questions', component: FiveQuestionsSlide, durationInFrames: durationFor(5) },
-  { id: 'speed-formula', component: SpeedFormulaSlide, durationInFrames: 80 },
-  { id: 'speed-ceiling', component: SpeedCeilingSlide, durationInFrames: 90 },
-  { id: 'moe', component: MoeSlide, durationInFrames: 95 },
-  { id: 'hardware-by-category', component: HardwareByCategorySlide, durationInFrames: 75 },
-  { id: 'two-approaches', component: TwoApproachesSlide, durationInFrames: durationFor(4) },
-  { id: 'hardware-trio', component: HardwareTrioSlide, durationInFrames: TRIO_DURATION },
+  { id: 'rent-first', component: RentFirstSlide, durationInFrames: framesFor(6), pauses: clicksBefore(2, 5) },
+  { id: 'five-questions', component: FiveQuestionsSlide, durationInFrames: framesFor(5), pauses: clicksBefore(1, 2, 3, 4) },
+  { id: 'speed-formula', component: SpeedFormulaSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'speed-ceiling', component: SpeedCeilingSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'moe', component: MoeSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'hardware-by-category', component: HardwareByCategorySlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'two-approaches', component: TwoApproachesSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'hardware-trio', component: HardwareTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   // 4. Engines
-  { id: 'our-engines', component: OurEnginesSlide, durationInFrames: durationFor(6) },
-  { id: 'engine-cycle', component: EngineCycleSlide, durationInFrames: durationFor(2) },
-  { id: 'engine-watch', component: EngineWatchSlide, durationInFrames: durationFor(3) },
-  { id: 'engines-trio', component: EnginesTrioSlide, durationInFrames: TRIO_DURATION },
+  { id: 'our-engines', component: OurEnginesSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'engine-cycle', component: EngineCycleSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'engine-watch', component: EngineWatchSlide, durationInFrames: framesFor(2), pauses: clicksBefore(1) },
+  { id: 'engines-trio', component: EnginesTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   // 5. Platform
-  { id: 'platform-path', component: PlatformPathSlide, durationInFrames: durationFor(3) },
-  { id: 'tokens', component: TokensSlide, durationInFrames: durationFor(4) },
-  { id: 'editions', component: EditionsSlide, durationInFrames: durationFor(4) },
-  { id: 'tiers', component: TiersSlide, durationInFrames: durationFor(3) },
-  { id: 'platform-trio', component: PlatformTrioSlide, durationInFrames: TRIO_DURATION },
+  { id: 'platform-path', component: PlatformPathSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'tokens', component: TokensSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'editions', component: EditionsSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'tiers', component: TiersSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'platform-trio', component: PlatformTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   // 6. Usages
-  { id: 'usage-types', component: UsageTypesSlide, durationInFrames: durationFor(3) },
-  { id: 'internal-chat', component: InternalChatSlide, durationInFrames: durationFor(4) },
-  { id: 'chat-trio', component: ChatTrioSlide, durationInFrames: TRIO_DURATION },
-  { id: 'dev-levers', component: DevLeversSlide, durationInFrames: durationFor(3) },
-  { id: 'harness', component: HarnessSlide, durationInFrames: durationFor(4) },
-  { id: 'two-harnesses', component: TwoHarnessesSlide, durationInFrames: durationFor(4) },
-  { id: 'vision', component: VisionSlide, durationInFrames: durationFor(4) },
-  { id: 'dev-trio', component: DevTrioSlide, durationInFrames: TRIO_DURATION },
-  { id: 'integrations', component: IntegrationsSlide, durationInFrames: durationFor(3) },
-  { id: 'integrations-trio', component: IntegrationsTrioSlide, durationInFrames: TRIO_DURATION },
+  { id: 'usage-types', component: UsageTypesSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'internal-chat', component: InternalChatSlide, durationInFrames: framesFor(2), pauses: clicksBefore(1) },
+  { id: 'chat-trio', component: ChatTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'dev-levers', component: DevLeversSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'harness', component: HarnessSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'two-harnesses', component: TwoHarnessesSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'vision', component: VisionSlide, durationInFrames: framesFor(2), pauses: clicksBefore(1) },
+  { id: 'dev-trio', component: DevTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'integrations', component: IntegrationsSlide, durationInFrames: framesFor(4), pauses: clicksBefore(1, 2, 3) },
+  { id: 'integrations-trio', component: IntegrationsTrioSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
   // 7. Conclusion
-  { id: 'lessons', component: LessonsSlide, durationInFrames: durationFor(7) },
-  { id: 'confession-callback', component: ConfessionCallbackSlide, durationInFrames: statementDuration(3) },
-  { id: 'final-message', component: FinalMessageSlide, durationInFrames: statementDuration(3) },
-  { id: 'thanks', component: ThanksSlide, durationInFrames: 70 },
+  { id: 'lessons', component: LessonsSlide, durationInFrames: framesFor(7), pauses: clicksBefore(1, 2, 3, 4, 5, 6) },
+  { id: 'confession-callback', component: ConfessionCallbackSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'final-message', component: FinalMessageSlide, durationInFrames: framesFor(3), pauses: clicksBefore(1, 2) },
+  { id: 'thanks', component: ThanksSlide, durationInFrames: framesFor(3), pauses: [] },
 ];

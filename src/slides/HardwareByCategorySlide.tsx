@@ -1,5 +1,5 @@
 import { useCurrentFrame } from 'remotion';
-import { fadeUp } from '../components/animation';
+import { fadeUp, itemStart } from '../components/animation';
 import { Badge } from '../components/Badge';
 import { SlideLayout } from '../components/SlideLayout';
 import { COLORS } from '../theme';
@@ -65,7 +65,7 @@ export const HardwareByCategorySlide: React.FC = () => {
           textTransform: 'uppercase',
           letterSpacing: 2,
           borderBottom: `2px solid ${COLORS.border}`,
-          ...fadeUp(frame, 8),
+          ...fadeUp(frame, itemStart(0) - 4),
         }}
       >
         <div style={{ padding: '0 20px 16px' }}>Catégorie</div>
@@ -82,7 +82,7 @@ export const HardwareByCategorySlide: React.FC = () => {
             gridTemplateColumns: COLUMNS,
             alignItems: 'center',
             borderBottom: `1px solid ${COLORS.border}`,
-            ...fadeUp(frame, 18 + index * 10),
+            ...fadeUp(frame, itemStart(index)),
           }}
         >
           <div style={{ ...cellStyle, fontWeight: 700 }}>{row.category}</div>

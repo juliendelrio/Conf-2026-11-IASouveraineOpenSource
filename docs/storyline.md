@@ -39,7 +39,7 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 | # | Slide | Contenu |
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
-| 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Et globalement, je recommande. » |
+| 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
 | 0.3 | La promesse | Une IA 100 % souveraine, dès maintenant. Budget : 50 à 70 k€ en interne, ou 2 à 5 k€ par mois en location |
 | 0.4 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 

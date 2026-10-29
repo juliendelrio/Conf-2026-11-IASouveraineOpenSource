@@ -1,6 +1,6 @@
 // Chapter 7: conclusion
 import { useCurrentFrame } from 'remotion';
-import { fadeUp } from '../components/animation';
+import { fadeUp, itemStart } from '../components/animation';
 import { SlideLayout } from '../components/SlideLayout';
 import { StatementSlide, TableSlide } from '../components/templates';
 import { fr } from '../components/typography';
@@ -66,13 +66,13 @@ export const ThanksSlide: React.FC = () => {
     <SlideLayout kicker={KICKER} title="Merci ! Des questions ?">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 30, marginTop: 20 }}>
         {LINKS.map((link, index) => (
-          <div key={link.label} style={{ display: 'grid', gridTemplateColumns: '300px 1fr', fontSize: 40, ...fadeUp(frame, 10 + index * 10) }}>
+          <div key={link.label} style={{ display: 'grid', gridTemplateColumns: '300px 1fr', fontSize: 40, ...fadeUp(frame, 10 + index * 8) }}>
             <span style={{ color: COLORS.muted }}>{fr(link.label)}</span>
             <span style={{ fontWeight: 600, color: COLORS.accent }}>{link.url}</span>
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 36, marginTop: 'auto', ...fadeUp(frame, 55) }}>Julien Del Rio · Capitole du Libre 2026</p>
+      <p style={{ fontSize: 36, marginTop: 'auto', ...fadeUp(frame, itemStart(2)) }}>Julien Del Rio · Capitole du Libre 2026</p>
     </SlideLayout>
   );
 };

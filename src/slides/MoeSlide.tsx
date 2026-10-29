@@ -1,5 +1,5 @@
 import { useCurrentFrame } from 'remotion';
-import { fadeUp, progress } from '../components/animation';
+import { fadeUp, itemStart, progress } from '../components/animation';
 import { Badge } from '../components/Badge';
 import { SlideLayout } from '../components/SlideLayout';
 import { fr } from '../components/typography';
@@ -23,7 +23,7 @@ const BarGroup: React.FC<{ title: string; bars: Bar[]; delay: number; children?:
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 20 }}>
         {bars.map((bar, index) => {
-          const grow = progress(frame, delay + 5 + index * 6, 25);
+          const grow = progress(frame, delay + 4 + index * 4, 18);
           return (
             <div key={bar.label} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
               <div style={{ width: 360, fontSize: 32, textAlign: 'right' }}>{fr(bar.label)}</div>
@@ -63,12 +63,12 @@ export const MoeSlide: React.FC = () => {
         { kind: 'extrapolated', label: 'H100 extrapolé' },
       ]}
       footer="Le Flash-Next va plus vite que le 27B, mais il faut pouvoir le loger en entier : la mémoire compte autant que la vitesse"
-      footerDelay={70}
+      footerDelay={itemStart(3)}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 44 }}>
         <BarGroup
           title="Lu à chaque token : la vitesse"
-          delay={10}
+          delay={itemStart(0)}
           bars={[
             { label: 'Qwen3.8-27B (4 bits)', value: 16, unit: 'Go' },
             { label: 'Qwen3.8-Flash-Next', value: 6, unit: 'Go', note: 'seuls les paramètres actifs', highlight: true },
@@ -76,14 +76,14 @@ export const MoeSlide: React.FC = () => {
         />
         <BarGroup
           title="À loger en mémoire : la capacité"
-          delay={35}
+          delay={itemStart(1)}
           bars={[
             { label: 'Qwen3.8-Flash-Next', value: 186, unit: 'Go', highlight: true },
             { label: '2 RTX PRO 6000', value: 192, unit: 'Go', note: 'ça tient' },
             { label: '2 H100', value: 160, unit: 'Go', note: 'ça ne tient pas' },
           ]}
         />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 30, ...fadeUp(frame, 60) }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 30, ...fadeUp(frame, itemStart(2)) }}>
           <Badge kind="tested">Mesuré</Badge>
           {fr('~200 tok/s sur 2 RTX PRO 6000 avec un utilisateur, ~127 tok/s par requête en production')}
         </div>

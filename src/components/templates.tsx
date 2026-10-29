@@ -1,7 +1,7 @@
 // Reusable slide templates: each slide in src/slides/ is a small component passing its content to one of these.
-import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { COLORS, FONT_FAMILY } from '../theme';
-import { fadeUp, progress } from './animation';
+import { BODY_START, fadeUp, itemStart, progress } from './animation';
 import { Badge, type Status } from './Badge';
 import { SlideLayout } from './SlideLayout';
 import { fr } from './typography';
@@ -13,14 +13,8 @@ type Common = {
   footer?: string;
 };
 
-const ITEM_DELAY = 10;
-const BODY_START = 10;
-
-/** Frame at which the footer enters, once `count` items are in. */
-const footerDelayAfter = (count: number) => BODY_START + count * ITEM_DELAY + 10;
-
-/** Frames needed for a template with `count` staggered items (and a footer) to reach its resting state. */
-export const durationFor = (count: number) => footerDelayAfter(count) + 25;
+// Every template numbers its body groups from 0 (see the click steps in animation.ts):
+// item, row, step, card or term `i` is group `i`, and the footer is the group right after the last one.
 
 // --- Bullets -----------------------------------------------------------------
 
@@ -32,12 +26,12 @@ export const BulletsSlide: React.FC<BulletsSlideProps> = ({ items, ...common }) 
   const frame = useCurrentFrame();
 
   return (
-    <SlideLayout {...common} footerDelay={footerDelayAfter(items.length)}>
+    <SlideLayout {...common} footerDelay={itemStart(items.length)}>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 30 }}>
         {items.map((item, index) => (
           <li
             key={item}
-            style={{ display: 'flex', gap: 28, fontSize: 40, lineHeight: 1.3, ...fadeUp(frame, BODY_START + index * ITEM_DELAY) }}
+            style={{ display: 'flex', gap: 28, fontSize: 40, lineHeight: 1.3, ...fadeUp(frame, itemStart(index)) }}
           >
             <span style={{ flex: 'none', width: 14, height: 14, marginTop: 20, borderRadius: 3, backgroundColor: COLORS.accent }} />
             <span>{fr(item)}</span>
@@ -79,7 +73,7 @@ export const TableSlide: React.FC<TableSlideProps> = ({ columns, widths, rows, f
     );
 
   return (
-    <SlideLayout {...common} footerDelay={footerDelayAfter(rows.length)}>
+    <SlideLayout {...common} footerDelay={itemStart(rows.length)}>
       <div
         style={{
           display: 'grid',
@@ -108,7 +102,7 @@ export const TableSlide: React.FC<TableSlideProps> = ({ columns, widths, rows, f
             alignItems: 'center',
             borderBottom: `1px solid ${COLORS.border}`,
             backgroundColor: rowIndex === highlightRow ? COLORS.surface : undefined,
-            ...fadeUp(frame, BODY_START + rowIndex * ITEM_DELAY),
+            ...fadeUp(frame, itemStart(rowIndex)),
           }}
         >
           {row.map((cell, cellIndex) => (
@@ -140,7 +134,7 @@ export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, 
   const marker = 56;
 
   return (
-    <SlideLayout {...common} footerDelay={footerDelayAfter(steps.length)}>
+    <SlideLayout {...common} footerDelay={itemStart(steps.length)}>
       <div style={{ position: 'relative', marginTop: 60 }}>
         <div
           style={{
@@ -148,13 +142,18 @@ export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, 
             top: marker / 2 - 2,
             left: 0,
             height: 4,
-            width: `${progress(frame, BODY_START, steps.length * ITEM_DELAY) * 100}%`,
+            // Linear from the first marker to the last one: it reaches each marker as that step enters,
+            // and waits there during a click pause
+            width: `${interpolate(frame, [itemStart(1), itemStart(steps.length)], [0, ((steps.length - 1) / steps.length) * 100], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })}%`,
             backgroundColor: COLORS.border,
           }}
         />
         <div style={{ display: 'flex', gap: 40 }}>
           {steps.map((step, index) => (
-            <div key={step.label} style={{ flex: 1, ...fadeUp(frame, BODY_START + index * ITEM_DELAY) }}>
+            <div key={step.label} style={{ flex: 1, ...fadeUp(frame, itemStart(index)) }}>
               <div
                 style={{
                   position: 'relative',
@@ -214,7 +213,7 @@ export const CompareSlide: React.FC<CompareSlideProps> = ({ cards, ...common }) 
   const frame = useCurrentFrame();
 
   return (
-    <SlideLayout {...common} footerDelay={footerDelayAfter(cards.length * 2)}>
+    <SlideLayout {...common} footerDelay={itemStart(cards.length)}>
       <div style={{ display: 'flex', gap: 40, alignItems: 'stretch' }}>
         {cards.map((card, index) => (
           <div
@@ -225,7 +224,7 @@ export const CompareSlide: React.FC<CompareSlideProps> = ({ cards, ...common }) 
               borderRadius: 16,
               backgroundColor: COLORS.surface,
               border: `3px solid ${card.highlight ? COLORS.accent : 'transparent'}`,
-              ...fadeUp(frame, BODY_START + index * ITEM_DELAY * 2),
+              ...fadeUp(frame, itemStart(index)),
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
@@ -267,7 +266,7 @@ export const KeyFigureSlide: React.FC<KeyFigureSlideProps> = ({ figure, caption,
   const frame = useCurrentFrame();
 
   return (
-    <SlideLayout {...common} footerDelay={footerDelayAfter(3)}>
+    <SlideLayout {...common} footerDelay={itemStart(1)}>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div
           style={{
@@ -282,7 +281,7 @@ export const KeyFigureSlide: React.FC<KeyFigureSlideProps> = ({ figure, caption,
         >
           {fr(figure)}
         </div>
-        <div style={{ fontSize: 44, marginTop: 32, lineHeight: 1.3, ...fadeUp(frame, BODY_START + 15) }}>{fr(caption)}</div>
+        <div style={{ fontSize: 44, marginTop: 32, lineHeight: 1.3, ...fadeUp(frame, BODY_START + 10) }}>{fr(caption)}</div>
       </div>
     </SlideLayout>
   );
@@ -320,7 +319,7 @@ export const TrioSlide: React.FC<TrioSlideProps> = ({ kicker, goal, pitfall, les
               borderRadius: 16,
               backgroundColor: part.highlight ? COLORS.accent : COLORS.surface,
               color: part.highlight ? COLORS.background : COLORS.foreground,
-              ...fadeUp(frame, BODY_START + index * 15),
+              ...fadeUp(frame, itemStart(index)),
             }}
           >
             <span style={{ fontSize: 30, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2 }}>{fr(part.label)}</span>
@@ -332,7 +331,6 @@ export const TrioSlide: React.FC<TrioSlideProps> = ({ kicker, goal, pitfall, les
   );
 };
 
-export const TRIO_DURATION = BODY_START + 2 * 15 + 25;
 
 // --- Statement (full-screen sentences) -------------------------------------------
 
@@ -378,7 +376,7 @@ export const StatementSlide: React.FC<StatementSlideProps> = ({ kicker, lines })
             color: line.emphasis ? COLORS.accent : COLORS.foreground,
             lineHeight: 1.25,
             margin: index === 0 ? 0 : '40px 0 0',
-            ...fadeUp(frame, 8 + index * 18),
+            ...fadeUp(frame, itemStart(index)),
           }}
         >
           {fr(line.text)}
@@ -388,7 +386,6 @@ export const StatementSlide: React.FC<StatementSlideProps> = ({ kicker, lines })
   );
 };
 
-export const statementDuration = (lines: number) => 8 + (lines - 1) * 18 + 25;
 
 // --- Glossary ------------------------------------------------------------------
 
@@ -412,7 +409,7 @@ export const GlossarySlide: React.FC<GlossarySlideProps> = ({ terms, ...common }
               alignItems: 'baseline',
               paddingBottom: 22,
               borderBottom: `1px solid ${COLORS.border}`,
-              ...fadeUp(frame, BODY_START + index * ITEM_DELAY),
+              ...fadeUp(frame, itemStart(index)),
             }}
           >
             <span style={{ fontSize: 40, fontWeight: 700, color: COLORS.accent }}>{fr(item.term)}</span>

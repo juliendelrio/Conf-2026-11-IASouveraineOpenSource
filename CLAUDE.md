@@ -54,6 +54,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 ## Conventions
 
 - Each slide's `durationInFrames` is its entrance animation length; **the last frame must be the complete resting state** (it is what the PPTX shows and where the player stops).
+- **Click steps**: a slide's body is split into groups entering `ITEM_DELAY` frames apart (`itemStart(i)` in `src/components/animation.ts`); `pauses: clicksBefore(...)` in `src/deck.ts` makes the presenter wait for a click before those groups. A group's own animation must fit within `ITEM_DELAY`. Document each slide's progression in `docs/slides.md`.
 - Animations must be driven by `useCurrentFrame()` / `interpolate()` / `spring()` only, never CSS transitions or timers, so renders are deterministic.
 - Keep assets local (`public/`, `staticFile()`), no runtime CDN: the talk must work offline.
 - After changing slides, check both outputs: `npm run build` and `npm run pptx` (then look at the stills).
