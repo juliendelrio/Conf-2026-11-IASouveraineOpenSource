@@ -35,6 +35,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 ## Layout
 
 - `docs/storyline.md` — narrative arc, chapter timing, glossary, annex (material kept for Q&A)
+- `docs/slides.md` — per slide, in deck order: what is shown, what to say, extra facts for Q&A. **Update it whenever a slide is added, removed, reordered or reworded**
 - `src/deck.ts` — ordered list of slides: single source of truth for the presenter, the Remotion Studio and the PPTX
 - `src/slides/` — one component per slide, grouped by chapter (`models.tsx`, `hardware.tsx`…); custom visuals get their own file
 - `src/components/` — `SlideLayout`, `Badge` (tested / extrapolated), slide templates (`templates.tsx`: bullets, table, steps, cards, key figure, goal-pitfall-lesson, statement, glossary) and `fr()` for French typography
