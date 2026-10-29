@@ -75,7 +75,7 @@ Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 
 
 | Catégorie | Pour quoi faire | Modèles | Testé chez nous |
 |---|---|---|---|
-| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés : limités, c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 _à confirmer_ |
+| 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés : limités, c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement |
 | 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B | Oui |
 | 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 | Non (accessibles au palier 2) |
