@@ -67,9 +67,18 @@ const store = (key: string, value: string) => {
   }
 };
 
+// URL parameters force a choice for that address, over the remembered one, without changing it:
+// ?theme=clair|sombre and ?navigation=clic|slide
+const readUrlParam = (name: string) => new URLSearchParams(window.location.search).get(name);
+
+const URL_THEMES: Record<string, ThemeName> = { clair: 'light', sombre: 'dark' };
+const URL_MODES: Record<string, NavigationMode> = { clic: 'click', slide: 'slide' };
+
 // Light theme and navigation by click by default
-export const readStoredTheme = (): ThemeName => (readStored(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light');
+export const readInitialTheme = (): ThemeName =>
+  URL_THEMES[readUrlParam('theme') ?? ''] ?? (readStored(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light');
 export const storeTheme = (theme: ThemeName) => store(THEME_STORAGE_KEY, theme);
 
-export const readStoredMode = (): NavigationMode => (readStored(MODE_STORAGE_KEY) === 'slide' ? 'slide' : 'click');
+export const readInitialMode = (): NavigationMode =>
+  URL_MODES[readUrlParam('navigation') ?? ''] ?? (readStored(MODE_STORAGE_KEY) === 'slide' ? 'slide' : 'click');
 export const storeMode = (mode: NavigationMode) => store(MODE_STORAGE_KEY, mode);

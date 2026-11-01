@@ -9,8 +9,8 @@ import {
   nextPosition,
   type Position,
   previousPosition,
-  readStoredMode,
-  readStoredTheme,
+  readInitialMode,
+  readInitialTheme,
   storeMode,
   storeTheme,
 } from './deck-state';
@@ -33,9 +33,9 @@ type UseDeckOptions = {
 /** Position, theme, navigation mode, keyboard navigation and sync with the other window. */
 export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
   // The starting position is marked remote so it isn't broadcast: a window that opens takes the other one's position
-  const [mode, setMode] = useState(readStoredMode);
+  const [mode, setMode] = useState(readInitialMode);
   const [position, setPosition] = useState<Position>(() => ({ ...initialPosition(mode), remote: true }));
-  const [theme, setTheme] = useState(readStoredTheme);
+  const [theme, setTheme] = useState(readInitialTheme);
   const channel = useRef<BroadcastChannel | null>(null);
   const latest = useRef({ position, theme, mode });
   latest.current = { position, theme, mode };

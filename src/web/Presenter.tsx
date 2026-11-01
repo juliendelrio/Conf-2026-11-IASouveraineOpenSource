@@ -6,8 +6,12 @@ import { SlidePlayer } from './SlidePlayer';
 import { useDeck } from './useDeck';
 
 /** Opens the speaker view in its own window, on the same slide; both windows then stay in step. */
-export const openSpeakerView = () =>
-  window.open(`${window.location.pathname}?vue=orateur${window.location.hash}`, 'slides-orateur', 'popup,width=1400,height=900');
+export const openSpeakerView = () => {
+  // Keep the other URL parameters (forced theme or navigation)
+  const params = new URLSearchParams(window.location.search);
+  params.set('vue', 'orateur');
+  window.open(`${window.location.pathname}?${params}${window.location.hash}`, 'slides-orateur', 'popup,width=1400,height=900');
+};
 
 const ControlButton: React.FC<{ onClick: () => void; title: string; children: React.ReactNode }> = ({ onClick, title, children }) => (
   <button
