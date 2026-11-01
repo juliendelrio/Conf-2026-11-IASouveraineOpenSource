@@ -70,13 +70,13 @@ const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 // The speaker view (?vue=orateur): current slide, what the next click shows, notes, timer and clock
 export const SpeakerView: React.FC = () => {
-  const { position, theme, forward, backward, toggleTheme } = useDeck({ onKey: (key) => key === 'p' });
+  const { position, theme, mode, forward, backward, toggleTheme, toggleMode } = useDeck({ onKey: (key) => key === 'p' });
   const [moved, setMoved] = useState(false);
   const timer = useTimer(moved);
 
   const slide = SLIDES[position.slide];
   const steps = lastStep(position.slide);
-  const next = nextPosition(position);
+  const next = nextPosition(position, mode);
   const isLast = next.slide === position.slide && next.step === position.step;
   const nextSlide = SLIDES[next.slide];
 
@@ -127,6 +127,9 @@ export const SpeakerView: React.FC = () => {
         </button>
         <button type="button" tabIndex={-1} style={buttonStyle} onClick={forward} title="Flèche droite">
           ▶
+        </button>
+        <button type="button" tabIndex={-1} style={buttonStyle} onClick={toggleMode} title="Touche c">
+          {mode === 'click' ? 'Par clic' : 'Par slide'}
         </button>
         <button type="button" tabIndex={-1} style={buttonStyle} onClick={toggleTheme} title="Touche d">
           {theme === 'light' ? 'Thème sombre' : 'Thème clair'}

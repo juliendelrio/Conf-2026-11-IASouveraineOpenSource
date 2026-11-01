@@ -9,6 +9,31 @@ import { useDeck } from './useDeck';
 export const openSpeakerView = () =>
   window.open(`${window.location.pathname}?vue=orateur${window.location.hash}`, 'slides-orateur', 'popup,width=1400,height=900');
 
+const ControlButton: React.FC<{ onClick: () => void; title: string; children: React.ReactNode }> = ({ onClick, title, children }) => (
+  <button
+    type="button"
+    // Out of the tab order so Space and Enter keep moving slides instead of clicking the button
+    tabIndex={-1}
+    onClick={(event) => {
+      // Don't let the click reach the slide area, which would advance the presentation
+      event.stopPropagation();
+      onClick();
+    }}
+    title={title}
+    style={{
+      padding: '6px 12px',
+      border: `1px solid ${COLORS.border}`,
+      borderRadius: 6,
+      background: 'transparent',
+      color: COLORS.muted,
+      font: '14px system-ui, sans-serif',
+      cursor: 'pointer',
+    }}
+  >
+    {children}
+  </button>
+);
+
 // The audience view: the slide alone, full window
 export const Presenter: React.FC = () => {
   const onKey = useCallback((key: string) => {
@@ -16,7 +41,7 @@ export const Presenter: React.FC = () => {
     openSpeakerView();
     return true;
   }, []);
-  const { position, theme, forward, toggleTheme } = useDeck({ onKey });
+  const { position, theme, mode, forward, toggleTheme, toggleMode } = useDeck({ onKey });
   const slide = SLIDES[position.slide];
 
   return (
@@ -32,34 +57,16 @@ export const Presenter: React.FC = () => {
       }}
     >
       <SlidePlayer key={slide.id} slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
-      {/* Theme button on the title slide only, to keep the other slides clean; the d key works everywhere */}
+      {/* Theme and navigation switches on the title slide only, to keep the other slides clean; d and c work everywhere */}
       {position.slide === 0 && (
-        <button
-          type="button"
-          // Out of the tab order so Space and Enter keep moving slides instead of clicking the button
-          tabIndex={-1}
-          onClick={(event) => {
-            // Don't let the click reach the slide area, which would advance the presentation
-            event.stopPropagation();
-            toggleTheme();
-          }}
-          title="Changer de thème (touche d)"
-          style={{
-            position: 'fixed',
-            top: 12,
-            right: 12,
-            padding: '6px 12px',
-            border: `1px solid ${COLORS.border}`,
-            borderRadius: 6,
-            background: 'transparent',
-            color: COLORS.muted,
-            font: '14px system-ui, sans-serif',
-            cursor: 'pointer',
-            opacity: 0.6,
-          }}
-        >
-          {theme === 'light' ? 'Thème sombre' : 'Thème clair'}
-        </button>
+        <div style={{ position: 'fixed', top: 12, right: 12, display: 'flex', gap: 8, opacity: 0.6 }}>
+          <ControlButton onClick={toggleMode} title="Avancer clic par clic ou slide par slide (touche c)">
+            {mode === 'click' ? 'Navigation : par clic' : 'Navigation : par slide'}
+          </ControlButton>
+          <ControlButton onClick={toggleTheme} title="Changer de thème (touche d)">
+            {theme === 'light' ? 'Thème sombre' : 'Thème clair'}
+          </ControlButton>
+        </div>
       )}
     </div>
   );
