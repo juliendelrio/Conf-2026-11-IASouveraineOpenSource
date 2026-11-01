@@ -64,7 +64,7 @@ pied : Catégorie 4 : plus d'un million d'euros. Les trois autres : moins de 100
 
 | Catégorie | Pour quoi faire | Modèles | Chez nous |
 |---|---|---|---|
-| 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: En partie} |
+| 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: Testé} |
 | 2. Milieu de gamme | Un généraliste sur une seule carte | Qwen3.8-27B | {testé: Testé} |
 | 3. Le cap d'août | Tâches générales, codage compris | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
@@ -79,7 +79,7 @@ on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 n'
 
 #### Compléments
 
-- Catégorie 1, ce qu'on a testé : Qwen 35B ; Gemma 4 et gpt-oss-20b, limités, et c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement
+- Catégorie 1 testée en tant que catégorie, pas chaque modèle. Ce qu'on a testé : Qwen 35B ; Gemma 4 et gpt-oss-20b, limités, et c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement
 - Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 ne tiennent qu'en 4 bits ; sur une L40S (48 Go), en 8 bits
 - Mistral Large 4 : publication prévue fin octobre 2026, pas encore sortie au 29/10. Référence en attendant : Mistral-Large-3-675B (~682 Go). Vérifier avant le 14 novembre
 - Tailles (Hugging Face, 17/10/2026) : Qwen3.5-9B ~19 Go, gpt-oss-20b ~14 Go, Mistral Small 3.2 ~48 Go, Qwen3.6-35B-A3B ~72 Go
