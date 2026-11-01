@@ -219,7 +219,7 @@ Flash-Next a aussi 51B d'embeddings n-gram et 4B de MTP (décodage spéculatif i
 type : liste
 rubrique : Les modèles
 titre : Open weights ≠ open source
-pied : On lit la licence avant de choisir un modèle, comme pour toute dépendance (ce n'est pas un avis juridique)
+pied : On lit la licence avant de choisir un modèle, comme pour toute dépendance
 - Qwen était sous Apache 2.0 : 3.5, 3.6, et encore le 3.8-27B
 - Flash-Next passe à une licence maison, « Qwen Community 1.0 »
 - Usage interne libre, tant que rien n’est mis à disposition de tiers
