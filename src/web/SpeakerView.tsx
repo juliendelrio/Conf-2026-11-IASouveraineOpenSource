@@ -140,7 +140,10 @@ export const SpeakerView: React.FC = () => {
         <section style={{ minHeight: 0 }}>
           <Label>En cours</Label>
           <div onClick={forward} style={{ ...themeVariables(theme), aspectRatio: '16 / 9', width: '100%', cursor: 'pointer' }}>
-            <SlidePlayer key={slide.id} slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
+            {/* By slide, no animation inside the slide: the whole slide fades in instead */}
+            <div key={slide.id} className={mode === 'slide' ? 'slide-in' : undefined} style={{ width: '100%', height: '100%' }}>
+              <SlidePlayer slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
+            </div>
           </div>
         </section>
 

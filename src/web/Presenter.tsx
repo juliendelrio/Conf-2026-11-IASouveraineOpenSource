@@ -60,7 +60,10 @@ export const Presenter: React.FC = () => {
         backgroundColor: COLORS.background,
       }}
     >
-      <SlidePlayer key={slide.id} slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
+      {/* By slide, no animation inside the slide: the whole slide fades in instead */}
+      <div key={slide.id} className={mode === 'slide' ? 'slide-in' : undefined} style={{ width: '100%', height: '100%' }}>
+        <SlidePlayer slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
+      </div>
       {/* Theme and navigation switches on the title slide only, to keep the other slides clean; d and c work everywhere */}
       {position.slide === 0 && (
         <div style={{ position: 'fixed', top: 12, right: 12, display: 'flex', gap: 8, opacity: 0.6 }}>
