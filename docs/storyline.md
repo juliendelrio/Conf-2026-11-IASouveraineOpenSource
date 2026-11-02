@@ -40,7 +40,7 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
-| 0.3 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget pour la catégorie 3 : 50 à 70 k€ en interne, ou 4 à 9 k€ par mois en location |
+| 0.3 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
 | 0.4 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :
@@ -52,7 +52,7 @@ Le titre parle d'une IA 100 % souveraine, avec des outils open source… et tout
 **Les ordres de grandeur du budget** :
 
 - En interne : entre 50 et 70 k€ d'investissement
-- En location chez OVH ou Scaleway : entre 4 et 9 k€ par mois pour la catégorie 3 (de 2 × H100 à 4 × H100, extrapolé)
+- En location chez OVH ou Scaleway : de 500 – 600 € par mois (une L4, stack RAG ou transcription) et 1 000 – 1 100 € (une L40S, Qwen3.8-27B) à 3 900 – 9 300 € (l'équivalent de 2 RTX PRO 6000 pour Flash-Next : 2 à 4 × H100, extrapolé)
 
 On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses très bien avec ces cartes : c'est justement le sujet du talk.
 
@@ -694,7 +694,7 @@ Le titre et plusieurs formulations ont été atténués avant le talk (positionn
 
 - **Titre** : « Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain » (encore celui du programme du Capitole du Libre)
 - **L'aveu** (slide 2) : « Un talk sur l'IA souveraine 100 % open source… »
-- **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
+- **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois (puis 4 – 9 k€ / mois, ramené à la seule catégorie 3, avant de couvrir de la L4 à Flash-Next) ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
 - **Quatre catégories** (slide 9) : pied « Catégorie 4 : plus d'un million d'euros » ; à l'oral « pas accessible sans un investissement de plus d'un million d'euros »
 - **Licence** (slide 14) : « Et Qwen 4, attendu dans quelques semaines ? » ; à l'oral « Pour une plateforme interne ça passe » ; pied « (ce n'est pas un avis juridique) », passé à l'oral
 - **Leçon des modèles** (slides 15 et 43) : « l'obsolescence des GPU est compensée par les progrès des modèles » ; à l'oral « le même matériel fait tourner des modèles de plus en plus capables »

@@ -40,15 +40,19 @@ la conclusion explique pourquoi ce n'est pas contradictoire (Claude = palier 3)
 type : cartes
 rubrique : La promesse
 titre : Une IA 100 % souveraine, c'est possible dès maintenant
-pied : Pour les modèles d'août, sur 2 cartes : pas le très haut de gamme, mais on fait déjà des choses très bien
+pied : Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk
 
 ### En interne
 valeur : 50 – 70 k€
 légende : d'investissement
+- 2 RTX PRO 6000 : de quoi faire tourner Flash-Next
 
 ### En location
-valeur : 4 – 9 k€ / mois
+valeur : 0,5 – 9 k€ / mois
 légende : chez OVH ou Scaleway
+- Une L4 : une stack RAG ou de transcription
+- Une L40S : Qwen3.8-27B
+- L'équivalent de 2 RTX PRO 6000 : Flash-Next
 
 #### Progression
 
@@ -56,11 +60,11 @@ arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; cli
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ, pour la catégorie 3 (slide 9)
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription, une L40S fait tourner le 27B ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000
 
 #### Compléments
 
-le détail par catégorie de modèles est à la slide 21. Location de la catégorie 3 : de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
+le détail par catégorie de modèles est à la slide 21. Location : L4 500 – 600 €, L40S 1 000 – 1 100 € ; pas de RTX PRO 6000 au catalogue d'OVH ni de Scaleway, l'équivalent pour Flash-Next va de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
 
 ## thread
 type : étapes
