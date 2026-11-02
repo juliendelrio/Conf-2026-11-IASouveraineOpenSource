@@ -35,21 +35,22 @@ rubrique : La plateforme
 titre : Le cœur : les jetons et leur suivi
 badges : {testé: Testé}
 - Des droits fins sur les modèles : par équipe, par utilisateur, par clé d’API
-- Un suivi natif de la consommation
-- OpenTelemetry pour aller plus loin dans les métriques
+- Des budgets et des quotas par équipe et par clé
+- Un suivi natif de la consommation, et OpenTelemetry pour aller plus loin
 - Autour : une centaine de types d’API en entrée, une quarantaine de formats en sortie
 
 #### Progression
 
-arrivée : les droits fins ; clics 1 à 3 : le suivi natif, OpenTelemetry, les API en entrée et en sortie
+arrivée : les droits fins ; clics 1 à 3 : budgets et quotas, le suivi et OpenTelemetry, les API en entrée et en sortie
 
 #### À l'oral
 
-le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le nombre d'API vient en second
+le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le nombre d'API vient en second. La facturation : le suivi par équipe donne la base d'une refacturation ; la refacturation intégrée relève de l'édition entreprise (slide suivante)
 
 #### Compléments
 
-le chiffre d'une quarantaine de formats en sortie est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
+- Le chiffre d'une quarantaine de formats en sortie est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
+- Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
 ## editions
 type : cartes
@@ -109,7 +110,43 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 40 et 44)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 40 et 45)
+
+## data-rules
+type : étapes
+rubrique : La plateforme
+titre : Les données : la PSSI décide
+numérotées : non
+pied : La passerelle permet d'appliquer la règle : qui envoie quelles données à quel palier
+
+### 100 % maîtrisé, en local
+texte : Nos cartes
+détail : Palier 1
+surligné : oui
+
+### 100 % maîtrisé, en dédié externe
+texte : Des GPU loués en France
+détail : Palier 2
+
+### 100 % français, mutualisé
+texte : Les API des hébergeurs français
+détail : Palier 2
+
+### Cloud hors France et UE
+texte : Seulement quand il le faut
+détail : Palier 3
+
+#### Progression
+
+arrivée : 100 % maîtrisé en local ; clics 1 à 3 : en dédié externe, français mutualisé, hors France et UE ; clic 4 : le pied de slide
+
+#### À l'oral
+
+le tout-cloud expose les données à un tiers. La règle des données n'est pas technique : c'est la PSSI de l'entreprise qui décide, entre ces quatre niveaux, ce qui peut aller où. La passerelle permet ensuite de l'appliquer
+
+#### Compléments
+
+PSSI : la politique de sécurité des systèmes d'information de l'entreprise
 
 ## platform-trio
 type : trio

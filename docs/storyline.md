@@ -164,7 +164,8 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
 | 3 | Communautaire ou entreprise | La version communautaire, très permissive, suffit en interne. Pour une offre aux clients, l'entreprise apporte organisations, monitoring plus fin, refacturation, SSO | Communautaire testée ; entreprise d'après la doc |
 | 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
-| 5 | Objectif, piège, leçon | Voir ci-dessous | |
+| 5 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
+| 6 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -199,7 +200,6 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 
 | # | Slide | Contenu |
 |---|---|---|
-| 6b.1 | Deux leviers | Avant août, la capacité minimale des modèles coinçait. DeepSeek-V4-Flash-0731, premier levier ; Qwen3.8-Flash-Next, second : un palier net |
 | 6b.2 | Le harness, un vrai levier | Le harness (outils, skills, prompts système) pousse le modèle. Quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu ; l'électricité consommée en plus reste négligeable sur l'ensemble |
 | 6b.3 | Deux harness open source | Pour s'adapter aux limites de chacun : OpenCode (MIT) gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness (MIT, août 2026) : approche web only et jeunesse du système, même si les promesses sont très belles |
 | 6b.4 | La vision | DeepSeek-V4-Flash ne lit que du texte : Qwen3.8-27B décrivait les images à sa place. Un vrai modèle multimodal reste bien meilleur : depuis Flash-Next, le modèle lit lui-même captures et maquettes |
@@ -230,6 +230,7 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 
 | # | Slide | Contenu |
 |---|---|---|
+| 7.0 | Toute la stack, brique par brique | Le schéma d'ensemble (usages, passerelle, trois paliers) avec la licence de chaque brique ; réversible : on a basculé le 27B de Qwen 3.5 à 3.6 puis 3.8, et de DeepSeek-V4-Flash à Flash-Next ; alias génériques pour certaines tâches, sinon on prévient les utilisateurs du changement de nom |
 | 7.1 | Ce qu'on retient | Les 7 leçons, une par chapitre (tableau ci-dessous) |
 | 7.2 | Retour à l'aveu | Claude reste le palier 3, utilisé là où il apporte le plus : aujourd'hui les profils architecte, lead |
 | 7.3 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager |
@@ -704,3 +705,36 @@ Le titre et plusieurs formulations ont été atténués avant le talk (positionn
 - **Matériel par catégorie** (slide 21) : interne « < 100 k€ » pour les catégories 1 et 2, « > 1 M€ » pour la 4 ; location de la catégorie 3 « 4 000 – 9 300 € » ; « 2 H100 ne suffisent pas »
 - **Leçon des moteurs** (slides 27 et 43) : « une mise à jour peut rapporter autant qu'un changement de matériel » / « vaut parfois un changement de matériel » (le gain mesuré est de +11 %)
 - **Le harness** (slide 37) : « Ça consomme un peu plus d'électricité, mais c'est négligeable sur l'ensemble »
+
+### Slide retirée du deck (issue #2, novembre 2026)
+
+Retirée pour faire de la place à l'architecture et aux données ; elle reprenait les slides 8 et 12. Contenu d'origine (`docs/contenu/06-usages.md`) :
+
+```markdown
+## dev-levers
+type : étapes
+rubrique : Usages · les développeurs
+titre : Deux leviers, un palier net
+
+### Avant août
+texte : La capacité minimale des modèles coinçait
+
+### DeepSeek-V4-Flash-0731
+texte : Le premier levier
+
+### Qwen3.8-Flash-Next
+texte : Le second levier
+surligné : oui
+
+#### Progression
+
+arrivée : avant août ; clic 1 : DeepSeek-V4-Flash-0731 ; clic 2 : Qwen3.8-Flash-Next
+
+#### À l'oral
+
+on note clairement un palier avec les modèles d'août
+
+#### Compléments
+
+voir les slides 8 et 12
+```

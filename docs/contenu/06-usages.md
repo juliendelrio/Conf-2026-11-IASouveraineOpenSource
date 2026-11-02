@@ -50,7 +50,7 @@ arrivée : la carte Open WebUI ; clic 1 : la carte LibreChat
 
 #### À l'oral
 
-Open WebUI, anciennement Ollama WebUI, était le candidat naturel. On est parti sur LibreChat pour son côté ergonomique. L'équipe IA garde Open WebUI pour pousser certains tests très loin : c'est l'exception de la stack, sa licence n'est plus open source
+Open WebUI, anciennement Ollama WebUI, était le candidat naturel. On est parti sur LibreChat pour son côté ergonomique. L'équipe IA garde Open WebUI pour pousser certains tests très loin : c'est l'exception de la stack, sa licence n'est plus open source. L'abstract annonçait Open WebUI : depuis, les utilisateurs sont passés à LibreChat
 
 #### Compléments
 
@@ -75,33 +75,6 @@ _à compléter_
 
 —
 
-## dev-levers
-type : étapes
-rubrique : Usages · les développeurs
-titre : Deux leviers, un palier net
-
-### Avant août
-texte : La capacité minimale des modèles coinçait
-
-### DeepSeek-V4-Flash-0731
-texte : Le premier levier
-
-### Qwen3.8-Flash-Next
-texte : Le second levier
-surligné : oui
-
-#### Progression
-
-arrivée : avant août ; clic 1 : DeepSeek-V4-Flash-0731 ; clic 2 : Qwen3.8-Flash-Next
-
-#### À l'oral
-
-on note clairement un palier avec les modèles d'août
-
-#### Compléments
-
-voir les slides 8 et 12
-
 ## harness
 type : liste
 rubrique : Usages · les développeurs
@@ -123,7 +96,7 @@ le harness compte autant que le modèle. En auto-hébergé, on n'est plus limit�
 #### Compléments
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 20 et 32)
+- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 20 et 33)
 - Électricité : 600 W par RTX PRO 6000 Server Edition au maximum (fiche constructeur), soit 1,2 kW pour les 2 cartes du Flash-Next, hors serveur ; pas mesurée chez nous
 
 ## two-harnesses
@@ -195,7 +168,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 44). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 45). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
 
 #### Compléments
 

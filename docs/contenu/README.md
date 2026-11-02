@@ -95,6 +95,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `formule` | `rubrique`, `titre`, `pied` | exactement 3 sections `### Terme` avec `exemple` : a ÷ b = c | 3, puis le pied |
 | `plafonds` | `rubrique`, `titre`, `sous-titre`, `badges` | un tableau `Machine \| tok/s \| Élément \| Nos cartes` | la colonne « Élément » regroupe les barres |
 | `moe` | `rubrique`, `titre`, `badges`, `mesure`, `pied` | une section `### Groupe` par groupe de barres, chacune avec un tableau `Libellé \| Go \| Note \| Surligné` | les groupes, la mesure, puis le pied |
+| `architecture` | `rubrique`, `titre`, `badges`, `pied` | une section `### Couche` par couche : la 1re en haut, la 2e au milieu (la passerelle), les suivantes côte à côte en bas ; chacune avec `texte`, `surligné` et des briques `- Nom : licence` (licence facultative) | le haut, le milieu, le bas, puis le pied |
 | `merci` | `rubrique`, `titre`, `signature` | un tableau `Libellé \| Lien` | les liens, puis la signature |
 
 Les mises en page elles-mêmes (couleurs, tailles, animations) restent dans le code : `src/components/templates.tsx` pour les types courants, `src/slides/` pour les slides graphiques.

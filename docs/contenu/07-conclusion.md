@@ -1,5 +1,49 @@
 # 7. Conclusion (3 min)
 
+## architecture
+type : architecture
+rubrique : Conclusion
+titre : Toute la stack, brique par brique
+badges : {testé: Testé}
+pied : Réversible : chaque brique se remplace, modèle, moteur ou fournisseur, derrière la même passerelle
+
+### Les usages
+- LibreChat : MIT
+- Open WebUI, équipe IA : licence maison
+- OpenCode, DeepSeek Harness : MIT
+- Les applications, par API
+
+### La passerelle
+texte : droits, budgets, suivi, alias de modèles
+surligné : oui
+- LiteLLM : MIT
+
+### Palier 1 : en interne
+- vLLM, SGLang : Apache 2.0
+- 3 RTX PRO 6000
+- Modèles open weights
+
+### Palier 2 : en France
+- Scaleway
+- OVHcloud
+- Mistral AI
+
+### Palier 3 : clouds US
+- Seulement quand il le faut
+
+#### Progression
+
+arrivée : les usages ; clic 1 : la passerelle ; clic 2 : les trois paliers ; clic 3 : le pied de slide
+
+#### À l'oral
+
+le schéma reproductible annoncé : chaque brique avec sa licence. Réversible : on a basculé plusieurs fois le 27B (Qwen 3.5, puis 3.6, puis 3.8) sans souci, et de DeepSeek-V4-Flash à Flash-Next. Des alias génériques couvrent certaines tâches ; pour les autres, on prévient les utilisateurs du changement de nom de modèle. Dans un cadre d'entreprise, ce n'est pas bloquant : on maîtrise
+
+#### Compléments
+
+- Licences : vLLM et SGLang Apache 2.0 ; LiteLLM MIT (hors dossier entreprise) ; LibreChat, OpenCode et DeepSeek Harness MIT ; Open WebUI sous licence maison depuis la v0.6.6
+- Alias : le nom de modèle appelé par les applications est un nom générique que LiteLLM associe au modèle déployé
+
 ## lessons
 type : tableau
 rubrique : Conclusion
@@ -27,7 +71,7 @@ reprendre rapidement les leçons, une par une
 
 #### Compléments
 
-formulations complètes dans les slides 15, 23, 27, 32, 35, 40 et 42
+formulations complètes dans les slides 15, 23, 27, 33, 36, 40 et 42
 
 ## confession-callback
 type : déclaration
@@ -60,7 +104,7 @@ arrivée : « La preuve est là » ; clic 1 : les modèles déjà disponibles ; 
 
 #### À l'oral
 
-la preuve est là : les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
+la preuve est là, et c'est ce que l'open source apporte : pas de coupure subie ni de hausse de prix imposée, on peut toujours faire au moins ce qu'on fait déjà. Les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
 
 #### Compléments
 

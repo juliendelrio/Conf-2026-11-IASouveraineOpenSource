@@ -14,6 +14,7 @@ import {
   TrioSlide,
 } from '../components/templates';
 import type { Slide } from '../deck';
+import { ArchitectureSlide, type Layer } from '../slides/ArchitectureSlide';
 import { ConfessionSlide } from '../slides/ConfessionSlide';
 import { MoeSlide } from '../slides/MoeSlide';
 import { SpeedCeilingSlide } from '../slides/SpeedCeilingSlide';
@@ -33,6 +34,12 @@ type Built = {
 };
 
 const yes = (value: string | undefined) => value?.trim().toLowerCase() === 'oui';
+
+/** `Name : licence` → a brick of the architecture diagram (the licence is optional). */
+const toBrick = (item: string) => {
+  const [name, licence] = item.split(/\s+:\s+/);
+  return { name, licence };
+};
 
 const toCell = (text: string): Cell => (/\{(testé|extrapolé)\s*:/.test(text) ? { status: parseBadges(text) } : text);
 
@@ -172,6 +179,19 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
         defaultClicks: 'tous',
       };
     }
+    case 'architecture': {
+      // First section on top, second in the middle (the gateway), the others side by side at the bottom
+      if (slide.sections.length < 3) fail('une architecture a au moins 3 sections : le haut, le milieu, puis une colonne par palier');
+      const layers: Layer[] = slide.sections.map((section) => ({
+        title: section.title,
+        text: section.fields.texte,
+        bricks: section.items.map(toBrick),
+        highlight: yes(section.fields['surligné']),
+      }));
+      const [top, middle, ...bottom] = layers;
+      const props = { ...common(), top, middle, bottom };
+      return { component: () => <ArchitectureSlide {...props} />, groups: 3 + footer, defaultClicks: 'tous' };
+    }
     case 'merci': {
       const links = needTable(slide).rows.map(([label, url]) => ({ label, url }));
       const props = { kicker: common().kicker, title: common().title, links, signature: need(slide, 'signature') };
@@ -179,7 +199,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     }
     default:
       return fail(
-        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, merci)`,
+        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, merci)`,
       );
   }
 };

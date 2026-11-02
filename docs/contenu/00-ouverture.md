@@ -12,7 +12,7 @@ pas de clic, tout apparaît à l'arrivée
 
 #### À l'oral
 
-présentation rapide de l'orateur
+présentation rapide de l'orateur. « À la demande », c'est la traduction de « as a Service » : les modèles servis comme un service
 
 #### Compléments
 
@@ -30,7 +30,7 @@ arrivée : « Un talk sur une IA 100 % souveraine, avec des outils open source�
 
 #### À l'oral
 
-l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 44)
+l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 45)
 
 #### Compléments
 
