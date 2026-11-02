@@ -45,14 +45,10 @@ pied : Pas le très haut de gamme, mais on fait déjà des choses très bien : c
 ### En interne
 valeur : 50 – 70 k€
 légende : d'investissement
-- 2 RTX PRO 6000 : de quoi faire tourner Flash-Next
 
 ### En location
 valeur : 0,5 – 9 k€ / mois
 légende : chez OVH ou Scaleway
-- Une L4 : une stack RAG ou de transcription
-- Une L40S : Qwen3.8-27B
-- L'équivalent de 2 RTX PRO 6000 : Flash-Next
 
 #### Progression
 
@@ -60,7 +56,7 @@ arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; cli
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription, une L40S fait tourner le 27B ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000
 
 #### Compléments
 
