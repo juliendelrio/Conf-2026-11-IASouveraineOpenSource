@@ -4,7 +4,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 
 ## The talk
 
-- **Title**: Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain
+- **Title**: Une plateforme IA à la demande, 100 % souveraine, avec des outils open source : du GPU local au cloud français (renamed from « 100 % open source » in November 2026: open weights models are not open source, see issue #1; the Capitole du Libre programme may still show the old title)
 - **When / where**: Saturday 14 November 2026, 15:00–15:55, room A202, Capitole du Libre, Toulouse
 - **Length**: 40–45 min of content, the rest of the 55 min slot is kept for Q&A
 - **Audience**: developers and sovereign-hosting experts
@@ -15,7 +15,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
   - **LiteLLM** as the single OpenAI-compatible gateway
   - Self-hosted chat interfaces: **LibreChat** for end users (simpler), **Open WebUI** kept for the AI team (many options for testing)
   - Tiered routing: internal models first, then larger models hosted in France, US clouds only when needed (e.g. agentic development)
-  - Architecture, pitfalls, and lessons learned from 4 months of POC + 2 months in production
+  - Architecture, pitfalls, and lessons learned from first trials in late 2025, then 4 months of POC and 2 months of production with early adopters
 - **Narrative**: the talk tells a story; see `docs/storyline.md` for the arc, chapters and timing.
 
 ## Content rules

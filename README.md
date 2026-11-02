@@ -1,4 +1,4 @@
-# Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain
+# Une plateforme IA à la demande, 100 % souveraine, avec des outils open source : du GPU local au cloud français
 
 Slides de la conférence de Julien Del Rio au [Capitole du Libre 2026](https://capitoledulibre.org/programme/talk/LSBRQY/) — samedi 14 novembre 2026, 15h00, salle A202.
 

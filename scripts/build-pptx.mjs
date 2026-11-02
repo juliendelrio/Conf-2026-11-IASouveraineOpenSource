@@ -16,7 +16,7 @@ const compositions = await getCompositions(serveUrl);
 
 const pptx = new PptxGenJS();
 pptx.layout = 'LAYOUT_WIDE'; // 16:9
-pptx.title = 'Une plateforme IA à la demande, 100 % open source';
+pptx.title = 'Une plateforme IA à la demande, 100 % souveraine, avec des outils open source';
 pptx.author = 'Julien Del Rio';
 
 for (const composition of compositions) {

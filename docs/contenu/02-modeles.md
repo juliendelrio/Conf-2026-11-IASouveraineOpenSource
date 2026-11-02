@@ -45,7 +45,7 @@ arrivée : les deux modèles et leurs dates ; clics 1 à 3 : sur 2 cartes au niv
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 40)
 
 #### Compléments
 
@@ -60,14 +60,14 @@ titre : Quatre catégories pour décider
 largeurs : 1.1fr 1.4fr 2fr 1.1fr
 taille : 28
 ligne-surlignée : 3
-pied : Catégorie 4 : plus d'un million d'euros. Les trois autres : moins de 100 k€ en interne, et une location accessible à une PME
+pied : Catégorie 4 : un vrai datacenter, jusqu'à plus d'un million d'euros. Les trois autres : moins de 100 k€ en interne, et une location accessible à une PME
 
 | Catégorie | Pour quoi faire | Modèles | Chez nous |
 |---|---|---|---|
 | 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: Testé} |
 | 2. Milieu de gamme | Un généraliste sur une seule carte | Qwen3.8-27B | {testé: Testé} |
 | 3. Le cap d'août | Tâches générales, codage compris | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
-| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
+| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro et V4.1-Flash, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
 
 #### Progression
 
@@ -75,13 +75,13 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 n'est pas accessible sans un investissement de plus d'un million d'euros ; pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous
+on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4
 
 #### Compléments
 
 - Catégorie 1 testée en tant que catégorie, pas chaque modèle. Ce qu'on a testé : Qwen 35B ; Gemma 4 et gpt-oss-20b, limités, et c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement
 - Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 ne tiennent qu'en 4 bits ; sur une L40S (48 Go), en 8 bits
-- Mistral Large 4 : publication prévue fin octobre 2026, pas encore sortie au 29/10. Référence en attendant : Mistral-Large-3-675B (~682 Go). Vérifier avant le 14 novembre
+- Mistral Large 4 : poids publiés le 29/10/2026 sur Hugging Face, ~1,06 To en FP8 (1T paramètres, 49B actifs, multimodal, contexte 1M tokens), aussi en NVFP4. Licence « Mistral Ecosystem Open-Weight License », une MIT modifiée : licence séparée avec Mistral pour du Model as a Service (relevé le 02/11/2026)
 - Tailles (Hugging Face, 17/10/2026) : Qwen3.5-9B ~19 Go, gpt-oss-20b ~14 Go, Mistral Small 3.2 ~48 Go, Qwen3.6-35B-A3B ~72 Go
 
 ## out-of-reach
@@ -111,7 +111,7 @@ les plus gros modèles restent accessibles sans quitter la France. C'est la mise
 
 #### Compléments
 
-- Tailles relevées sur Hugging Face le 17/10/2026 : MiniMax-M3 ~444 Go, DeepSeek-V4.1-Flash ~510 Go, Kimi-K2.6 ~595 Go, Mistral-Large-3 ~682 Go, GLM-5.1 / 5.2 / 5.3 ~756 Go chacun, DeepSeek-V4-Pro-0813 ~893 Go, Qwen3.8-2.4T ~2,5 To
+- Tailles relevées sur Hugging Face le 17/10/2026 : MiniMax-M3 ~444 Go, DeepSeek-V4.1-Flash ~510 Go, Kimi-K2.6 ~595 Go, Mistral-Large-3 ~682 Go (Mistral-Large-4 ~1,06 To en FP8, relevé le 02/11/2026), GLM-5.1 / 5.2 / 5.3 ~756 Go chacun, DeepSeek-V4-Pro-0813 ~893 Go, Qwen3.8-2.4T ~2,5 To
 - Un serveur à 8 RTX PRO 6000 (768 Go) logerait le bas de la catégorie, mais demande une alimentation et un refroidissement hors de portée d'une salle serveur de PME : écarté
 - Scaleway Generative APIs (17/10/2026) : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash, DeepSeek-V4-Flash-0731, Qwen3.8-27B, Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement
 - OVHcloud : 8 × H200 à ~30 700 €/mois ; son offre AI Endpoints s'arrête à Qwen3.5-397B-A17B
@@ -179,7 +179,7 @@ arrivée : la carte Qwen3.6-27B ; clic 1 : la carte août ; clic 2 : la capacit�
 
 #### À l'oral
 
-Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui ce niveau en interne. Préciser que les tests de charge n'ont pas été complètement poussés
+Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui ce niveau en interne, d'après notre ressenti d'usage. Préciser que les tests de charge n'ont pas été complètement poussés
 
 #### Compléments
 
@@ -224,7 +224,7 @@ pied : On lit la licence avant de choisir un modèle, comme pour toute dépendan
 - Flash-Next passe à une licence maison, « Qwen Community 1.0 »
 - Usage interne libre, tant que rien n’est mis à disposition de tiers
 - Licence séparée pour du Model as a Service ou un assistant de code, quelle que soit la taille
-- Et Qwen 4, attendu dans quelques semaines ?
+- Et Qwen 4, annoncé, mais sans date ni licence ?
 
 #### Progression
 
@@ -232,7 +232,7 @@ arrivée : Qwen sous Apache 2.0 ; clics 1 à 4 : licence maison, usage interne l
 
 #### À l'oral
 
-point très important. Pour une plateforme interne ça passe ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Flash-Next est un aperçu de l'architecture Qwen 4, attendue dans quelques semaines : restera-t-elle sous Apache 2.0 ?
+point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
 
 #### Compléments
 
@@ -240,13 +240,14 @@ point très important. Pour une plateforme interne ça passe ; pour un hébergeu
 - La licence « Qwen3.8-Max » du 2.4T est identique, sauf que la licence séparée n'est exigée qu'au-delà de 50 M$ de revenus sur 12 mois
 - Déduction : c'est sans doute pourquoi Flash-Next n'est pas au catalogue des API de Scaleway
 - Les poids sont chez nous, mais la licence suit (idée proposée, non retenue pour l'instant)
+- Qwen 4 au 02/11/2026 : ni poids, ni fiche, ni licence publiés ; une sortie début novembre n'est évoquée que par des sources tierces. Revérifier la veille du talk
 
 ## models-trio
 type : trio
 rubrique : Les modèles
 objectif : Un modèle assez bon pour un usage quotidien, code compris, sur notre propre matériel
 piège : Le rythme des sorties : déployer pour les utilisateurs tout en testant les nouveaux, c'est exigeant et chronophage
-leçon : Un saut de version tous les 3 mois : l'obsolescence des GPU est compensée par les progrès des modèles
+leçon : Un saut de version tous les 3 mois : aujourd'hui, les progrès des modèles compensent l'obsolescence des GPU
 
 #### Progression
 
@@ -254,7 +255,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège est plutôt une difficulté : il faut déployer pour les utilisateurs tout en testant les nouveaux modèles, et c'est extrêmement exigeant et chronophage. Mais le même matériel fait tourner des modèles de plus en plus capables
+le piège est plutôt une difficulté : il faut déployer pour les utilisateurs tout en testant les nouveaux modèles, et c'est extrêmement exigeant et chronophage. Aujourd'hui, le même matériel fait tourner des modèles de plus en plus capables, mais ce n'est pas garanti : le successeur du Flash, DeepSeek-V4.1-Flash, passe à ~510 Go, hors de portée. Et si les publications s'arrêtent, on garde les modèles téléchargés, sans nouveaux gains
 
 #### Compléments
 

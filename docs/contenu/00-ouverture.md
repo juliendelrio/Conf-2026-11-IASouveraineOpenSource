@@ -2,8 +2,8 @@
 
 ## title
 type : titre
-titre : Une plateforme IA à la demande, ==100 % open source==
-sous-titre : Du GPU local au cloud souverain
+titre : Une plateforme IA à la demande, ==100 % souveraine==, avec des outils open source
+sous-titre : Du GPU local au cloud français
 signature : Julien Del Rio · Capitole du Libre 2026
 
 #### Progression
@@ -20,13 +20,13 @@ choisir le thème avant de commencer (touche `d` ou bouton), plein écran avec `
 
 ## confession
 type : aveu
-- Un talk sur l'IA souveraine ==100 % open source==…
+- Un talk sur une IA ==100 % souveraine==, avec des outils open source…
 - entièrement conçu avec l'aide de **Claude**, ces slides comprises.
 - ==Cynique, mais opérationnel et efficace.==
 
 #### Progression
 
-arrivée : « Un talk sur l'IA souveraine 100 % open source… » ; clic 1 : « entièrement conçu avec l'aide de Claude, ces slides comprises. » ; clic 2 : « Cynique, mais opérationnel et efficace. »
+arrivée : « Un talk sur une IA 100 % souveraine, avec des outils open source… » ; clic 1 : « entièrement conçu avec l'aide de Claude, ces slides comprises. » ; clic 2 : « Cynique, mais opérationnel et efficace. »
 
 #### À l'oral
 
@@ -39,15 +39,15 @@ la conclusion explique pourquoi ce n'est pas contradictoire (Claude = palier 3)
 ## promise
 type : cartes
 rubrique : La promesse
-titre : Une IA 100 % souveraine, dès maintenant
-pied : Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk
+titre : Une IA 100 % souveraine, c'est possible dès maintenant
+pied : Pour les modèles d'août, sur 2 cartes : pas le très haut de gamme, mais on fait déjà des choses très bien
 
 ### En interne
 valeur : 50 – 70 k€
 légende : d'investissement
 
 ### En location
-valeur : 2 – 5 k€ / mois
+valeur : 4 – 9 k€ / mois
 légende : chez OVH ou Scaleway
 
 #### Progression
@@ -56,11 +56,11 @@ arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; cli
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. Donner les ordres de grandeur du budget dès le départ
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ, pour la catégorie 3 (slide 9)
 
 #### Compléments
 
-le détail par catégorie de modèles est à la slide 21
+le détail par catégorie de modèles est à la slide 21. Location de la catégorie 3 : de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
 
 ## thread
 type : étapes
@@ -94,4 +94,4 @@ on avance dans l'ordre où il faut se poser les questions. On commence par la fi
 
 #### Compléments
 
-4 mois de POC puis 2 mois de production ; retour d'expérience générique, sans nommer l'entreprise
+premiers essais fin 2025, puis 4 mois de POC, puis 2 mois de production auprès d'early adopters ; retour d'expérience générique, sans nommer l'entreprise

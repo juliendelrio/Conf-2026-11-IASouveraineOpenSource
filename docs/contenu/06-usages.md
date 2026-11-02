@@ -37,6 +37,7 @@ titre : Un ChatGPT interne
 - La main sur énormément de paramètres
 - Trop complexe pour des utilisateurs standards
 - Gardé pour l’équipe IA
+- Plus sous licence open source (OSI) depuis la v0.6.6
 
 ### LibreChat
 surligné : oui
@@ -49,7 +50,7 @@ arrivée : la carte Open WebUI ; clic 1 : la carte LibreChat
 
 #### À l'oral
 
-Open WebUI, anciennement Ollama WebUI, était le candidat naturel. On est parti sur LibreChat pour son côté ergonomique. L'équipe IA garde Open WebUI pour pousser certains tests très loin
+Open WebUI, anciennement Ollama WebUI, était le candidat naturel. On est parti sur LibreChat pour son côté ergonomique. L'équipe IA garde Open WebUI pour pousser certains tests très loin : c'est l'exception de la stack, sa licence n'est plus open source
 
 #### Compléments
 
@@ -108,19 +109,22 @@ titre : Le harness, un vrai levier
 - Le harness, c’est l’application autour du modèle : outils, skills, prompts système
 - C’est souvent lui qui pousse le modèle dans ses retranchements
 - Quand on ne compte plus au jeton, il peut faire plus d’itérations pour arriver au résultat
-- Ça consomme un peu plus d’électricité, mais c’est négligeable sur l’ensemble
+- La limite devient la capacité : 6 à 12 conversations simultanées sur nos cartes
+- Un peu plus d’électricité, mais bornée : 600 W par carte au maximum
 
 #### Progression
 
-arrivée : ce qu'est le harness ; clics 1 à 3 : il pousse le modèle, plus d'itérations, l'électricité
+arrivée : ce qu'est le harness ; clics 1 à 4 : il pousse le modèle, plus d'itérations, la capacité, l'électricité
 
 #### À l'oral
 
-le harness compte autant que le modèle. En auto-hébergé, on n'est plus limité à compter les tokens dont on a besoin
+le harness compte autant que le modèle. En auto-hébergé, on n'est plus limité à compter les tokens dont on a besoin : la limite devient la capacité des cartes. Les slides ne chiffrent que l'écriture, mais pour un agent, c'est la lecture du prompt qui compte le plus : 1 300 à 2 000 tok/s chez nous en usage courant
 
 #### Compléments
 
-lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
+- Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
+- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 20 et 32)
+- Électricité : 600 W par RTX PRO 6000 Server Edition au maximum (fiche constructeur), soit 1,2 kW pour les 2 cartes du Flash-Next, hors serveur ; pas mesurée chez nous
 
 ## two-harnesses
 type : cartes
@@ -191,7 +195,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 44)
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 44). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
 
 #### Compléments
 

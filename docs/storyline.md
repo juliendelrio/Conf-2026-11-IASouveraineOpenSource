@@ -40,19 +40,19 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
-| 0.3 | La promesse | Une IA 100 % souveraine, dès maintenant. Budget : 50 à 70 k€ en interne, ou 2 à 5 k€ par mois en location |
+| 0.3 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget pour la catégorie 3 : 50 à 70 k€ en interne, ou 4 à 9 k€ par mois en location |
 | 0.4 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :
 
-Le titre parle d'IA souveraine 100 % open source… et tout a été conçu avec l'aide de Claude, y compris ces slides. « Et globalement, je recommande. » Présentation rapide et promesse du talk.
+Le titre parle d'une IA 100 % souveraine, avec des outils open source… et tout a été conçu avec l'aide de Claude, y compris ces slides. « Et globalement, je recommande. » Présentation rapide et promesse du talk.
 
-**L'objectif** : démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec.
+**L'objectif** : démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 reste un choix, pas une dépendance. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois.
 
 **Les ordres de grandeur du budget** :
 
 - En interne : entre 50 et 70 k€ d'investissement
-- En location chez OVH ou Scaleway : entre 2 et 5 k€ par mois
+- En location chez OVH ou Scaleway : entre 4 et 9 k€ par mois pour la catégorie 3 (de 2 × H100 à 4 × H100, extrapolé)
 
 On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses très bien avec ces cartes : c'est justement le sujet du talk.
 
@@ -242,9 +242,9 @@ Notes pour l'oral :
 
 | Chapitre | Ce qu'on en retient |
 |---|---|
-| Modèles | Avec un saut de version tous les 3 mois, l'obsolescence des GPU est compensée par les performances croissantes des modèles |
+| Modèles | Avec un saut de version tous les 3 mois, aujourd'hui, les progrès des modèles compensent l'obsolescence des GPU (pas garanti : le successeur du Flash passe à ~510 Go ; et si les sorties s'arrêtent, on garde les modèles téléchargés, sans nouveaux gains) |
 | Matériel | Passer par la location permet d'y aller petit à petit |
-| Moteurs | Faire de la veille : une mise à jour peut rapporter autant qu'un changement de matériel |
+| Moteurs | Faire de la veille : une mise à jour peut apporter un gain notable, sans changer de matériel |
 | Plateforme | Avec une passerelle centralisée, le routage par paliers devient une question de gouvernance |
 | Chat généraliste | Pour les utilisateurs finaux, faire simple et ergonomique |
 | Développeurs | Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun |
@@ -687,3 +687,20 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 ### Annexe du lexique
 
 Déplacée dans `docs/contenu/lexique.md`, section « Réserve pour les questions ».
+
+### Formulations retirées des slides (issue #1, novembre 2026)
+
+Le titre et plusieurs formulations ont été atténués avant le talk (positionnement : une IA 100 % souveraine, avec des outils open source). Les versions d'origine, pour mémoire :
+
+- **Titre** : « Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain » (encore celui du programme du Capitole du Libre)
+- **L'aveu** (slide 2) : « Un talk sur l'IA souveraine 100 % open source… »
+- **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
+- **Quatre catégories** (slide 9) : pied « Catégorie 4 : plus d'un million d'euros » ; à l'oral « pas accessible sans un investissement de plus d'un million d'euros »
+- **Licence** (slide 14) : « Et Qwen 4, attendu dans quelques semaines ? » ; à l'oral « Pour une plateforme interne ça passe » ; pied « (ce n'est pas un avis juridique) », passé à l'oral
+- **Leçon des modèles** (slides 15 et 43) : « l'obsolescence des GPU est compensée par les progrès des modèles » ; à l'oral « le même matériel fait tourner des modèles de plus en plus capables »
+- **Le réflexe à retenir** (slide 18) : « un bon moteur atteint environ 80 % de ce plafond ». Mesure : 200 tok/s ÷ 2,8 tokens par passe ≈ 70 passes/s pour un plafond de ~265, soit environ 27 %
+- **Plafonds** (slide 19) : à l'oral « un facteur 30 », qui s'appuie sur la B200, absente de la slide (facteur 18 de la DGX Spark à la H200)
+- **Le MoE** (slide 20) : titre « Le MoE change la donne » ; pied « Le Flash-Next va plus vite que le 27B » ; barres « Qwen3.8-Flash-Next 186 Go », « 2 H100 : ça ne tient pas » ; à l'oral « va presque 3 fois plus vite ». Le gain doit beaucoup au décodage spéculatif, et 129 Gio de poids en VRAM tiendraient dans 2 H100 avec environ 20 Gio de KV cache (calcul non testé)
+- **Matériel par catégorie** (slide 21) : interne « < 100 k€ » pour les catégories 1 et 2, « > 1 M€ » pour la 4 ; location de la catégorie 3 « 4 000 – 9 300 € » ; « 2 H100 ne suffisent pas »
+- **Leçon des moteurs** (slides 27 et 43) : « une mise à jour peut rapporter autant qu'un changement de matériel » / « vaut parfois un changement de matériel » (le gain mesuré est de +11 %)
+- **Le harness** (slide 37) : « Ça consomme un peu plus d'électricité, mais c'est négligeable sur l'ensemble »

@@ -9,9 +9,9 @@ taille : 30
 
 | Chapitre | La leçon |
 |---|---|
-| Modèles | Un saut tous les 3 mois : l'obsolescence des GPU est compensée par les modèles |
+| Modèles | Un saut tous les 3 mois : aujourd'hui, les modèles compensent l'obsolescence des GPU |
 | Matériel | La location permet d'y aller petit à petit |
-| Moteurs | Faire de la veille : une mise à jour vaut parfois un changement de matériel |
+| Moteurs | Faire de la veille : une mise à jour peut apporter un gain notable |
 | Plateforme | Avec une passerelle centralisée, les paliers deviennent de la gouvernance |
 | Chat | Pour les utilisateurs finaux, simple et ergonomique |
 | Développeurs | Le harness compte autant que le modèle |
@@ -60,7 +60,7 @@ arrivée : « La preuve est là » ; clic 1 : les modèles déjà disponibles ; 
 
 #### À l'oral
 
-la preuve est là : les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier
+la preuve est là : les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
 
 #### Compléments
 

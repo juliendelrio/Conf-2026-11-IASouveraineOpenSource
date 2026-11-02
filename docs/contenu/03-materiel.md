@@ -62,7 +62,7 @@ la grille de lecture pour comparer des machines. Expliquer bande passante mémoi
 type : formule
 rubrique : Le matériel
 titre : Le réflexe à retenir
-pied : Pour chaque token généré, la carte relit tous les poids utiles : un bon moteur atteint environ 80 % de ce plafond
+pied : Pour chaque token généré, la carte relit tous les poids utiles : c'est un plafond, pas une prévision
 
 ### Bande passante mémoire
 exemple : ex. 1,6 To/s
@@ -79,7 +79,7 @@ arrivée : la bande passante mémoire ; clic 1 : ÷ poids lus par token ; clic 2
 
 #### À l'oral
 
-la formule à retenir pour estimer une machine avant de l'acheter. Seul le décodage spéculatif permet de dépasser ce plafond
+la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 37)
 
 #### Compléments
 
@@ -111,7 +111,7 @@ arrivée : le sous-titre et les 5 premières machines (DGX Spark à Mac Studio M
 
 #### À l'oral
 
-la bande passante varie d'un facteur 30 entre une machine de bureau et un GPU de datacenter. On ne maximise pas mémoire et vitesse à la fois sans payer cher : Mac et DGX Spark ont beaucoup de mémoire mais sont lents ; une 5090 est rapide mais tient peu ; la RTX PRO 6000 est le compromis
+la bande passante varie d'un facteur 18 sur cette slide entre une machine de bureau et un GPU de datacenter (30 avec une B200). On ne maximise pas mémoire et vitesse à la fois sans payer cher : Mac et DGX Spark ont beaucoup de mémoire mais sont lents ; une 5090 est rapide mais tient peu ; la RTX PRO 6000 est le compromis
 
 #### Compléments
 
@@ -124,10 +124,10 @@ la bande passante varie d'un facteur 30 entre une machine de bureau et un GPU de
 ## moe
 type : moe
 rubrique : Le matériel
-titre : Le MoE change la donne
+titre : Le MoE : moins à relire, autant à loger
 badges : {testé: 2 RTX PRO 6000 testées} {extrapolé: H100 extrapolé}
-mesure : ~200 tok/s sur 2 RTX PRO 6000 avec un utilisateur, ~127 tok/s par requête en production
-pied : Le Flash-Next va plus vite que le 27B, mais il faut pouvoir le loger en entier : la mémoire compte autant que la vitesse
+mesure : ~200 tok/s pour un utilisateur, aidé par le décodage spéculatif ; ~127 tok/s par requête en production
+pied : Moins à relire, mais il faut pouvoir le loger : la mémoire compte autant que la vitesse
 
 ### Lu à chaque token : la vitesse
 
@@ -140,9 +140,9 @@ pied : Le Flash-Next va plus vite que le 27B, mais il faut pouvoir le loger en e
 
 | Libellé | Go | Note | Surligné |
 |---|---|---|---|
-| Qwen3.8-Flash-Next | 186 | | oui |
+| Flash-Next en VRAM | 139 | embeddings en RAM CPU | oui |
 | 2 RTX PRO 6000 | 192 | ça tient | |
-| 2 H100 | 160 | ça ne tient pas | |
+| 2 H100 | 160 | tout juste | |
 
 #### Progression
 
@@ -150,14 +150,15 @@ arrivée : « lu à chaque token » ; clic 1 : « à loger en mémoire » ; clic
 
 #### À l'oral
 
-un modèle 5 fois plus gros que le 27B va presque 3 fois plus vite, parce qu'il relit 6 Go par token au lieu de 16. En contrepartie, il faut pouvoir le loger en entier : la mémoire compte autant que la vitesse
+un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : son plafond est bien plus haut. Mais notre mesure doit beaucoup au décodage spéculatif, et la comparer au plafond du 27B (sans décodage spéculatif, en 4 bits contre FP8) serait trompeur. En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
 
 #### Compléments
 
 - Comment on le fait tenir (pas de détail de configuration sur scène) : FP8 officiel réparti sur les 2 cartes ; les 51B d'embeddings n-gram déportés en RAM CPU ; 18,2 Gio de KV cache par carte, soit 1,17 million de tokens au total, environ 6 conversations simultanées au contexte maximal ; communication en PCIe, sans NVLink
 - Plafond théorique sans décodage spéculatif : ~265 tok/s. Le MTP produit 2,8 tokens par passe (61 % d'acceptation) ; ce sont les surcoûts (échanges entre cartes sans NVLink, kernels MoE non optimisés pour la carte) qui dominent. La formule donne un plafond, pas une prévision
 - Production sur 3 semaines : ~9 400 requêtes, premier token en 0,64 s en moyenne, 10,4 s de bout en bout
-- En location, il faudrait 4 × L40S (non testé) ou 4 × H100
+- 139 Go = 129 Gio de poids en VRAM, une fois les embeddings déportés ; le modèle complet fait ~186 Go
+- En location : 2 × H100 tiendrait tout juste, avec environ 20 Gio de KV cache (calcul non testé) ; plus confortable : 4 × L40S (non testé) ou 4 × H100
 - Grâce à l'attention hybride, le KV cache de ces modèles est plusieurs fois plus petit qu'avec une attention classique
 
 ## hardware-by-category
@@ -165,27 +166,29 @@ type : tableau
 rubrique : Le matériel
 titre : Le matériel par catégorie de modèles
 largeurs : 1.3fr 1.5fr 0.9fr 1.1fr 1.4fr
+pied : Interne : ordres de grandeur, carte et serveur compris ; seul le montant de la catégorie 3 est le nôtre
 
 | Catégorie | Matériel | Interne | Location / mois | |
 |---|---|---|---|---|
-| 1. Petits modèles | L4, RTX PRO 4500 | < 100 k€ | 500 – 600 € | {testé: L4 testée} |
-| 2. Milieu de gamme | 1 RTX PRO 6000, L40S, H100 | < 100 k€ | 1 000 – 2 100 € | {testé: Testé} |
-| 3. Le cap d'août | 2 RTX PRO 6000 | 50 – 70 k€ | 4 000 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
-| 4. Hors de portée | 8 H200 et plus | > 1 M€ | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
+| 1. Petits modèles | L4, RTX PRO 4500 | ~10 – 20 k€ | 500 – 600 € | {testé: L4 testée} |
+| 2. Milieu de gamme | 1 RTX PRO 6000, L40S, H100 | ~25 – 35 k€ | 1 000 – 2 100 € | {testé: Testé} |
+| 3. Le cap d'août | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
+| 4. Hors de portée | 8 RTX PRO 6000 à 8 H200 et plus | 200 k€ – 1 M€ et plus | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
 
 #### Progression
 
-arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4
+arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 ; clic 4 : le pied de slide
 
 #### À l'oral
 
-la réponse à la démarche de la slide 7 : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé
+la réponse à la démarche de la slide 7 : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre
 
 #### Compléments
 
 - Catégorie 1 : aussi RTX PRO 2000 / 4000 SFF ; des modèles ont bien tourné sur L4 en location
 - Catégorie 2 : ~31 Go en FP8 (~16 Go en 4 bits) plus le KV cache ; RTX 5090 ou RTX PRO 4500 en 4 bits possibles
-- Catégorie 3 : en location, 4 × L40S 4 000 – 4 300 €/mois ou 4 × H100 7 800 – 9 300 €/mois ; 2 H100 ne suffisent pas
+- Catégorie 3 : en location, 2 × H100 3 900 – 4 800 €/mois (tout juste, très peu de KV cache), 4 × L40S 4 000 – 4 300 €/mois ou 4 × H100 7 800 – 9 300 €/mois, tout extrapolé
+- Montants internes, ordres de grandeur extrapolés des prix publics relevés le 02/11/2026 (HT ou TTC non précisé) : RTX PRO 4500 Server Edition ~3 700 – 7 000 €, RTX PRO 6000 Server Edition ~16 000 $ à ~20 000 €, plus le serveur. Catégorie 4 : 8 RTX PRO 6000 logeraient le bas de la catégorie (mais alimentation et refroidissement hors d'une salle serveur de PME), les plus gros modèles dépassent le million d'euros
 - Nos cartes : 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs
 
 ## two-approaches
