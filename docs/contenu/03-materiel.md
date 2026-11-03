@@ -1,4 +1,4 @@
-# 3. Le matériel (8 min)
+# 3. Le matériel (8 min 30)
 
 ## rent-first
 type : tableau
@@ -58,6 +58,35 @@ la grille de lecture pour comparer des machines. Expliquer bande passante mémoi
 
 « est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
 
+## weights-read
+type : animation
+scène : relecture des poids
+rubrique : Le matériel
+titre : Pour écrire un token, la carte relit les poids
+- Chaque token écrit demande de relire tous les poids utiles
+- La vitesse d'écriture dépend donc de la bande passante mémoire
+
+### Poids en VRAM
+texte : 16 Go
+
+### Bande passante
+texte : 1,6 To/s
+
+### Tokens écrits
+texte : Le modèle relit tous ses poids pour écrire chaque token de cette phrase
+
+#### Progression
+
+arrivée : deux relectures lentes, deux tokens écrits ; clic 1 : à pleine vitesse, la phrase s'écrit
+
+#### À l'oral
+
+l'image avant la formule : le modèle ne « réfléchit » pas en mémoire, il relit ses poids à chaque token. Plus la mémoire est rapide, plus il écrit vite. Les valeurs sont celles de la formule (slide suivante)
+
+#### Compléments
+
+Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
+
 ## speed-formula
 type : formule
 rubrique : Le matériel
@@ -79,7 +108,7 @@ arrivée : la bande passante mémoire ; clic 1 : ÷ poids lus par token ; clic 2
 
 #### À l'oral
 
-la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 37)
+la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 41)
 
 #### Compléments
 
@@ -120,6 +149,27 @@ la bande passante varie d'un facteur 18 sur cette slide entre une machine de bur
 - Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go ; il faut la version 40 cœurs pour 128 Go
 - Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 avec sparsité : 2 à 4 fois les chiffres utiles
 - Tableau complet sur 17 machines, avec la puissance de calcul et les sources constructeurs, dans l'annexe du chapitre 3
+
+## experts
+type : animation
+scène : experts
+rubrique : Le matériel
+titre : Le MoE : seuls quelques experts travaillent
+- Modèle dense : tout le modèle travaille pour chaque token
+- MoE : quelques experts par token, les tokens sortent plus vite
+- Mais tous les experts restent en mémoire
+
+#### Progression
+
+arrivée : modèle dense, toute la grille s'allume pour chaque token ; clic 1 : MoE, quelques experts par token, plus de tokens ; clic 2 : tous les experts restent en mémoire
+
+#### À l'oral
+
+le MoE en image, avant les chiffres (slide suivante) : moins à relire par token, donc plus rapide, mais tout le modèle doit tenir en VRAM. Pas à l'échelle : le nombre d'experts et d'experts actifs dépend du modèle
+
+#### Compléments
+
+Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
 
 ## moe
 type : moe
@@ -181,7 +231,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 32)
+la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 36)
 
 #### Compléments
 
@@ -216,7 +266,7 @@ arrivée : la carte salle serveur ; clic 1 : la carte datacenter ; clic 2 : le p
 
 #### À l'oral
 
-la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 13)
+la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 14)
 
 #### Compléments
 

@@ -1,6 +1,6 @@
 // Turns the parsed content of docs/contenu/ into deck slides: one template per `type`.
 import type { ComponentType } from 'react';
-import { clicksBefore, framesFor } from '../components/animation';
+import { BODY_START, clicksBefore, framesFor } from '../components/animation';
 import { emphasized } from '../components/inline';
 import {
   BulletsSlide,
@@ -14,7 +14,9 @@ import {
   TrioSlide,
 } from '../components/templates';
 import type { Slide } from '../deck';
+import { AnimationSlide, SCENES } from '../slides/AnimationSlide';
 import { ArchitectureSlide, type Layer } from '../slides/ArchitectureSlide';
+import { beatStarts } from '../slides/scenes/kit';
 import { ConfessionSlide } from '../slides/ConfessionSlide';
 import { MoeSlide } from '../slides/MoeSlide';
 import { SpeedCeilingSlide } from '../slides/SpeedCeilingSlide';
@@ -31,6 +33,8 @@ type Built = {
   groups: number;
   /** Clicks used when the slide doesn't say: every group after the first, or none. */
   defaultClicks: 'tous' | 'aucun';
+  /** Animations only: start frame of each group and total length, when groups don't follow the ITEM_DELAY grid. */
+  timeline?: { starts: number[]; duration: number };
 };
 
 const yes = (value: string | undefined) => value?.trim().toLowerCase() === 'oui';
@@ -192,6 +196,23 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
       const props = { ...common(), top, middle, bottom };
       return { component: () => <ArchitectureSlide {...props} />, groups: 3 + footer, defaultClicks: 'tous' };
     }
+    case 'animation': {
+      const name = need(slide, 'scène');
+      const scene = SCENES[name] ?? fail(`scène inconnue « ${name} » (scènes possibles : ${Object.keys(SCENES).join(', ')})`);
+      const sections = slide.sections.map((section) => ({ title: section.title, text: section.fields.texte, detail: section.fields['détail'] }));
+      if (!scene.sections.includes(sections.length)) fail(`la scène « ${name} » attend ${scene.sections.join(' ou ')} sections`);
+      const beats = scene.beats(sections);
+      const captions = slide.items;
+      if (captions.length !== beats.length) fail(`la scène « ${name} » attend ${beats.length} légendes « - … », une par temps`);
+      const starts = beatStarts(beats, BODY_START);
+      const props = { kicker: need(slide, 'rubrique'), title: need(slide, 'titre'), scene, sections, captions, starts };
+      return {
+        component: () => <AnimationSlide {...props} />,
+        groups: beats.length,
+        defaultClicks: 'tous',
+        timeline: { starts, duration: starts[starts.length - 1] + beats[beats.length - 1] },
+      };
+    }
     case 'merci': {
       const links = needTable(slide).rows.map(([label, url]) => ({ label, url }));
       const props = { kicker: common().kicker, title: common().title, links, signature: need(slide, 'signature') };
@@ -199,7 +220,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     }
     default:
       return fail(
-        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, merci)`,
+        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, merci)`,
       );
   }
 };
@@ -207,8 +228,9 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
 /** `clics : tous | aucun | 2, 3` → presenter pauses. Elements are numbered from 1 in display order. */
 const pausesFor = (slide: SlideContent, built: Built): number[] => {
   const clicks = (slide.fields.clics ?? built.defaultClicks).trim().toLowerCase();
+  const before = (groups: number[]) => (built.timeline ? groups.map((group) => built.timeline!.starts[group]) : clicksBefore(...groups));
   if (clicks === 'aucun') return [];
-  if (clicks === 'tous') return clicksBefore(...Array.from({ length: built.groups - 1 }, (_, index) => index + 1));
+  if (clicks === 'tous') return before(Array.from({ length: built.groups - 1 }, (_, index) => index + 1));
   const elements = clicks.split(/[,;\s]+/).filter(Boolean).map(Number);
   for (const element of elements) {
     if (!Number.isInteger(element) || element < 2 || element > built.groups) {
@@ -217,7 +239,7 @@ const pausesFor = (slide: SlideContent, built: Built): number[] => {
       );
     }
   }
-  return clicksBefore(...elements.map((element) => element - 1));
+  return before(elements.map((element) => element - 1));
 };
 
 export const buildSlides = (contents: SlideContent[], glossary: Map<string, string>): Slide[] => {
@@ -226,7 +248,7 @@ export const buildSlides = (contents: SlideContent[], glossary: Map<string, stri
     if (ids.has(content.id)) throw new ContentError(`${content.file} › ${content.id} : identifiant de slide déjà utilisé`);
     ids.add(content.id);
     const built = build(content, glossary);
-    const durationInFrames = content.fields.type === 'titre' ? TITLE_DURATION : framesFor(built.groups);
+    const durationInFrames = built.timeline?.duration ?? (content.fields.type === 'titre' ? TITLE_DURATION : framesFor(built.groups));
     return { id: content.id, component: built.component, durationInFrames, pauses: pausesFor(content, built), notes: content.notes };
   });
 };

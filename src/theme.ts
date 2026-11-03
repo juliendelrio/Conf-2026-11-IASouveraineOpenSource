@@ -14,6 +14,8 @@ type Palette = {
   // Chart marks, validated against both backgrounds (dataviz palette check)
   chartBar: string;
   chartHighlight: string;
+  // Something breaking in the animations (a cut link, a saturated card)
+  danger: string;
 };
 
 const LIGHT: Palette = {
@@ -25,6 +27,7 @@ const LIGHT: Palette = {
   border: '#cbd5e1',
   chartBar: '#0284c7',
   chartHighlight: '#d97706',
+  danger: '#b91c1c',
 };
 
 const DARK: Palette = {
@@ -36,6 +39,7 @@ const DARK: Palette = {
   border: '#334155',
   chartBar: '#0284c7',
   chartHighlight: '#d97706',
+  danger: '#f87171',
 };
 
 export type ThemeName = 'light' | 'dark';

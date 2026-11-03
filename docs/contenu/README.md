@@ -96,6 +96,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `plafonds` | `rubrique`, `titre`, `sous-titre`, `badges` | un tableau `Machine \| tok/s \| Élément \| Nos cartes` | la colonne « Élément » regroupe les barres |
 | `moe` | `rubrique`, `titre`, `badges`, `mesure`, `pied` | une section `### Groupe` par groupe de barres, chacune avec un tableau `Libellé \| Go \| Note \| Surligné` | les groupes, la mesure, puis le pied |
 | `architecture` | `rubrique`, `titre`, `badges`, `pied` | une section `### Couche` par couche : la 1re en haut, la 2e au milieu (la passerelle), les suivantes côte à côte en bas ; chacune avec `texte`, `surligné` et des briques `- Nom : licence` (licence facultative) | le haut, le milieu, le bas, puis le pied |
+| `animation` | `rubrique`, `titre`, `scène` : `coupure` (2 sections : nos usages, le fournisseur ; ou 4 : nos usages, la passerelle, le fournisseur, le secours), `routage` (5 : les requêtes, la passerelle, paliers 1 à 3), `relecture des poids` (3 : les poids, la bande passante, le texte écrit), `experts` (aucune) | une ligne `- …` par temps (la légende), des sections `### Élément` avec `texte` et `détail` (étiquette qui apparaît) | un par temps ; chaque temps a sa propre durée |
 | `merci` | `rubrique`, `titre`, `signature` | un tableau `Libellé \| Lien` | les liens, puis la signature |
 
 Les mises en page elles-mêmes (couleurs, tailles, animations) restent dans le code : `src/components/templates.tsx` pour les types courants, `src/slides/` pour les slides graphiques.

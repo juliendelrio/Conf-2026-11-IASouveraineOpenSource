@@ -20,17 +20,17 @@ Chaque chapitre suit le même schéma :
 
 | # | Partie | Durée |
 |---|--------|-------|
-| 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 30 |
+| 0 | Ouverture : l'aveu, l'enjeu, la promesse | 4 min |
 | 1 | Petit lexique | 1 min 30 |
 | 2 | Les modèles | 6 min 30 |
-| 3 | Le matériel | 8 min |
+| 3 | Le matériel | 8 min 30 |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 7 min |
 | 6a | Usages : le chat généraliste | 2 min |
 | 6b | Usages : les développeurs | 5 min |
 | 6c | Usages : les intégrations sur mesure | 3 min |
-| 7 | Conclusion | 3 min |
-| | **Total** | **44 min** |
+| 7 | Conclusion | 3 min 30 |
+| | **Total** | **45 min** |
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -40,10 +40,11 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
-| 0.3 | L'enjeu | « Et si demain on vous coupe l'accès, ou si les prix doublent ? » La réponse explicite vient au message final |
-| 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
-| 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
-| 0.6 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
+| 0.3 | La dépendance (animation) | Les requêtes partent vers un cloud US ; l'accès est coupé, puis le prix double. Illustration en motion design |
+| 0.4 | L'enjeu | « Et si demain on vous coupe l'accès, ou si les prix doublent ? » La réponse explicite vient au message final |
+| 0.5 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
+| 0.6 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
+| 0.7 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :
 
@@ -114,12 +115,14 @@ Ce qu'on a réellement testé :
 |---|---|---|---|
 | 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
 | 2 | 5 questions avant d'acheter | Est-ce que ça tourne ? Ça tient (VRAM) ? Ça écrit vite (bande passante) ? Ça lit vite (calcul) ? Les cartes se parlent bien (NVLink) ? | Grille de lecture |
-| 3 | Le réflexe | Bande passante ÷ poids lus par token = plafond de vitesse pour un utilisateur seul | Formule |
-| 4 | Les plafonds | Barres animées, Qwen3.8-27B en 4 bits sur 8 machines : DGX Spark, M5 Max, M5 Ultra, L4, L40S, RTX PRO 6000, H100, H200 | Extrapolé, sauf la RTX PRO 6000 : badge « testé » |
-| 5 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
-| 6 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
-| 7 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
-| 8 | Objectif, piège, leçon | Voir ci-dessous | |
+| 3 | La relecture des poids (animation) | Pour écrire un token, la carte relit tous les poids : deux passes lentes, puis la phrase s'écrit à pleine vitesse | Illustration |
+| 4 | Le réflexe | Bande passante ÷ poids lus par token = plafond de vitesse pour un utilisateur seul | Formule |
+| 5 | Les plafonds | Barres animées, Qwen3.8-27B en 4 bits sur 8 machines : DGX Spark, M5 Max, M5 Ultra, L4, L40S, RTX PRO 6000, H100, H200 | Extrapolé, sauf la RTX PRO 6000 : badge « testé » |
+| 6 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
+| 7 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
+| 8 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
+| 9 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
+| 10 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Le matériel par catégorie de modèles** (slide 6)
 
@@ -163,9 +166,10 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
 | 3 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
 | 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
-| 5 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
-| 6 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
-| 7 | Objectif, piège, leçon | Voir ci-dessous | |
+| 5 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
+| 6 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
+| 7 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
+| 8 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -233,8 +237,9 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 | 7.0 | Toute la stack, brique par brique | Le schéma d'ensemble (usages, passerelle, trois paliers) avec la licence de chaque brique ; réversible : on a basculé le 27B de Qwen 3.5 à 3.6 puis 3.8, et de DeepSeek-V4-Flash à Flash-Next ; alias génériques pour certaines tâches, sinon on prévient les utilisateurs du changement de nom |
 | 7.1 | Ce qu'on retient | Les 7 leçons, une par chapitre (tableau ci-dessous) |
 | 7.2 | Retour à l'aveu | Claude reste le palier 3, utilisé là où il apporte le plus : aujourd'hui les profils architecte, lead |
-| 7.3 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager. Réponse à l'enjeu de l'ouverture : accès coupé ou prix qui doublent, les modèles sont chez nous |
-| 7.4 | Merci, questions ? | Slides, site, LinkedIn, X |
+| 7.3 | La bascule (animation) | La scène de l'ouverture rejouée : accès coupé ou prix qui double, la passerelle bascule vers nos modèles et le service continue |
+| 7.4 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager. Réponse à l'enjeu de l'ouverture : accès coupé ou prix qui doublent, les modèles sont chez nous |
+| 7.5 | Merci, questions ? | Slides, site, LinkedIn, X |
 
 Notes pour l'oral :
 
@@ -701,6 +706,10 @@ Lien avec les catégories : ces intégrations reposent surtout sur des modèles 
 ### Annexe du lexique
 
 Déplacée dans `docs/contenu/lexique.md`, section « Réserve pour les questions ».
+
+### Idée écartée : la preuve en vidéo réelle (issue #6, novembre 2026)
+
+Prévu d'abord : enregistrer 60 à 90 secondes d'un agent de code (OpenCode) sur Qwen3.8-Flash-Next, sur nos cartes, en vitesse réelle, sur un mini-projet sans lien avec l'entreprise (une page de compte à rebours jusqu'au talk, avec thème clair / sombre), coupes signalées à l'écran, sans son, commentée en direct ; à placer avant la slide harness, environ +2 min. Écartée : pas de tournage réel. Remplacée par cinq animations en motion design (type de slide `animation`), présentées comme des illustrations : la dépendance (ouverture), la relecture des poids et les experts (matériel), la passerelle en action (plateforme), la bascule (conclusion)
 
 ### Formulations retirées des slides (issue #1, novembre 2026)
 
