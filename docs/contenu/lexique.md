@@ -40,8 +40,8 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les usages
 
-- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 33)
-- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 36)
+- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 34)
+- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 37)
 
 ## Réserve pour les questions
 

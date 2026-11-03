@@ -30,7 +30,7 @@ arrivée : « Un talk sur une IA 100 % souveraine, avec des outils open source�
 
 #### À l'oral
 
-l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 44)
+l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 45)
 
 #### Compléments
 
@@ -48,7 +48,7 @@ arrivée : « Et si demain on vous coupe l'accès, » ; clic 1 : « ou si les pr
 
 #### À l'oral
 
-poser la question au public et laisser un temps. Tout le talk y répond ; la réponse explicite vient à la fin (slide 45)
+poser la question au public et laisser un temps. Tout le talk y répond ; la réponse explicite vient à la fin (slide 46)
 
 #### Compléments
 
@@ -97,7 +97,7 @@ arrivée : les deux modèles et leurs dates ; clics 1 à 3 : sur 2 cartes au niv
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 39). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 40). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages
 
 #### Compléments
 

@@ -45,8 +45,8 @@ valeur : 444 Go – 2,5 To
 ### Le palier 2 : des hébergeurs français
 surligné : oui
 - Scaleway : par API (GLM, DeepSeek, Qwen)
-- OVHcloud : en louant les GPU
-- Mistral AI : par API (GLM-5.3)
+- OVHcloud : en louant les GPU, ou par API (Qwen)
+- Mistral AI : par API (GLM, DeepSeek, Large 4)
 
 #### Progression
 
@@ -54,7 +54,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 30)
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 30). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
 
 #### Compléments
 
@@ -63,6 +63,7 @@ les plus gros modèles restent accessibles sans quitter la France. C'est la mise
 - Scaleway Generative APIs (17/10/2026) : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash, DeepSeek-V4-Flash-0731, Qwen3.8-27B, Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement
 - OVHcloud : 8 × H200 à ~30 700 €/mois ; son offre AI Endpoints s'arrête à Qwen3.5-397B-A17B
 - Mistral AI : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09 au profit de GLM-5.3 (depuis le 15 septembre) ; contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie
+- Relevé du 03/11/2026 : Scaleway passe à deepseek-v4.1-flash-1017 et à GLM-5.3 (GLM-5.2 en fin de vie le 16/11) ; Mistral AI ajoute DeepSeek-V4.1-Flash et Mistral Large 4 ; OVHcloud AI Endpoints propose Qwen3.8-27B et Qwen3.5-397B-A17B. Détail et prix à la slide 32
 
 ## model-timeline
 type : étapes
@@ -156,7 +157,7 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 38). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 19)
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 39). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 19)
 
 #### Compléments
 
@@ -185,7 +186,8 @@ point très important. Pour une plateforme interne, ça semble passer ; pour un 
 
 - Licence « Qwen Community 1.0 » lue le 17/10/2026 : usage interne libre tant que ni le modèle, ni ses réponses, ni ses capacités ne sont mis à disposition de tiers ; licence séparée avant tout usage commercial en Model as a Service ou assistant de code / bureautique, quelle que soit la taille ; au-delà de 100 millions d'utilisateurs actifs mensuels ou 20 M$ de revenus mensuels, le nom du modèle doit être affiché
 - La licence « Qwen3.8-Max » du 2.4T est identique, sauf que la licence séparée n'est exigée qu'au-delà de 50 M$ de revenus sur 12 mois
-- Déduction : c'est sans doute pourquoi Flash-Next n'est pas au catalogue des API de Scaleway
+- Déduction : c'est sans doute pourquoi Flash-Next n'est au catalogue d'aucun hébergeur français (relevé du 03/11/2026)
+- Le « simple relais » de requêtes vers un modèle hébergé par un tiers est exempté, dans la licence Qwen Community comme dans la licence Mistral Ecosystem de Mistral Large 4 : une passerelle LiteLLM qui relaie vers un hébergeur ne demande pas de licence séparée (lecture de l'orateur, pas un avis juridique)
 - Les poids sont chez nous, mais la licence suit (idée proposée, non retenue pour l'instant)
 - Qwen 4 au 02/11/2026 : ni poids, ni fiche, ni licence publiés ; une sortie début novembre n'est évoquée que par des sources tierces. Revérifier la veille du talk
 

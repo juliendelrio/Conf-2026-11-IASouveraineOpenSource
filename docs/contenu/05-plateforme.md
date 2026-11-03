@@ -1,4 +1,4 @@
-# 5. La plateforme LLM (6 min)
+# 5. La plateforme LLM (7 min)
 
 ## platform-path
 type : étapes
@@ -110,7 +110,7 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 39 et 44)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 40 et 45)
 
 ## data-rules
 type : étapes
@@ -147,6 +147,38 @@ le tout-cloud expose les données à un tiers. La règle des données n'est pas 
 #### Compléments
 
 PSSI : la politique de sécurité des systèmes d'information de l'entreprise
+
+## tier2-api
+type : tableau
+rubrique : La plateforme
+titre : Le palier 2 à l'usage
+badges : {extrapolé: Catalogues publics, 03/11/2026}
+largeurs : 0.9fr 1.6fr 1.3fr 1.3fr
+taille : 32
+clics : 5
+pied : Essayé sur quelques projets, sans passage à l'échelle : un bon débord pour les usages moins critiques
+
+| Hébergeur | Modèles | Par million de tokens (entrée / sortie) | Données |
+|---|---|---|---|
+| Scaleway | GLM, DeepSeek, Qwen | 0,6 – 1,8 € / 1,8 – 5,5 € | France, non conservées |
+| OVHcloud | Qwen | 0,4 – 0,6 € / 2,7 – 3,6 € | UE, non conservées |
+| Mistral AI | GLM, DeepSeek, Mistral Large 4 | 0,3 – 1,4 $ / 1,2 – 4,4 $ | UE en option, 30 jours par défaut |
+| Cloud Temple | Qwen | 1,8 € / 8 € | France, SecNumCloud |
+
+#### Progression
+
+arrivée : le tableau des quatre hébergeurs ; clic 1 : le pied de slide
+
+#### À l'oral
+
+sans matériel, on consomme les modèles à l'usage, facturés au token. Les quatre offres sont compatibles OpenAI ; LiteLLM connaît nativement Scaleway, OVHcloud et Mistral, Cloud Temple passe en endpoint OpenAI générique. Flash-Next n'y est pas, mais DeepSeek-V4.1-Flash le remplace largement. On l'a essayé sur quelques projets, sans passage à l'échelle, et rien ne pousse à s'en méfier : c'est un bon débord pour les usages moins critiques, comme le code (hors brevets). Attention aux données : par défaut, Mistral ne garantit ni la localisation ni l'absence de conservation. Et un modèle en fin de vie peut être redirigé vers un autre, avec 3 mois de préavis
+
+#### Compléments
+
+- Prix publics hors taxes relevés le 03/11/2026, modèles d'intérêt seulement (les petits modèles descendent à 0,1 – 0,2 € en entrée) ; prix Scaleway relevés via un moteur de recherche, à revérifier. Scaleway : GLM-5.3 1,80 / 5,50 €, DeepSeek-V4.1-Flash 0,60 / 1,80 €, Qwen3.8-27B 0,60 / 3,30 €, batch −50 %. OVHcloud : Qwen3.8-27B 0,40 / 2,70 €, Qwen3.5-397B 0,60 / 3,60 €. Mistral AI : GLM-5.3 1,40 / 4,40 $, DeepSeek-V4.1-Flash 0,30 / 1,20 $, Mistral Large 4 0,70 / 2,10 $, point d'accès UE +10 %. Cloud Temple : prix unique, entrée 1,80 ou 1,90 € selon les sources
+- Qualifications : Scaleway ISO 27001 et HDS, SecNumCloud en cours ; OVHcloud ISO 27001, SOC 2, HDS ; Mistral AI SOC 2, ISO 27001 / 27701 ; Cloud Temple SecNumCloud 3.2 et HDS, seul qualifié
+- Ordre de grandeur extrapolé : à environ 1 € le million de tokens (DeepSeek-V4.1-Flash chez Scaleway, 3 tokens lus pour 1 écrit), louer de quoi faire tourner Flash-Next (3 900 – 9 300 €/mois) ne devient rentable qu'au-delà de 4 à 10 milliards de tokens par mois
+- Détail des catalogues, limites et cycles de vie en annexe de la storyline
 
 ## platform-trio
 type : trio

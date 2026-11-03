@@ -25,12 +25,12 @@ Chaque chapitre suit le même schéma :
 | 2 | Les modèles | 6 min 30 |
 | 3 | Le matériel | 8 min |
 | 4 | Les moteurs d'inférence | 4 min |
-| 5 | La plateforme LLM | 6 min |
+| 5 | La plateforme LLM | 7 min |
 | 6a | Usages : le chat généraliste | 2 min |
 | 6b | Usages : les développeurs | 5 min |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min |
-| | **Total** | **43 min** |
+| | **Total** | **44 min** |
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -155,7 +155,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de **ce qui vient de la documentation**. La version de travail complète du chapitre est en annexe.
 
-**Les slides (6 min)**
+**Les slides (7 min)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
@@ -164,7 +164,8 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | 3 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
 | 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 5 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
-| 6 | Objectif, piège, leçon | Voir ci-dessous | |
+| 6 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
+| 7 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -628,6 +629,19 @@ Le choix des interfaces, tel qu'il était décrit au chapitre plateforme (repris
 - **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
 - **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)
 - **Chiffres de production sur 3 semaines** : ~9 400 requêtes, premier token en 0,64 s, ~127 tok/s par requête, 10,4 s de bout en bout en moyenne. Pas encore de mesure de débit total sous charge avec un outil standard
+
+**Le palier 2 à l'usage : les hébergeurs français (issue #5, relevé du 03/11/2026)**
+
+Vécu : essayé sur quelques projets, sans passage à l'échelle. Pas de raison de s'en méfier : une bonne approche de débord pour les usages moins critiques, comme le code (hors brevets). Pas de volumes de tokens disponibles pour un point d'équilibre mesuré.
+
+- **Scaleway Generative APIs** (Paris) : glm-5.3 (glm-5.2 en fin de vie le 16/11), deepseek-v4.1-flash-1017, qwen3.8-27b, qwen3.6-35b, qwen3.5-397b, mistral-medium-3.5 (aperçu), gpt-oss-120b. Absents : Flash-Next, Mistral Large 4, DeepSeek-V4-Pro, Kimi, MiniMax M3. Prix (€/M entrée / sortie, via moteur de recherche, le site bloquant la lecture automatique) : glm-5.3 1,80 / 5,50 ; qwen3.8-27b 0,60 / 3,30 ; deepseek-v4.1-flash 0,60 / 1,80 ; qwen3.5-397b 0,60 / 3,60 ; gpt-oss-120b 0,15 / 0,60 ; batch −50 %. Aucune conservation par défaut, sauf jusqu'à 2 semaines en cas d'erreur. ISO 27001 et HDS au niveau de l'entreprise, SecNumCloud en cours. Quotas de 200k à 2M tokens par minute, SLO 99,9 %. Cycle de vie : 8 mois minimum, 3 mois de préavis, puis redirection silencieuse vers un autre modèle. Fournisseur natif LiteLLM (`scaleway/`). Les licences restrictives seraient couvertes par des « partenariats » non nommés
+- **OVHcloud AI Endpoints** (UE) : Qwen3.8-27B, Qwen3.5-397B, gpt-oss, Mistral Small 3.2 (fin de vie le 04/11), Llama 3.3 ; ni GLM ni DeepSeek. Prix (€/M) : Qwen3.8-27B 0,40 / 2,70 ; 397B 0,60 / 3,60 ; gpt-oss-120b 0,08 / 0,40. Aucune conservation ; ISO 27001, SOC 2, HDS, pas de SecNumCloud. 400 requêtes par minute, SLA 99,5 %, 3 mois de préavis. Fournisseur natif LiteLLM (`ovhcloud/`)
+- **Mistral AI** : GLM 5.3, GLM 5.3 Flash, DeepSeek V4.1 Flash 1017, Mistral Large 4 ; pas de Qwen. Prix ($/M) : GLM 5.3 1,40 / 4,40 ; GLM 5.3 Flash 0,15 / 0,50 ; DeepSeek V4.1 Flash 0,30 / 1,20 ; Mistral Large 4 0,70 / 2,10 ; point d'accès UE ×1,1. Par défaut, pas d'engagement de localisation et prompts conservés 30 jours (zéro conservation sur demande). SOC 2, ISO 27001 / 27701. Hébergement sur GCP évoqué, non vérifié. Limites par niveau non publiques. Fournisseur natif LiteLLM (`mistral/`)
+- **Cloud Temple** (France) : SecNumCloud 3.2 et HDS. qwen3.8:27b, qwen3.6:35b, qwen3-next:80b, mistral-small4, gpt-oss-120b… Prix unique 1,80 € (ou 1,90 €, les sources divergent) / 8,00 € par million de tokens ; pas de stockage des prompts. Endpoint OpenAI générique dans LiteLLM (`openai/`)
+- **Écartés** : Outscale (pas de prix public au token), Clever Cloud (passerelle, pas hébergeur de modèles), IONOS et Nebius (non français)
+- **Licences** : Qwen3.8-Flash-Next (Qwen Community 1.0) et Mistral Large 4 (Mistral Ecosystem) exigent une licence séparée pour du Model as a Service ; l'usage interne et le « simple relais » de requêtes en sont exemptés. Qwen3.8-27B reste sous Apache 2.0. Déduction, non sourcée : ces clauses expliquent sans doute les absences
+- **Point d'équilibre, extrapolé** : à environ 1 € le million de tokens (DeepSeek-V4.1-Flash chez Scaleway, 3 tokens lus pour 1 écrit), louer de quoi faire tourner Flash-Next (3 900 – 9 300 €/mois) ne devient rentable qu'au-delà de 4 à 10 milliards de tokens par mois
+- **À revérifier** : prix Scaleway dans un navigateur ; quotas Scaleway des nouveaux modèles et limites Mistral non publics ; localisation des données chez Mistral ; prix d'entrée de Cloud Temple
 
 ### Annexe du chapitre 6 : les usages
 
