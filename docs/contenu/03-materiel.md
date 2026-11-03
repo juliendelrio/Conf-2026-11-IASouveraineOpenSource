@@ -108,7 +108,7 @@ arrivée : la bande passante mémoire ; clic 1 : ÷ poids lus par token ; clic 2
 
 #### À l'oral
 
-la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 41)
+la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 40)
 
 #### Compléments
 
@@ -231,7 +231,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 36)
+la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 35)
 
 #### Compléments
 
@@ -266,7 +266,7 @@ arrivée : la carte salle serveur ; clic 1 : la carte datacenter ; clic 2 : le p
 
 #### À l'oral
 
-la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 14)
+la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 13)
 
 #### Compléments
 

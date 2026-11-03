@@ -20,7 +20,7 @@ Chaque chapitre suit le même schéma :
 
 | # | Partie | Durée |
 |---|--------|-------|
-| 0 | Ouverture : l'aveu, l'enjeu, la promesse | 4 min |
+| 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
 | 1 | Petit lexique | 1 min 30 |
 | 2 | Les modèles | 6 min 30 |
 | 3 | Le matériel | 8 min 30 |
@@ -30,7 +30,7 @@ Chaque chapitre suit le même schéma :
 | 6b | Usages : les développeurs | 5 min |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **45 min** |
+| | **Total** | **44 min 45** |
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -40,11 +40,10 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
-| 0.3 | La dépendance (animation) | Les requêtes partent vers un cloud US ; l'accès est coupé, puis le prix double. Illustration en motion design |
-| 0.4 | L'enjeu | « Et si demain on vous coupe l'accès, ou si les prix doublent ? » La réponse explicite vient au message final |
-| 0.5 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
-| 0.6 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
-| 0.7 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
+| 0.3 | L'enjeu (animation) | Les requêtes partent vers un cloud US ; « Et si demain on vous coupe l'accès, » (l'accès est coupé) « ou si les prix doublent ? » (le prix double). Illustration en motion design ; la réponse explicite vient au message final |
+| 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
+| 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
+| 0.6 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :
 
@@ -710,6 +709,30 @@ Déplacée dans `docs/contenu/lexique.md`, section « Réserve pour les question
 ### Idée écartée : la preuve en vidéo réelle (issue #6, novembre 2026)
 
 Prévu d'abord : enregistrer 60 à 90 secondes d'un agent de code (OpenCode) sur Qwen3.8-Flash-Next, sur nos cartes, en vitesse réelle, sur un mini-projet sans lien avec l'entreprise (une page de compte à rebours jusqu'au talk, avec thème clair / sombre), coupes signalées à l'écran, sans son, commentée en direct ; à placer avant la slide harness, environ +2 min. Écartée : pas de tournage réel. Remplacée par cinq animations en motion design (type de slide `animation`), présentées comme des illustrations : la dépendance (ouverture), la relecture des poids et les experts (matériel), la passerelle en action (plateforme), la bascule (conclusion)
+
+### Slide fusionnée : l'enjeu en déclaration (novembre 2026)
+
+Fusionnée dans l'animation de la dépendance (slide 3), qui pose désormais la question. Contenu d'origine :
+
+```markdown
+## stakes
+type : déclaration
+rubrique : L'enjeu
+- Et si demain on vous coupe l'accès,
+- ==ou si les prix doublent ?==
+
+#### Progression
+
+arrivée : « Et si demain on vous coupe l'accès, » ; clic 1 : « ou si les prix doublent ? »
+
+#### À l'oral
+
+poser la question au public et laisser un temps. Tout le talk y répond ; la réponse explicite vient à la fin (slide 51)
+
+#### Compléments
+
+—
+```
 
 ### Formulations retirées des slides (issue #1, novembre 2026)
 
