@@ -20,6 +20,7 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
+- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 13, puis slides 29 et 32)
 
 ### Le matériel
 

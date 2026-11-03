@@ -180,7 +180,7 @@ arrivée : Qwen sous Apache 2.0 ; clics 1 à 4 : licence maison, usage interne l
 
 #### À l'oral
 
-point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
+point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Le Model as a Service, c'est un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
 
 #### Compléments
 
