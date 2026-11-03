@@ -25,11 +25,11 @@ arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : le pied de slide
 
 #### À l'oral
 
-certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi
+certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
 
 #### Compléments
 
-sur Mac, la vidéo citée à la slide 18 présente aussi Lithos et OMLX
+sur Mac, la vidéo citée à la slide 17 présente aussi Lithos et OMLX
 
 ## engine-cycle
 type : étapes
@@ -93,8 +93,8 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-_à compléter_
+deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros MoE tournait sur ces cartes ; on a essayé un fork communautaire de vLLM optimisé Blackwell, puis on est revenu à vLLM upstream. Le réglage par défaut : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes est actif par défaut ; sans NVLink, il ne convenait pas, il a fallu revenir à NCCL seul
 
 #### Compléments
 
-voir les compléments de la slide 26
+voir les compléments de la slide 25

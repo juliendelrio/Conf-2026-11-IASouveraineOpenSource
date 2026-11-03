@@ -7,7 +7,7 @@ Les slides sont écrites ici, en Markdown. Le code (`src/`) ne contient plus de 
 | Fichier | Contenu |
 |---|---|
 | `00-ouverture.md` | Titre, aveu, promesse, fil rouge |
-| `01-lexique.md` | Les deux slides de lexique (choix et ordre des termes) |
+| `01-lexique.md` | La slide de lexique (choix et ordre des termes) |
 | `02-modeles.md` … `07-conclusion.md` | Un fichier par chapitre |
 | `lexique.md` | Toutes les définitions : celles des slides, celles à dire à l'oral, la réserve pour les questions |
 

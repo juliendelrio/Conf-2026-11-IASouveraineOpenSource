@@ -50,6 +50,7 @@ rubrique : Conclusion
 titre : Ce qu'on retient
 largeurs : 0.9fr 3fr
 taille : 30
+clics : aucun
 
 | Chapitre | La leçon |
 |---|---|
@@ -63,15 +64,15 @@ taille : 30
 
 #### Progression
 
-arrivée : modèles ; clics 1 à 6 : matériel, moteurs, plateforme, chat, développeurs, intégrations
+pas de clic : les leçons s'enchaînent à l'arrivée
 
 #### À l'oral
 
-reprendre rapidement les leçons, une par une
+reprendre rapidement les leçons, en 30 secondes au plus
 
 #### Compléments
 
-formulations complètes dans les slides 15, 23, 27, 33, 36, 40 et 42
+formulations complètes dans les slides 14, 22, 26, 32, 35, 39 et 41
 
 ## confession-callback
 type : déclaration
@@ -97,18 +98,19 @@ type : déclaration
 - ==La preuve est là : c’est possible.==
 - Les modèles déjà disponibles permettent de faire des choses incroyables…
 - … même si demain les Américains et les Chinois arrêtent de partager.
+- ==Accès coupé ou prix qui doublent : les modèles sont chez nous.==
 
 #### Progression
 
-arrivée : « La preuve est là » ; clic 1 : les modèles déjà disponibles ; clic 2 : « même si demain… »
+arrivée : « La preuve est là » ; clic 1 : les modèles déjà disponibles ; clic 2 : « même si demain… » ; clic 3 : la réponse à l'enjeu de l'ouverture
 
 #### À l'oral
 
-la preuve est là, et c'est ce que l'open source apporte : pas de coupure subie ni de hausse de prix imposée, on peut toujours faire au moins ce qu'on fait déjà. Les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
+la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est ce que l'open source apporte : pas de coupure subie ni de hausse de prix imposée, on peut toujours faire au moins ce qu'on fait déjà. Les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
 
 #### Compléments
 
-nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 14)
+nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 13)
 
 ## thanks
 type : merci

@@ -20,9 +20,9 @@ Chaque chapitre suit le même schéma :
 
 | # | Partie | Durée |
 |---|--------|-------|
-| 0 | Ouverture : l'aveu | 2 min |
-| 1 | Petit lexique | 3 min |
-| 2 | Les modèles | 8 min |
+| 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 30 |
+| 1 | Petit lexique | 1 min 30 |
+| 2 | Les modèles | 6 min 30 |
 | 3 | Le matériel | 8 min |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 6 min |
@@ -30,7 +30,7 @@ Chaque chapitre suit le même schéma :
 | 6b | Usages : les développeurs | 5 min |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min |
-| | **Total** | **44 min** |
+| | **Total** | **43 min** |
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -40,8 +40,10 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 |---|---|---|
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
-| 0.3 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
-| 0.4 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
+| 0.3 | L'enjeu | « Et si demain on vous coupe l'accès, ou si les prix doublent ? » La réponse explicite vient au message final |
+| 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
+| 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
+| 0.6 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :
 
@@ -60,11 +62,10 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 
 | # | Slide | Contenu |
 |---|---|---|
-| 1.1 | Lexique (1/2) | Inférence, paramètres / poids, open weights vs open source, quantization, token |
-| 1.2 | Lexique (2/2) | VRAM, fenêtre de contexte / KV cache, MoE, agentique, harness |
+| 1.1 | Lexique | Paramètres / poids, open weights vs open source, quantization, token, VRAM |
 
 
-Une dizaine de mots nécessaires pour suivre la suite, une métaphore par terme, pas de maths. Les autres termes sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
+Les cinq mots nécessaires dès le chapitre modèles, une métaphore par terme, pas de maths. Les autres termes (inférence, contexte / KV cache, MoE, agentique, harness, …) sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
 
 ### 2. Les modèles
 
@@ -72,21 +73,19 @@ Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce
 
 Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Les slides (8 min)**
+**Les slides (6 min 30)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
-| 1 | Pourquoi commencer par les modèles | C'est la finalité : fixer un budget, le mettre en rapport avec les catégories de modèles, puis voir quel matériel ce budget permet | Démarche |
-| 2 | Août 2026, le cap franchi | DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) | Testé ; niveau « Opus » selon les éditeurs |
-| 3 | Quatre catégories | Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
-| 4 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
-| 5 | Ce qu'on a vécu | Frise : fin 2025 Chocolatine ; février 2026 Qwen 3.5 sur L40S louées ; avril Qwen 3.6 ; juin RTX PRO 6000 en FP8 ; août Qwen 3.8 et Flash-Next. En parallèle, la transcription | Testé |
-| 6 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
-| 7 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
-| 8 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
-| 9 | Objectif, piège, leçon | Voir ci-dessous | |
+| 1 | Quatre catégories | Pourquoi commencer par les modèles : c'est la finalité (démarche du fil rouge). Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
+| 2 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
+| 3 | Ce qu'on a vécu | Frise : fin 2025 Chocolatine ; février 2026 Qwen 3.5 sur L40S louées ; avril Qwen 3.6 ; juin RTX PRO 6000 en FP8 ; août Qwen 3.8 et Flash-Next. En parallèle, la transcription | Testé |
+| 4 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
+| 5 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+| 6 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 7 | Objectif, piège, leçon | Voir ci-dessous | |
 
-**Quatre catégories pour aider à la décision** (slide 3)
+**Quatre catégories pour aider à la décision** (slide 1)
 
 | Catégorie | Pour quoi faire | Modèles | Testé chez nous |
 |---|---|---|---|
@@ -162,7 +161,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 |---|---|---|---|
 | 1 | Le chemin en 3 étapes | Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
-| 3 | Communautaire ou entreprise | La version communautaire, très permissive, suffit en interne. Pour une offre aux clients, l'entreprise apporte organisations, monitoring plus fin, refacturation, SSO | Communautaire testée ; entreprise d'après la doc |
+| 3 | L'édition communautaire suffit en interne | Une seule idée à l'écran : droits, budgets, suivi, bascules, tout y est déjà. L'entreprise vise surtout une offre aux clients : organisations, refacturation, SSO | Communautaire testée ; entreprise d'après la doc |
 | 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 5 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
 | 6 | Objectif, piège, leçon | Voir ci-dessous | |
@@ -233,7 +232,7 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 | 7.0 | Toute la stack, brique par brique | Le schéma d'ensemble (usages, passerelle, trois paliers) avec la licence de chaque brique ; réversible : on a basculé le 27B de Qwen 3.5 à 3.6 puis 3.8, et de DeepSeek-V4-Flash à Flash-Next ; alias génériques pour certaines tâches, sinon on prévient les utilisateurs du changement de nom |
 | 7.1 | Ce qu'on retient | Les 7 leçons, une par chapitre (tableau ci-dessous) |
 | 7.2 | Retour à l'aveu | Claude reste le palier 3, utilisé là où il apporte le plus : aujourd'hui les profils architecte, lead |
-| 7.3 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager |
+| 7.3 | Le message final | La preuve est là : c'est possible, même si demain les Américains et les Chinois arrêtent de partager. Réponse à l'enjeu de l'ouverture : accès coupé ou prix qui doublent, les modèles sont chez nous |
 | 7.4 | Merci, questions ? | Slides, site, LinkedIn, X |
 
 Notes pour l'oral :
@@ -737,4 +736,91 @@ on note clairement un palier avec les modèles d'août
 #### Compléments
 
 voir les slides 8 et 12
+```
+
+### Slides retirées ou réduites (issue #4, novembre 2026)
+
+La démarche (doublon du fil rouge, son oral passe sur la slide des catégories), la seconde slide de lexique (ses termes sont expliqués là où ils servent) et la version d'origine de la slide « Communautaire ou entreprise ? », réduite à une seule idée. La slide d'août a été déplacée en ouverture, sans changement de contenu. Contenu d'origine (`docs/contenu/`) :
+
+```markdown
+## models-why
+type : étapes
+rubrique : Les modèles
+titre : Commencer par la finalité
+pied : Avant de parler cartes et serveurs, savoir ce qu'on veut faire tourner
+
+### Fixer un budget
+texte : Interne ou location
+
+### Choisir une catégorie de modèles
+texte : Ce que ce budget permet de faire tourner
+surligné : oui
+
+### En déduire le matériel
+texte : Le chapitre suivant
+
+#### Progression
+
+arrivée : fixer un budget ; clic 1 : choisir une catégorie ; clic 2 : en déduire le matériel ; clic 3 : le pied de slide
+
+#### À l'oral
+
+pourquoi commencer par les modèles : c'est la finalité. Les 4 catégories qui suivent servent à aider à la décision
+
+#### Compléments
+
+—
+
+## glossary-2
+type : lexique
+rubrique : Petit lexique
+titre : Les mots pour suivre (2/2)
+- VRAM
+- Contexte, KV cache
+- MoE
+- Agentique
+- Harness
+
+#### Progression
+
+arrivée : VRAM ; clics 1 à 4 : contexte / KV cache, MoE, agentique, harness
+
+#### À l'oral
+
+la VRAM est la vraie ressource rare ; plus une conversation est longue, plus elle consomme de mémoire ; un MoE ne fait travailler qu'une partie du modèle à chaque token ; le harness est l'application autour du modèle (repris au chapitre usages)
+
+#### Compléments
+
+voir la slide 5
+
+## editions
+type : cartes
+rubrique : La plateforme
+titre : Communautaire ou entreprise ?
+pied : Comme pour l'hébergement et les licences : une offre aux clients change les exigences
+
+### Communautaire
+surligné : oui
+badges : {testé: Testé}
+- Très permissive
+- Suffit largement en interne
+
+### Entreprise
+badges : {extrapolé: D’après la doc}
+- Organisations
+- Monitoring plus fin
+- Refacturation
+- SSO
+
+#### Progression
+
+arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le pied de slide
+
+#### À l'oral
+
+pour commercialiser soi-même une plateforme basée sur LiteLLM, la version entreprise devient très intéressante. Troisième « interne ou clients » du talk, après l'hébergement (slide 22) et les licences (slide 14)
+
+#### Compléments
+
+d'après la doc LiteLLM (20/10/2026, https://docs.litellm.ai/docs/enterprise) : l'open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation ; l'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
 ```

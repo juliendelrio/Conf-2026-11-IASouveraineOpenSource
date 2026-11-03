@@ -21,7 +21,7 @@ arrivée : généraliste ; clics 1 et 2 : développeurs, intégrations ; clic 3 
 
 #### À l'oral
 
-les besoins les plus intenses sont ceux des développeurs, c'est là qu'il faut le plus de compromis. Pour le chat et les intégrations, on fait déjà des choses vraiment très impressionnantes
+les besoins les plus intenses sont ceux des développeurs, c'est là qu'il faut le plus de compromis. Pour le chat et les intégrations, on fait déjà des choses vraiment très impressionnantes. Agentique : un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois
 
 #### Compléments
 
@@ -69,7 +69,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-_à compléter_
+un retour d'expérience des utilisateurs : ils étaient perdus par l'ergonomie d'Open WebUI. C'est ce qui a motivé le passage à LibreChat
 
 #### Compléments
 
@@ -96,7 +96,7 @@ le harness compte autant que le modèle. En auto-hébergé, on n'est plus limit�
 #### Compléments
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 20 et 33)
+- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 19 et 32)
 - Électricité : 600 W par RTX PRO 6000 Server Edition au maximum (fiche constructeur), soit 1,2 kW pour les 2 cartes du Flash-Next, hors serveur ; pas mesurée chez nous
 
 ## two-harnesses
@@ -168,7 +168,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 45). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 44). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
 
 #### Compléments
 
@@ -214,7 +214,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-cette leçon reprend l'objectif annoncé à l'ouverture (slide 3) et prépare le message final
+cette leçon reprend l'objectif annoncé à l'ouverture (slide 4) et prépare le message final
 
 #### Compléments
 

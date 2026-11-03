@@ -1,19 +1,14 @@
 # Lexique
 
-La source unique des définitions. Les slides de lexique (`01-lexique.md`) affichent les termes qu'elles listent, avec la définition écrite ici. Format d'une entrée : `- **Terme** : définition`.
+La source unique des définitions. La slide de lexique (`01-lexique.md`) affiche les termes qu'elle liste, avec la définition écrite ici. Format d'une entrée : `- **Terme** : définition`.
 
-## Dans l'introduction (slides 5 et 6)
+## Sur la slide de lexique (slide 7)
 
-- **Inférence** : Exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l’entraînement
 - **Paramètres, poids** : Les connexions d’un réseau de neurones artificiels, réglées pendant l’entraînement. Le comportement est appris, pas programmé. Leur nombre donne la taille du modèle, en milliards (B) : 7B, 32B…
 - **Open weights** : On récupère les poids pour exécuter le modèle, mais pas les données ni le code pour le réentraîner : on ne peut ni le reproduire ni l’auditer
 - **Quantization** : Arrondir les poids (16, 8, 4 bits) pour que le modèle tienne en mémoire, au prix d’un peu de précision
 - **Token** : Un morceau de mot (environ 3/4 d’un mot) : l’unité des vitesses et des prix
 - **VRAM** : La mémoire de la carte graphique. Le modèle doit y tenir en entier : c’est la vraie ressource rare
-- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM
-- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit
-- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois
-- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness
 
 ## Expliqués en une phrase là où ils apparaissent
 
@@ -21,21 +16,32 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les modèles
 
+- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit (slide 12, puis slide 19)
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
 
 ### Le matériel
 
+- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 16)
 - **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
 - **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
 - **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
+
+### Les moteurs
+
+- **Inférence** : Exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l’entraînement (slide 23)
 
 ### La plateforme LLM
 
 - **Passerelle LLM** (*LLM gateway*) : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
 - **OpenTelemetry (OTel)** : le standard ouvert pour collecter métriques, traces et journaux
 - **SSO** : se connecter avec le compte de l'entreprise, sans mot de passe dédié
+
+### Les usages
+
+- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 33)
+- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 36)
 
 ## Réserve pour les questions
 

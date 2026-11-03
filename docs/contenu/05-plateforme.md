@@ -53,31 +53,20 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
 ## editions
-type : cartes
+type : liste
 rubrique : La plateforme
-titre : Communautaire ou entreprise ?
-pied : Comme pour l'hébergement et les licences : une offre aux clients change les exigences
-
-### Communautaire
-surligné : oui
+titre : L'édition communautaire suffit en interne
 badges : {testé: Testé}
-- Très permissive
-- Suffit largement en interne
-
-### Entreprise
-badges : {extrapolé: D’après la doc}
-- Organisations
-- Monitoring plus fin
-- Refacturation
-- SSO
+pied : L'édition entreprise vise surtout une offre aux clients : organisations, refacturation, SSO
+- Droits, budgets, suivi, bascules : tout y est déjà
 
 #### Progression
 
-arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le pied de slide
+arrivée : le titre et ce que couvre le communautaire ; clic 1 : le pied de slide
 
 #### À l'oral
 
-pour commercialiser soi-même une plateforme basée sur LiteLLM, la version entreprise devient très intéressante. Troisième « interne ou clients » du talk, après l'hébergement (slide 22) et les licences (slide 14)
+pour commercialiser soi-même une plateforme basée sur LiteLLM, la version entreprise devient très intéressante. Troisième « interne ou clients » du talk, après l'hébergement (slide 21) et les licences (slide 13)
 
 #### Compléments
 
@@ -106,11 +95,11 @@ arrivée : palier 1 ; clics 1 et 2 : paliers 2 et 3 ; clic 3 : le pied de slide
 
 #### À l'oral
 
-ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 10). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
+ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 9). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 40 et 45)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 39 et 44)
 
 ## data-rules
 type : étapes
@@ -161,7 +150,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-_à compléter_
+deux histoires vécues, 20 secondes chacune, sur le réglage du service selon l'usage réel. Réserver 95 % de la VRAM faisait planter le moteur sur un long prompt : retour à 90 %. Et 116 requêtes restaient suspendues faute de mémoire : après analyse des longueurs de prompts réels, on a ramené le contexte de 262k à 196k tokens et limité à 12 conversations simultanées ; on est passé à 0
 
 #### Compléments (régler le service sur l'usage réel, pour les questions)
 

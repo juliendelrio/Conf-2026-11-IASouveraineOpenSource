@@ -1,57 +1,4 @@
-# 2. Les modèles (8 min)
-
-## models-why
-type : étapes
-rubrique : Les modèles
-titre : Commencer par la finalité
-pied : Avant de parler cartes et serveurs, savoir ce qu'on veut faire tourner
-
-### Fixer un budget
-texte : Interne ou location
-
-### Choisir une catégorie de modèles
-texte : Ce que ce budget permet de faire tourner
-surligné : oui
-
-### En déduire le matériel
-texte : Le chapitre suivant
-
-#### Progression
-
-arrivée : fixer un budget ; clic 1 : choisir une catégorie ; clic 2 : en déduire le matériel ; clic 3 : le pied de slide
-
-#### À l'oral
-
-pourquoi commencer par les modèles : c'est la finalité. Les 4 catégories qui suivent servent à aider à la décision
-
-#### Compléments
-
-—
-
-## august
-type : liste
-rubrique : Les modèles
-titre : Août 2026, le cap franchi
-badges : {testé: Testé} {extrapolé: Niveau Opus : selon les éditeurs}
-pied : Plus besoin d'un cluster de H200 pour des tâches générales
-- DeepSeek-V4-Flash-0731 (31 juillet) et Qwen3.8-Flash-Next (24 août)
-- Sur 2 cartes, autour de Claude Opus 4.6 à 4.8
-- Les premiers modèles vraiment utilisables en entreprise, codage compris
-- Et les outils arrivent en même temps : DeepSeek Harness
-
-#### Progression
-
-arrivée : les deux modèles et leurs dates ; clics 1 à 3 : sur 2 cartes au niveau d'Opus, utilisables en entreprise, DeepSeek Harness ; clic 4 : le pied de slide
-
-#### À l'oral
-
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 40)
-
-#### Compléments
-
-- Comparaisons publiées par les éditeurs, à présenter comme telles : DeepSeek-V4-Flash-0731, Terminal Bench 2.1 82,7 contre 85,0 pour Opus 4.8 ; Flash-Next comparé à Opus 4.6 Max dans sa fiche
-- DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code (dépôt créé le 13 août 2026)
-- Également sortis en août : Qwen3.8-27B (le 5 ; Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche) et Qwen3.8-2.4T-A95B (le 8)
+# 2. Les modèles (6 min 30)
 
 ## categories
 type : tableau
@@ -75,7 +22,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4
+on commence par les modèles parce que c'est la finalité (la démarche du fil rouge) : on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4. Ne citer que quelques noms de la catégorie 4, en abrégé : DeepSeek, Kimi, GLM, Mistral, Qwen
 
 #### Compléments
 
@@ -107,7 +54,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 31)
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 30)
 
 #### Compléments
 
@@ -209,7 +156,7 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 39). La VRAM restante pour le KV cache est le vrai sujet
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 38). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 19)
 
 #### Compléments
 
