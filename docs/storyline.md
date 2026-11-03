@@ -161,7 +161,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 |---|---|---|---|
 | 1 | Le chemin en 3 étapes | Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
-| 3 | L'édition communautaire suffit en interne | Une seule idée à l'écran : droits, budgets, suivi, bascules, tout y est déjà. L'entreprise vise surtout une offre aux clients : organisations, refacturation, SSO | Communautaire testée ; entreprise d'après la doc |
+| 3 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
 | 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 5 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
 | 6 | Objectif, piège, leçon | Voir ci-dessous | |

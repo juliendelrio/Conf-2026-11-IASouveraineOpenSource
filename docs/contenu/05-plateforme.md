@@ -53,20 +53,31 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
 ## editions
-type : liste
+type : cartes
 rubrique : La plateforme
-titre : L'édition communautaire suffit en interne
+titre : LiteLLM : communautaire ou entreprise ?
+pied : En interne, la communautaire suffit. Pour une offre Model as a Service, l'entreprise devient nécessaire
+
+### Communautaire
+surligné : oui
 badges : {testé: Testé}
-pied : L'édition entreprise vise surtout une offre aux clients : organisations, refacturation, SSO
-- Droits, budgets, suivi, bascules : tout y est déjà
+- Droits, budgets, suivi, bascules
+- Suffit pour de l'interne
+
+### Entreprise
+badges : {extrapolé: D’après la doc}
+- Organisations, SSO
+- Logs avancés
+- Rotation des clés
+- Compatible avec les gestionnaires de secrets
 
 #### Progression
 
-arrivée : le titre et ce que couvre le communautaire ; clic 1 : le pied de slide
+arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le pied de slide
 
 #### À l'oral
 
-pour commercialiser soi-même une plateforme basée sur LiteLLM, la version entreprise devient très intéressante. Troisième « interne ou clients » du talk, après l'hébergement (slide 21) et les licences (slide 13)
+pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 21) et les licences (slide 13)
 
 #### Compléments
 
