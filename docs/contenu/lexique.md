@@ -16,22 +16,22 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les modèles
 
-- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit (slide 12, puis slide 21)
+- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit (slide 13, puis slide 22)
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
-- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 13, puis slides 31 et 35)
+- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 14, puis slides 33 et 37)
 
 ### Le matériel
 
-- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 16)
+- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 17)
 - **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
 - **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
 - **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
 
 ### Les moteurs
 
-- **Inférence** : Exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l’entraînement (slide 25)
+- **Inférence** : Exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l’entraînement (slide 26)
 
 ### La plateforme LLM
 
@@ -41,8 +41,8 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les usages
 
-- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 37)
-- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 40)
+- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 39)
+- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 43)
 
 ## Réserve pour les questions
 

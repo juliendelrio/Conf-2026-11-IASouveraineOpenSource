@@ -1,4 +1,4 @@
-# 6. Les usages (10 min)
+# 6. Les usages (10 min 15)
 
 ## usage-types
 type : tableau
@@ -75,6 +75,43 @@ un retour d'expérience des utilisateurs : ils étaient perdus par l'ergonomie d
 
 —
 
+## agent-loop
+type : animation
+scène : boucle agent
+rubrique : Usages · les développeurs
+titre : Un agent boucle jusqu'au résultat
+- L'agent lit, agit, vérifie, et recommence jusqu'à ce que ça passe
+- Chaque agent occupe une conversation : la limite devient la capacité des cartes
+
+### Lire
+texte : le code, l'erreur
+
+### Agir
+texte : écrire, lancer un outil
+
+### Vérifier
+texte : les tests
+détail : Tests au vert
+
+### Itérations
+
+### Conversations simultanées
+texte : 12 au maximum
+détail : En attente
+
+#### Progression
+
+arrivée : la boucle tourne quatre fois, jusqu'aux tests au vert ; clic 1 : les conversations simultanées se remplissent jusqu'à 12, la suivante attend
+
+#### À l'oral
+
+ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il boucle jusqu'au résultat. Chaque boucle consomme des tokens ; en auto-hébergé, on ne compte plus au jeton, la limite devient le nombre de conversations que nos cartes tiennent en même temps
+
+#### Compléments
+
+- Illustration en motion design, pas une mesure. Issue #6. Le nombre d'itérations est illustratif
+- 12 conversations simultanées au maximum après réglage (slide 38) ; au-delà, les requêtes attendent leur tour
+
 ## harness
 type : liste
 rubrique : Usages · les développeurs
@@ -96,7 +133,7 @@ le harness compte autant que le modèle. En auto-hébergé, on n'est plus limit�
 #### Compléments
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 21 et 36)
+- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 22 et 38)
 - Électricité : 600 W par RTX PRO 6000 Server Edition au maximum (fiche constructeur), soit 1,2 kW pour les 2 cartes du Flash-Next, hors serveur ; pas mesurée chez nous
 
 ## two-harnesses
@@ -168,7 +205,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 48). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 51). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé
 
 #### Compléments
 

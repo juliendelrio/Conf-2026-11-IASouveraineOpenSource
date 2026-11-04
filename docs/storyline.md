@@ -21,16 +21,16 @@ Chaque chapitre suit le même schéma :
 | # | Partie | Durée |
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
-| 1 | Petit lexique | 1 min 30 |
+| 1 | Petit lexique | 1 min 45 |
 | 2 | Les modèles | 6 min 30 |
 | 3 | Le matériel | 8 min 30 |
 | 4 | Les moteurs d'inférence | 4 min |
-| 5 | La plateforme LLM | 7 min |
+| 5 | La plateforme LLM | 7 min 15 |
 | 6a | Usages : le chat généraliste | 2 min |
-| 6b | Usages : les développeurs | 5 min |
+| 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **44 min 45** |
+| | **Total** | **45 min 30** |
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -63,6 +63,7 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 | # | Slide | Contenu |
 |---|---|---|
 | 1.1 | Lexique | Paramètres / poids, open weights vs open source, quantization, token, VRAM |
+| 1.2 | La quantization en image (animation) | Le même poids en 16, 8 puis 4 bits : Qwen3.8-27B passe de ~54 à ~31 puis ~16 Go et finit par tenir sur une L4 (24 Go) |
 
 
 Les cinq mots nécessaires dès le chapitre modèles, une métaphore par terme, pas de maths. Les autres termes (inférence, contexte / KV cache, MoE, agentique, harness, …) sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
@@ -157,18 +158,19 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de **ce qui vient de la documentation**. La version de travail complète du chapitre est en annexe.
 
-**Les slides (7 min)**
+**Les slides (7 min 15)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
-| 1 | Le chemin en 3 étapes | Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
+| 1 | Le chemin en 3 étapes (animation) | Chaque service branché sur chaque moteur, puis une passerelle maison devant chaque moteur, puis LiteLLM au centre. Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
-| 3 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
-| 4 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
-| 5 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
-| 6 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
-| 7 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
-| 8 | Objectif, piège, leçon | Voir ci-dessous | |
+| 3 | Un budget par équipe (animation) | Les jauges des équipes se remplissent ; une équipe atteint son budget et ses requêtes s'arrêtent à la passerelle ; le budget repart à zéro | Illustration ; budgets d'après la doc |
+| 4 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
+| 5 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
+| 6 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
+| 7 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
+| 8 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
+| 9 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -203,6 +205,7 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 
 | # | Slide | Contenu |
 |---|---|---|
+| 6b.1 | Un agent boucle jusqu'au résultat (animation) | Lire, agir, vérifier, quatre fois jusqu'aux tests au vert ; puis les conversations simultanées se remplissent jusqu'à 12 et la suivante attend |
 | 6b.2 | Le harness, un vrai levier | Le harness (outils, skills, prompts système) pousse le modèle. Quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu ; l'électricité consommée en plus reste négligeable sur l'ensemble |
 | 6b.3 | Deux harness open source | Pour s'adapter aux limites de chacun : OpenCode (MIT) gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness (MIT, août 2026) : approche web only et jeunesse du système, même si les promesses sont très belles |
 | 6b.4 | La vision | DeepSeek-V4-Flash ne lit que du texte : Qwen3.8-27B décrivait les images à sa place. Un vrai modèle multimodal reste bien meilleur : depuis Flash-Next, le modèle lit lui-même captures et maquettes |
@@ -732,6 +735,41 @@ poser la question au public et laisser un temps. Tout le talk y répond ; la ré
 #### Compléments
 
 —
+```
+
+### Slide remplacée : le chemin en trois étapes, version frise (novembre 2026)
+
+Remplacée par l'animation du même nom (issue #6). Contenu d'origine :
+
+```markdown
+## platform-path
+type : étapes
+rubrique : La plateforme
+titre : Le chemin en trois étapes
+badges : {testé: Testé}
+pied : LiteLLM, c'est l'industrialisation de ce qu'on avait commencé avec la passerelle maison
+
+### Le moteur en direct
+texte : Vite limité pour diversifier les usages
+
+### Une passerelle maison
+texte : Devant chaque moteur : autant de points d’accès
+
+### LiteLLM
+texte : Une passerelle centralisée, open source
+surligné : oui
+
+#### Progression
+
+arrivée : le moteur en direct ; clic 1 : la passerelle maison ; clic 2 : LiteLLM ; clic 3 : le pied de slide
+
+#### À l'oral
+
+au début, des versions souvent préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur. La passerelle maison gérait les jetons d'accès, mais multipliait les points d'accès que les services devaient connaître. C'est en cherchant une passerelle unique qu'on a trouvé LiteLLM
+
+#### Compléments
+
+expliquer « passerelle LLM » en une phrase : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
 ```
 
 ### Formulations retirées des slides (issue #1, novembre 2026)

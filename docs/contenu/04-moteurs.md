@@ -29,7 +29,7 @@ certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le mat
 
 #### Compléments
 
-sur Mac, la vidéo citée à la slide 18 présente aussi Lithos et OMLX
+sur Mac, la vidéo citée à la slide 19 présente aussi Lithos et OMLX
 
 ## engine-cycle
 type : étapes
@@ -97,4 +97,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 27
+voir les compléments de la slide 28

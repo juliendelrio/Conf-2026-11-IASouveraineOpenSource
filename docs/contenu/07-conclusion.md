@@ -72,7 +72,7 @@ reprendre rapidement les leçons, en 30 secondes au plus
 
 #### Compléments
 
-formulations complètes dans les slides 14, 24, 28, 36, 39, 43 et 45
+formulations complètes dans les slides 15, 25, 29, 38, 41, 46 et 48
 
 ## confession-callback
 type : déclaration
@@ -144,7 +144,7 @@ la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est
 
 #### Compléments
 
-nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 13)
+nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 14)
 
 ## thanks
 type : merci

@@ -1,25 +1,36 @@
-# 5. La plateforme LLM (7 min)
+# 5. La plateforme LLM (7 min 15)
 
 ## platform-path
-type : étapes
+type : animation
+scène : chemin
 rubrique : La plateforme
 titre : Le chemin en trois étapes
 badges : {testé: Testé}
-pied : LiteLLM, c'est l'industrialisation de ce qu'on avait commencé avec la passerelle maison
+- Le moteur en direct : chaque service se branche sur chaque moteur
+- Une passerelle maison devant chaque moteur : autant de points d'accès
+- LiteLLM : un point d'entrée unique, l'industrialisation de la passerelle maison
 
-### Le moteur en direct
-texte : Vite limité pour diversifier les usages
+### Chat
 
-### Une passerelle maison
-texte : Devant chaque moteur : autant de points d’accès
+### Code
+
+### Intégrations
+
+### vLLM
+texte : un modèle
+
+### vLLM
+texte : un autre modèle
+
+### Passerelle
+texte : maison
 
 ### LiteLLM
-texte : Une passerelle centralisée, open source
-surligné : oui
+texte : open source
 
 #### Progression
 
-arrivée : le moteur en direct ; clic 1 : la passerelle maison ; clic 2 : LiteLLM ; clic 3 : le pied de slide
+arrivée : chaque service branché sur chaque moteur ; clic 1 : une passerelle maison devant chaque moteur ; clic 2 : LiteLLM au centre, un point d'entrée unique. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
 
 #### À l'oral
 
@@ -27,7 +38,8 @@ au début, des versions souvent préliminaires de vLLM, parce que chaque nouveau
 
 #### Compléments
 
-expliquer « passerelle LLM » en une phrase : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
+- Le chemin est testé, l'animation l'illustre. Illustration en motion design, pas une mesure. Issue #6
+- expliquer « passerelle LLM » en une phrase : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
 
 ## tokens
 type : liste
@@ -51,6 +63,40 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 
 - Le chiffre d'une quarantaine de formats en sortie est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
+
+## budgets
+type : animation
+scène : budgets
+rubrique : La plateforme
+titre : Un budget par équipe
+- Chaque requête porte sa clé : LiteLLM compte les tokens par équipe
+- Une équipe atteint son budget : ses requêtes s'arrêtent à la passerelle, les autres continuent
+- À la période suivante, le budget repart à zéro
+
+### Équipe A
+
+### Équipe B
+détail : Budget atteint
+
+### Équipe C
+
+### LiteLLM
+texte : la passerelle
+
+### Nos modèles
+
+#### Progression
+
+arrivée : les requêtes des trois équipes, leurs jauges se remplissent ; clic 1 : l'équipe B atteint son budget, ses requêtes s'arrêtent ; clic 2 : le budget repart à zéro
+
+#### À l'oral
+
+ce que veulent dire « budgets et quotas » : une équipe qui consomme trop est arrêtée à la passerelle, sans gêner les autres. C'est aussi ce qui protège la capacité de nos cartes
+
+#### Compléments
+
+- Illustration en motion design, pas une mesure. Issue #6
+- Budgets avec remise à zéro périodique et limites par clé, utilisateur et équipe : édition communautaire, d'après la doc LiteLLM (02/11/2026, voir la slide précédente)
 
 ## editions
 type : cartes
@@ -77,7 +123,7 @@ arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le p
 
 #### À l'oral
 
-pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 23) et les licences (slide 13)
+pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 24) et les licences (slide 14)
 
 #### Compléments
 
@@ -106,11 +152,11 @@ arrivée : palier 1 ; clics 1 et 2 : paliers 2 et 3 ; clic 3 : le pied de slide
 
 #### À l'oral
 
-ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 9). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
+ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 10). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 43 et 48)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 46 et 51)
 
 ## routing
 type : animation
@@ -143,7 +189,7 @@ arrivée : tout va au palier 1 ; clic 1 : nos cartes saturent, le surplus débor
 
 #### À l'oral
 
-ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 35) ; le palier 3 reste réservé à ce qui en a besoin
+ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 37) ; le palier 3 reste réservé à ce qui en a besoin
 
 #### Compléments
 

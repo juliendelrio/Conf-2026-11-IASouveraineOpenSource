@@ -65,11 +65,16 @@ type BoxProps = {
   dim?: boolean;
   /** Frame at which the box enters. */
   delay: number;
+  /** Frame after which the box fades out. */
+  hide?: number;
 };
 
-export const Box: React.FC<BoxProps> = ({ x, y, width, height, title, text, highlight, danger, dim, delay }) => {
+/** 1 → 0 over 10 frames after `hide` (1 when there is no `hide`). */
+const remaining = (frame: number, hide?: number) => (hide === undefined ? 1 : 1 - progress(frame, hide, 10));
+
+export const Box: React.FC<BoxProps> = ({ x, y, width, height, title, text, highlight, danger, dim, delay, hide }) => {
   const frame = useCurrentFrame();
-  const enter = progress(frame, delay);
+  const enter = progress(frame, delay) * remaining(frame, hide);
   const border = danger ? COLORS.danger : highlight ? COLORS.accent : COLORS.border;
   return (
     <g style={{ opacity: enter * (dim ? 0.45 : 1) }} transform={`translate(0 ${(1 - enter) * 20})`}>
@@ -97,10 +102,10 @@ export const edge = (box: { x: number; y: number; width: number; height: number 
   y: box.y + box.height / 2,
 });
 
-type LinkProps = { path: Point[]; delay: number; danger?: boolean; active?: boolean };
+type LinkProps = { path: Point[]; delay: number; danger?: boolean; active?: boolean; hide?: number };
 
 /** The wire between two boxes: drawn in at `delay`, dashed in danger color once cut. */
-export const Link: React.FC<LinkProps> = ({ path, delay, danger, active }) => {
+export const Link: React.FC<LinkProps> = ({ path, delay, danger, active, hide }) => {
   const frame = useCurrentFrame();
   const draw = progress(frame, delay, 20);
   const points = path.map((point) => `${point.x},${point.y}`).join(' ');
@@ -115,6 +120,7 @@ export const Link: React.FC<LinkProps> = ({ path, delay, danger, active }) => {
         strokeLinejoin: 'round',
         strokeDasharray: danger ? '14 12' : `${total} ${total}`,
         strokeDashoffset: danger ? 0 : total * (1 - draw),
+        opacity: remaining(frame, hide),
       }}
     />
   );

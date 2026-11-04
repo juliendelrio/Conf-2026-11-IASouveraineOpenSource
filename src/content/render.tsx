@@ -205,7 +205,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
       const captions = slide.items;
       if (captions.length !== beats.length) fail(`la scène « ${name} » attend ${beats.length} légendes « - … », une par temps`);
       const starts = beatStarts(beats, BODY_START);
-      const props = { kicker: need(slide, 'rubrique'), title: need(slide, 'titre'), scene, sections, captions, starts };
+      const props = { kicker: need(slide, 'rubrique'), title: need(slide, 'titre'), status: parseBadges(fields.badges), scene, sections, captions, starts };
       return {
         component: () => <AnimationSlide {...props} />,
         groups: beats.length,
