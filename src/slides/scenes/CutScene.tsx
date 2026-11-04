@@ -3,7 +3,10 @@ import { COLORS } from '../../theme';
 import { Box, Cut, edge, Link, type Point, Stream, Tag } from './kit';
 import type { SceneProps } from './types';
 
-/** Opening: our uses → one provider, then the access is cut, or the price doubles. Two sections. */
+/**
+ * Opening: our uses → one provider, then the access is cut, or the price doubles. Two sections. The request streams
+ * repeat every 30 frames (gaps of 10 and 15) once steady, so the first beat can loop while waiting for the click.
+ */
 const Dependency: React.FC<SceneProps> = ({ sections: [source, provider], starts: [s0, s1, s2] }) => {
   const frame = useCurrentFrame();
   const sourceBox = { x: 60, y: 195, width: 420, height: 170 };
@@ -11,17 +14,17 @@ const Dependency: React.FC<SceneProps> = ({ sections: [source, provider], starts
   const path = [edge(sourceBox, 'right'), edge(providerBox, 'left')];
   const back = [...path].reverse().map((point) => ({ x: point.x, y: point.y + 24 }));
   const middle = { x: (path[0].x + path[1].x) / 2, y: path[0].y };
-  const cut = frame >= s1;
+  const cut = frame > s1;
 
   return (
     <>
       <Link path={path} delay={s0 + 10} danger={cut} />
       <Stream path={path} start={s0 + 25} stop={s1} vanish={s1} />
-      <Stream path={back} start={s0 + 50} stop={s1} vanish={s1} gap={17} travel={55} color={COLORS.accent} radius={7} />
+      <Stream path={back} start={s0 + 35} stop={s1} vanish={s1} gap={15} travel={45} color={COLORS.accent} radius={7} />
       <Box {...sourceBox} title={source.title} text={source.text} delay={s0} dim={cut} />
-      <Box {...providerBox} title={provider.title} text={provider.text} delay={s0 + 6} danger={frame >= s2} />
+      <Box {...providerBox} title={provider.title} text={provider.text} delay={s0 + 6} danger={frame > s2} />
       {cut && <Cut at={middle} delay={s1} />}
-      {provider.detail && frame >= s2 && <Tag at={{ x: providerBox.x + providerBox.width / 2, y: providerBox.y + providerBox.height + 70 }} text={provider.detail} delay={s2} danger />}
+      {provider.detail && frame > s2 && <Tag at={{ x: providerBox.x + providerBox.width / 2, y: providerBox.y + providerBox.height + 70 }} text={provider.detail} delay={s2} danger />}
     </>
   );
 };
@@ -38,8 +41,8 @@ const Failover: React.FC<SceneProps> = ({ sections: [source, gateway, provider, 
   const toProvider = elbow(edge(providerBox, 'left'));
   const toFallback = elbow(edge(fallbackBox, 'left'));
   const inbound = [edge(sourceBox, 'right'), edge(gatewayBox, 'left')];
-  const cut = frame >= s1;
-  const switched = frame >= s2;
+  const cut = frame > s1;
+  const switched = frame > s2;
 
   return (
     <>
@@ -58,4 +61,5 @@ const Failover: React.FC<SceneProps> = ({ sections: [source, gateway, provider, 
   );
 };
 
+// A beat changes the scene only after its start frame: the start frame is where the presenter waits for the click
 export const CutScene: React.FC<SceneProps> = (props) => (props.sections.length === 4 ? <Failover {...props} /> : <Dependency {...props} />);

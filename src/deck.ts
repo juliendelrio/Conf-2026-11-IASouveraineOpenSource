@@ -14,6 +14,11 @@ export type Slide = {
    * src/components/animation.ts). Studio and the PPTX ignore them and show the whole animation.
    */
   pauses: number[];
+  /**
+   * Animations only: while the presenter waits at one of these frames (a pause), it loops back to the given earlier
+   * frame instead of freezing, so a steady scene (requests flowing) keeps moving until the click.
+   */
+  loops?: Record<number, number>;
   /** Speaker notes (`#### …` under the slide in the content), shown in the speaker view. */
   notes: Note[];
 };

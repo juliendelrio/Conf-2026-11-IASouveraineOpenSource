@@ -15,7 +15,7 @@ export const RoutingScene: React.FC<SceneProps> = ({ sections: [source, gateway,
   const inbound = [edge(sourceBox, 'right'), edge(gatewayBox, 'left')];
   const out = edge(gatewayBox, 'right');
   const toTier = tierBoxes.map((box): Point[] => [out, { x: 1010, y: out.y }, { x: 1010, y: edge(box, 'left').y }, edge(box, 'left')]);
-  const active = [true, frame >= s1, frame >= s2];
+  const active = [true, frame > s1, frame > s2];
 
   // Tier 1 load: fills up to 70 % on the first beat, then saturates
   const load = interpolate(frame, [s0 + 20, s1 - 10, s1, s1 + 40], [0, 0.7, 0.7, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });

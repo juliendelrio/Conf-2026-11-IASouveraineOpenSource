@@ -34,7 +34,7 @@ type Built = {
   /** Clicks used when the slide doesn't say: every group after the first, or none. */
   defaultClicks: 'tous' | 'aucun';
   /** Animations only: start frame of each group and total length, when groups don't follow the ITEM_DELAY grid. */
-  timeline?: { starts: number[]; duration: number };
+  timeline?: { starts: number[]; duration: number; loops?: Record<number, number> };
 };
 
 const yes = (value: string | undefined) => value?.trim().toLowerCase() === 'oui';
@@ -210,7 +210,14 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
         component: () => <AnimationSlide {...props} />,
         groups: beats.length,
         defaultClicks: 'tous',
-        timeline: { starts, duration: starts[starts.length - 1] + beats[beats.length - 1] },
+        timeline: {
+          starts,
+          duration: starts[starts.length - 1] + beats[beats.length - 1],
+          // Waiting at the start of beat i + 1 loops over the last `loop` frames of beat i
+          loops: Object.fromEntries(
+            (scene.loops ?? []).flatMap((loop, beat) => (loop && beat + 1 < starts.length ? [[starts[beat + 1], starts[beat + 1] - loop]] : [])),
+          ),
+        },
       };
     }
     case 'merci': {
@@ -249,6 +256,13 @@ export const buildSlides = (contents: SlideContent[], glossary: Map<string, stri
     ids.add(content.id);
     const built = build(content, glossary);
     const durationInFrames = built.timeline?.duration ?? (content.fields.type === 'titre' ? TITLE_DURATION : framesFor(built.groups));
-    return { id: content.id, component: built.component, durationInFrames, pauses: pausesFor(content, built), notes: content.notes };
+    return {
+      id: content.id,
+      component: built.component,
+      durationInFrames,
+      pauses: pausesFor(content, built),
+      loops: built.timeline?.loops,
+      notes: content.notes,
+    };
   });
 };
