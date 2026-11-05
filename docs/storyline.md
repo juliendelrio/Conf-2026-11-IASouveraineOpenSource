@@ -23,14 +23,14 @@ Chaque chapitre suit le même schéma :
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
 | 1 | Petit lexique | 1 min 45 |
 | 2 | Les modèles | 6 min 30 |
-| 3 | Le matériel | 8 min 30 |
+| 3 | Le matériel | 6 min 30 |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 7 min 15 |
 | 6a | Usages : le chat généraliste | 2 min |
 | 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **45 min 45** |
+| | **Total** | **43 min 45** |
 
 Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
@@ -111,20 +111,17 @@ Ce qu'on a réellement testé :
 - À l'achat : 3 RTX PRO 6000 Blackwell Server Edition sur 2 serveurs ; Qwen3.8-Flash-Next en production sur 2 de ces cartes
 - Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
 
-**Les slides (8 min)**
+**Les slides (6 min 30)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
 | 2 | 5 questions avant d'acheter | Pour chaque question, ce qui joue et ce que ça détermine : ça tourne (pilotes, écosystème) ? Ça tient (VRAM : taille du modèle et du contexte) ? Ça lit vite (calcul : délai avant la réponse) ? Ça écrit vite (bande passante : vitesse de génération) ? Les cartes se parlent bien (NVLink, PCIe ou réseau : répartir un modèle) ? | Grille de lecture |
-| 3 | La relecture des poids (animation) | Pour écrire un token, la carte relit tous les poids : deux passes lentes, puis la phrase s'écrit à pleine vitesse | Illustration |
-| 4 | Le réflexe | Bande passante ÷ poids lus par token = plafond de vitesse pour un utilisateur seul | Formule |
-| 5 | Les plafonds | Barres animées, Qwen3.8-27B en 4 bits sur 8 machines : DGX Spark, M5 Max, M5 Ultra, L4, L40S, RTX PRO 6000, H100, H200 | Extrapolé, sauf la RTX PRO 6000 : badge « testé » |
-| 6 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
-| 7 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
-| 8 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
-| 9 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
-| 10 | Objectif, piège, leçon | Voir ci-dessous | |
+| 3 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
+| 4 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
+| 5 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
+| 6 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
+| 7 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Le matériel par catégorie de modèles** (slide 6)
 
@@ -772,6 +769,104 @@ au début, des versions souvent préliminaires de vLLM, parce que chaque nouveau
 #### Compléments
 
 expliquer « passerelle LLM » en une phrase : le point d'entrée unique devant tous les modèles, qui gère accès, droits et suivi
+```
+
+### Slides retirées : la relecture des poids, la formule et les plafonds (novembre 2026)
+
+Retirées du chapitre matériel : trop de détail, et des chiffres théoriques que l'orateur ne peut pas garantir. Le message tient en une phrase à l'oral de « 5 questions avant d'acheter » : lire, c'est du calcul ; écrire, c'est relire les poids à chaque token, donc de la bande passante. Contenu d'origine :
+
+```markdown
+## weights-read
+type : animation
+scène : relecture des poids
+rubrique : Le matériel
+titre : Pour écrire un token, la carte relit les poids
+- Chaque token écrit demande de relire tous les poids utiles
+- La vitesse d'écriture dépend donc de la bande passante mémoire
+
+### Poids en VRAM
+texte : 16 Go
+
+### Bande passante
+texte : 1,6 To/s
+
+### Tokens écrits
+texte : Le modèle relit tous ses poids pour écrire chaque token de cette phrase
+
+#### Progression
+
+arrivée : deux relectures lentes, deux tokens écrits ; clic 1 : à pleine vitesse, la phrase s'écrit
+
+#### À l'oral
+
+l'image avant la formule : le modèle ne « réfléchit » pas en mémoire, il relit ses poids à chaque token. Plus la mémoire est rapide, plus il écrit vite. Les valeurs sont celles de la formule (slide suivante)
+
+#### Compléments
+
+Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
+
+## speed-formula
+type : formule
+rubrique : Le matériel
+titre : Le réflexe à retenir
+pied : Pour chaque token généré, la carte relit tous les poids utiles : c'est un plafond, pas une prévision
+
+### Bande passante mémoire
+exemple : ex. 1,6 To/s
+
+### Poids lus par token
+exemple : ex. 16 Go
+
+### Plafond de vitesse
+exemple : ~100 tokens/s, un utilisateur seul
+
+#### Progression
+
+arrivée : la bande passante mémoire ; clic 1 : ÷ poids lus par token ; clic 2 : = plafond de vitesse ; clic 3 : le pied de slide
+
+#### À l'oral
+
+la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 45)
+
+#### Compléments
+
+l'exemple est notre RTX PRO 6000 Server Edition (1 597 Go/s) avec Qwen3.8-27B en 4 bits. Source de la méthode : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc
+
+## speed-ceiling
+type : plafonds
+rubrique : Le matériel
+titre : Plafond de vitesse, un utilisateur seul
+sous-titre : Qwen3.8-27B en 4 bits · bande passante ÷ 16 Go lus par token
+badges : {extrapolé: Extrapolé}
+
+La colonne « Élément » regroupe les barres par clic (1 = à l'arrivée). « Nos cartes » met la barre en couleur avec un badge.
+
+| Machine | tok/s | Élément | Nos cartes |
+|---|---|---|---|
+| DGX Spark | 17 | 1 | |
+| L4 | 19 | 1 | |
+| Mac M5 Max | 38 | 1 | |
+| L40S | 54 | 1 | |
+| Mac Studio M5 Ultra | 75 | 1 | |
+| RTX PRO 6000 | 100 | 2 | oui |
+| H100 SXM | 210 | 3 | |
+| H200 | 300 | 3 | |
+
+#### Progression
+
+arrivée : le sous-titre et les 5 premières machines (DGX Spark à Mac Studio M5 Ultra) ; clic 1 : la RTX PRO 6000 ; clic 2 : H100 et H200
+
+#### À l'oral
+
+la bande passante varie d'un facteur 18 sur cette slide entre une machine de bureau et un GPU de datacenter (30 avec une B200). On ne maximise pas mémoire et vitesse à la fois sans payer cher : Mac et DGX Spark ont beaucoup de mémoire mais sont lents ; une 5090 est rapide mais tient peu ; la RTX PRO 6000 est le compromis
+
+#### Compléments
+
+- Tous ces chiffres sont des plafonds théoriques, y compris pour nos cartes (le badge « Nos cartes » ne signifie pas une mesure)
+- Bandes passantes : DGX Spark 273 Go/s, L4 300 Go/s, M5 Max 614 Go/s, L40S 864 Go/s, M5 Ultra 1,2 To/s, RTX PRO 6000 Server Edition 1 597 Go/s (Workstation 1 792), H100 PCIe 2 To/s, H100 SXM 3,35 To/s, H200 4,8 To/s, B200 8 To/s
+- Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go ; il faut la version 40 cœurs pour 128 Go
+- Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 avec sparsité : 2 à 4 fois les chiffres utiles
+- Tableau complet sur 17 machines, avec la puissance de calcul et les sources constructeurs, dans l'annexe du chapitre 3
 ```
 
 ### Formulations retirées des slides (issue #1, novembre 2026)

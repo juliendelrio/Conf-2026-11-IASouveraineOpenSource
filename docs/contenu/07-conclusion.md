@@ -89,7 +89,7 @@ reprendre rapidement les leçons, en 30 secondes au plus
 
 #### Compléments
 
-formulations complètes dans les slides 16, 27, 32, 42, 46, 51 et 53
+formulations complètes dans les slides 16, 24, 29, 39, 43, 48 et 50
 
 ## confession-callback
 type : déclaration

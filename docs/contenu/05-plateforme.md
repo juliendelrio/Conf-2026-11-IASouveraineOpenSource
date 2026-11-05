@@ -141,7 +141,7 @@ arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le p
 
 #### À l'oral
 
-pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 26) et les licences (slide 15)
+pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 23) et les licences (slide 15)
 
 #### Compléments
 
@@ -174,7 +174,7 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 51 et 57)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 48 et 54)
 
 ## routing
 type : animation
@@ -207,7 +207,7 @@ arrivée : tout va au palier 1 ; clic 1 : nos cartes saturent, le surplus débor
 
 #### À l'oral
 
-ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 41) ; le palier 3 reste réservé à ce qui en a besoin
+ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 38) ; le palier 3 reste réservé à ce qui en a besoin
 
 #### Compléments
 

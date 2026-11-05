@@ -47,7 +47,7 @@ certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le mat
 
 #### Compléments
 
-sur Mac, la vidéo citée à la slide 21 présente aussi Lithos et OMLX
+sur Mac, la vidéo sur la bande passante (annexe de la storyline) présente aussi Lithos et OMLX
 
 ## engine-cycle
 type : étapes
@@ -115,4 +115,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 31
+voir les compléments de la slide 28

@@ -72,7 +72,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 35). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
 
 #### Compléments
 
@@ -81,7 +81,7 @@ les plus gros modèles restent accessibles sans quitter la France. C'est la mise
 - Scaleway Generative APIs (17/10/2026) : GLM-5.3, GLM-5.2, DeepSeek-V4.1-Flash, DeepSeek-V4-Flash-0731, Qwen3.8-27B, Qwen3.5-397B-A17B, Mistral Medium 3.5 ; Mistral Large 3 en déploiement dédié seulement
 - OVHcloud : 8 × H200 à ~30 700 €/mois ; son offre AI Endpoints s'arrête à Qwen3.5-397B-A17B
 - Mistral AI : GLM-5.2 depuis le 6 août 2026, déprécié le 29/09 au profit de GLM-5.3 (depuis le 15 septembre) ; contexte de 1M tokens, 1,4 $ / 4,4 $ par million de tokens en entrée / sortie
-- Relevé du 03/11/2026 : Scaleway passe à deepseek-v4.1-flash-1017 et à GLM-5.3 (GLM-5.2 en fin de vie le 16/11) ; Mistral AI ajoute DeepSeek-V4.1-Flash et Mistral Large 4 ; OVHcloud AI Endpoints propose Qwen3.8-27B et Qwen3.5-397B-A17B. Détail et prix à la slide 41
+- Relevé du 03/11/2026 : Scaleway passe à deepseek-v4.1-flash-1017 et à GLM-5.3 (GLM-5.2 en fin de vie le 16/11) ; Mistral AI ajoute DeepSeek-V4.1-Flash et Mistral Large 4 ; OVHcloud AI Endpoints propose Qwen3.8-27B et Qwen3.5-397B-A17B. Détail et prix à la slide 38
 
 ## model-timeline
 type : étapes
@@ -175,7 +175,7 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 50). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 24). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 47). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 21). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
 
 #### Compléments
 

@@ -1,4 +1,4 @@
-# 3. Le matériel (8 min 30)
+# 3. Le matériel (6 min 30)
 
 ## chapter-hardware
 type : intercalaire
@@ -76,98 +76,6 @@ la grille de lecture pour comparer des machines. Expliquer bande passante mémoi
 
 « est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les Mac M5 ont beaucoup de bande passante mais peu de calcul : ils écrivent correctement mais lisent lentement les longs prompts. Nuances pour les questions : avec beaucoup d'utilisateurs simultanés, une même relecture des poids sert plusieurs conversations et l'écriture se rapproche d'une limite de calcul ; avec un très long contexte, l'écriture relit aussi le KV cache à chaque token, encore de la bande passante. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
 
-## weights-read
-type : animation
-scène : relecture des poids
-rubrique : Le matériel
-titre : Pour écrire un token, la carte relit les poids
-- Chaque token écrit demande de relire tous les poids utiles
-- La vitesse d'écriture dépend donc de la bande passante mémoire
-
-### Poids en VRAM
-texte : 16 Go
-
-### Bande passante
-texte : 1,6 To/s
-
-### Tokens écrits
-texte : Le modèle relit tous ses poids pour écrire chaque token de cette phrase
-
-#### Progression
-
-arrivée : deux relectures lentes, deux tokens écrits ; clic 1 : à pleine vitesse, la phrase s'écrit
-
-#### À l'oral
-
-l'image avant la formule : le modèle ne « réfléchit » pas en mémoire, il relit ses poids à chaque token. Plus la mémoire est rapide, plus il écrit vite. Les valeurs sont celles de la formule (slide suivante)
-
-#### Compléments
-
-Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
-
-## speed-formula
-type : formule
-rubrique : Le matériel
-titre : Le réflexe à retenir
-pied : Pour chaque token généré, la carte relit tous les poids utiles : c'est un plafond, pas une prévision
-
-### Bande passante mémoire
-exemple : ex. 1,6 To/s
-
-### Poids lus par token
-exemple : ex. 16 Go
-
-### Plafond de vitesse
-exemple : ~100 tokens/s, un utilisateur seul
-
-#### Progression
-
-arrivée : la bande passante mémoire ; clic 1 : ÷ poids lus par token ; clic 2 : = plafond de vitesse ; clic 3 : le pied de slide
-
-#### À l'oral
-
-la formule à retenir pour comparer des machines avant d'en acheter : elle donne un plafond, on reste en dessous, parfois loin. Sur le Flash-Next, nos passes réelles n'atteignent qu'environ 27 % de ce plafond ; seul le décodage spéculatif permet de remonter au-delà. Et elle ne chiffre que l'écriture : pour un agent, la lecture du prompt compte souvent plus (slide 48)
-
-#### Compléments
-
-l'exemple est notre RTX PRO 6000 Server Edition (1 597 Go/s) avec Qwen3.8-27B en 4 bits. Source de la méthode : vidéo sur Lithos Metal et le plafond de bande passante, https://youtu.be/L7noXCBSObc
-
-## speed-ceiling
-type : plafonds
-rubrique : Le matériel
-titre : Plafond de vitesse, un utilisateur seul
-sous-titre : Qwen3.8-27B en 4 bits · bande passante ÷ 16 Go lus par token
-badges : {extrapolé: Extrapolé}
-
-La colonne « Élément » regroupe les barres par clic (1 = à l'arrivée). « Nos cartes » met la barre en couleur avec un badge.
-
-| Machine | tok/s | Élément | Nos cartes |
-|---|---|---|---|
-| DGX Spark | 17 | 1 | |
-| L4 | 19 | 1 | |
-| Mac M5 Max | 38 | 1 | |
-| L40S | 54 | 1 | |
-| Mac Studio M5 Ultra | 75 | 1 | |
-| RTX PRO 6000 | 100 | 2 | oui |
-| H100 SXM | 210 | 3 | |
-| H200 | 300 | 3 | |
-
-#### Progression
-
-arrivée : le sous-titre et les 5 premières machines (DGX Spark à Mac Studio M5 Ultra) ; clic 1 : la RTX PRO 6000 ; clic 2 : H100 et H200
-
-#### À l'oral
-
-la bande passante varie d'un facteur 18 sur cette slide entre une machine de bureau et un GPU de datacenter (30 avec une B200). On ne maximise pas mémoire et vitesse à la fois sans payer cher : Mac et DGX Spark ont beaucoup de mémoire mais sont lents ; une 5090 est rapide mais tient peu ; la RTX PRO 6000 est le compromis
-
-#### Compléments
-
-- Tous ces chiffres sont des plafonds théoriques, y compris pour nos cartes (le badge « Nos cartes » ne signifie pas une mesure)
-- Bandes passantes : DGX Spark 273 Go/s, L4 300 Go/s, M5 Max 614 Go/s, L40S 864 Go/s, M5 Ultra 1,2 To/s, RTX PRO 6000 Server Edition 1 597 Go/s (Workstation 1 792), H100 PCIe 2 To/s, H100 SXM 3,35 To/s, H200 4,8 To/s, B200 8 To/s
-- Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go ; il faut la version 40 cœurs pour 128 Go
-- Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 avec sparsité : 2 à 4 fois les chiffres utiles
-- Tableau complet sur 17 machines, avec la puissance de calcul et les sources constructeurs, dans l'annexe du chapitre 3
-
 ## experts
 type : animation
 scène : experts
@@ -218,7 +126,7 @@ arrivée : « lu à chaque token » ; clic 1 : « à loger en mémoire » ; clic
 
 #### À l'oral
 
-un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : son plafond est bien plus haut. Mais notre mesure doit beaucoup au décodage spéculatif, et la comparer au plafond du 27B (sans décodage spéculatif, en 4 bits contre FP8) serait trompeur. En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
+un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comme écrire, c'est relire les poids (slide 19), il peut aller plus vite. Mais notre mesure doit beaucoup au décodage spéculatif : ne pas la comparer directement au 27B (sans décodage spéculatif, en 4 bits contre FP8). En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
 
 #### Compléments
 
@@ -249,7 +157,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 41)
+la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (slide 38)
 
 #### Compléments
 

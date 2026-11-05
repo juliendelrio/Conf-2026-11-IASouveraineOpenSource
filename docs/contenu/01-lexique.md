@@ -22,7 +22,7 @@ seulement les mots qui servent dès le chapitre modèles, une métaphore par ter
 
 #### Compléments
 
-les autres termes sont expliqués là où ils servent : MoE (slide 14, puis 19), contexte et KV cache (slide 19), inférence (slide 29), agentique (slide 44), harness (slides 5 et 48) ; et aussi affinage, multimodal, STT, Model as a Service au chapitre modèles ; bande passante mémoire, lecture du prompt / génération, NVLink au chapitre matériel ; passerelle LLM, OpenTelemetry, SSO au chapitre plateforme. Termes de réserve pour les questions dans l'annexe du lexique : diarisation, décodage spéculatif, SXM vs PCIe, tensor parallelism, tokens de réflexion, TTFT, batching continu, API compatible OpenAI, cache de préfixes
+les autres termes sont expliqués là où ils servent : MoE (slide 14, puis 19), contexte et KV cache (slide 19), inférence (slide 26), agentique (slide 41), harness (slides 5 et 45) ; et aussi affinage, multimodal, STT, Model as a Service au chapitre modèles ; bande passante mémoire, lecture du prompt / génération, NVLink au chapitre matériel ; passerelle LLM, OpenTelemetry, SSO au chapitre plateforme. Termes de réserve pour les questions dans l'annexe du lexique : diarisation, décodage spéculatif, SXM vs PCIe, tensor parallelism, tokens de réflexion, TTFT, batching continu, API compatible OpenAI, cache de préfixes
 ## quantization
 type : animation
 scène : quantification
@@ -58,5 +58,5 @@ le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le mod
 #### Compléments
 
 - Illustration en motion design, pas une mesure. Issue #6. Les valeurs du poids sont illustratives (un vrai format 8 ou 4 bits n'arrondit pas en décimal)
-- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 25) ; L4 : 24 Go, louée et testée (slide 18). Il faut encore loger le KV cache
+- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 22) ; L4 : 24 Go, louée et testée (slide 18). Il faut encore loger le KV cache
 
