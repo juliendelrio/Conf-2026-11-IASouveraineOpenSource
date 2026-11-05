@@ -25,7 +25,7 @@ rubrique : La plateforme
 titre : Le chemin en trois étapes
 badges : {testé: Testé}
 - Le moteur en direct : chaque service se branche sur chaque moteur
-- Une passerelle maison devant chaque moteur : autant de points d'accès
+- Une passerelle maison par moteur : des jetons d'accès, mais autant de points d'accès
 - LiteLLM : un point d'entrée unique, l'industrialisation de la passerelle maison
 
 ### Chat
@@ -42,17 +42,18 @@ texte : un autre modèle
 
 ### Passerelle
 texte : maison
+détail : Jetons d'accès
 
 ### LiteLLM
 texte : open source
 
 #### Progression
 
-arrivée : chaque service branché sur chaque moteur ; clic 1 : une passerelle maison devant chaque moteur ; clic 2 : LiteLLM au centre, un point d'entrée unique. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
+arrivée : chaque service branché sur chaque moteur ; clic 1 : une passerelle maison devant chaque moteur, qui vérifie les jetons d'accès (une requête sans jeton valide est refusée) ; clic 2 : LiteLLM au centre, un point d'entrée unique. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
 
 #### À l'oral
 
-au début, des versions souvent préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur. La passerelle maison gérait les jetons d'accès, mais multipliait les points d'accès que les services devaient connaître. C'est en cherchant une passerelle unique qu'on a trouvé LiteLLM
+au début, des versions souvent préliminaires de vLLM, parce que chaque nouveau modèle demandait de nouvelles fonctionnalités au moteur. L'idée de la passerelle maison : gérer dès le début des jetons d'accès devant les moteurs, pour savoir qui appelle quoi et refuser le reste. Mais elle multipliait les points d'accès que les services devaient connaître. C'est en cherchant une passerelle unique qu'on a trouvé LiteLLM
 
 #### Compléments
 

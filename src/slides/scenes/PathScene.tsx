@@ -1,5 +1,6 @@
 import { useCurrentFrame } from 'remotion';
-import { Box, edge, Link, type Point, Stream } from './kit';
+import { COLORS } from '../../theme';
+import { Box, edge, Link, type Point, Stream, Tag } from './kit';
 import type { SceneProps } from './types';
 
 const SERVICES = [30, 225, 420].map((y) => ({ x: 30, y, width: 300, height: 110 }));
@@ -13,7 +14,8 @@ const PAIRS = SERVICES.flatMap((_, service) => ENGINES.map((__, engine) => ({ se
 /**
  * From the engine used directly to a single gateway. Sections: three services, two engines, the homemade gateway,
  * then LiteLLM. Beats: every service wired to every engine; a homemade gateway in front of each engine (as many
- * entry points); LiteLLM in the middle, a single entry point. Streams repeat every 30 frames, so the first two
+ * entry points; the homemade gateway's `détail` tags them, and a request without a valid token is turned away);
+ * LiteLLM in the middle, a single entry point. Streams repeat every 30 frames, so the first two
  * beats can loop while waiting for the click.
  */
 export const PathScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2] }) => {
@@ -57,8 +59,20 @@ export const PathScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
       {PAIRS.map(({ service, engine, offset }) => (
         <Stream key={`hs${service}${engine}`} path={viaHomemade(service, engine)} start={s1 + 15 + offset} stop={s2} vanish={s2} gap={30} travel={40} />
       ))}
+      {/* A request without a valid access token stops at the homemade gateway */}
+      <Stream path={[edge(SERVICES[2], 'right'), edge(HOMEMADE[0], 'left')]} start={s1 + 20} stop={s2} vanish={s2} gap={30} travel={35} color={COLORS.danger} />
       {frame > s1 &&
         HOMEMADE.map((box, engine) => <Box key={`hb${engine}`} {...box} title={homemade.title} text={homemade.text} delay={s1 + 2} hide={s2} />)}
+      {frame > s1 && frame <= s2 && (
+        <path
+          d={`M ${HOMEMADE[0].x - 34} ${edge(HOMEMADE[0], 'left').y - 12} l 24 24 m 0 -24 l -24 24`}
+          style={{ stroke: COLORS.danger, strokeWidth: 6, strokeLinecap: 'round', opacity: frame > s1 + 50 ? 1 : 0 }}
+        />
+      )}
+      {homemade.detail &&
+        frame > s1 &&
+        frame <= s2 &&
+        HOMEMADE.map((box, engine) => <Tag key={`ht${engine}`} at={{ x: box.x + box.width / 2, y: box.y + box.height + 34 }} text={homemade.detail!} delay={s1 + 10} />)}
 
       {/* Step 3: LiteLLM, a single entry point */}
       {SERVICES.map((_, service) => (

@@ -20,7 +20,9 @@ export const beatStarts = (lengths: number[], first: number) =>
 export const usePop = (delay: number) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  return spring({ frame: frame - delay, fps, config: { damping: 12, stiffness: 160 } });
+  const value = spring({ frame: frame - delay, fps, config: { damping: 12, stiffness: 160 } });
+  // Snap to 1 once settled, so a looping scene renders the exact same frame each period
+  return Math.abs(value - 1) < 0.005 ? 1 : value;
 };
 
 // --- Geometry ------------------------------------------------------------------------------------------------
