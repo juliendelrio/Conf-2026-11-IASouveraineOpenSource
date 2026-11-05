@@ -70,7 +70,7 @@ arrivée : est-ce que ça tourne ? ; clics 1 à 4 : ça tient, ça écrit vite, 
 
 #### À l'oral
 
-la grille de lecture pour comparer des machines. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM
+la grille de lecture pour comparer des machines. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM. Sur « est-ce que ça tourne ? » : AMD et Huawei commencent à sortir des puces pour l'IA. Le souci, c'est le manque de compatibilité CUDA ; mais la concurrence commence à grignoter l'hégémonie de NVIDIA
 
 #### Compléments
 
