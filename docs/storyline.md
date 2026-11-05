@@ -144,8 +144,8 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
-| 1 | Nos moteurs | vLLM principalement, SGLang ponctuellement. Certains modèles sont mieux servis par l'un que par l'autre, et le matériel compte : sur Mac, un moteur dédié (MLX) | vLLM et SGLang testés ; MLX extrapolé |
-| 2 | Un paysage qui bouge vite | Une optimisation apparaît, souvent dans un nouveau moteur, puis les moteurs leaders l'intègrent rapidement. D'autres moteurs : llama.cpp, Ollama, TensorRT-LLM, MLX… | Veille |
+| 1 | Nos moteurs | vLLM principalement, SGLang ponctuellement. Certains modèles sont mieux servis par l'un que par l'autre, et le matériel compte : sur Mac, un moteur dédié (MLX). Le petit nouveau : DeepInfer, le moteur de DeepSeek, nativement compatible Huawei Ascend. En dessous : llama.cpp, Ollama, LM Studio, TensorRT-LLM, LMDeploy… | vLLM et SGLang testés ; MLX extrapolé ; DeepInfer non testé (dépôt officiel) |
+| 2 | Un paysage qui bouge vite | Une optimisation apparaît, souvent dans un nouveau moteur, puis les moteurs leaders l'intègrent rapidement | Veille |
 | 3 | La veille paie | Le passage à vLLM 0.30.0 a suffi à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s) | Testé |
 | 4 | Objectif, piège, leçon | Voir ci-dessous | |
 
@@ -876,6 +876,7 @@ Le titre et plusieurs formulations ont été atténués avant le talk (positionn
 - **Titre** : « Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain » (encore celui du programme du Capitole du Libre)
 - **Catégorie 3** (slides 9 et 23, novembre 2026) : « 3. Le cap d'août », « Tâches générales, codage compris » ; renommée « Dev ready »
 - **5 questions avant d'acheter** (slide 19, novembre 2026) : deux colonnes « La question | Ce qui joue », « ça écrit vite » avant « ça lit vite » ; « La VRAM : le modèle et le KV cache », « La puissance de calcul : lire un long prompt », « NVLink, PCIe ou réseau : répartir un modèle » (la colonne mélangeait la cause et l'effet)
+- **Moteurs** (novembre 2026) : titre « Nos moteurs d'inférence » et pied « Le modèle et le matériel orientent le choix du moteur » (passé à l'oral) ; pied de « Un paysage qui bouge vite » : « D'autres moteurs à suivre : llama.cpp, Ollama, TensorRT-LLM, MLX… », déplacé sous les cartes des moteurs
 - **L'aveu** (slide 2) : « Un talk sur l'IA souveraine 100 % open source… »
 - **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois (puis 4 – 9 k€ / mois, ramené à la seule catégorie 3, avant de couvrir de la L4 à Flash-Next) ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
 - **Quatre catégories** (slide 9) : pied « Catégorie 4 : plus d'un million d'euros » ; à l'oral « pas accessible sans un investissement de plus d'un million d'euros »

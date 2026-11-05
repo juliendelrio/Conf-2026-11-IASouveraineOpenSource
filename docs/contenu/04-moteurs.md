@@ -21,8 +21,8 @@ rien, ou juste le nom du chapitre
 ## our-engines
 type : cartes
 rubrique : Les moteurs
-titre : Nos moteurs d'inférence
-pied : Le modèle et le matériel orientent le choix du moteur
+titre : Nos moteurs d'inférence, et un petit nouveau
+pied : Et aussi : llama.cpp, Ollama, LM Studio, TensorRT-LLM, LMDeploy…
 
 ### vLLM
 surligné : oui
@@ -37,23 +37,29 @@ badges : {testé: Testé}
 badges : {extrapolé: Extrapolé}
 - Sur Mac, un moteur dédié
 
+### DeepInfer
+badges : {extrapolé: Non testé}
+- Le petit nouveau de DeepSeek, open source
+- Nativement compatible Huawei Ascend
+
 #### Progression
 
-arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : le pied de slide
+arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : DeepInfer ; clic 4 : les autres moteurs
 
 #### À l'oral
 
-certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
+le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 20). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
 
 #### Compléments
 
-sur Mac, la vidéo sur la bande passante (annexe de la storyline) présente aussi Lithos et OMLX
+- sur Mac, la vidéo sur la bande passante (annexe de la storyline) présente aussi Lithos et OMLX
+- DeepInfer (dépôt deepseek-ai/DeepInfer, lu le 05/11/2026) : Apache 2.0, ouvert vers le 20/10/2026, le moteur derrière l'API de DeepSeek, construit au départ sur vLLM. Un seul modèle, DeepSeek-V4.1-Flash-1017 ; matériel : GPU NVIDIA SM100 (B200, B300) avec CUDA 13, et Huawei Ascend 950 avec CANN 9.2. Inférence hors ligne seulement dans cette version : le système de KV cache, la séparation lecture / écriture et la répartition de charge ne sont pas publiés. Nos RTX PRO 6000 ne sont pas dans la liste
+- Les autres : llama.cpp (C/C++, formats GGUF, CPU et toutes cartes), Ollama et LM Studio (outils de poste de travail autour de llama.cpp), TensorRT-LLM (NVIDIA), LMDeploy (InternLM)
 
 ## engine-cycle
 type : étapes
 rubrique : Les moteurs
 titre : Un paysage qui bouge vite
-pied : D'autres moteurs à suivre : llama.cpp, Ollama, TensorRT-LLM, MLX…
 
 ### Une optimisation apparaît
 texte : Souvent sous la forme d’un nouveau moteur
@@ -64,7 +70,7 @@ surligné : oui
 
 #### Progression
 
-arrivée : une optimisation apparaît ; clic 1 : les moteurs leaders l'intègrent ; clic 2 : les autres moteurs à suivre
+arrivée : une optimisation apparaît ; clic 1 : les moteurs leaders l'intègrent
 
 #### À l'oral
 
