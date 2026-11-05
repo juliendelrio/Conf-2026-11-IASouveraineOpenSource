@@ -92,7 +92,7 @@ Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 
 |---|---|---|---|
 | 1. Petits modèles | Stack RAG, transcription, petit LLM pour résumé, reformulation, traduction | Qwen3.6-35B, Qwen3.5-9B, certains modèles de la famille Gemma 4, gpt-oss-20b, Mistral Small 3.2 (pour le français) | Qwen 35B ; Gemma 4 et gpt-oss-20b testés : limités, c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement |
 | 2. Milieu de gamme | Un modèle généraliste sur une seule carte | Qwen3.8-27B | Oui |
-| 3. Le cap d'août | Tâches générales en entreprise, codage compris, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
+| 3. Dev ready | De vraies tâches de dev, et les tâches générales en entreprise, au niveau d'Opus 4.6 à 4.8 | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | Oui |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro, DeepSeek 4.1 Flash, Kimi K2.6, GLM-5.1 / GLM-5.2 / GLM-5.3, Mistral Large 4, Qwen3.8-2.4T-A95B, MiniMax M3 | Non (accessibles au palier 2) |
 
 - Ce qu'on voulait faire : trouver un modèle assez bon pour être utilisé au quotidien, code compris, sur notre propre matériel
@@ -130,7 +130,7 @@ Ce qu'on a réellement testé :
 |---|---|---|---|---|
 | 1. Petits modèles | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) | L4 testée en location, avec des modèles ; autres cartes extrapolées |
 | 2. Milieu de gamme (27B) | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois | Testé : L40S louée, RTX PRO 6000 ; autres extrapolées |
-| 3. Le cap d'août | 2 RTX PRO 6000 dans un même serveur ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
+| 3. Dev ready | 2 RTX PRO 6000 dans un même serveur ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
 | 4. Hors de portée | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) | Extrapolé |
 
 - Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
@@ -777,6 +777,7 @@ expliquer « passerelle LLM » en une phrase : le point d'entrée unique devant 
 Le titre et plusieurs formulations ont été atténués avant le talk (positionnement : une IA 100 % souveraine, avec des outils open source). Les versions d'origine, pour mémoire :
 
 - **Titre** : « Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain » (encore celui du programme du Capitole du Libre)
+- **Catégorie 3** (slides 9 et 23, novembre 2026) : « 3. Le cap d'août », « Tâches générales, codage compris » ; renommée « Dev ready »
 - **L'aveu** (slide 2) : « Un talk sur l'IA souveraine 100 % open source… »
 - **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois (puis 4 – 9 k€ / mois, ramené à la seule catégorie 3, avant de couvrir de la L4 à Flash-Next) ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
 - **Quatre catégories** (slide 9) : pied « Catégorie 4 : plus d'un million d'euros » ; à l'oral « pas accessible sans un investissement de plus d'un million d'euros »

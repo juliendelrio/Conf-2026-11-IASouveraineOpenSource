@@ -222,7 +222,7 @@ pied : Interne : ordres de grandeur, carte et serveur compris ; seul le montant 
 |---|---|---|---|---|
 | 1. Petits modèles | L4, RTX PRO 4500 | ~10 – 20 k€ | 500 – 600 € | {testé: L4 testée} |
 | 2. Milieu de gamme | 1 RTX PRO 6000, L40S, H100 | ~25 – 35 k€ | 1 000 – 2 100 € | {testé: Testé} |
-| 3. Le cap d'août | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
+| 3. Dev ready | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
 | 4. Hors de portée | 8 RTX PRO 6000 à 8 H200 et plus | 200 k€ – 1 M€ et plus | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
 
 #### Progression

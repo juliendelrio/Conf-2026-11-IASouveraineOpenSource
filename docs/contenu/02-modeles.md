@@ -13,7 +13,7 @@ pied : Catégorie 4 : un vrai datacenter, jusqu'à plus d'un million d'euros. Le
 |---|---|---|---|
 | 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: Testé} |
 | 2. Milieu de gamme | Un généraliste sur une seule carte | Qwen3.8-27B | {testé: Testé} |
-| 3. Le cap d'août | Tâches générales, codage compris | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
+| 3. Dev ready | De vraies tâches de dev, et les tâches générales | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
 | 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro et V4.1-Flash, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
 
 #### Progression
@@ -22,7 +22,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-on commence par les modèles parce que c'est la finalité (la démarche du fil rouge) : on fixe un budget, on le met en rapport avec ces catégories. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4. Ne citer que quelques noms de la catégorie 4, en abrégé : DeepSeek, Kimi, GLM, Mistral, Qwen
+on commence par les modèles parce que c'est la finalité (la démarche du fil rouge) : on fixe un budget, on le met en rapport avec ces catégories. Catégorie 3, « Dev ready » : depuis les modèles d'août, on peut commencer à leur confier de vraies tâches de développement. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4. Ne citer que quelques noms de la catégorie 4, en abrégé : DeepSeek, Kimi, GLM, Mistral, Qwen
 
 #### Compléments
 
