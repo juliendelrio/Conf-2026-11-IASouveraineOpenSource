@@ -157,11 +157,13 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 45). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 22)
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 45). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 22). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
 
 #### Compléments
 
 Flash-Next a aussi 51B d'embeddings n-gram et 4B de MTP (décodage spéculatif intégré) ; DeepSeek a son module de décodage spéculatif DSpark, activable dans vLLM et SGLang. Chiffres tirés des fiches des éditeurs
+
+Poids par paramètre (config.json de DeepSeek-V4-Flash-0731 sur Hugging Face, lu le 05/11/2026) : experts en FP4 (`expert_dtype: fp4`, ½ octet), le reste en FP8 ; les 256 experts des 43 couches font ~277B des 284B paramètres (calcul de l'orateur), d'où ~167 Go, soit ~0,6 octet par paramètre. Qwen3.8-Flash-Next est publié tout en FP8 (1 octet) : 125B + 51B d'embeddings + 4B de MTP ≈ 180B, d'où ~186 Go
 
 ## license
 type : liste
