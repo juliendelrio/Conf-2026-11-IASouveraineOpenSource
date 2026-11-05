@@ -95,7 +95,7 @@ arrivée : « +11 % » et sa légende ; clic 1 : le pied de slide
 
 #### À l'oral
 
-une simple mise à jour du moteur peut apporter un gain notable
+une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 8)
 
 #### Compléments (le vécu sur Blackwell, pour les questions)
 
