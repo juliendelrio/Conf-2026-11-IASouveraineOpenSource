@@ -83,39 +83,44 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 - Le chiffre d'une quarantaine de formats en sortie est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
-## budgets
+## teams
 type : animation
-scène : budgets
+scène : pilotage
 rubrique : La plateforme
-titre : Un budget par équipe
-- Chaque requête porte sa clé : LiteLLM compte les tokens par équipe
-- Une équipe atteint son budget : ses requêtes s'arrêtent à la passerelle, les autres continuent
-- À la période suivante, le budget repart à zéro
+titre : Un pilotage par équipe
+badges : {testé: Testé}
+- Chaque équipe a sa clé : LiteLLM sait qui appelle quel modèle
+- Les accès : une équipe n'appelle que les modèles qui lui sont ouverts
+- Les priorités et la concurrence : l'équipe prioritaire passe, les autres attendent leur tour
 
 ### Équipe A
+détail : Prioritaire
 
 ### Équipe B
-détail : Budget atteint
+détail : Requêtes limitées
 
 ### Équipe C
+détail : Modèle non autorisé
 
 ### LiteLLM
 texte : la passerelle
 
-### Nos modèles
+### Un modèle
+
+### Un autre modèle
 
 #### Progression
 
-arrivée : les requêtes des trois équipes, leurs jauges se remplissent ; clic 1 : l'équipe B atteint son budget, ses requêtes s'arrêtent ; clic 2 : le budget repart à zéro
+arrivée : les trois équipes appellent leurs modèles par la passerelle ; clic 1 : l'équipe C demande un modèle non autorisé, refusé ; clic 2 : sous charge, l'équipe A passe en priorité, l'équipe B attend son tour. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
 
 #### À l'oral
 
-ce que veulent dire « budgets et quotas » : une équipe qui consomme trop est arrêtée à la passerelle, sans gêner les autres. C'est aussi ce qui protège la capacité de nos cartes
+ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel modèle, qui passe en premier quand les cartes sont chargées, combien de requêtes une équipe peut lancer en même temps. Les budgets existent aussi, mais c'est surtout ce pilotage qui nous sert : il protège la capacité de nos cartes
 
 #### Compléments
 
-- Illustration en motion design, pas une mesure. Issue #6
-- Budgets avec remise à zéro périodique et limites par clé, utilisateur et équipe : édition communautaire, d'après la doc LiteLLM (02/11/2026, voir la slide précédente)
+- Le pilotage est testé, l'animation l'illustre. Illustration en motion design, pas une mesure. Issue #6
+- D'après la doc LiteLLM (02/11/2026, voir la slide précédente) : modèles autorisés, limites de requêtes et de tokens par minute, budgets avec remise à zéro périodique, par clé, utilisateur et équipe, dans l'édition communautaire
 
 ## editions
 type : cartes

@@ -1,13 +1,13 @@
 import type { Status } from '../components/Badge';
 import { SlideLayout } from '../components/SlideLayout';
 import { AgentScene } from './scenes/AgentScene';
-import { BudgetScene } from './scenes/BudgetScene';
 import { CutScene } from './scenes/CutScene';
 import { ExpertsScene } from './scenes/ExpertsScene';
 import { SceneFrame } from './scenes/kit';
 import { PathScene } from './scenes/PathScene';
 import { QuantScene } from './scenes/QuantScene';
 import { RoutingScene } from './scenes/RoutingScene';
+import { TeamScene } from './scenes/TeamScene';
 import type { SceneProps, SceneSection } from './scenes/types';
 import { WeightsScene, weightsSecondBeat } from './scenes/WeightsScene';
 
@@ -32,7 +32,7 @@ export const SCENES: Record<string, SceneSpec> = {
   experts: { component: ExpertsScene, sections: [3], beats: () => [110, 100, 40] },
   quantification: { component: QuantScene, sections: [4], beats: () => [80, 70, 80] },
   chemin: { component: PathScene, sections: [7], beats: () => [120, 120, 120], loops: [30, 30] },
-  budgets: { component: BudgetScene, sections: [5], beats: () => [100, 100, 100] },
+  pilotage: { component: TeamScene, sections: [6], beats: () => [100, 100, 110], loops: [30, 30] },
   'boucle agent': { component: AgentScene, sections: [5], beats: () => [175, 110] },
 };
 

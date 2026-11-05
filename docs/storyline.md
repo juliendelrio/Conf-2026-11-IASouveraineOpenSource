@@ -163,7 +163,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 |---|---|---|---|
 | 1 | Le chemin en 3 étapes (animation) | Chaque service branché sur chaque moteur, puis une passerelle maison devant chaque moteur, puis LiteLLM au centre. Moteur en direct, puis passerelle maison devant chaque moteur, puis LiteLLM : **l'industrialisation de ce qu'on avait commencé avec la passerelle maison** | Testé |
 | 2 | Le cœur : les jetons | **La finesse de gestion des jetons et de leur suivi** : droits par équipes, utilisateurs et clés d'API ; suivi natif, et OpenTelemetry pour aller plus loin. Autour : ~100 types d'API en entrée, ~40 formats en sortie | Testé ; nombres d'API donnés par l'orateur |
-| 3 | Un budget par équipe (animation) | Les jauges des équipes se remplissent ; une équipe atteint son budget et ses requêtes s'arrêtent à la passerelle ; le budget repart à zéro | Illustration ; budgets d'après la doc |
+| 3 | Un pilotage par équipe (animation) | Chaque équipe a sa clé ; une équipe demande un modèle non autorisé, refusée ; sous charge, l'équipe prioritaire passe, une autre attend son tour (accès, priorités, concurrence) | Testé ; illustration |
 | 4 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
 | 5 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 6 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
@@ -867,6 +867,46 @@ la bande passante varie d'un facteur 18 sur cette slide entre une machine de bur
 - Le M5 Max 32 cœurs GPU (460 Go/s) est limité à 36 Go ; il faut la version 40 cœurs pour 128 Go
 - Les chiffres « AI TOPS » des fiches GeForce et RTX PRO sont en FP4 ou FP8 avec sparsité : 2 à 4 fois les chiffres utiles
 - Tableau complet sur 17 machines, avec la puissance de calcul et les sources constructeurs, dans l'annexe du chapitre 3
+```
+
+### Slide remplacée : un budget par équipe (novembre 2026)
+
+Remplacée par « Un pilotage par équipe » : on se sert de LiteLLM surtout pour les accès aux modèles, les priorités et la concurrence, plus que pour les budgets. Contenu d'origine :
+
+```markdown
+## budgets
+type : animation
+scène : budgets
+rubrique : La plateforme
+titre : Un budget par équipe
+- Chaque requête porte sa clé : LiteLLM compte les tokens par équipe
+- Une équipe atteint son budget : ses requêtes s'arrêtent à la passerelle, les autres continuent
+- À la période suivante, le budget repart à zéro
+
+### Équipe A
+
+### Équipe B
+détail : Budget atteint
+
+### Équipe C
+
+### LiteLLM
+texte : la passerelle
+
+### Nos modèles
+
+#### Progression
+
+arrivée : les requêtes des trois équipes, leurs jauges se remplissent ; clic 1 : l'équipe B atteint son budget, ses requêtes s'arrêtent ; clic 2 : le budget repart à zéro
+
+#### À l'oral
+
+ce que veulent dire « budgets et quotas » : une équipe qui consomme trop est arrêtée à la passerelle, sans gêner les autres. C'est aussi ce qui protège la capacité de nos cartes
+
+#### Compléments
+
+- Illustration en motion design, pas une mesure. Issue #6
+- Budgets avec remise à zéro périodique et limites par clé, utilisateur et équipe : édition communautaire, d'après la doc LiteLLM (02/11/2026, voir la slide précédente)
 ```
 
 ### Formulations retirées des slides (issue #1, novembre 2026)
