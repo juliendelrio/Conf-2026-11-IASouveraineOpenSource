@@ -70,11 +70,11 @@ arrivée : est-ce que ça tourne ? ; clics 1 à 4 : ça tient, ça lit vite, ça
 
 #### À l'oral
 
-la grille de lecture pour comparer des machines. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM. Sur « est-ce que ça tourne ? » : AMD et Huawei commencent à sortir des puces pour l'IA. Le souci, c'est le manque de compatibilité CUDA ; mais la concurrence commence à grignoter l'hégémonie de NVIDIA
+la grille de lecture pour comparer des machines. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM. Sur « est-ce que ça tourne ? » : AMD et Huawei commencent à sortir des puces pour l'IA. Le souci, c'est le manque de compatibilité CUDA ; mais la concurrence commence à grignoter l'hégémonie de NVIDIA. Lire et écrire, c'est contre-intuitif : lire, c'est tout le prompt d'un coup, traité en parallèle en une seule relecture des poids, donc du calcul ; écrire, c'est un token à la fois en relisant tous les poids, donc de la bande passante. Réfléchir, c'est écrire (les tokens de réflexion). Chez nous, sur les mêmes cartes : 1 300 à 2 000 tok/s en lecture, ~127 tok/s en écriture
 
 #### Compléments
 
-« est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
+« est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les Mac M5 ont beaucoup de bande passante mais peu de calcul : ils écrivent correctement mais lisent lentement les longs prompts. Nuances pour les questions : avec beaucoup d'utilisateurs simultanés, une même relecture des poids sert plusieurs conversations et l'écriture se rapproche d'une limite de calcul ; avec un très long contexte, l'écriture relit aussi le KV cache à chaque token, encore de la bande passante. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
 
 ## weights-read
 type : animation
