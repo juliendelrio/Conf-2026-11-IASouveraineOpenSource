@@ -81,21 +81,32 @@ le cycle observé, d'où l'intérêt de la veille (slide suivante)
 le même cycle vaut pour les modèles : Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une version stable (vLLM 0.30.0, adoptée le 25/09)
 
 ## engine-watch
-type : chiffre
+type : cartes
 rubrique : Les moteurs
 titre : La veille paie
+pied : Même matériel : une nouvelle version du moteur ou du modèle suffit
+
+### Les versions du moteur
+valeur : +11 %
+légende : de vitesse de génération
 badges : {testé: Mesuré}
-chiffre : +11 %
-légende : de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s), juste en passant à vLLM 0.30.0
-pied : Même matériel, même modèle : seule la version du moteur a changé
+- Qwen3.8-Flash-Next : 180 → 200 tok/s
+- Juste en passant à vLLM 0.30.0
+
+### Les modèles quantizés
+valeur : 31 → 22 Go
+légende : pour des scores très proches
+badges : {testé: Testé}
+- Qwen3.8-27B en NVFP4, publié par NVIDIA
+- Seulement sur Blackwell, comme nos cartes
 
 #### Progression
 
-arrivée : « +11 % » et sa légende ; clic 1 : le pied de slide
+arrivée : les versions du moteur, « +11 % » ; clic 1 : les modèles quantizés, « 31 → 22 Go » ; clic 2 : le pied de slide
 
 #### À l'oral
 
-une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 8). Exemple : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000
+une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 8). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000
 
 #### Compléments (le vécu sur Blackwell, pour les questions)
 
@@ -103,7 +114,7 @@ une simple mise à jour du moteur peut apporter un gain notable. La veille vaut 
 - Les cartes récentes sont moins bien servies : pas de réglages MoE fournis pour la RTX PRO 6000, compilations à la volée au premier passage de certaines formes de calcul
 - Sans NVLink, un réglage par défaut ne convient pas : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes est actif par défaut ; il a fallu revenir à NCCL seul
 - Décodage spéculatif MTP : 3 tokens proposés, 61 % d'acceptation, 2,8 tokens produits par passe
-- nvidia/Qwen3.8-27B-NVFP4 (Hugging Face, lu le 05/11/2026) : publié en septembre 2026, Apache 2.0, NVFP4 pour les couches MLP et la tête de sortie, FP8 pour l'attention ; ~21,9 Go de poids (~54 Go en BF16) ; matériel supporté : Blackwell seulement ; vLLM et SGLang. Scores publiés par NVIDIA, BF16 → NVFP4 : GPQA Diamond 88,9 → 88,0, Terminal-Bench 75,6 → 74,0, IFBench 80,1 → 78,9. Unsloth publie aussi une version NVFP4 (unsloth/Qwen3.8-27B-NVFP4), pas vérifiée. Pas testé chez nous
+- nvidia/Qwen3.8-27B-NVFP4 (Hugging Face, lu le 05/11/2026) : publié en septembre 2026, Apache 2.0, NVFP4 pour les couches MLP et la tête de sortie, FP8 pour l'attention ; ~21,9 Go de poids (~54 Go en BF16) ; matériel supporté : Blackwell seulement ; vLLM et SGLang. Scores publiés par NVIDIA, BF16 → NVFP4 : GPQA Diamond 88,9 → 88,0, Terminal-Bench 75,6 → 74,0, IFBench 80,1 → 78,9. Unsloth publie aussi une version NVFP4 (unsloth/Qwen3.8-27B-NVFP4), pas vérifiée. Testé chez nous (d'après l'orateur) ; les scores sont ceux de NVIDIA
 
 ## engines-trio
 type : trio
