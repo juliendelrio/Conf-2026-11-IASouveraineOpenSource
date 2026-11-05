@@ -30,7 +30,9 @@ Chaque chapitre suit le même schéma :
 | 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **45 min 30** |
+| | **Total** | **45 min 45** |
+
+Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 

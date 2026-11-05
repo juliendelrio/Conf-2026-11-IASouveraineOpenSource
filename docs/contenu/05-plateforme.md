@@ -1,5 +1,23 @@
 # 5. La plateforme LLM (7 min 15)
 
+## chapter-platform
+type : intercalaire
+chiffre : 4
+titre : La plateforme
+- Les modèles
+- Le matériel
+- Les moteurs
+- ==La plateforme==
+- Les usages
+
+#### Progression
+
+pas de clic : l'intercalaire s'affiche puis on passe
+
+#### À l'oral
+
+rien, ou juste le nom du chapitre
+
 ## platform-path
 type : animation
 scène : chemin
@@ -123,7 +141,7 @@ arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le p
 
 #### À l'oral
 
-pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 24) et les licences (slide 14)
+pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 26) et les licences (slide 15)
 
 #### Compléments
 
@@ -152,11 +170,11 @@ arrivée : palier 1 ; clics 1 et 2 : paliers 2 et 3 ; clic 3 : le pied de slide
 
 #### À l'oral
 
-ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 10). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
+ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 11). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 46 et 51)
+le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 51 et 57)
 
 ## routing
 type : animation
@@ -189,7 +207,7 @@ arrivée : tout va au palier 1 ; clic 1 : nos cartes saturent, le surplus débor
 
 #### À l'oral
 
-ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 37) ; le palier 3 reste réservé à ce qui en a besoin
+ce que permet la passerelle, en image. Le débord vers le palier 2 est l'usage qu'on voit pour les hébergeurs français, essayé sur quelques projets (slide 41) ; le palier 3 reste réservé à ce qui en a besoin
 
 #### Compléments
 

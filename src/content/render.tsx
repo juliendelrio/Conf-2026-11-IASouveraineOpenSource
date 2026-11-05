@@ -17,6 +17,7 @@ import type { Slide } from '../deck';
 import { AnimationSlide, SCENES } from '../slides/AnimationSlide';
 import { ArchitectureSlide, type Layer } from '../slides/ArchitectureSlide';
 import { beatStarts } from '../slides/scenes/kit';
+import { ChapterSlide } from '../slides/ChapterSlide';
 import { ConfessionSlide } from '../slides/ConfessionSlide';
 import { MoeSlide } from '../slides/MoeSlide';
 import { SpeedCeilingSlide } from '../slides/SpeedCeilingSlide';
@@ -220,6 +221,18 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
         },
       };
     }
+    case 'intercalaire': {
+      // The steps of the common thread, the current one written `==…==`; none marked: every step is done
+      const marked = slide.items.map((item) => emphasized(item));
+      const current = marked.findIndex((text) => text !== undefined);
+      const props = {
+        number: fields.chiffre,
+        title: need(slide, 'titre'),
+        steps: slide.items.map((item, index) => marked[index] ?? item),
+        current: current === -1 ? undefined : current,
+      };
+      return { component: () => <ChapterSlide {...props} />, groups: 1, defaultClicks: 'aucun' };
+    }
     case 'merci': {
       const links = needTable(slide).rows.map(([label, url]) => ({ label, url }));
       const props = { kicker: common().kicker, title: common().title, links, signature: need(slide, 'signature') };
@@ -227,7 +240,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     }
     default:
       return fail(
-        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, merci)`,
+        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, intercalaire, merci)`,
       );
   }
 };

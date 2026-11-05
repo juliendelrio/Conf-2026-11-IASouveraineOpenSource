@@ -1,5 +1,23 @@
 # 4. Les moteurs d'inférence (4 min)
 
+## chapter-engines
+type : intercalaire
+chiffre : 3
+titre : Les moteurs
+- Les modèles
+- Le matériel
+- ==Les moteurs==
+- La plateforme
+- Les usages
+
+#### Progression
+
+pas de clic : l'intercalaire s'affiche puis on passe
+
+#### À l'oral
+
+rien, ou juste le nom du chapitre
+
 ## our-engines
 type : cartes
 rubrique : Les moteurs
@@ -29,7 +47,7 @@ certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le mat
 
 #### Compléments
 
-sur Mac, la vidéo citée à la slide 19 présente aussi Lithos et OMLX
+sur Mac, la vidéo citée à la slide 21 présente aussi Lithos et OMLX
 
 ## engine-cycle
 type : étapes
@@ -97,4 +115,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 28
+voir les compléments de la slide 31

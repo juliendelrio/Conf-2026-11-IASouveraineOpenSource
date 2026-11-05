@@ -30,7 +30,7 @@ arrivée : « Un talk sur une IA 100 % souveraine, avec des outils open source�
 
 #### À l'oral
 
-l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 51)
+l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 57)
 
 #### Compléments
 
@@ -58,7 +58,7 @@ arrivée : les requêtes partent vers le cloud US ; clic 1 : « Et si demain on 
 
 #### À l'oral
 
-la situation de beaucoup d'équipes aujourd'hui. Laisser l'animation parler, et poser la question au public : laisser un temps. Tout le talk y répond ; la même scène revient en conclusion, avec la réponse (slide 52)
+la situation de beaucoup d'équipes aujourd'hui. Laisser l'animation parler, et poser la question au public : laisser un temps. Tout le talk y répond ; la même scène revient en conclusion, avec la réponse (slide 58)
 
 #### Compléments
 
@@ -88,7 +88,7 @@ l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % sou
 
 #### Compléments
 
-le détail par catégorie de modèles est à la slide 23. Location : L4 500 – 600 €, L40S 1 000 – 1 100 € ; pas de RTX PRO 6000 au catalogue d'OVH ni de Scaleway, l'équivalent pour Flash-Next va de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
+le détail par catégorie de modèles est à la slide 25. Location : L4 500 – 600 €, L40S 1 000 – 1 100 € ; pas de RTX PRO 6000 au catalogue d'OVH ni de Scaleway, l'équivalent pour Flash-Next va de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
 
 ## august
 type : liste
@@ -107,7 +107,7 @@ arrivée : les deux modèles et leurs dates ; clics 1 à 3 : sur 2 cartes au niv
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 46). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 51). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages
 
 #### Compléments
 

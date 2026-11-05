@@ -1,5 +1,22 @@
 # 7. Conclusion (3 min 30)
 
+## chapter-conclusion
+type : intercalaire
+titre : Conclusion
+- Les modèles
+- Le matériel
+- Les moteurs
+- La plateforme
+- Les usages
+
+#### Progression
+
+pas de clic : l'intercalaire s'affiche puis on passe
+
+#### À l'oral
+
+rien, ou juste le nom du chapitre
+
 ## architecture
 type : architecture
 rubrique : Conclusion
@@ -72,7 +89,7 @@ reprendre rapidement les leçons, en 30 secondes au plus
 
 #### Compléments
 
-formulations complètes dans les slides 15, 25, 29, 38, 41, 46 et 48
+formulations complètes dans les slides 16, 27, 32, 42, 46, 51 et 53
 
 ## confession-callback
 type : déclaration
@@ -144,7 +161,7 @@ la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est
 
 #### Compléments
 
-nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 14)
+nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 15)
 
 ## thanks
 type : merci
