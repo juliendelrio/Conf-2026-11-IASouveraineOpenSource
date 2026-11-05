@@ -17,6 +17,7 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 ### Les modèles
 
 - **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit (slide 14, puis slide 21)
+- **Couche** : les poids sont rangés en couches empilées, des dizaines ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre (slide 7, puis slides 14 et 21)
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
