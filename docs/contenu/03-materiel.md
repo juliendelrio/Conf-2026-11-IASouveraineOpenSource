@@ -126,12 +126,13 @@ arrivée : « lu à chaque token » ; clic 1 : « à loger en mémoire » ; clic
 
 #### À l'oral
 
-un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comme écrire, c'est relire les poids (slide 19), il peut aller plus vite. Mais notre mesure doit beaucoup au décodage spéculatif : ne pas la comparer directement au 27B (sans décodage spéculatif, en 4 bits contre FP8). En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
+un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comme écrire, c'est relire les poids (slide 19), il peut aller plus vite. Comment il tient sur nos deux cartes : vLLM coupe chaque couche en deux, experts compris (tensor parallelism) ; chaque carte garde sa moitié des poids, calcule sa part, et les deux cartes échangent leurs résultats à chaque couche, par PCIe faute de NVLink. Et les 51B d'embeddings n-gram, de simples consultations de table, restent en RAM CPU : il reste ~65 Gio de poids par carte de 96 Go, et ~18 Gio pour le KV cache. Mais notre mesure doit beaucoup au décodage spéculatif : ne pas la comparer directement au 27B (sans décodage spéculatif, en 4 bits contre FP8). En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
 
 #### Compléments
 
 - Comment on le fait tenir (pas de détail de configuration sur scène) : FP8 officiel réparti sur les 2 cartes ; les 51B d'embeddings n-gram déportés en RAM CPU ; 18,2 Gio de KV cache par carte, soit 1,17 million de tokens au total, environ 6 conversations simultanées au contexte maximal ; communication en PCIe, sans NVLink
 - Plafond théorique sans décodage spéculatif : ~265 tok/s. Le MTP produit 2,8 tokens par passe (61 % d'acceptation) ; ce sont les surcoûts (échanges entre cartes sans NVLink, kernels MoE non optimisés pour la carte) qui dominent. La formule donne un plafond, pas une prévision
+- Pourquoi le découpage tient sans NVLink : avec 6B de paramètres actifs, ce qui transite entre les cartes à chaque couche, ce sont des résultats intermédiaires de petite taille, pas les poids ; les deux cartes sont dans le même serveur, sur le même nœud NUMA. Le prix : ces échanges à chaque couche font partie des surcoûts qui nous tiennent loin du plafond théorique, et l'algorithme d'échange par défaut de vLLM 0.29 a dû être désactivé au profit de NCCL (slide 29)
 - Production sur 3 semaines : ~9 400 requêtes, premier token en 0,64 s en moyenne, 10,4 s de bout en bout
 - 139 Go = 129 Gio de poids en VRAM, une fois les embeddings déportés ; le modèle complet fait ~186 Go
 - En location : 2 × H100 tiendrait tout juste, avec environ 20 Gio de KV cache (calcul non testé) ; plus confortable : 4 × L40S (non testé) ou 4 × H100
