@@ -19,12 +19,15 @@ export type Slide = {
    * frame instead of freezing, so a steady scene (requests flowing) keeps moving until the click.
    */
   loops?: Record<number, number>;
+  /** Planned start, in seconds from the start of the talk (from the chapter durations, see src/content/schedule.ts). */
+  plannedStart?: number;
   /** Speaker notes (`#### …` under the slide in the content), shown in the speaker view. */
   notes: Note[];
 };
 
 // The deck is written in docs/contenu/*.md (order, texts, click steps); see docs/contenu/README.md.
-// Every slide but the title gets its page number and the total in the bottom-right corner.
+// Every slide but the title gets its page number and the total in the bottom-right corner, and its planned start
+// time in the top-right corner (to compare with the speaker view's timer).
 export const SLIDES: Slide[] = CONTENT_SLIDES.map((slide, index) =>
-  index === 0 ? slide : { ...slide, component: withPageNumber(slide.component, index + 1, CONTENT_SLIDES.length) },
+  index === 0 ? slide : { ...slide, component: withPageNumber(slide.component, index + 1, CONTENT_SLIDES.length, slide.plannedStart) },
 );

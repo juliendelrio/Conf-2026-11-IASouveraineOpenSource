@@ -10,6 +10,7 @@ import conclusion from '../../docs/contenu/07-conclusion.md?raw';
 import lexique from '../../docs/contenu/lexique.md?raw';
 import { parseGlossary, parseSlides } from './parse';
 import { buildSlides } from './render';
+import { chapterSeconds, withSchedule } from './schedule';
 
 // Deck order: files in this order, then slides in the order they appear in each file
 const FILES: [string, string][] = [
@@ -23,7 +24,10 @@ const FILES: [string, string][] = [
   ['07-conclusion.md', conclusion],
 ];
 
-export const CONTENT_SLIDES = buildSlides(
-  FILES.flatMap(([file, source]) => parseSlides(file, source)),
-  parseGlossary(lexique),
+const contents = FILES.flatMap(([file, source]) => parseSlides(file, source));
+
+export const CONTENT_SLIDES = withSchedule(
+  buildSlides(contents, parseGlossary(lexique)),
+  contents,
+  new Map(FILES.map(([file, source]) => [file, chapterSeconds(file, source)])),
 );
