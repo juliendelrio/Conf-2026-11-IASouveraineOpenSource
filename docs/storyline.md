@@ -204,7 +204,7 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 
 | # | Slide | Contenu |
 |---|---|---|
-| 6b.1 | Un agent boucle jusqu'au résultat (animation) | Lire, agir, vérifier, quatre fois jusqu'aux tests au vert ; puis les conversations simultanées se remplissent jusqu'à 12 et la suivante attend |
+| 6b.1 | Le développement agentique, vu de nos cartes (animation) | La boucle d'un agent (lire, agir, vérifier) jusqu'aux tests au vert ; le harness tourne sur le poste du développeur et lance des sous-agents en parallèle ; quelques développeurs remplissent les 12 conversations simultanées, la suivante attend |
 | 6b.2 | Le harness, un vrai levier | Le harness (outils, skills, prompts système) pousse le modèle. Quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu ; l'électricité consommée en plus reste négligeable sur l'ensemble |
 | 6b.3 | Deux harness open source | Pour s'adapter aux limites de chacun : OpenCode (MIT) gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness (MIT, août 2026) : approche web only et jeunesse du système, même si les promesses sont très belles |
 | 6b.4 | La vision | DeepSeek-V4-Flash ne lit que du texte : Qwen3.8-27B décrivait les images à sa place. Un vrai modèle multimodal reste bien meilleur : depuis Flash-Next, le modèle lit lui-même captures et maquettes |

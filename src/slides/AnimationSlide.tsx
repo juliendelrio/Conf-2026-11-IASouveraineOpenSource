@@ -33,7 +33,7 @@ export const SCENES: Record<string, SceneSpec> = {
   quantification: { component: QuantScene, sections: [4], beats: () => [80, 70, 80] },
   chemin: { component: PathScene, sections: [7], beats: () => [120, 120, 120], loops: [30, 30] },
   pilotage: { component: TeamScene, sections: [6], beats: () => [100, 100, 110], loops: [30, 30] },
-  'boucle agent': { component: AgentScene, sections: [5], beats: () => [175, 110] },
+  'boucle agent': { component: AgentScene, sections: [6], beats: () => [175, 85, 100], loops: [undefined, 30] },
 };
 
 type AnimationSlideProps = {

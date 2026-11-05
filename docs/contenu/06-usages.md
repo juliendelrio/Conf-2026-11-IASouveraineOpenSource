@@ -97,9 +97,10 @@ un retour d'expérience des utilisateurs : ils étaient perdus par l'ergonomie d
 type : animation
 scène : boucle agent
 rubrique : Usages · les développeurs
-titre : Un agent boucle jusqu'au résultat
-- L'agent lit, agit, vérifie, et recommence jusqu'à ce que ça passe
-- Chaque agent occupe une conversation : la limite devient la capacité des cartes
+titre : Le développement agentique, vu de nos cartes
+- Un agent lit, agit, vérifie, et recommence jusqu'à ce que ça passe
+- Le harness tourne sur le poste du développeur et lance des sous-agents en parallèle
+- Quelques développeurs suffisent à remplir nos cartes : les requêtes suivantes attendent
 
 ### Lire
 texte : le code, l'erreur
@@ -117,17 +118,20 @@ détail : Tests au vert
 texte : 12 au maximum
 détail : En attente
 
+### Poste
+texte : harness et sous-agents
+
 #### Progression
 
-arrivée : la boucle tourne quatre fois, jusqu'aux tests au vert ; clic 1 : les conversations simultanées se remplissent jusqu'à 12, la suivante attend
+arrivée : la boucle d'un agent tourne quatre fois, jusqu'aux tests au vert ; clic 1 : un poste de développeur, son harness lance 4 sous-agents qui prennent 4 conversations (en boucle tant qu'on n'a pas cliqué) ; clic 2 : deux autres postes remplissent les 12 conversations, la suivante attend
 
 #### À l'oral
 
-ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il boucle jusqu'au résultat. Chaque boucle consomme des tokens ; en auto-hébergé, on ne compte plus au jeton, la limite devient le nombre de conversations que nos cartes tiennent en même temps
+ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il boucle jusqu'au résultat. Chaque boucle consomme des tokens ; en auto-hébergé, on ne compte plus au jeton, la limite devient le nombre de conversations que nos cartes tiennent en même temps. Spécificité des environnements de développement : le harness tourne sur le poste du développeur, pas chez nous ; et tous les harness ont maintenant des stratégies multi-sous-agents, qui lancent autant de requêtes en parallèle. Un seul développeur peut donc occuper plusieurs conversations à la fois, et quelques-uns suffisent à remplir nos cartes. C'est là que le pilotage par équipe (slide 33) et le débord vers le palier 2 (slide 36) prennent tout leur sens
 
 #### Compléments
 
-- Illustration en motion design, pas une mesure. Issue #6. Le nombre d'itérations est illustratif
+- Illustration en motion design, pas une mesure. Issue #6. Le nombre d'itérations, de sous-agents par poste (4) et de postes (3) est illustratif
 - 12 conversations simultanées au maximum après réglage (slide 39) ; au-delà, les requêtes attendent leur tour
 
 ## harness
