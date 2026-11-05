@@ -19,6 +19,11 @@ export type Slide = {
    * frame instead of freezing, so a steady scene (requests flowing) keeps moving until the click.
    */
   loops?: Record<number, number>;
+  /**
+   * Motion-design animation: navigating by slide plays it through on arrival (instead of showing the end state at
+   * once), and the PPTX gets one image per step.
+   */
+  animated?: boolean;
   /** Planned start, in seconds from the start of the talk (from the chapter durations, see src/content/schedule.ts). */
   plannedStart?: number;
   /** Speaker notes (`#### …` under the slide in the content), shown in the speaker view. */

@@ -275,6 +275,7 @@ export const buildSlides = (contents: SlideContent[], glossary: Map<string, stri
       durationInFrames,
       pauses: pausesFor(content, built),
       loops: built.timeline?.loops,
+      animated: content.fields.type === 'animation' || undefined,
       notes: content.notes,
     };
   });

@@ -39,8 +39,11 @@ export const initialPosition = (mode: NavigationMode): Position => {
 /** Next click: reveal the next step of the slide (by click only), or move on to the next slide. */
 export const nextPosition = ({ slide, step }: Position, mode: NavigationMode): Position => {
   if (mode === 'click' && step < lastStep(slide)) return { slide, step: step + 1, animate: true };
-  // By slide, the next slide shows complete at once (the presenter fades it in as a whole)
-  if (slide < SLIDES.length - 1) return { slide: slide + 1, step: arrivalStep(slide + 1, mode), animate: mode === 'click' };
+  // By slide, the next slide shows complete at once (the presenter fades it in as a whole), except an animation,
+  // which plays through so its intermediate steps aren't lost
+  if (slide < SLIDES.length - 1) {
+    return { slide: slide + 1, step: arrivalStep(slide + 1, mode), animate: mode === 'click' || Boolean(SLIDES[slide + 1].animated) };
+  }
   return { slide, step: lastStep(slide), animate: true };
 };
 
