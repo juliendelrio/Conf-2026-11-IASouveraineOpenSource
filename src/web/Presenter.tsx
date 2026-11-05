@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { SLIDES } from '../deck';
 import { COLORS, themeVariables } from '../theme';
 import { targetFrame } from './deck-state';
@@ -45,12 +45,24 @@ export const Presenter: React.FC = () => {
     openSpeakerView();
     return true;
   }, []);
-  const { position, theme, mode, forward, toggleTheme, toggleMode } = useDeck({ onKey });
+  const { position, theme, mode, forward, backward, toggleTheme, toggleMode } = useDeck({ onKey });
+  // Touch screens: tap the left half to go back, the right half to go forward. A mouse click still goes forward
+  const pointerType = useRef('mouse');
+  const onTap = useCallback(
+    (event: React.MouseEvent) => {
+      if (pointerType.current !== 'mouse' && event.clientX < window.innerWidth / 2) backward();
+      else forward();
+    },
+    [forward, backward],
+  );
   const slide = SLIDES[position.slide];
 
   return (
     <div
-      onClick={forward}
+      onPointerDown={(event) => {
+        pointerType.current = event.pointerType;
+      }}
+      onClick={onTap}
       style={{
         ...themeVariables(theme),
         width: '100vw',
