@@ -116,7 +116,7 @@ Ce qu'on a réellement testé :
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
-| 2 | 5 questions avant d'acheter | Est-ce que ça tourne ? Ça tient (VRAM) ? Ça écrit vite (bande passante) ? Ça lit vite (calcul) ? Les cartes se parlent bien (NVLink) ? | Grille de lecture |
+| 2 | 5 questions avant d'acheter | Pour chaque question, ce qui joue et ce que ça détermine : ça tourne (pilotes, écosystème) ? Ça tient (VRAM : taille du modèle et du contexte) ? Ça lit vite (calcul : délai avant la réponse) ? Ça écrit vite (bande passante : vitesse de génération) ? Les cartes se parlent bien (NVLink, PCIe ou réseau : répartir un modèle) ? | Grille de lecture |
 | 3 | La relecture des poids (animation) | Pour écrire un token, la carte relit tous les poids : deux passes lentes, puis la phrase s'écrit à pleine vitesse | Illustration |
 | 4 | Le réflexe | Bande passante ÷ poids lus par token = plafond de vitesse pour un utilisateur seul | Formule |
 | 5 | Les plafonds | Barres animées, Qwen3.8-27B en 4 bits sur 8 machines : DGX Spark, M5 Max, M5 Ultra, L4, L40S, RTX PRO 6000, H100, H200 | Extrapolé, sauf la RTX PRO 6000 : badge « testé » |
@@ -780,6 +780,7 @@ Le titre et plusieurs formulations ont été atténués avant le talk (positionn
 
 - **Titre** : « Une plateforme IA à la demande, 100 % open source : du GPU local au cloud souverain » (encore celui du programme du Capitole du Libre)
 - **Catégorie 3** (slides 9 et 23, novembre 2026) : « 3. Le cap d'août », « Tâches générales, codage compris » ; renommée « Dev ready »
+- **5 questions avant d'acheter** (slide 19, novembre 2026) : deux colonnes « La question | Ce qui joue », « ça écrit vite » avant « ça lit vite » ; « La VRAM : le modèle et le KV cache », « La puissance de calcul : lire un long prompt », « NVLink, PCIe ou réseau : répartir un modèle » (la colonne mélangeait la cause et l'effet)
 - **L'aveu** (slide 2) : « Un talk sur l'IA souveraine 100 % open source… »
 - **La promesse** (slide 3) : « Une IA 100 % souveraine, dès maintenant » ; location à 2 – 5 k€ / mois (puis 4 – 9 k€ / mois, ramené à la seule catégorie 3, avant de couvrir de la L4 à Flash-Next) ; pied « Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk »
 - **Quatre catégories** (slide 9) : pied « Catégorie 4 : plus d'un million d'euros » ; à l'oral « pas accessible sans un investissement de plus d'un million d'euros »

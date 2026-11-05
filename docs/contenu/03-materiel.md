@@ -53,20 +53,20 @@ on a commencé par louer des L4 et des L40S chez des hébergeurs français, donc
 type : tableau
 rubrique : Le matériel
 titre : 5 questions avant d'acheter
-largeurs : 1fr 1.3fr
-taille : 36
+largeurs : 1.15fr 1fr 1.45fr
+taille : 30
 
-| La question | Ce qui joue |
-|---|---|
-| Est-ce que ça tourne ? | Les pilotes et l’écosystème : CUDA, ROCm, Metal |
-| Est-ce que ça tient ? | La VRAM : le modèle et le KV cache |
-| Est-ce que ça écrit vite ? | La bande passante mémoire |
-| Est-ce que ça lit vite ? | La puissance de calcul : lire un long prompt |
-| Les cartes se parlent-elles bien ? | NVLink, PCIe ou réseau : répartir un modèle |
+| La question | Ce qui joue | Ce que ça détermine |
+|---|---|---|
+| Est-ce que ça tourne ? | Les pilotes et l’écosystème : CUDA, ROCm, Metal | Si le modèle et le moteur fonctionnent sur la carte |
+| Est-ce que ça tient ? | La VRAM | La taille du modèle et du contexte (KV cache) qu’on peut loger |
+| Est-ce que ça lit vite ? | La puissance de calcul | La lecture du prompt : le délai avant le début de la réponse |
+| Est-ce que ça écrit vite ? | La bande passante mémoire | La vitesse de génération de la réponse |
+| Les cartes se parlent-elles bien ? | La liaison entre cartes : NVLink, PCIe ou réseau | Répartir un modèle sur plusieurs cartes sans trop perdre en vitesse |
 
 #### Progression
 
-arrivée : est-ce que ça tourne ? ; clics 1 à 4 : ça tient, ça écrit vite, ça lit vite, les cartes se parlent
+arrivée : est-ce que ça tourne ? ; clics 1 à 4 : ça tient, ça lit vite, ça écrit vite, les cartes se parlent
 
 #### À l'oral
 
