@@ -141,7 +141,7 @@ arrivée : la carte communautaire ; clic 1 : la carte entreprise ; clic 2 : le p
 
 #### À l'oral
 
-pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 23) et les licences (slide 15)
+pour construire une offre Model as a Service sur LiteLLM, la version entreprise devient nécessaire. Troisième « interne ou clients » du talk, après l'hébergement (slide 23) et les licences (slide 16)
 
 #### Compléments
 

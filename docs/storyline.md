@@ -22,8 +22,8 @@ Chaque chapitre suit le même schéma :
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
 | 1 | Petit lexique | 1 min 45 |
-| 2 | Les modèles | 6 min 30 |
-| 3 | Le matériel | 6 min 30 |
+| 2 | Les modèles | 7 min 15 |
+| 3 | Le matériel | 5 min 45 |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 7 min 15 |
 | 6a | Usages : le chat généraliste | 2 min |
@@ -76,7 +76,7 @@ Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce
 
 Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Les slides (6 min 30)**
+**Les slides (7 min 15)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
@@ -84,9 +84,10 @@ Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 
 | 2 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
 | 3 | Ce qu'on a vécu | Frise : fin 2025 Chocolatine ; février 2026 Qwen 3.5 sur L40S louées ; avril Qwen 3.6 ; juin RTX PRO 6000 en FP8 ; août Qwen 3.8 et Flash-Next. En parallèle, la transcription | Testé |
 | 4 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
-| 5 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
-| 6 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
-| 7 | Objectif, piège, leçon | Voir ci-dessous | |
+| 5 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
+| 6 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+| 7 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 8 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Quatre catégories pour aider à la décision** (slide 1)
 
@@ -111,17 +112,16 @@ Ce qu'on a réellement testé :
 - À l'achat : 3 RTX PRO 6000 Blackwell Server Edition sur 2 serveurs ; Qwen3.8-Flash-Next en production sur 2 de ces cartes
 - Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter
 
-**Les slides (6 min 30)**
+**Les slides (5 min 45)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
 | 2 | 5 questions avant d'acheter | Pour chaque question, ce qui joue et ce que ça détermine : ça tourne (pilotes, écosystème) ? Ça tient (VRAM : taille du modèle et du contexte) ? Ça lit vite (calcul : délai avant la réponse) ? Ça écrit vite (bande passante : vitesse de génération) ? Les cartes se parlent bien (NVLink, PCIe ou réseau : répartir un modèle) ? | Grille de lecture |
-| 3 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
-| 4 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
-| 5 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
-| 6 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
-| 7 | Objectif, piège, leçon | Voir ci-dessous | |
+| 3 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
+| 4 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
+| 5 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
+| 6 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Le matériel par catégorie de modèles** (slide 6)
 

@@ -1,4 +1,4 @@
-# 2. Les modèles (6 min 30)
+# 2. Les modèles (7 min 15)
 
 ## chapter-models
 type : intercalaire
@@ -151,6 +151,27 @@ Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui
 
 le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 ; pour les tests, ça suffit
 
+## experts
+type : animation
+scène : experts
+rubrique : Les modèles
+titre : Le MoE : seuls quelques experts travaillent
+- Modèle dense : tout le modèle travaille pour chaque token
+- MoE : quelques experts par token, les tokens sortent plus vite
+- Mais tous les experts restent en mémoire
+
+#### Progression
+
+arrivée : modèle dense, toute la grille s'allume pour chaque token ; clic 1 : MoE, quelques experts par token, plus de tokens ; clic 2 : tous les experts restent en mémoire
+
+#### À l'oral
+
+le MoE en image, juste avant les deux modèles d'août qui en sont (slide suivante) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit. Les conséquences sur le matériel viennent au chapitre suivant (slide 21). Pas à l'échelle : le nombre d'experts et d'experts actifs dépend du modèle
+
+#### Compléments
+
+Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
+
 ## august-models
 type : tableau
 rubrique : Les modèles
@@ -175,7 +196,7 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 47). La VRAM restante pour le KV cache est le vrai sujet. MoE (Mixture of Experts) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit (slide 21). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 47). La VRAM restante pour le KV cache est le vrai sujet. MoE : l'animation précédente (« 284B, 13B actifs » : seuls 13B travaillent à chaque token). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
 
 #### Compléments
 

@@ -20,11 +20,11 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
-- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 15, puis slides 34 et 38)
+- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 16, puis slides 34 et 38)
 
 ### Le matériel
 
-- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 19)
+- **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 20)
 - **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
 - **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
 - **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro

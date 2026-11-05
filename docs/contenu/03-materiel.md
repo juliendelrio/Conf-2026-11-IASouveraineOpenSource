@@ -1,4 +1,4 @@
-# 3. Le matériel (6 min 30)
+# 3. Le matériel (5 min 45)
 
 ## chapter-hardware
 type : intercalaire
@@ -76,27 +76,6 @@ la grille de lecture pour comparer des machines. Expliquer bande passante mémoi
 
 « est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les Mac M5 ont beaucoup de bande passante mais peu de calcul : ils écrivent correctement mais lisent lentement les longs prompts. Nuances pour les questions : avec beaucoup d'utilisateurs simultanés, une même relecture des poids sert plusieurs conversations et l'écriture se rapproche d'une limite de calcul ; avec un très long contexte, l'écriture relit aussi le KV cache à chaque token, encore de la bande passante. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
 
-## experts
-type : animation
-scène : experts
-rubrique : Le matériel
-titre : Le MoE : seuls quelques experts travaillent
-- Modèle dense : tout le modèle travaille pour chaque token
-- MoE : quelques experts par token, les tokens sortent plus vite
-- Mais tous les experts restent en mémoire
-
-#### Progression
-
-arrivée : modèle dense, toute la grille s'allume pour chaque token ; clic 1 : MoE, quelques experts par token, plus de tokens ; clic 2 : tous les experts restent en mémoire
-
-#### À l'oral
-
-le MoE en image, avant les chiffres (slide suivante) : moins à relire par token, donc plus rapide, mais tout le modèle doit tenir en VRAM. Pas à l'échelle : le nombre d'experts et d'experts actifs dépend du modèle
-
-#### Compléments
-
-Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
-
 ## moe
 type : moe
 rubrique : Le matériel
@@ -126,7 +105,7 @@ arrivée : « lu à chaque token » ; clic 1 : « à loger en mémoire » ; clic
 
 #### À l'oral
 
-un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comme écrire, c'est relire les poids (slide 19), il peut aller plus vite. Comment il tient sur nos deux cartes : vLLM coupe chaque couche en deux, experts compris (tensor parallelism) ; chaque carte garde sa moitié des poids, calcule sa part, et les deux cartes échangent leurs résultats à chaque couche, par PCIe faute de NVLink. Et les 51B d'embeddings n-gram, de simples consultations de table, restent en RAM CPU : il reste ~65 Gio de poids par carte de 96 Go, et ~18 Gio pour le KV cache. Mais notre mesure doit beaucoup au décodage spéculatif : ne pas la comparer directement au 27B (sans décodage spéculatif, en 4 bits contre FP8). En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
+un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comme écrire, c'est relire les poids (slide 20), il peut aller plus vite. Comment il tient sur nos deux cartes : vLLM coupe chaque couche en deux, experts compris (tensor parallelism) ; chaque carte garde sa moitié des poids, calcule sa part, et les deux cartes échangent leurs résultats à chaque couche, par PCIe faute de NVLink. Et les 51B d'embeddings n-gram, de simples consultations de table, restent en RAM CPU : il reste ~65 Gio de poids par carte de 96 Go, et ~18 Gio pour le KV cache. Mais notre mesure doit beaucoup au décodage spéculatif : ne pas la comparer directement au 27B (sans décodage spéculatif, en 4 bits contre FP8). En contrepartie, il faut pouvoir le loger : la mémoire compte autant que la vitesse
 
 #### Compléments
 
@@ -193,7 +172,7 @@ arrivée : la carte salle serveur ; clic 1 : la carte datacenter ; clic 2 : le p
 
 #### À l'oral
 
-la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 15)
+la première peut servir à l'interne et aux labs ; la seconde est obligatoire pour une offre aux clients. Une offre aux clients impose à la fois l'approche datacenter et une licence de modèle qui l'autorise (lien avec la slide 16)
 
 #### Compléments
 
