@@ -166,20 +166,22 @@ nuance possible pour les questions : les poids sont chez nous, mais la licence s
 ## thanks
 type : merci
 rubrique : Conclusion
-titre : Merci ! Des questions ?
+titre : Merci !
+sous-titre : À vos questions
 signature : Julien Del Rio · Capitole du Libre 2026
 clics : aucun
 
 | Libellé | Lien |
 |---|---|
 | Les slides | juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource |
+| Le code | github.com/juliendelrio/Conf-2026-11-IASouveraineOpenSource |
 | Site | juliendelrio.fr |
 | LinkedIn | linkedin.com/in/juliendelrio |
 | X | x.com/juliendelrio |
 
 #### Progression
 
-pas de clic, les liens s'enchaînent à l'arrivée
+pas de clic : « À vos questions », puis les liens et la signature s'enchaînent à l'arrivée
 
 #### À l'oral
 
