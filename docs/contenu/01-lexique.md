@@ -18,11 +18,11 @@ arrivée : paramètres / poids ; clics 1 à 4 : open weights, quantization, toke
 
 #### À l'oral
 
-seulement les mots qui servent dès le chapitre modèles, une métaphore par terme, pas de maths. Sur « Paramètres, poids » : les poids sont rangés en couches, des dizaines empilées ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre. Insister sur « open weights » : on récupère les poids, pas forcément les données ni le code d'entraînement, et ce n'est pas de l'open source (repris à la slide 16). La VRAM est la vraie ressource rare
+seulement les mots qui servent dès le chapitre modèles, une métaphore par terme, pas de maths. Sur « Paramètres, poids » : les poids sont rangés en couches, des dizaines empilées ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre. Insister sur « open weights » : on récupère les poids, pas forcément les données ni le code d'entraînement, et ce n'est pas de l'open source (repris à la slide 15). La VRAM est la vraie ressource rare
 
 #### Compléments
 
-les autres termes sont expliqués là où ils servent : couche (slide 7, puis 14 et 21), MoE (slide 14, puis 21), contexte et KV cache (slide 20), inférence (slide 26), agentique (slide 41), harness (slides 5 et 45) ; et aussi affinage, multimodal, STT, Model as a Service au chapitre modèles ; bande passante mémoire, lecture du prompt / génération, NVLink au chapitre matériel ; passerelle LLM, OpenTelemetry, SSO au chapitre plateforme. Termes de réserve pour les questions dans l'annexe du lexique : diarisation, décodage spéculatif, SXM vs PCIe, tensor parallelism, tokens de réflexion, TTFT, batching continu, API compatible OpenAI, cache de préfixes
+les autres termes sont expliqués là où ils servent : couche (slide 7, puis 13 et 20), MoE (slide 13, puis 20), contexte et KV cache (slide 19), inférence (slide 25), agentique (slide 39), harness (slides 5 et 43) ; et aussi affinage, multimodal, STT, Model as a Service au chapitre modèles ; bande passante mémoire, lecture du prompt / génération, NVLink au chapitre matériel ; passerelle LLM, OpenTelemetry, SSO au chapitre plateforme. Termes de réserve pour les questions dans l'annexe du lexique : diarisation, décodage spéculatif, SXM vs PCIe, tensor parallelism, tokens de réflexion, TTFT, batching continu, API compatible OpenAI, cache de préfixes
 ## quantization
 type : animation
 scène : quantification
@@ -58,5 +58,5 @@ le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le mod
 #### Compléments
 
 - Illustration en motion design, pas une mesure. Issue #6. Les valeurs du poids sont illustratives (un vrai format 8 ou 4 bits n'arrondit pas en décimal)
-- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 22) ; L4 : 24 Go, louée et testée (slide 19). Il faut encore loger le KV cache
+- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 21) ; L4 : 24 Go, louée et testée (slide 18). Il faut encore loger le KV cache
 

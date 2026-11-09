@@ -48,7 +48,7 @@ arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : DeepInfer ; clic 4 :
 
 #### À l'oral
 
-le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 20). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
+le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 19). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
 
 #### Compléments
 
@@ -133,4 +133,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 28
+voir les compléments de la slide 27

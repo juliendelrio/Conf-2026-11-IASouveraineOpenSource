@@ -22,15 +22,15 @@ Chaque chapitre suit le même schéma :
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
 | 1 | Petit lexique | 1 min 45 |
-| 2 | Les modèles | 7 min 15 |
+| 2 | Les modèles | 6 min |
 | 3 | Le matériel | 5 min 45 |
 | 4 | Les moteurs d'inférence | 4 min |
-| 5 | La plateforme LLM | 7 min 15 |
+| 5 | La plateforme LLM | 6 min 45 |
 | 6a | Usages : le chat généraliste | 2 min |
 | 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **43 min 45** |
+| | **Total** | **42 min** |
 
 Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
@@ -76,18 +76,17 @@ Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce
 
 Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Les slides (7 min 15)**
+**Les slides (6 min)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Quatre catégories | Pourquoi commencer par les modèles : c'est la finalité (démarche du fil rouge). Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
 | 2 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
-| 3 | Ce qu'on a vécu | Frise : fin 2025 Chocolatine ; février 2026 Qwen 3.5 sur L40S louées ; avril Qwen 3.6 ; juin RTX PRO 6000 en FP8 ; août Qwen 3.8 et Flash-Next. En parallèle, la transcription | Testé |
-| 4 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
-| 5 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
-| 6 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
-| 7 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
-| 8 | Objectif, piège, leçon | Voir ci-dessous | |
+| 3 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
+| 4 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
+| 5 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+| 6 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 7 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Quatre catégories pour aider à la décision** (slide 1)
 
@@ -157,7 +156,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 
 Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de **ce qui vient de la documentation**. La version de travail complète du chapitre est en annexe.
 
-**Les slides (7 min 15)**
+**Les slides (6 min 45)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
@@ -168,8 +167,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | 5 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 6 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
 | 7 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
-| 8 | Le palier 2 à l'usage | Scaleway, OVHcloud, Mistral AI, Cloud Temple : modèles, prix au million de tokens, données. Flash-Next absent, DeepSeek-V4.1-Flash le remplace largement. Un bon débord pour les usages moins critiques, comme le code (hors brevets) | Essayé sur quelques projets, sans passage à l'échelle ; catalogues et prix d'après les grilles publiques |
-| 9 | Objectif, piège, leçon | Voir ci-dessous | |
+| 8 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer
 - Le piège : partir en direct sur les moteurs, ou sur une passerelle maison
@@ -907,6 +905,83 @@ ce que veulent dire « budgets et quotas » : une équipe qui consomme trop est 
 
 - Illustration en motion design, pas une mesure. Issue #6
 - Budgets avec remise à zéro périodique et limites par clé, utilisateur et équipe : édition communautaire, d'après la doc LiteLLM (02/11/2026, voir la slide précédente)
+```
+
+### Slides retirées pour le minutage (répétition 1, novembre 2026)
+
+Retirées pour gagner du temps après la première répétition (environ 55 min au lieu de 44) : la frise « Ce qu'on a vécu » (le message « un saut tous les 3 mois » reste dans le trio des modèles et en conclusion) et « Le palier 2 à l'usage », passée en séance (le débord reste dans « La passerelle en action » ; les prix restent en annexe, utiles pour les questions). Contenu d'origine :
+
+```markdown
+## model-timeline
+type : étapes
+rubrique : Les modèles
+titre : Ce qu'on a vécu
+badges : {testé: Testé}
+numérotées : non
+pied : En parallèle : des modèles de transcription (STT), avec ou sans identification des locuteurs
+
+### Fin 2025
+texte : Premiers tests, dont Chocolatine (affiné pour le français)
+
+### Février 2026
+texte : Qwen 3.5 : le 35B et le 27B
+détail : L40S louées
+
+### Avril 2026
+texte : Qwen 3.6 : chaque modèle progresse
+
+### Juin 2026
+texte : Qwen 3.6 en FP8
+détail : RTX PRO 6000
+
+### Août 2026
+texte : Qwen 3.8 et Flash-Next : le cap
+détail : RTX PRO 6000
+surligné : oui
+
+#### Progression
+
+arrivée : fin 2025 ; clics 1 à 4 : février, avril, juin, août 2026 ; clic 5 : la transcription en parallèle
+
+#### À l'oral
+
+février 2026 est la première vraie étape ; chaque génération améliore chaque taille de modèle ; août est le cap
+
+#### Compléments
+
+Chocolatine est un modèle affiné pour le français. Les tests de transcription ont porté sur les modèles avec ou sans diarisation (qui parle quand), et sur la contextualisation
+
+## tier2-api
+type : tableau
+rubrique : La plateforme
+titre : Le palier 2 à l'usage
+badges : {extrapolé: Catalogues publics, 03/11/2026}
+largeurs : 0.9fr 1.6fr 1.3fr 1.3fr
+taille : 32
+clics : 5
+pied : Essayé sur quelques projets, sans passage à l'échelle : un bon débord pour les usages moins critiques
+
+| Hébergeur | Modèles | Par million de tokens (entrée / sortie) | Données |
+|---|---|---|---|
+| Scaleway | GLM, DeepSeek, Qwen | 0,6 – 1,8 € / 1,8 – 5,5 € | France, non conservées |
+| OVHcloud | Qwen | 0,4 – 0,6 € / 2,7 – 3,6 € | UE, non conservées |
+| Mistral AI | GLM, DeepSeek, Mistral Large 4 | 0,3 – 1,4 $ / 1,2 – 4,4 $ | UE en option, 30 jours par défaut |
+| Cloud Temple | Qwen | 1,8 € / 8 € | France, SecNumCloud |
+
+#### Progression
+
+arrivée : le tableau des quatre hébergeurs ; clic 1 : le pied de slide
+
+#### À l'oral
+
+sans matériel, on consomme les modèles à l'usage, facturés au token. Les quatre offres sont compatibles OpenAI ; LiteLLM connaît nativement Scaleway, OVHcloud et Mistral, Cloud Temple passe en endpoint OpenAI générique. Flash-Next n'y est pas, mais DeepSeek-V4.1-Flash le remplace largement. On l'a essayé sur quelques projets, sans passage à l'échelle, et rien ne pousse à s'en méfier : c'est un bon débord pour les usages moins critiques, comme le code (hors brevets). Attention aux données : par défaut, Mistral ne garantit ni la localisation ni l'absence de conservation. Et un modèle en fin de vie peut être redirigé vers un autre, avec 3 mois de préavis
+
+#### Compléments
+
+- Prix publics hors taxes relevés le 03/11/2026, modèles d'intérêt seulement (les petits modèles descendent à 0,1 – 0,2 € en entrée) ; Scaleway (page tarifs, région Paris) : GLM-5.3 1,80 / 5,50 €, DeepSeek-V4.1-Flash-1017 0,60 / 1,80 € (0,12 € en entrée en cache), Qwen3.8-27B 0,60 / 3,30 € (0,12 € en cache), Qwen3.5-397B 0,60 / 3,60 €, batch −50 %, 1 million de tokens offerts pour tester. OVHcloud : Qwen3.8-27B 0,40 / 2,70 €, Qwen3.5-397B 0,60 / 3,60 €. Mistral AI : GLM-5.3 1,40 / 4,40 $, DeepSeek-V4.1-Flash 0,30 / 1,20 $, Mistral Large 4 0,70 / 2,10 $, point d'accès UE +10 %. Cloud Temple : prix unique, entrée 1,80 ou 1,90 € selon les sources
+- Qualifications : Scaleway ISO 27001 et HDS, SecNumCloud en cours ; OVHcloud ISO 27001, SOC 2, HDS ; Mistral AI SOC 2, ISO 27001 / 27701 ; Cloud Temple SecNumCloud 3.2 et HDS, seul qualifié
+- Ordre de grandeur extrapolé : à environ 1 € le million de tokens (DeepSeek-V4.1-Flash chez Scaleway, 3 tokens lus pour 1 écrit), louer de quoi faire tourner Flash-Next (3 900 – 9 300 €/mois) ne devient rentable qu'au-delà de 4 à 10 milliards de tokens par mois
+- Détail des catalogues, limites et cycles de vie en annexe de la storyline
 ```
 
 ### Formulations retirées des slides (issue #1, novembre 2026)
