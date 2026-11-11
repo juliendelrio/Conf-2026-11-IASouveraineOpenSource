@@ -72,7 +72,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 34). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
 
 #### Compléments
 
@@ -133,7 +133,7 @@ arrivée : modèle dense, le token traverse les couches une à une et chaque cou
 
 #### À l'oral
 
-le MoE en image, juste avant les deux modèles d'août qui en sont (slide suivante) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit. Les conséquences sur le matériel viennent au chapitre suivant (slide 20). Le choix se fait couche par couche : chaque couche a son routeur et ses experts. Pas à l'échelle : le nombre de couches, d'experts et d'experts actifs dépend du modèle (DeepSeek-V4-Flash : 43 couches, 6 experts sur 256 par couche et par token)
+le MoE en image, juste avant les deux modèles d'août qui en sont (slide suivante) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit. Les conséquences sur le matériel viennent au chapitre suivant (slide 24). Le choix se fait couche par couche : chaque couche a son routeur et ses experts. Pas à l'échelle : le nombre de couches, d'experts et d'experts actifs dépend du modèle (DeepSeek-V4-Flash : 43 couches, 6 experts sur 256 par couche et par token)
 
 #### Compléments
 
@@ -163,7 +163,7 @@ arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 
 
 #### À l'oral
 
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 45). La VRAM restante pour le KV cache est le vrai sujet. MoE : l'animation précédente (« 284B, 13B actifs » : seuls 13B travaillent à chaque token). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 8)
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 49). La VRAM restante pour le KV cache est le vrai sujet. MoE : l'animation précédente (« 284B, 13B actifs » : seuls 13B travaillent à chaque token). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 12)
 
 #### Compléments
 

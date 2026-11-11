@@ -21,7 +21,7 @@ Chaque chapitre suit le même schéma :
 | # | Partie | Durée |
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
-| 1 | Petit lexique | 1 min 45 |
+| 1 | Petit lexique | 4 min |
 | 2 | Les modèles | 6 min |
 | 3 | Le matériel | 5 min 45 |
 | 4 | Les moteurs d'inférence | 4 min |
@@ -30,7 +30,7 @@ Chaque chapitre suit le même schéma :
 | 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **42 min** |
+| | **Total** | **44 min 15** |
 
 Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
@@ -64,8 +64,12 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 
 | # | Slide | Contenu |
 |---|---|---|
-| 1.1 | Lexique | Paramètres / poids, open weights vs open source, quantization, token, VRAM |
-| 1.2 | La quantization en image (animation) | Le même poids en 16, 8 puis 4 bits : Qwen3.8-27B passe de ~54 à ~31 puis ~16 Go et finit par tenir sur une L4 (24 Go) |
+| 1.1 | Paramètres, poids (animation) | Un réseau de neurones, un poids sur une connexion, les couches traversées, puis des réseaux de 7B, 32B, 400B |
+| 1.2 | Open weights (animation) | Données → entraînement → poids ; l'entraînement passe dans une boîte noire, il ne reste que les poids, téléchargeables |
+| 1.3 | Token (animation) | Une question découpée en tokens, qui traversent le modèle ; la réponse sort token par token |
+| 1.4 | VRAM (animation) | Vue isométrique d'un ordinateur : le CPU et sa RAM, la carte graphique et sa VRAM, le modèle chargé dans la VRAM |
+| 1.5 | Quantization : arrondir les poids (animation) | Un poids sur une règle dont les graduations s'espacent : 0,7342 en 16 bits, 0,73 en 8 bits, 0,75 en 4 bits |
+| 1.6 | La quantization en image (animation) | Le même poids en 16, 8 puis 4 bits : Qwen3.8-27B passe de ~54 à ~31 puis ~16 Go et finit par tenir sur une L4 (24 Go) |
 
 
 Les cinq mots nécessaires dès le chapitre modèles, une métaphore par terme, pas de maths. Les autres termes (inférence, contexte / KV cache, MoE, agentique, harness, …) sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
@@ -905,6 +909,34 @@ ce que veulent dire « budgets et quotas » : une équipe qui consomme trop est 
 
 - Illustration en motion design, pas une mesure. Issue #6
 - Budgets avec remise à zéro périodique et limites par clé, utilisateur et équipe : édition communautaire, d'après la doc LiteLLM (02/11/2026, voir la slide précédente)
+```
+
+### Slide de lexique remplacée par des illustrations (novembre 2026)
+
+La slide unique « Les mots pour suivre » (les cinq termes et leur définition, un clic par terme) a été remplacée par une slide animée par terme, dans l'ordre poids, open weights, token, VRAM, quantization. Contenu d'origine :
+
+```markdown
+## glossary
+type : lexique
+rubrique : Petit lexique
+titre : Les mots pour suivre
+- Paramètres, poids
+- Open weights
+- Quantization
+- Token
+- VRAM
+
+#### Progression
+
+arrivée : paramètres / poids ; clics 1 à 4 : open weights, quantization, token, VRAM
+
+#### À l'oral
+
+seulement les mots qui servent dès le chapitre modèles, une métaphore par terme, pas de maths. Sur « Paramètres, poids » : les poids sont rangés en couches, des dizaines empilées ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre. Insister sur « open weights » : on récupère les poids, pas forcément les données ni le code d'entraînement, et ce n'est pas de l'open source (repris à la slide 15). La VRAM est la vraie ressource rare
+
+#### Compléments
+
+les autres termes sont expliqués là où ils servent : couche (slide 7, puis 13 et 20), MoE (slide 13, puis 20), contexte et KV cache (slide 19), inférence (slide 25), agentique (slide 39), harness (slides 5 et 43) ; et aussi affinage, multimodal, STT, Model as a Service au chapitre modèles ; bande passante mémoire, lecture du prompt / génération, NVLink au chapitre matériel ; passerelle LLM, OpenTelemetry, SSO au chapitre plateforme. Termes de réserve pour les questions dans l'annexe du lexique : diarisation, décodage spéculatif, SXM vs PCIe, tensor parallelism, tokens de réflexion, TTFT, batching continu, API compatible OpenAI, cache de préfixes
 ```
 
 ### Slides retirées pour le minutage (répétition 1, novembre 2026)

@@ -4,11 +4,16 @@ import { AgentScene } from './scenes/AgentScene';
 import { CutScene } from './scenes/CutScene';
 import { ExpertsScene } from './scenes/ExpertsScene';
 import { SceneFrame } from './scenes/kit';
+import { NetworkScene } from './scenes/NetworkScene';
 import { PathScene } from './scenes/PathScene';
 import { QuantScene } from './scenes/QuantScene';
+import { RoundingScene } from './scenes/RoundingScene';
 import { RoutingScene } from './scenes/RoutingScene';
 import { TeamScene } from './scenes/TeamScene';
+import { TokenScene } from './scenes/TokenScene';
+import { TrainingScene } from './scenes/TrainingScene';
 import type { SceneProps, SceneSection } from './scenes/types';
+import { VramScene } from './scenes/VramScene';
 import { WeightsScene, weightsSecondBeat } from './scenes/WeightsScene';
 
 type SceneSpec = {
@@ -33,6 +38,11 @@ export const SCENES: Record<string, SceneSpec> = {
   quantification: { component: QuantScene, sections: [4], beats: () => [80, 70, 80] },
   chemin: { component: PathScene, sections: [7], beats: () => [120, 120, 120], loops: [30, 30] },
   pilotage: { component: TeamScene, sections: [6], beats: () => [100, 100, 110], loops: [30, 30] },
+  réseau: { component: NetworkScene, sections: [4], beats: () => [80, 70, 90], loops: [undefined, 30] },
+  'boîte noire': { component: TrainingScene, sections: [4], beats: () => [110, 60, 70], loops: [30] },
+  arrondi: { component: RoundingScene, sections: [3], beats: () => [70, 70, 70] },
+  tokens: { component: TokenScene, sections: [3], beats: () => [90, 80, 110], loops: [undefined, 30] },
+  vram: { component: VramScene, sections: [5], beats: () => [80, 80, 100] },
   'boucle agent': { component: AgentScene, sections: [6], beats: () => [175, 85, 100], loops: [undefined, 30] },
 };
 
