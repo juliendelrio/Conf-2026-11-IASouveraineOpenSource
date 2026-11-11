@@ -44,7 +44,7 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
 | 0.3 | L'enjeu (animation) | Les requêtes partent vers un cloud US ; « Et si demain on vous coupe l'accès, » (l'accès est coupé) « ou si les prix doublent ? » (le prix double). Illustration en motion design ; la réponse explicite vient au message final |
 | 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
-| 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness) |
+| 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness). Présentée en frise, avec Qwen3.8-27B (5 août, niveau Haiku à Sonnet) |
 | 0.6 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
 Notes pour l'oral :

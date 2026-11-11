@@ -100,11 +100,15 @@ pied : Les premiers modèles utilisables en entreprise, codage compris, sans clu
 
 ### 31 juillet
 texte : DeepSeek-V4-Flash-0731
-détail : Sur 2 cartes, autour d’Opus 4.6 à 4.8
+détail : Sur 2 cartes, niveau Opus
+
+### 5 août
+texte : Qwen3.8-27B
+détail : Plus petit, niveau Haiku à Sonnet
 
 ### 13 août
 texte : DeepSeek Harness
-détail : Les outils arrivent en même temps
+détail : Les outils suivent
 
 ### 24 août
 texte : Qwen3.8-Flash-Next
@@ -113,7 +117,7 @@ surligné : oui
 
 #### Progression
 
-frise : arrivée sur le 31 juillet ; clics 1 et 2 : le 13 août (DeepSeek Harness), puis le 24 août ; clic 3 : le pied de slide
+frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le 13 août (DeepSeek Harness), puis le 24 août ; clic 4 : le pied de slide
 
 #### À l'oral
 
