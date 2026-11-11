@@ -91,19 +91,29 @@ l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % sou
 le détail par catégorie de modèles est à la slide 21. Location : L4 500 – 600 €, L40S 1 000 – 1 100 € ; pas de RTX PRO 6000 au catalogue d'OVH ni de Scaleway, l'équivalent pour Flash-Next va de 2 × H100 (3 900 – 4 800 €, très peu de KV cache) à 4 × H100 (7 800 – 9 300 €), extrapolé
 
 ## august
-type : liste
+type : étapes
 rubrique : Pourquoi maintenant
 titre : Août 2026, le cap franchi
 badges : {testé: Testé} {extrapolé: Niveau Opus : selon les éditeurs}
-pied : Plus besoin d'un cluster de H200 pour des tâches générales
-- DeepSeek-V4-Flash-0731 (31 juillet) et Qwen3.8-Flash-Next (24 août)
-- Sur 2 cartes, autour de Claude Opus 4.6 à 4.8
-- Les premiers modèles vraiment utilisables en entreprise, codage compris
-- Et les outils arrivent en même temps : DeepSeek Harness
+numérotées : non
+pied : Les premiers modèles utilisables en entreprise, codage compris, sans cluster de H200
+
+### 31 juillet
+texte : DeepSeek-V4-Flash-0731
+détail : Sur 2 cartes, autour d’Opus 4.6 à 4.8
+
+### 13 août
+texte : DeepSeek Harness
+détail : Les outils arrivent en même temps
+
+### 24 août
+texte : Qwen3.8-Flash-Next
+détail : Sur 2 cartes, lui aussi
+surligné : oui
 
 #### Progression
 
-arrivée : les deux modèles et leurs dates ; clics 1 à 3 : sur 2 cartes au niveau d'Opus, utilisables en entreprise, DeepSeek Harness ; clic 4 : le pied de slide
+frise : arrivée sur le 31 juillet ; clics 1 et 2 : le 13 août (DeepSeek Harness), puis le 24 août ; clic 3 : le pied de slide
 
 #### À l'oral
 
