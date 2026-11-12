@@ -271,11 +271,11 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-deux histoires vécues, 20 secondes chacune, sur le réglage du service selon l'usage réel. Réserver 95 % de la VRAM faisait planter le moteur sur un long prompt : retour à 90 %. Et 116 requêtes restaient suspendues faute de mémoire : après analyse des longueurs de prompts réels, on a ramené le contexte de 262k à 196k tokens et limité à 12 conversations simultanées ; on est passé à 0
+deux histoires vécues, 20 secondes chacune, sur le réglage du service selon l'usage réel. Réserver 95 % de la VRAM faisait planter le moteur sur un long prompt : retour à 90 %. Et 116 requêtes restaient suspendues faute de mémoire : après analyse des longueurs de prompts réels, on a ramené le contexte de 262k à 196k tokens et limité le nombre de conversations simultanées ; on est passé à 0
 
 #### Compléments (régler le service sur l'usage réel, pour les questions)
 
 - Réserver 95 % de la VRAM a fait planter le moteur sur un long prompt : retour à 90 %
-- Contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum, après analyse des longueurs de prompts réels : de 116 requêtes suspendues faute de mémoire à 0
+- Contexte ramené de 262k à 196k tokens et nombre de conversations simultanées limité (6 à 10 sur Flash-Next), après analyse des longueurs de prompts réels : de 116 requêtes suspendues faute de mémoire à 0
 - Niveau de réflexion `medium` imposé par défaut, `high` posait problème
 - Environ 45 % des tokens de prompt déjà en cache ; un redémarrage coûte environ 4 minutes

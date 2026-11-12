@@ -18,6 +18,8 @@ const SLOTS = { cols: 4, rows: 3, width: 150, height: 86, gap: 20, x: 900, y: 80
 /** One developer workstation per row of slots: its harness runs `SLOTS.cols` sub-agents in parallel. */
 const STATION = { x: 60, width: 400, height: 90 };
 const FILL_EVERY = 6;
+/** The slots drawn: fewer than the grid, the last workstation does not get all the conversations it asks for. */
+const SLOT_COUNT = 10;
 
 const node = (center: Point) => ({ x: center.x - NODE.width / 2, y: center.y - NODE.height / 2, ...NODE });
 const rowCenter = (row: number) => SLOTS.y + row * (SLOTS.height + SLOTS.gap) + SLOTS.height / 2;
@@ -46,7 +48,7 @@ export const AgentScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2
   const loopShown = progress(frame, s0) * (1 - progress(frame, s1, 10));
 
   // Slots fill row by row: the first workstation on the second beat, the two others on the third
-  const slotCount = SLOTS.cols * SLOTS.rows;
+  const slotCount = SLOT_COUNT;
   const fillsAt = (index: number) =>
     index < SLOTS.cols ? s1 + 15 + index * FILL_EVERY : s2 + 10 + (index - SLOTS.cols) * FILL_EVERY;
   const stationAt = (row: number) => (row === 0 ? s1 + 4 : s2 + 2 + (row - 1) * 4 * FILL_EVERY);

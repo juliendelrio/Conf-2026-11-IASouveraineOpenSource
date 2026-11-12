@@ -205,7 +205,7 @@ Tout ce chapitre est du vécu : tout a été testé. La version de travail compl
 
 | # | Slide | Contenu |
 |---|---|---|
-| 6b.1 | Le développement agentique, vu de nos cartes (animation) | La boucle d'un agent (lire, agir, vérifier) jusqu'aux tests au vert ; le harness tourne sur le poste du développeur et lance des sous-agents en parallèle ; quelques développeurs remplissent les 12 conversations simultanées, la suivante attend |
+| 6b.1 | Le développement agentique, vu de nos cartes (animation) | La boucle d'un agent (lire, agir, vérifier) jusqu'aux tests au vert ; le harness tourne sur le poste du développeur et lance des sous-agents en parallèle ; quelques développeurs remplissent les 10 conversations simultanées, la suivante attend |
 | 6b.2 | Le harness, un vrai levier | Le harness (outils, skills, prompts système) pousse le modèle. Quand on ne compte plus au jeton, il peut faire plus d'itérations pour arriver au résultat attendu ; l'électricité consommée en plus reste négligeable sur l'ensemble |
 | 6b.3 | Deux harness open source | Pour s'adapter aux limites de chacun : OpenCode (MIT) gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness (MIT, août 2026) : approche web only et jeunesse du système, même si les promesses sont très belles |
 | 6b.4 | La vision | DeepSeek-V4-Flash ne lit que du texte : Qwen3.8-27B décrivait les images à sa place. Un vrai modèle multimodal reste bien meilleur : depuis Flash-Next, le modèle lit lui-même captures et maquettes |
@@ -640,7 +640,7 @@ Le choix des interfaces, tel qu'il était décrit au chapitre plateforme (repris
 **Matière disponible : régler le service sur l'usage réel** (retour du serveur, 17/10/2026 ; candidats pour « le piège » et « ce qu'on en retient », à valider)
 
 - **Trop gourmand, ça casse** : réserver 95 % de la VRAM a provoqué un crash du moteur (`EngineDeadError`), vraisemblablement sur un long prompt. Retour à 90 %, lots plus petits, découpage des longs prompts
-- **Dimensionner sur l'usage observé, pas sur la fiche** : après analyse de la distribution des longueurs de prompts réels, contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum. Résultat : de 116 préemptions (requêtes suspendues faute de mémoire) à 0
+- **Dimensionner sur l'usage observé, pas sur la fiche** : après analyse de la distribution des longueurs de prompts réels, contexte ramené de 262k à 196k tokens et 12 conversations simultanées au maximum. Résultat : de 116 préemptions (requêtes suspendues faute de mémoire) à 0. [Novembre 2026] L'origine du « 12 » n'est plus retrouvée : les slides retiennent 6 à 10 conversations simultanées sur Flash-Next et 19 à 48 sur le 27B
 - **La réflexion a un coût** : le niveau de réflexion `high` posait problème, `medium` est imposé par défaut côté serveur (lien avec les tokens de réflexion)
 - **Le cache de préfixes** : environ 45 % des tokens de prompt sont déjà en cache. Mais il ne réutilise que des blocs de 1 600 tokens
 - **Redémarrer coûte** : environ 4 minutes de démarrage (90 s de chargement des poids, puis préparation et préchauffage)

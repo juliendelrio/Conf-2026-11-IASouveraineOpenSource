@@ -115,7 +115,7 @@ détail : Tests au vert
 ### Itérations
 
 ### Conversations simultanées
-texte : 12 au maximum
+texte : 6 à 10 selon leur longueur
 détail : En attente
 
 ### Poste
@@ -123,7 +123,7 @@ texte : harness et sous-agents
 
 #### Progression
 
-arrivée : la boucle d'un agent tourne quatre fois, jusqu'aux tests au vert ; clic 1 : un poste de développeur, son harness lance 4 sous-agents qui prennent 4 conversations (en boucle tant qu'on n'a pas cliqué) ; clic 2 : deux autres postes remplissent les 12 conversations, la suivante attend
+arrivée : la boucle d'un agent tourne quatre fois, jusqu'aux tests au vert ; clic 1 : un poste de développeur, son harness lance 4 sous-agents qui prennent 4 conversations (en boucle tant qu'on n'a pas cliqué) ; clic 2 : deux autres postes remplissent les 10 conversations, la suivante attend
 
 #### À l'oral
 
@@ -132,7 +132,7 @@ ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il 
 #### Compléments
 
 - Illustration en motion design, pas une mesure. Issue #6. Le nombre d'itérations, de sous-agents par poste (4) et de postes (3) est illustratif
-- 12 conversations simultanées au maximum après réglage (slide 41) ; au-delà, les requêtes attendent leur tour
+- 6 à 10 conversations simultanées sur Flash-Next : ~6 au contexte maximal de 196k tokens, davantage quand elles sont courtes (slide 24) ; au-delà, les requêtes attendent leur tour. L'animation dessine 10 emplacements
 
 ## harness
 type : liste
@@ -141,7 +141,7 @@ titre : Le harness, un vrai levier
 - Le harness, c’est l’application autour du modèle : outils, skills, prompts système
 - C’est souvent lui qui pousse le modèle dans ses retranchements
 - Quand on ne compte plus au jeton, il peut faire plus d’itérations pour arriver au résultat
-- La limite devient la capacité : 6 à 12 conversations simultanées sur nos cartes
+- La limite devient la capacité : 6 à 10 conversations simultanées sur Flash-Next
 - Un peu plus d’électricité, mais bornée : 600 W par carte au maximum
 
 #### Progression
@@ -155,7 +155,7 @@ le harness compte autant que le modèle. En auto-hébergé, on n'est plus limit�
 #### Compléments
 
 - Lecture du prompt observée en production : 1 300 à 2 000 tok/s en usage courant, pics à 14 000 tok/s grâce au cache de préfixes. Pour un agent qui lit 6 tokens pour 1 écrit, c'est cette vitesse qui compte
-- Capacité : environ 6 conversations simultanées au contexte maximal, 12 au maximum après réglage (slides 24 et 41)
+- Capacité : 6 à 10 conversations simultanées sur Flash-Next (~6 au contexte maximal, slide 24) ; 19 à 48 sur le 27B (19 aujourd'hui, jusqu'à 48 avec toute la carte, estimation)
 - Électricité : 600 W par RTX PRO 6000 Server Edition au maximum (fiche constructeur), soit 1,2 kW pour les 2 cartes du Flash-Next, hors serveur ; pas mesurée chez nous
 
 ## two-harnesses
