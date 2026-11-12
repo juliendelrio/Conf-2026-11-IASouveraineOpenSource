@@ -222,14 +222,16 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
       };
     }
     case 'intercalaire': {
-      // The steps of the common thread, the current one written `==…==`; none marked: every step is done
+      // The steps of the common thread, the current one written `==…==`; none marked: every step is done; all marked:
+      // every step is covered by this chapter, none is done (the glossary and its terms)
       const marked = slide.items.map((item) => emphasized(item));
       const current = marked.findIndex((text) => text !== undefined);
+      const all = marked.length > 1 && marked.every((text) => text !== undefined);
       const props = {
         number: fields.chiffre,
         title: need(slide, 'titre'),
         steps: slide.items.map((item, index) => marked[index] ?? item),
-        current: current === -1 ? undefined : current,
+        current: all ? ('all' as const) : current === -1 ? undefined : current,
       };
       return { component: () => <ChapterSlide {...props} />, groups: 1, defaultClicks: 'aucun' };
     }

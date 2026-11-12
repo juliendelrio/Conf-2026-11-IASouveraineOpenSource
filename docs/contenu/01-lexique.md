@@ -2,6 +2,23 @@
 
 Un mot par slide, chacun illustré par une animation (des illustrations, pas des mesures). Les définitions de référence sont dans `lexique.md`. Ordre : poids, open weights, token, VRAM, puis la quantization, qui s'appuie sur la VRAM.
 
+## chapter-glossary
+type : intercalaire
+titre : Petit lexique
+- ==Poids==
+- ==Open weights==
+- ==Token==
+- ==VRAM==
+- ==Quantization==
+
+#### Progression
+
+aucun clic : les cinq mots apparaissent l'un après l'autre
+
+#### À l'oral
+
+« Avant d'entrer dans le vif du sujet, cinq mots qui vont revenir tout le long. »
+
 ## weights
 type : animation
 scène : réseau
@@ -29,7 +46,7 @@ arrivée : un petit réseau, un poids épinglé sur une connexion ; clic 1 : un 
 
 #### À l'oral
 
-une métaphore, pas de maths : le comportement est appris, pas programmé ; l'entraînement règle des milliards de petits boutons. Les couches : des dizaines, empilées ; pour chaque token écrit, le modèle les traverse toutes, l'une après l'autre (on y revient au MoE, slide 17)
+une métaphore, pas de maths : le comportement est appris, pas programmé ; l'entraînement règle des milliards de petits boutons. Les couches : des dizaines, empilées ; pour chaque token écrit, le modèle les traverse toutes, l'une après l'autre (on y revient au MoE, slide 18)
 
 #### Compléments
 
@@ -64,7 +81,7 @@ arrivée : données → entraînement → poids, le flux tourne ; clic 1 : la bo
 
 #### À l'oral
 
-on récupère les poids, pas forcément les données ni le code d'entraînement : on peut exécuter le modèle, pas le reproduire. Ce n'est donc pas de l'open source (repris à la slide 19)
+on récupère les poids, pas forcément les données ni le code d'entraînement : on peut exécuter le modèle, pas le reproduire. Ce n'est donc pas de l'open source (repris à la slide 20)
 
 #### Compléments
 
@@ -203,5 +220,5 @@ le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le mod
 #### Compléments
 
 - Illustration en motion design, pas une mesure. Issue #6. Les valeurs du poids sont illustratives (un vrai format 8 ou 4 bits n'arrondit pas en décimal)
-- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 25) ; L4 : 24 Go, louée et testée (slide 22). Il faut encore loger le KV cache
+- ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 26) ; L4 : 24 Go, louée et testée (slide 23). Il faut encore loger le KV cache
 

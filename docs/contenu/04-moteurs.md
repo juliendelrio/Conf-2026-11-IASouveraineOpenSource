@@ -48,7 +48,7 @@ arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : DeepInfer ; clic 4 :
 
 #### À l'oral
 
-le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 23). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
+le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 24). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
 
 #### Compléments
 
@@ -106,7 +106,7 @@ arrivée : les versions du moteur, « +11 % » ; clic 1 : les modèles quantizé
 
 #### À l'oral
 
-une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 12). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000
+une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 13). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000
 
 #### Compléments (le vécu sur Blackwell, pour les questions)
 
@@ -133,4 +133,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 31
+voir les compléments de la slide 32

@@ -11,19 +11,22 @@ type ChapterSlideProps = {
   title: string;
   /** The steps of the common thread, in order. */
   steps: string[];
-  /** Index of the current step; the ones before are done. None: every step is done (conclusion). */
-  current?: number;
+  /** Index of the current step; the ones before are done. None: every step is done (conclusion). 'all': every step is
+   * covered by this chapter (the glossary and its terms), none is done. */
+  current?: number | 'all';
 };
 
 // Section divider: the common thread on top, the current step highlighted (the highlight slides in from the
 // previous step), then the chapter number and title. No click: it is shown for a couple of seconds.
-export const ChapterSlide: React.FC<ChapterSlideProps> = ({ number, title, steps, current }) => {
+export const ChapterSlide: React.FC<ChapterSlideProps> = ({ number, title, steps, current: marked }) => {
   const frame = useCurrentFrame();
   const slide = progress(frame, 2, 18);
+  const all = marked === 'all';
+  const current = all ? undefined : marked;
   const from = current === undefined ? 0 : Math.max(current - 1, 0);
   const highlightX = current === undefined ? 0 : interpolate(slide, [0, 1], [from, current]) * (STEP.width + STEP.gap);
   const highlightOpacity = current === undefined ? 0 : current === 0 ? slide : 1;
-  const done = (index: number) => current === undefined || index < current;
+  const done = (index: number) => !all && (current === undefined || index < current);
 
   return (
     <AbsoluteFill
@@ -57,13 +60,13 @@ export const ChapterSlide: React.FC<ChapterSlideProps> = ({ number, title, steps
               width: STEP.width,
               height: STEP.height,
               borderRadius: STEP.height / 2,
-              border: `3px solid ${index === current ? 'transparent' : COLORS.border}`,
+              border: `3px solid ${index === current ? 'transparent' : all ? COLORS.accent : COLORS.border}`,
               display: 'grid',
               placeItems: 'center',
               fontSize: 30,
               fontWeight: 600,
-              color: index === current && slide > 0.5 ? COLORS.background : COLORS.muted,
-              opacity: done(index) ? 0.55 : 1,
+              color: index === current && slide > 0.5 ? COLORS.background : all ? COLORS.foreground : COLORS.muted,
+              opacity: done(index) ? 0.55 : all ? progress(frame, 4 + index * 3) : 1,
             }}
           >
             {fr(step)}

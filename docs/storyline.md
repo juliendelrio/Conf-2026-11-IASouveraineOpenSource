@@ -32,7 +32,7 @@ Chaque chapitre suit le même schéma :
 | 7 | Conclusion | 3 min 30 |
 | | **Total** | **44 min 15** |
 
-Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
+Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Le petit lexique a le sien, sans numéro : ses cinq mots à la place de la frise. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
