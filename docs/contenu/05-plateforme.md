@@ -68,11 +68,11 @@ badges : {testé: Testé}
 - Des droits fins sur les modèles : par équipe, par utilisateur, par clé d’API
 - Des budgets et des quotas par équipe et par clé
 - Un suivi natif de la consommation, et OpenTelemetry pour aller plus loin
-- Autour : une centaine de types d’API en entrée, une quarantaine de formats en sortie
+- Autour : une centaine d’API de fournisseurs branchées, une quarantaine de formats exposés
 
 #### Progression
 
-arrivée : les droits fins ; clics 1 à 3 : budgets et quotas, le suivi et OpenTelemetry, les API en entrée et en sortie
+arrivée : les droits fins ; clics 1 à 3 : budgets et quotas, le suivi et OpenTelemetry, les API branchées et exposées
 
 #### À l'oral
 
@@ -80,7 +80,7 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 
 #### Compléments
 
-- Le chiffre d'une quarantaine de formats en sortie est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
+- Sens des deux chiffres : côté fournisseurs, LiteLLM se branche sur une centaine de types d'API de moteurs et de plateformes cloud (la doc annonce plus de 100 fournisseurs) ; côté applications, il expose les modèles sous plusieurs formats (OpenAI Chat Completions et Responses, Anthropic Messages, rerank, audio, images, pass-through). Le chiffre d'une quarantaine de formats exposés est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
 ## teams
@@ -121,6 +121,7 @@ ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel mo
 
 - Le pilotage est testé, l'animation l'illustre. Illustration en motion design, pas une mesure. Issue #6
 - D'après la doc LiteLLM (02/11/2026, voir la slide précédente) : modèles autorisés, limites de requêtes et de tokens par minute, budgets avec remise à zéro périodique, par clé, utilisateur et équipe, dans l'édition communautaire
+- Priorités, d'après la doc LiteLLM (relue le 12/11/2026) : deux mécanismes. La file d'attente du routeur accepte une priorité par requête (champ `priority`, ou en-tête `x-litellm-priority` depuis la v1.109.0), en open source. La réservation de capacité par niveau de priorité (`priority_reservation`, une part des requêtes ou des tokens par minute réservée à chaque niveau, attribué par clé ou par équipe) demande une licence entreprise. Lequel est utilisé chez nous : _à compléter_ par l'orateur ; le badge « Testé » en dépend
 
 ## editions
 type : cartes
@@ -151,13 +152,13 @@ pour construire une offre Model as a Service sur LiteLLM, la version entreprise 
 
 #### Compléments
 
-d'après la doc LiteLLM (20/10/2026, https://docs.litellm.ai/docs/enterprise) : l'open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation ; l'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
+d'après la doc LiteLLM (20/10/2026, https://docs.litellm.ai/docs/enterprise) : l'open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation ; l'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région. Relu le 12/11/2026 : la liste des fonctions sous licence cite aussi la rotation des clés et les gestionnaires de secrets (AWS, Azure, Google, HashiCorp Vault), les logs par équipe et leur export : les quatre lignes de la carte entreprise y figurent
 
 ## tiers
 type : étapes
 rubrique : La plateforme
 titre : Les paliers, une question de gouvernance
-badges : {testé: Testé}
+badges : {testé: Paliers 1 et 3 : testés} {extrapolé: Palier 2 : essayé sur quelques projets}
 pied : Une fois la passerelle en place, tout est possible : qui accède à quel modèle, quand on bascule, avec quelles données
 
 ### Palier 1 : en interne
@@ -180,7 +181,10 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 #### Compléments
 
-le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 50 et 56)
+- Le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 50 et 56)
+- Mécanisme du débord, d'après la doc LiteLLM (relue le 12/11/2026) : des bascules (`fallbacks`) configurées par modèle, déclenchées sur erreur ou limite de débit atteinte ; une variante se déclenche quand le prompt dépasse le contexte du modèle (`context_window_fallbacks`). Ce qui est configuré chez nous : _à compléter_
+- Questions probables, réponses de l'orateur _à compléter_ : la passerelle est un point unique de défaillance, quelle haute disponibilité ? Comment les utilisateurs s'authentifient-ils ? Comment la plateforme est-elle supervisée et déployée ?
+- Sécurité de LiteLLM, pour les questions : deux compromissions de la chaîne de publication en 2026, toutes deux par vol d'identifiants au démarrage de Python. Le 24/03/2026, les versions 1.82.7 et 1.82.8 sur PyPI, attribuées au groupe TeamPCP, retirées depuis (BleepingComputer, Help Net Security). Le 21/10/2026, la version 1.107.0 sur PyPI et des images Docker officielles, d'après Socket (https://socket.dev/blog/litellm-compromise), source unique à recouper. Si on a été touchés et ce qu'on a mis en place : _à compléter_
 
 ## routing
 type : animation
