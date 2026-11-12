@@ -148,7 +148,7 @@ la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, 
 - Montants internes, ordres de grandeur extrapolés des prix publics relevés le 02/11/2026 (HT ou TTC non précisé) : RTX PRO 4500 Server Edition ~3 700 – 7 000 €, RTX PRO 6000 Server Edition ~16 000 $ à ~20 000 €, plus le serveur. Catégorie 4 : 8 RTX PRO 6000 logeraient le bas de la catégorie (mais alimentation et refroidissement hors d'une salle serveur de PME), les plus gros modèles dépassent le million d'euros
 - Nos cartes : 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : 2 dédiées au Flash-Next (vLLM), la troisième au 27B (SGLang), qu'il partage avec la transcription, les embeddings, le reranker et la diarisation
 - Les 50 – 70 k€ de la catégorie 3 : les 2 cartes du Flash-Next et leur serveur, pas la plateforme complète (troisième carte, second serveur) ; le temps humain n'est pas chiffré
-- Acheter ou consommer à l'usage chez un hébergeur français (palier 2) : comparaison de coût non faite ; réponse de l'orateur _à compléter_
+- Pourquoi acheter plutôt que consommer à l'usage chez un hébergeur français (palier 2) : le coût marginal. Une fois l'usage principal rentabilisé (par exemple les développeurs de 9h à 17h), chaque usage en plus, léger ou hors des heures de bureau, ne coûte que l'électricité. Comparaison de coût chiffrée non faite
 
 ## two-approaches
 type : cartes
