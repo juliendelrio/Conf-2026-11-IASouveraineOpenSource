@@ -22,7 +22,7 @@ Chaque chapitre suit le même schéma :
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
 | 1 | Petit lexique | 4 min 45 |
-| 2 | Les modèles | 5 min 15 |
+| 2 | Les modèles | 4 min 30 |
 | 3 | Le matériel | 5 min 45 |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 6 min 45 |
@@ -30,7 +30,7 @@ Chaque chapitre suit le même schéma :
 | 6b | Usages : les développeurs | 5 min 15 |
 | 6c | Usages : les intégrations sur mesure | 3 min |
 | 7 | Conclusion | 3 min 30 |
-| | **Total** | **44 min 15** |
+| | **Total** | **43 min 30** |
 
 Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Le petit lexique a le sien, sans numéro : ses six mots à la place de la frise. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
@@ -81,16 +81,15 @@ Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce
 
 Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Les slides (5 min 15)**
+**Les slides (4 min 30)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Quatre catégories | Pourquoi commencer par les modèles : c'est la finalité (démarche du fil rouge). Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
 | 2 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
 | 3 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
-| 4 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
-| 5 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
-| 6 | Objectif, piège, leçon | Voir ci-dessous | |
+| 4 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 5 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Quatre catégories pour aider à la décision** (slide 1)
 
@@ -1155,4 +1154,44 @@ pour commercialiser soi-même une plateforme basée sur LiteLLM, la version entr
 #### Compléments
 
 d'après la doc LiteLLM (20/10/2026, https://docs.litellm.ai/docs/enterprise) : l'open source couvre déjà passerelle compatible OpenAI, clés virtuelles, utilisateurs, équipes, suivi des dépenses, budgets, bascules et journalisation ; l'entreprise ajoute SSO (gratuit jusqu'à 5 utilisateurs depuis la v1.76.0), SCIM, organisations et administrateurs délégués, journaux d'audit, routage des logs par clé ou par équipe, déploiement multi-région
+```
+
+### Slide « Les deux modèles d'août » retirée (novembre 2026)
+
+Retirée parce que chaque ligne était dite ailleurs : les dates à la slide 5 (la frise d'août), la taille et le MoE à la slide 14, les poids face à nos 192 Go à la slide 24 (le MoE côté matériel), la licence à la slide 19 (une ligne « DeepSeek-V4-Flash, lui, reste sous MIT » y a été ajoutée), la lecture des images au chapitre usages. Ligne du tableau du chapitre modèles :
+
+| 4 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+
+```markdown
+## august-models
+type : tableau
+rubrique : Les modèles
+titre : Les deux modèles d'août
+badges : {testé: Testés} {extrapolé: Chiffres des fiches}
+largeurs : 1fr 1.4fr 1.4fr
+taille : 34
+clics : 4, 5, 6
+pied : Les deux tiennent tout juste dans nos 192 Go
+
+| | DeepSeek-V4-Flash-0731 | Qwen3.8-Flash-Next |
+|---|---|---|
+| Sortie | 31 juillet 2026 | 24 août 2026 |
+| Taille | MoE 284B, 13B actifs | MoE 125B, 6B actifs |
+| Poids | ~167 Go | ~186 Go (FP8) |
+| Licence | MIT | Licence maison « Qwen Community 1.0 » |
+| Lit les images | Non, texte seul | Oui, multimodal |
+
+#### Progression
+
+arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 : la lecture des images ; clic 3 : le pied de slide
+
+#### À l'oral
+
+deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 50). La VRAM restante pour le KV cache est le vrai sujet. MoE : l'animation précédente (« 284B, 13B actifs » : seuls 13B travaillent à chaque token). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 13)
+
+#### Compléments
+
+Flash-Next a aussi 51B d'embeddings n-gram et 4B de MTP (décodage spéculatif intégré) ; DeepSeek a son module de décodage spéculatif DSpark, activable dans vLLM et SGLang. Chiffres tirés des fiches des éditeurs
+
+Poids par paramètre (config.json de DeepSeek-V4-Flash-0731 sur Hugging Face, lu le 05/11/2026) : experts en FP4 (`expert_dtype: fp4`, ½ octet), le reste en FP8 ; les 256 experts des 43 couches font ~277B des 284B paramètres (calcul de l'orateur), d'où ~167 Go, soit ~0,6 octet par paramètre. Qwen3.8-Flash-Next est publié tout en FP8 (1 octet) : 125B + 51B d'embeddings + 4B de MTP ≈ 180B, d'où ~186 Go
 ```

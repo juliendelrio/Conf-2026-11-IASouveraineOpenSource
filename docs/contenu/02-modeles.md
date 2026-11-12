@@ -1,4 +1,4 @@
-# 2. Les modèles (5 min 15)
+# 2. Les modèles (4 min 30)
 
 ## chapter-models
 type : intercalaire
@@ -72,7 +72,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 39). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
 
 #### Compléments
 
@@ -112,38 +112,6 @@ Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui
 
 le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 ; pour les tests, ça suffit
 
-## august-models
-type : tableau
-rubrique : Les modèles
-titre : Les deux modèles d'août
-badges : {testé: Testés} {extrapolé: Chiffres des fiches}
-largeurs : 1fr 1.4fr 1.4fr
-taille : 34
-clics : 4, 5, 6
-pied : Les deux tiennent tout juste dans nos 192 Go
-
-| | DeepSeek-V4-Flash-0731 | Qwen3.8-Flash-Next |
-|---|---|---|
-| Sortie | 31 juillet 2026 | 24 août 2026 |
-| Taille | MoE 284B, 13B actifs | MoE 125B, 6B actifs |
-| Poids | ~167 Go | ~186 Go (FP8) |
-| Licence | MIT | Licence maison « Qwen Community 1.0 » |
-| Lit les images | Non, texte seul | Oui, multimodal |
-
-#### Progression
-
-arrivée : sortie, taille et poids s'enchaînent ; clic 1 : la licence ; clic 2 : la lecture des images ; clic 3 : le pied de slide
-
-#### À l'oral
-
-deux modèles de même niveau, mais une licence ouverte d'un côté, une licence maison de l'autre ; et un seul lit les images (repris à la slide 50). La VRAM restante pour le KV cache est le vrai sujet. MoE : l'animation précédente (« 284B, 13B actifs » : seuls 13B travaillent à chaque token). Et si quelqu'un remarque que DeepSeek a plus de paramètres mais pèse moins : ses experts sont publiés en 4 bits, Qwen est tout en 8 bits (la quantization de la slide 13)
-
-#### Compléments
-
-Flash-Next a aussi 51B d'embeddings n-gram et 4B de MTP (décodage spéculatif intégré) ; DeepSeek a son module de décodage spéculatif DSpark, activable dans vLLM et SGLang. Chiffres tirés des fiches des éditeurs
-
-Poids par paramètre (config.json de DeepSeek-V4-Flash-0731 sur Hugging Face, lu le 05/11/2026) : experts en FP4 (`expert_dtype: fp4`, ½ octet), le reste en FP8 ; les 256 experts des 43 couches font ~277B des 284B paramètres (calcul de l'orateur), d'où ~167 Go, soit ~0,6 octet par paramètre. Qwen3.8-Flash-Next est publié tout en FP8 (1 octet) : 125B + 51B d'embeddings + 4B de MTP ≈ 180B, d'où ~186 Go
-
 ## license
 type : liste
 rubrique : Les modèles
@@ -153,15 +121,16 @@ pied : On lit la licence avant de choisir un modèle, comme pour toute dépendan
 - Flash-Next passe à une licence maison, « Qwen Community 1.0 »
 - Usage interne libre, tant que rien n’est mis à disposition de tiers
 - Licence séparée pour du Model as a Service ou un assistant de code, quelle que soit la taille
+- DeepSeek-V4-Flash, lui, reste sous MIT
 - Et Qwen 4, annoncé, mais sans date ni licence ?
 
 #### Progression
 
-arrivée : Qwen sous Apache 2.0 ; clics 1 à 4 : licence maison, usage interne libre, licence séparée, et Qwen 4 ? ; clic 5 : « on lit la licence… »
+arrivée : Qwen sous Apache 2.0 ; clics 1 à 5 : licence maison, usage interne libre, licence séparée, DeepSeek reste sous MIT, et Qwen 4 ? ; clic 6 : « on lit la licence… »
 
 #### À l'oral
 
-point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Le Model as a Service, c'est un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
+point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Le Model as a Service, c'est un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Les deux modèles d'août sont de même niveau, mais l'un est sous MIT, l'autre sous licence maison. Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
 
 #### Compléments
 
