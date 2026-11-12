@@ -96,7 +96,7 @@ badges : {testé: Mesuré}
 ### Les modèles quantizés
 valeur : 31 → 22 Go
 légende : pour des scores très proches
-badges : {testé: Testé}
+badges : {testé: Tourne chez nous} {extrapolé: Scores : NVIDIA}
 - Qwen3.8-27B en NVFP4, publié par NVIDIA
 - Seulement sur Blackwell, comme nos cartes
 
@@ -106,7 +106,7 @@ arrivée : les versions du moteur, « +11 % » ; clic 1 : les modèles quantizé
 
 #### À l'oral
 
-une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 13). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000
+une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 13). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches (ceux publiés par NVIDIA, on ne les a pas remesurés) ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000. Pourquoi 22 Go et pas les 16 Go de la slide 13 : NVFP4 ne passe pas tout en 4 bits, l'attention reste en FP8
 
 #### Compléments (le vécu sur Blackwell, pour les questions)
 
