@@ -72,7 +72,7 @@ pied : Souveraine : données et modèles chez nous ou chez des hébergeurs fran�
 
 ### En interne
 valeur : 50 – 70 k€
-légende : d'investissement
+légende : d'investissement, pour 2 cartes
 
 ### En location
 valeur : 0,5 – 9 k€ / mois
@@ -84,7 +84,7 @@ arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; cli
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté, c'est le pied de slide : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance, et on l'assume : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Ce n'est pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk. Le critère des hébergeurs (juridiction, qualification) vient au chapitre plateforme (slide 40). Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté, c'est le pied de slide : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance, et on l'assume : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Ce n'est pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk. Le critère des hébergeurs (juridiction, qualification) vient au chapitre plateforme (slide 40). Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000 et à leur serveur : c'est le ticket d'entrée pour le code, pas le coût de toute la plateforme
 
 #### Compléments
 
@@ -121,7 +121,7 @@ frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 50). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 50). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages. Les « 2 cartes » : deux de nos trois RTX PRO 6000, dédiées au code ; la troisième fait tourner le 27B du chat et les petits modèles (transcription, embeddings)
 
 #### Compléments
 

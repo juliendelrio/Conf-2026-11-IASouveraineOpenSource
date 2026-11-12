@@ -112,6 +112,7 @@ un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comm
 - Comment on le fait tenir (pas de détail de configuration sur scène) : FP8 officiel réparti sur les 2 cartes ; les 51B d'embeddings n-gram déportés en RAM CPU ; 18,2 Gio de KV cache par carte, soit 1,17 million de tokens au total, environ 6 conversations simultanées au contexte maximal ; communication en PCIe, sans NVLink
 - Plafond théorique sans décodage spéculatif : ~265 tok/s. Le MTP produit 2,8 tokens par passe (61 % d'acceptation) ; ce sont les surcoûts (échanges entre cartes sans NVLink, kernels MoE non optimisés pour la carte) qui dominent. La formule donne un plafond, pas une prévision
 - Pourquoi le découpage tient sans NVLink : avec 6B de paramètres actifs, ce qui transite entre les cartes à chaque couche, ce sont des résultats intermédiaires de petite taille, pas les poids ; les deux cartes sont dans le même serveur, sur le même nœud NUMA. Le prix : ces échanges à chaque couche font partie des surcoûts qui nous tiennent loin du plafond théorique, et l'algorithme d'échange par défaut de vLLM 0.29 a dû être désactivé au profit de NCCL (slide 32)
+- Configuration en production : vLLM v0.30.0, les 2 cartes entièrement dédiées au Flash-Next, 90 % de leur VRAM réservée ; contexte maximal de 196 608 tokens par requête ; pool de KV cache de 1 175 552 tokens partagé entre les requêtes (relevé du 25/09/2026), soit ~6 requêtes au contexte maximal (5,95 selon vLLM). Le pool se remplit au nombre réel de tokens : des requêtes courtes passent bien au-delà de 6. Plafond de requêtes simultanées : non relevé
 - Production sur 3 semaines : ~9 400 requêtes, premier token en 0,64 s en moyenne, 10,4 s de bout en bout
 - 139 Go = 129 Gio de poids en VRAM, une fois les embeddings déportés ; le modèle complet fait ~186 Go
 - En location : 2 × H100 tiendrait tout juste, avec environ 20 Gio de KV cache (calcul non testé) ; plus confortable : 4 × L40S (non testé) ou 4 × H100
@@ -145,7 +146,9 @@ la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, 
 - Catégorie 2 : ~31 Go en FP8 (~16 Go en 4 bits) plus le KV cache ; RTX 5090 ou RTX PRO 4500 en 4 bits possibles
 - Catégorie 3 : en location, 2 × H100 3 900 – 4 800 €/mois (tout juste, très peu de KV cache), 4 × L40S 4 000 – 4 300 €/mois ou 4 × H100 7 800 – 9 300 €/mois, tout extrapolé
 - Montants internes, ordres de grandeur extrapolés des prix publics relevés le 02/11/2026 (HT ou TTC non précisé) : RTX PRO 4500 Server Edition ~3 700 – 7 000 €, RTX PRO 6000 Server Edition ~16 000 $ à ~20 000 €, plus le serveur. Catégorie 4 : 8 RTX PRO 6000 logeraient le bas de la catégorie (mais alimentation et refroidissement hors d'une salle serveur de PME), les plus gros modèles dépassent le million d'euros
-- Nos cartes : 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs
+- Nos cartes : 3 RTX PRO 6000 Blackwell Server Edition réparties sur 2 serveurs : 2 dédiées au Flash-Next (vLLM), la troisième au 27B (SGLang), qu'il partage avec la transcription, les embeddings, le reranker et la diarisation
+- Les 50 – 70 k€ de la catégorie 3 : les 2 cartes du Flash-Next et leur serveur, pas la plateforme complète (troisième carte, second serveur) ; le temps humain n'est pas chiffré
+- Acheter ou consommer à l'usage chez un hébergeur français (palier 2) : comparaison de coût non faite ; réponse de l'orateur _à compléter_
 
 ## two-approaches
 type : cartes

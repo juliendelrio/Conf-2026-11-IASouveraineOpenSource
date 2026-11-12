@@ -120,7 +120,7 @@ Ce qu'on a réellement testé :
 |---|---|---|---|
 | 1 | Louer avant d'acheter | L4 et L40S chez OVH et Scaleway ; 5 prix en fourchette : L4 500 à 600 €, L40S 1 000 à 1 100 €, H100 1 900 à 2 100 €, 4 × L40S 4 000 à 4 300 €, 8 × H200 ~30 700 € par mois | Testé : L4, L40S. Prix des autres : catalogues publics |
 | 2 | 5 questions avant d'acheter | Pour chaque question, ce qui joue et ce que ça détermine : ça tourne (pilotes, écosystème) ? Ça tient (VRAM : taille du modèle et du contexte) ? Ça lit vite (calcul : délai avant la réponse) ? Ça écrit vite (bande passante : vitesse de génération) ? Les cartes se parlent bien (NVLink, PCIe ou réseau : répartir un modèle) ? | Grille de lecture |
-| 3 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), pas sur 2 H100 (160 Go) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
+| 3 | Le MoE change la donne | Le Flash-Next relit 6 Go par token contre 16 pour le 27B, donc va plus vite, mais il faut loger ~186 Go : tient sur 2 RTX PRO 6000 (192 Go), tout juste sur 2 H100 (160 Go) une fois les embeddings déportés en RAM CPU (calcul non testé) | Testé sur 2 RTX PRO 6000 (~200 tok/s mesurés, ~127 en production) ; H100 extrapolé |
 | 4 | Le matériel par catégorie | Le tableau ci-dessous | Colonne « testé / extrapolé » |
 | 5 | Deux approches | Salle serveur (interne, labs) ou datacenter (obligatoire pour une offre aux clients). Une ligne : certaines cartes rentrent dans un serveur classique (L4, RTX PRO 4500 Server Edition) | Retour d'expérience + extrapolé pour les cartes |
 | 6 | Objectif, piège, leçon | Voir ci-dessous | |
@@ -131,7 +131,7 @@ Ce qu'on a réellement testé :
 |---|---|---|---|---|
 | 1. Petits modèles | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) | L4 testée en location, avec des modèles ; autres cartes extrapolées |
 | 2. Milieu de gamme (27B) | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois | Testé : L40S louée, RTX PRO 6000 ; autres extrapolées |
-| 3. Dev ready | 2 RTX PRO 6000 dans un même serveur ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
+| 3. Dev ready | 2 RTX PRO 6000 dans un même serveur ; 2 H100 : tout juste (calcul non testé) | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S) ; 7 800 à 9 300 €/mois (4 H100) | Testé : 2 RTX PRO 6000 ; location extrapolée |
 | 4. Hors de portée | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) | Extrapolé |
 
 - Ce qu'on voulait faire : obtenir des preuves de faisabilité à moindre coût, pour convaincre d'un investissement plus complet
@@ -406,6 +406,8 @@ Prix de location par mois, en fourchettes arrondies à la centaine d'euros (tari
 
 [Déduction] Même avec deux H100, le Qwen3.8-Flash-Next en FP8 (~186 Go) ne tient pas en VRAM (160 Go), alors qu'il tient sur nos deux RTX PRO 6000 (192 Go) : la mémoire compte autant que la vitesse. En location, il faudrait 4 × L40S (192 Go comme nos deux cartes, 4 000 à 4 300 €/mois, mais réparti sur 4 cartes en PCIe, non testé) ou 4 × H100 (7 800 à 9 300 €/mois).
 
+[Correction, novembre 2026] Cette déduction comptait le modèle complet (~186 Go). Avec les embeddings déportés en RAM CPU, comme en production, il reste 129 Gio de poids en VRAM : 2 × H100 tiendraient tout juste, avec environ 20 Gio de KV cache (calcul non testé). Les slides disent « tout juste » ; les mentions « ne tient pas » des tableaux d'annexe ci-dessous datent d'avant ce calcul.
+
 **Aparté : des cartes pour les serveurs « traditionnels »**
 
 Toutes les cartes ne demandent pas un serveur conçu pour l'IA. Certaines rentrent dans les serveurs qu'on a déjà, dès lors qu'ils ont un port PCIe libre. Utile pour des projets en full interne.
@@ -430,7 +432,7 @@ Pour comparaison, la **L40S** louée au début : 48 Go / 864 Go/s, 350 W, pleine
 |---|---|---|---|---|
 | 1. Petits modèles | Une carte d'entrée de gamme, possible dans un serveur « traditionnel » | L4, RTX PRO 4500 Server Edition, RTX PRO 2000 / 4000 SFF | bien en dessous de 100 k€ | 500 à 600 €/mois (1 L4) |
 | 2. Milieu de gamme (27B) | ~31 Go en FP8 (~16 Go en 4 bits) + KV cache | 1 RTX PRO 6000, L40S, H100 ; RTX 5090 ou RTX PRO 4500 en 4 bits | bien en dessous de 100 k€ | 1 000 à 2 100 €/mois |
-| 3. Le cap d'août | ~190 Go de VRAM dans un même serveur | 2 RTX PRO 6000 (les nôtres) ; 2 H100 ne suffisent pas | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S, non testé) ; 7 800 à 9 300 €/mois (4 H100) |
+| 3. Le cap d'août | ~190 Go de VRAM dans un même serveur | 2 RTX PRO 6000 (les nôtres) ; 2 H100 : tout juste (calcul non testé) | moins de 100 k€ (notre investissement : 50 à 70 k€) | 4 000 à 4 300 €/mois (4 L40S, non testé) ; 7 800 à 9 300 €/mois (4 H100) |
 | 4. Hors de portée | Plusieurs centaines de Go à plusieurs To de VRAM, NVLink | 8 H200 ou plus | plus d'un million d'euros | ~30 700 €/mois (8 H200) à ~43 800 €/mois (8 B300) |
 
 **Grille de lecture : les questions à se poser avant d'acheter**
@@ -465,6 +467,13 @@ Sur deux RTX 6000 Pro (2 × 96 = 192 Go), le Flash Next en FP8 (~186 Go) ne tien
 - Résultat par carte : 64,5 Gio de poids, **18,2 Gio de KV cache**, 89,7 Go occupés sur 97,9 Go
 - Grâce à l'attention hybride, ces 2 × 18 Gio suffisent pour **1,17 million de tokens** de KV cache, soit environ 6 conversations simultanées au contexte maximal
 - Communication entre les cartes : PCIe entre deux ponts du même nœud NUMA, sans NVLink
+
+**Configurations relevées** (novembre 2026) :
+
+- Flash-Next, vLLM v0.30.0, sur 2 RTX PRO 6000 entièrement dédiées (tensor parallel = 2, `--gpu-memory-utilization=0.90`) : contexte maximal 196 608 tokens (`--max-model-len`) ; pool de KV cache partagé de 1 175 552 tokens (relevé du 25/09/2026), soit ~6 requêtes au contexte plein (vLLM annonce une concurrence maximale de 5,95 à 196k). Le pool se remplit au nombre réel de tokens : des requêtes courtes passent bien au-delà de 6. `--max-num-seqs` jamais relevé, donc valeur par défaut de vLLM
+- Qwen3.8-27B, SGLang v0.5.20, sur une seule RTX PRO 6000 (réglage du 28/09/2026, `--mem-fraction-static 0.70`) : contexte maximal 262 144 tokens ; pool de KV cache de 892 488 tokens, soit ~3,4 requêtes de 256k ; 19 requêtes simultanées effectives (24 demandées, 19 gardées par SGLang à cause du décodage spéculatif EAGLE, avec 96 emplacements d'état Mamba, `--max-mamba-cache-size`) ; au-delà, file d'attente illimitée : c'est ce qui a saturé le 03/11/2026, avec 18 requêtes en cours et 18 à 20 en attente
+- Le 27B ne prend pas toute la carte : il laisse la place à la transcription, aux embeddings, au reranker et à la diarisation
+- [Estimation de l'orateur] Avec toute la carte (`--mem-fraction-static` ≈ 0,90, ~19,6 Go en plus), à partir des coûts mesurés (~32 Ko par token de KV cache en FP8, ~73 Mo par emplacement Mamba, plus la mémoire Mamba intermédiaire qui grossit avec la concurrence), trois arbitrages : tout en contexte, 19 requêtes simultanées, pool ~1,5 M tokens, ~5,7 requêtes de 256k ; compromis (`--max-mamba-cache-size 120`), 24 requêtes, ~1,4 M, ~5,3 ; tout en concurrence (`--max-running-requests 48`), 48 requêtes, ~890k, ~3,4
 
 Bon exemple de VRAM qui dimensionne tout, et de modèle réparti sur deux cartes sans NVLink.
 

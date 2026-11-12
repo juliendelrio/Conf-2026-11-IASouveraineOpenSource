@@ -37,7 +37,7 @@ surligné : oui
 
 ### Palier 1 : en interne
 - vLLM, SGLang : Apache 2.0
-- 3 RTX PRO 6000
+- 3 RTX PRO 6000 : 2 pour Flash-Next, 1 pour le 27B
 - Modèles open weights
 
 ### Palier 2 : en France
