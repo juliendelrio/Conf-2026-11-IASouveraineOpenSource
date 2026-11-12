@@ -127,7 +127,7 @@ c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour 
 
 - Comparaisons publiées par les éditeurs, à présenter comme telles : DeepSeek-V4-Flash-0731, Terminal Bench 2.1 82,7 contre 85,0 pour Opus 4.8 ; Flash-Next comparé à Opus 4.6 Max dans sa fiche
 - Deux scores Terminal-Bench pour Qwen3.8-27B, les deux exacts : 73,0 dans la fiche de Qwen (Terminal Bench 2.1, harness Terminus), 75,6 dans celle de NVIDIA pour le même modèle en BF16 (slide 31), évalué par NVIDIA avec ses propres réglages (fiches relues le 12/11/2026)
-- Question probable, « quelle évaluation interne ? » : les notes ne citent que le ressenti d'usage, pas de banc d'essai interne ; réponse de l'orateur _à compléter_
+- Question probable, « quelle évaluation interne ? » : quelques prompts de test dont on regarde le résultat, notamment des prompts de jeux vidéo. Ce n'est pas parfait, mais c'est assez parlant à notre niveau
 - DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code (dépôt créé le 13 août 2026)
 - Également sortis en août : Qwen3.8-27B (le 5 ; Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche) et Qwen3.8-2.4T-A95B (le 8)
 
