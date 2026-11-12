@@ -1,5 +1,5 @@
-/** A labelled element of a scene, from a `### Titre` section with its `texte` and `détail`. */
-export type SceneSection = { title: string; text?: string; detail?: string };
+/** A labelled element of a scene, from a `### Titre` section with its `texte`, `détail` and `mesure`. */
+export type SceneSection = { title: string; text?: string; detail?: string; measure?: string };
 
 export type SceneProps = {
   sections: SceneSection[];

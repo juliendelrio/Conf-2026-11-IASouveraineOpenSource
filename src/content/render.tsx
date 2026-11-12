@@ -200,7 +200,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     case 'animation': {
       const name = need(slide, 'scène');
       const scene = SCENES[name] ?? fail(`scène inconnue « ${name} » (scènes possibles : ${Object.keys(SCENES).join(', ')})`);
-      const sections = slide.sections.map((section) => ({ title: section.title, text: section.fields.texte, detail: section.fields['détail'] }));
+      const sections = slide.sections.map((section) => ({ title: section.title, text: section.fields.texte, detail: section.fields['détail'], measure: section.fields.mesure }));
       if (!scene.sections.includes(sections.length)) fail(`la scène « ${name} » attend ${scene.sections.join(' ou ')} sections`);
       const beats = scene.beats(sections);
       const captions = slide.items;

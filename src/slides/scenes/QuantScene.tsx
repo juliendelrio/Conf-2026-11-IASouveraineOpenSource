@@ -17,7 +17,7 @@ export const gigabytes = (section: SceneSection | undefined) => Number((/([\d,]+
 
 /**
  * Quantization: the same weights in 16, 8 then 4 bits. Sections: one per precision (`texte`: the model size,
- * `détail`: a weight written at that precision), then the card (`texte`: its VRAM). Beats: one per precision; the
+ * `détail`: a weight written at that precision, `mesure`: the quality lost, in orders of magnitude), then the card (`texte`: its VRAM). Beats: one per precision; the
  * model block shrinks until it fits in the card.
  */
 export const QuantScene: React.FC<SceneProps> = ({ sections, starts }) => {
@@ -75,6 +75,16 @@ export const QuantScene: React.FC<SceneProps> = ({ sections, starts }) => {
       <text x={BAR.x + barWidth / 2} y={BAR.y + CELL.height + 70} textAnchor="middle" style={{ fontSize: 44, fontWeight: 700, fill: COLORS.accent }}>
         {fr(precisions[step].title)}
       </text>
+      {precisions[step].measure && (
+        <text
+          x={BAR.x + barWidth / 2}
+          y={BAR.y + CELL.height + 140}
+          textAnchor="middle"
+          style={{ fontSize: 36, fontWeight: 600, fill: COLORS.muted, opacity: progress(frame, starts[step] + 10, 12) }}
+        >
+          {fr(precisions[step].measure!)}
+        </text>
+      )}
 
       {/* The model against the card's VRAM */}
       <rect

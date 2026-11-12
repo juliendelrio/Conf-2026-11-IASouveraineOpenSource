@@ -6,7 +6,7 @@ La source unique des définitions. Le petit lexique (`01-lexique.md`) illustre c
 
 - **Paramètres, poids** : Les connexions d’un réseau de neurones artificiels, réglées pendant l’entraînement. Le comportement est appris, pas programmé. Leur nombre donne la taille du modèle, en milliards (B) : 7B, 32B…
 - **Open weights** : On récupère les poids pour exécuter le modèle, mais pas les données ni le code pour le réentraîner : on ne peut ni le reproduire ni l’auditer
-- **Quantization** : Arrondir les poids (16, 8, 4 bits) pour que le modèle tienne en mémoire, au prix d’un peu de précision
+- **Quantization** : Arrondir les poids (16, 8, 4 bits) pour que le modèle tienne en mémoire, au prix d’un peu de qualité : moins de 1 % en 8 bits, 1 à 3 % en 4 bits (études publiées)
 - **Token** : Un morceau de mot (environ 3/4 d’un mot) : l’unité des vitesses et des prix
 - **VRAM** : La mémoire de la carte graphique. Le modèle doit y tenir en entier : c’est la vraie ressource rare
 - **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit. Tous les experts restent en mémoire : on gagne en vitesse, pas en mémoire (repris slide 25)
