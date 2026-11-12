@@ -2,13 +2,14 @@
 
 La source unique des définitions. Le petit lexique (`01-lexique.md`) illustre chacun des termes ci-dessous par une slide animée ; la définition de référence est ici. Format d'une entrée : `- **Terme** : définition`.
 
-## Illustrés au petit lexique (slides 8 à 13)
+## Illustrés au petit lexique (slides 8 à 14)
 
 - **Paramètres, poids** : Les connexions d’un réseau de neurones artificiels, réglées pendant l’entraînement. Le comportement est appris, pas programmé. Leur nombre donne la taille du modèle, en milliards (B) : 7B, 32B…
 - **Open weights** : On récupère les poids pour exécuter le modèle, mais pas les données ni le code pour le réentraîner : on ne peut ni le reproduire ni l’auditer
 - **Quantization** : Arrondir les poids (16, 8, 4 bits) pour que le modèle tienne en mémoire, au prix d’un peu de précision
 - **Token** : Un morceau de mot (environ 3/4 d’un mot) : l’unité des vitesses et des prix
 - **VRAM** : La mémoire de la carte graphique. Le modèle doit y tenir en entier : c’est la vraie ressource rare
+- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit. Tous les experts restent en mémoire : on gagne en vitesse, pas en mémoire (repris slide 25)
 
 ## Expliqués en une phrase là où ils apparaissent
 
@@ -16,8 +17,7 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les modèles
 
-- **MoE** : Mixture of Experts : un gros modèle dont seule une partie travaille à chaque token. Il prend la mémoire d’un gros et va à la vitesse d’un petit (slide 18, puis slide 25)
-- **Couche** : les poids sont rangés en couches empilées, des dizaines ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre (slide 8, puis slides 18 et 25)
+- **Couche** : les poids sont rangés en couches empilées, des dizaines ; pour écrire chaque token, le modèle les traverse toutes, l'une après l'autre (slide 8, puis slides 14 et 25)
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte

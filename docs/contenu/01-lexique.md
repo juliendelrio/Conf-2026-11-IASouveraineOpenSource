@@ -1,6 +1,6 @@
-# 1. Petit lexique (4 min)
+# 1. Petit lexique (4 min 45)
 
-Un mot par slide, chacun illustré par une animation (des illustrations, pas des mesures). Les définitions de référence sont dans `lexique.md`. Ordre : poids, open weights, token, VRAM, puis la quantization, qui s'appuie sur la VRAM.
+Un mot par slide, chacun illustré par une animation (des illustrations, pas des mesures). Les définitions de référence sont dans `lexique.md`. Ordre : poids, open weights, token, VRAM, puis la quantization, qui s'appuie sur la VRAM, et enfin le MoE, dessiné sur le réseau des poids.
 
 ## chapter-glossary
 type : intercalaire
@@ -10,14 +10,15 @@ titre : Petit lexique
 - ==Token==
 - ==VRAM==
 - ==Quantization==
+- ==MoE==
 
 #### Progression
 
-aucun clic : les cinq mots apparaissent l'un après l'autre
+aucun clic : les six mots apparaissent l'un après l'autre
 
 #### À l'oral
 
-« Avant d'entrer dans le vif du sujet, cinq mots qui vont revenir tout le long. »
+« Avant d'entrer dans le vif du sujet, six mots qui vont revenir tout le long. »
 
 ## weights
 type : animation
@@ -46,7 +47,7 @@ arrivée : un petit réseau, un poids épinglé sur une connexion ; clic 1 : un 
 
 #### À l'oral
 
-une métaphore, pas de maths : le comportement est appris, pas programmé ; l'entraînement règle des milliards de petits boutons. Les couches : des dizaines, empilées ; pour chaque token écrit, le modèle les traverse toutes, l'une après l'autre (on y revient au MoE, slide 18)
+une métaphore, pas de maths : le comportement est appris, pas programmé ; l'entraînement règle des milliards de petits boutons. Les couches : des dizaines, empilées ; pour chaque token écrit, le modèle les traverse toutes, l'une après l'autre (on y revient au MoE, slide 14)
 
 #### Compléments
 
@@ -222,3 +223,31 @@ le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le mod
 - Illustration en motion design, pas une mesure. Issue #6. Les valeurs du poids sont illustratives (un vrai format 8 ou 4 bits n'arrondit pas en décimal)
 - ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 26) ; L4 : 24 Go, louée et testée (slide 23). Il faut encore loger le KV cache
 
+## experts
+type : animation
+scène : experts
+rubrique : Petit lexique
+titre : Le MoE : seuls quelques experts travaillent
+- Modèle dense : tout le modèle travaille pour chaque token
+- MoE : dans chaque couche, quelques experts seulement ; les tokens sortent plus vite
+- Mais tous les experts restent en mémoire
+
+### Couche 1
+
+### Couche 2
+
+### Couche 3
+
+### Couche 40
+
+#### Progression
+
+arrivée : modèle dense, le même réseau que pour les poids, chaque couche s'allume en entier au passage du token ; clic 1 : MoE, les neurones de chaque couche se regroupent en experts, un seul s'allume par couche, les tokens sortent plus vite ; clic 2 : tous les experts restent en mémoire
+
+#### À l'oral
+
+le MoE en image, sur le même réseau que les poids (slide 8) ; les deux modèles d'août en sont (slide 19) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit. Les conséquences sur le matériel viennent au chapitre suivant (slide 25). Le choix se fait couche par couche : chaque couche a son routeur et ses experts. Pas à l'échelle : 4 experts dont un actif par couche pour la lisibilité ; le nombre de couches, d'experts et d'experts actifs dépend du modèle (DeepSeek-V4-Flash : 43 couches, 6 experts sur 256 par couche et par token)
+
+#### Compléments
+
+Illustration en motion design, pas une mesure ni un incident vécu. Issue #6

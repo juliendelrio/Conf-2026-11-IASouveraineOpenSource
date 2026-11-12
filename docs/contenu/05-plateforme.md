@@ -176,7 +176,7 @@ arrivée : palier 1 ; clics 1 et 2 : paliers 2 et 3 ; clic 3 : le pied de slide
 
 #### À l'oral
 
-ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 16). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
+ce n'est plus une question technique, c'est une question de gouvernance. C'est aussi la mise à l'échelle : les modèles de catégorie 4 passent par le palier 2 (slide 17). Le palier 3 existe et on l'assume : c'est un choix, tout peut rester aux paliers 1 et 2
 
 #### Compléments
 

@@ -21,8 +21,8 @@ Chaque chapitre suit le même schéma :
 | # | Partie | Durée |
 |---|--------|-------|
 | 0 | Ouverture : l'aveu, l'enjeu, la promesse | 3 min 45 |
-| 1 | Petit lexique | 4 min |
-| 2 | Les modèles | 6 min |
+| 1 | Petit lexique | 4 min 45 |
+| 2 | Les modèles | 5 min 15 |
 | 3 | Le matériel | 5 min 45 |
 | 4 | Les moteurs d'inférence | 4 min |
 | 5 | La plateforme LLM | 6 min 45 |
@@ -32,7 +32,7 @@ Chaque chapitre suit le même schéma :
 | 7 | Conclusion | 3 min 30 |
 | | **Total** | **44 min 15** |
 
-Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Le petit lexique a le sien, sans numéro : ses cinq mots à la place de la frise. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
+Un intercalaire ouvre chaque chapitre, des modèles à la conclusion : la frise du fil rouge, l'étape en cours surlignée, puis le numéro et le nom du chapitre. Le petit lexique a le sien, sans numéro : ses six mots à la place de la frise. Pas de clic, 2 à 3 s chacun, environ 15 s au total (compté dans le total, pas réparti par chapitre).
 
 Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres exacts, les tableaux complets et les notes de terrain sont archivés en fin de document, dans « Annexe : matière pour les questions » : rien n'est supprimé.
 
@@ -70,9 +70,10 @@ On n'est pas dans le très haut de gamme, mais on peut déjà faire des choses t
 | 1.4 | VRAM (animation) | Vue isométrique d'un ordinateur : le CPU et sa RAM, la carte graphique et sa VRAM, le modèle chargé dans la VRAM |
 | 1.5 | Quantization : arrondir les poids (animation) | Un poids sur une règle dont les graduations s'espacent : 0,7342 en 16 bits, 0,73 en 8 bits, 0,75 en 4 bits |
 | 1.6 | La quantization en image (animation) | Le même poids en 16, 8 puis 4 bits : Qwen3.8-27B passe de ~54 à ~31 puis ~16 Go et finit par tenir sur une L4 (24 Go) |
+| 1.7 | Le MoE (animation, déplacée du chapitre modèles en novembre 2026) | Le réseau des poids, dense : chaque couche s'allume en entier ; puis MoE : les neurones de chaque couche se regroupent en experts, un seul travaille par couche, les tokens sortent plus vite ; tous restent en mémoire |
 
 
-Les cinq mots nécessaires dès le chapitre modèles, une métaphore par terme, pas de maths. Les autres termes (inférence, contexte / KV cache, MoE, agentique, harness, …) sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
+Les six mots nécessaires dès le chapitre modèles, une métaphore par terme, pas de maths ; un intercalaire les annonce. Les autres termes (inférence, contexte / KV cache, agentique, harness, …) sont expliqués en une phrase là où ils apparaissent. Voir la liste plus bas.
 
 ### 2. Les modèles
 
@@ -80,17 +81,16 @@ Principe : comme au chapitre matériel, distinguer **ce qu'on a testé** de **ce
 
 Ce qu'on a réellement testé : Chocolatine, les générations Qwen 3.5, 3.6 et 3.8 (35B, 27B, Flash-Next), DeepSeek-V4-Flash-0731, des modèles de transcription (STT).
 
-**Les slides (6 min)**
+**Les slides (5 min 15)**
 
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Quatre catégories | Pourquoi commencer par les modèles : c'est la finalité (démarche du fil rouge). Le tableau ci-dessous ; message : catégorie 4 au-delà d'un million d'euros, les autres sous 100 k€ en interne et en location accessible à une PME | Colonne « testé » |
 | 2 | Hors de portée, mais pas hors de France | Catégorie 4 : 444 Go à 2,5 To de poids, 2,3 à 13 fois nos 192 Go. Palier 2 : Scaleway (API), OVHcloud (location de GPU), Mistral AI (API, GLM-5.3) | Extrapolé (tailles Hugging Face, catalogues publics) |
 | 3 | Le code, version par version | Qwen3.6-27B : premiers essais, boucle et plante. Août : du vrai code, le Flash-Next autonome comme Opus 4.6 / 4.7 quelques mois plus tôt. Capacité estimée : 5 à 10 développeurs (Flash-Next), 30 à 50 utilisateurs de chat (27B) | Testé ; capacité estimée, tests de charge pas complètement poussés |
-| 4 | Les experts (animation) | Modèle dense : toute la grille travaille pour chaque token ; MoE : quelques experts par token, les tokens sortent plus vite ; tous restent en mémoire | Illustration |
-| 5 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
-| 6 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
-| 7 | Objectif, piège, leçon | Voir ci-dessous | |
+| 4 | Les deux modèles d'août | DeepSeek-V4-Flash-0731 face à Qwen3.8-Flash-Next : taille, licence (MIT ou maison), lecture des images (non ou oui) | Testé ; chiffres des fiches |
+| 5 | Open weights ≠ open source | Qwen passe d'Apache 2.0 à une licence maison : usage interne libre, licence séparée pour du *Model as a Service* ou un assistant de code. Question : et Qwen 4 ? « On lit la licence avant de choisir un modèle » | Lecture de la licence (pas un avis juridique) |
+| 6 | Objectif, piège, leçon | Voir ci-dessous | |
 
 **Quatre catégories pour aider à la décision** (slide 1)
 

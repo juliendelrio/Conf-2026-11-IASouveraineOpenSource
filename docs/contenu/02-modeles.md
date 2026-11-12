@@ -1,4 +1,4 @@
-# 2. Les modèles (6 min)
+# 2. Les modèles (5 min 15)
 
 ## chapter-models
 type : intercalaire
@@ -111,33 +111,6 @@ Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui
 #### Compléments
 
 le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 ; pour les tests, ça suffit
-
-## experts
-type : animation
-scène : experts
-rubrique : Les modèles
-titre : Le MoE : seuls quelques experts travaillent
-- Modèle dense : tout le modèle travaille pour chaque token
-- MoE : dans chaque couche, quelques experts seulement ; les tokens sortent plus vite
-- Mais tous les experts restent en mémoire
-
-### Couche 1
-
-### Couche 2
-
-### Couche 40
-
-#### Progression
-
-arrivée : modèle dense, le token traverse les couches une à une et chaque couche s'allume en entier ; clic 1 : MoE, dans chaque couche quelques experts seulement, plus de tokens ; clic 2 : tous les experts restent en mémoire
-
-#### À l'oral
-
-le MoE en image, juste avant les deux modèles d'août qui en sont (slide suivante) : un gros modèle dont seule une partie travaille à chaque token ; il prend la mémoire d'un gros et va à la vitesse d'un petit. Les conséquences sur le matériel viennent au chapitre suivant (slide 25). Le choix se fait couche par couche : chaque couche a son routeur et ses experts. Pas à l'échelle : le nombre de couches, d'experts et d'experts actifs dépend du modèle (DeepSeek-V4-Flash : 43 couches, 6 experts sur 256 par couche et par token)
-
-#### Compléments
-
-Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
 
 ## august-models
 type : tableau
