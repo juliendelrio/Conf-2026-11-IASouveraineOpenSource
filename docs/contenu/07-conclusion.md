@@ -138,11 +138,12 @@ arrivée : les requêtes passent par LiteLLM vers le cloud US ; clic 1 : accès 
 
 #### À l'oral
 
-la scène de l'ouverture (slide 3), rejouée avec ce qu'on a construit : la passerelle bascule vers les paliers 1 et 2, le service continue. Enchaîner sur le message final
+la scène de l'ouverture (slide 3), rejouée avec ce qu'on a construit : la passerelle bascule vers les paliers 1 et 2, le service continue. Claude est gardé par confort, pas par nécessité : au palier 2, les gros modèles ont des résultats proches (GLM proche d'Opus 5.0, DeepSeek-V4.1-Flash-1017 proche d'Opus 5.5), on pourrait donc tout basculer. Enchaîner sur le message final
 
 #### Compléments
 
-Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
+- Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
+- Réserve pour les questions (« que bascule-t-on pour les tâches d'architecte et de lead ? ») : GLM-5.3 et DeepSeek-V4.1-Flash-1017 sont au catalogue d'hébergeurs français (Scaleway, Mistral AI, relevé du 03/11/2026, slide 17). Les comparaisons à Opus 5.0 et 5.5 sont l'appréciation de l'orateur : source à préciser. Le débord vers le palier 2 n'a été essayé que sur quelques projets (slide 39)
 
 ## final-message
 type : déclaration
@@ -157,7 +158,7 @@ arrivée : « La preuve est là » ; clic 1 : les modèles déjà disponibles ; 
 
 #### À l'oral
 
-la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est ce que l'open source apporte : pas de coupure subie ni de hausse de prix imposée, on peut toujours faire au moins ce qu'on fait déjà. Les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
+la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est ce que des poids ouverts et des outils open source apportent : pas de coupure subie ni de hausse de prix imposée, on peut toujours faire au moins ce qu'on fait déjà. Les modèles des catégories 1 à 3 sont téléchargés et tournent sur notre matériel ; on les garde même si les éditeurs arrêtent de publier, mais sans nouveaux gains. Donner le contexte : le Flash-Next n'est en production que depuis quelques semaines (~9 400 requêtes sur 3 semaines)
 
 #### Compléments
 
