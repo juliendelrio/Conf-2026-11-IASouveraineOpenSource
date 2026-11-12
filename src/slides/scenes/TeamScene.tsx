@@ -13,10 +13,10 @@ const LIMITED = 1;
 const REFUSED = 2;
 
 /**
- * Steering by team. Sections: three teams (their `détail` is a tag: A the priority, B the concurrency limit, C the
+ * Steering by team. Sections: three teams (their `détail` is a tag: A the redundant alias, B no redundancy, C the
  * refused access), LiteLLM, then two models. Beats: every team calls its model through the gateway, which knows who
- * calls what; team C asks for a model it isn't allowed and is turned away; under load, team A goes first while team B
- * waits its turn. Streams repeat every 30 frames, so the first two beats can loop while waiting for the click.
+ * calls what; team C asks for a model it isn't allowed and is turned away; under load, team A's alias is also served
+ * by the other model while team B, without redundancy, waits its turn. Streams repeat every 30 frames, so the first two beats can loop while waiting for the click.
  */
 export const TeamScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2] }) => {
   const frame = useCurrentFrame();
@@ -38,9 +38,10 @@ export const TeamScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
         <Link key={`m${model}`} path={toModel(model)} delay={s0 + 14} active />
       ))}
 
-      {/* Normal traffic; under load the priority team sends more, the limited one is held back */}
+      {/* Normal traffic; under load the redundant alias is served by both models, the other team is held back */}
       <Stream path={route(PRIORITY)} start={s0 + 15} stop={s2} vanish={s2} gap={15} travel={45} />
-      <Stream path={route(PRIORITY)} start={s2 + 2} gap={6} travel={45} />
+      <Stream path={route(PRIORITY)} start={s2 + 2} gap={15} travel={45} />
+      <Stream path={[...toGateway(PRIORITY), ...toModel(1 - CALLS[PRIORITY])]} start={s2 + 9} gap={15} travel={45} />
       <Stream path={route(LIMITED)} start={s0 + 20} stop={s2} vanish={s2} gap={15} travel={45} color={COLORS.chartHighlight} />
       <Stream path={route(LIMITED)} start={s2 + 2} gap={30} travel={45} color={COLORS.chartHighlight} />
       <Stream path={route(REFUSED)} start={s0 + 25} gap={15} travel={45} />

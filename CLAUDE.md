@@ -35,6 +35,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 ## Layout
 
 - `docs/storyline.md` — narrative arc, chapter timing, glossary, annex (material kept for Q&A)
+- `docs/questions.md` — the questions the audience is likely to ask, with the answer when known
 - `docs/contenu/` — **the slide content, in Markdown**: one file per chapter (`00-ouverture.md` … `07-conclusion.md`) plus `lexique.md`; deck order = file order, then section order. Each slide has its fields, then `####` notes (progression, oral, compléments) ignored by the code. Syntax and slide types in `docs/contenu/README.md`. Edit texts there, never in the code; keep the `#### Progression` note in sync with `clics`
 - `src/deck.ts` — the slide list (built from `docs/contenu/` by `src/content/`), shared by the presenter, the Remotion Studio and the PPTX
 - `src/content/` — `parse.ts` reads the Markdown (`?raw` imports; the Remotion bundler gets the same through `remotion/webpack-override.mjs`), `render.tsx` maps each slide `type` to a template and computes durations and click pauses, `schedule.ts` gives each slide its planned start time (shown discreetly in the top-right corner, to compare with the speaker view's timer) by sharing each chapter's duration, written in its file title (`# 3. Le matériel (8 min 30)`), between its slides: 1 per slide plus ½ per click, a divider counts 0.15

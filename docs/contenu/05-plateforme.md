@@ -80,7 +80,7 @@ le cœur de LiteLLM, c'est la finesse de gestion des jetons et de leur suivi. Le
 
 #### Compléments
 
-- Sens des deux chiffres : côté fournisseurs, LiteLLM se branche sur une centaine de types d'API de moteurs et de plateformes cloud (la doc annonce plus de 100 fournisseurs) ; côté applications, il expose les modèles sous plusieurs formats (OpenAI Chat Completions et Responses, Anthropic Messages, rerank, audio, images, pass-through). Le chiffre d'une quarantaine de formats exposés est celui de l'orateur, non sourcé dans la doc. OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
+- Sens des deux chiffres : côté fournisseurs, LiteLLM se branche sur une centaine de types d'API de moteurs et de plateformes cloud (la doc annonce plus de 100 fournisseurs) ; côté applications, il expose les modèles sous plusieurs formats (OpenAI Chat Completions et Responses, Anthropic Messages, rerank, audio, images, pass-through). Chiffres vérifiés dans la doc le 12/11/2026 : la page des fournisseurs annonce « 100+ » et liste 141 entrées (dont quelques bases vectorielles et frameworks d'agents) ; la page des points d'accès en liste 42 distincts, d'où « une quarantaine ». OpenTelemetry : le standard ouvert pour collecter métriques, traces et journaux
 - Budgets et quotas dans l'édition communautaire (doc LiteLLM, 02/11/2026) : budget maximal avec remise à zéro périodique, limites de tokens et de requêtes par minute, par clé, par utilisateur et par équipe ; budgets par modèle et par membre d'équipe réservés à l'entreprise
 
 ## teams
@@ -91,13 +91,13 @@ titre : Un pilotage par équipe
 badges : {testé: Testé}
 - Chaque équipe a sa clé : LiteLLM sait qui appelle quel modèle
 - Les accès : une équipe n'appelle que les modèles qui lui sont ouverts
-- Les priorités et la concurrence : l'équipe prioritaire passe, les autres attendent leur tour
+- Les priorités, par les alias : un modèle redondé pour certaines équipes
 
 ### Équipe A
-détail : Prioritaire
+détail : Alias redondé
 
 ### Équipe B
-détail : Requêtes limitées
+détail : Sans redondance
 
 ### Équipe C
 détail : Modèle non autorisé
@@ -111,17 +111,17 @@ texte : la passerelle
 
 #### Progression
 
-arrivée : les trois équipes appellent leurs modèles par la passerelle ; clic 1 : l'équipe C demande un modèle non autorisé, refusé ; clic 2 : sous charge, l'équipe A passe en priorité, l'équipe B attend son tour. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
+arrivée : les trois équipes appellent leurs modèles par la passerelle ; clic 1 : l'équipe C demande un modèle non autorisé, refusé ; clic 2 : sous charge, l'alias de l'équipe A est aussi servi par l'autre modèle, l'équipe B, sans redondance, attend son tour. Les requêtes circulent en boucle tant qu'on n'a pas cliqué
 
 #### À l'oral
 
-ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel modèle, qui passe en premier quand les cartes sont chargées, combien de requêtes une équipe peut lancer en même temps. Les budgets existent aussi, mais c'est surtout ce pilotage qui nous sert : il protège la capacité de nos cartes
+ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel modèle : on limite certains modèles à certaines équipes. Et qui passe en premier : pas par une file de priorité, mais par les alias de modèles. Certaines équipes appellent un alias servi avec de la redondance, d'autres non. Préciser que cette redondance n'est pas sur notre infrastructure à 3 cartes. Les budgets existent aussi, mais c'est surtout ce pilotage qui nous sert
 
 #### Compléments
 
 - Le pilotage est testé, l'animation l'illustre. Illustration en motion design, pas une mesure. Issue #6
 - D'après la doc LiteLLM (02/11/2026, voir la slide précédente) : modèles autorisés, limites de requêtes et de tokens par minute, budgets avec remise à zéro périodique, par clé, utilisateur et équipe, dans l'édition communautaire
-- Priorités, d'après la doc LiteLLM (relue le 12/11/2026) : deux mécanismes. La file d'attente du routeur accepte une priorité par requête (champ `priority`, ou en-tête `x-litellm-priority` depuis la v1.109.0), en open source. La réservation de capacité par niveau de priorité (`priority_reservation`, une part des requêtes ou des tokens par minute réservée à chaque niveau, attribué par clé ou par équipe) demande une licence entreprise. Lequel est utilisé chez nous : _à compléter_ par l'orateur ; le badge « Testé » en dépend
+- Priorités, d'après la doc LiteLLM (relue le 12/11/2026) : deux mécanismes. La file d'attente du routeur accepte une priorité par requête (champ `priority`, ou en-tête `x-litellm-priority` depuis la v1.109.0), en open source. La réservation de capacité par niveau de priorité (`priority_reservation`, une part des requêtes ou des tokens par minute réservée à chaque niveau, attribué par clé ou par équipe) demande une licence entreprise. Chez nous, ni l'un ni l'autre : la priorité passe par les alias de modèles (certaines équipes ont accès à des modèles servis avec de la redondance, d'autres non, hors de l'infrastructure à 3 cartes) et par la limitation de certains modèles à certaines équipes, deux fonctions de l'édition communautaire
 
 ## editions
 type : cartes
@@ -183,8 +183,7 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 - Le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 50 et 56)
 - Mécanisme du débord, d'après la doc LiteLLM (relue le 12/11/2026) : des bascules (`fallbacks`) configurées par modèle, déclenchées sur erreur ou limite de débit atteinte ; une variante se déclenche quand le prompt dépasse le contexte du modèle (`context_window_fallbacks`). Ce qui est configuré chez nous : _à compléter_
-- Questions probables, réponses de l'orateur _à compléter_ : la passerelle est un point unique de défaillance, quelle haute disponibilité ? Comment les utilisateurs s'authentifient-ils ? Comment la plateforme est-elle supervisée et déployée ?
-- Sécurité de LiteLLM, pour les questions : deux compromissions de la chaîne de publication en 2026, toutes deux par vol d'identifiants au démarrage de Python. Le 24/03/2026, les versions 1.82.7 et 1.82.8 sur PyPI, attribuées au groupe TeamPCP, retirées depuis (BleepingComputer, Help Net Security). Le 21/10/2026, la version 1.107.0 sur PyPI et des images Docker officielles, d'après Socket (https://socket.dev/blog/litellm-compromise), source unique à recouper. Si on a été touchés et ce qu'on a mis en place : _à compléter_
+- Sécurité de LiteLLM, pour les questions : deux compromissions de la chaîne de publication en 2026, toutes deux par vol d'identifiants au démarrage de Python. Le 24/03/2026, les versions 1.82.7 et 1.82.8 sur PyPI, attribuées au groupe TeamPCP, retirées depuis (BleepingComputer, Help Net Security). Le 21/10/2026, la version 1.107.0 sur PyPI et des images Docker officielles, d'après Socket (https://socket.dev/blog/litellm-compromise), source unique à recouper. Pas touchés : en mars, on n'utilisait pas encore LiteLLM ; en octobre, on avait quelques versions de retard. Les questions probables sont réunies dans `docs/questions.md`
 
 ## routing
 type : animation
