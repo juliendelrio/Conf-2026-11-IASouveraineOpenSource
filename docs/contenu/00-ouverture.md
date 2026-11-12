@@ -94,13 +94,13 @@ le détail par catégorie de modèles est à la slide 25. Location : L4 500 – 
 type : étapes
 rubrique : Pourquoi maintenant
 titre : Août 2026, le cap franchi
-badges : {testé: Testé} {extrapolé: Niveau Opus : selon les éditeurs}
+badges : {testé: Testé} {extrapolé: Comparaisons à Opus : selon les éditeurs}
 numérotées : non
 pied : Les premiers modèles utilisables en entreprise, codage compris, sans cluster de H200
 
 ### 31 juillet
 texte : DeepSeek-V4-Flash-0731
-détail : Sur 2 cartes, niveau Opus
+détail : Sur 2 cartes, proche d'Opus 4.8
 
 ### 5 août
 texte : Qwen3.8-27B
@@ -121,11 +121,13 @@ frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. Le « niveau Opus » vient des comparaisons des éditeurs et de notre ressenti d'usage ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 50). Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages. Les « 2 cartes » : deux de nos trois RTX PRO 6000, dédiées au code ; la troisième fait tourner le 27B du chat et les petits modèles (transcription, embeddings)
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. « Proche d'Opus 4.8 », c'est la comparaison publiée par l'éditeur, sur un benchmark de code ; notre ressenti d'usage va dans le même sens, mais ce n'est pas une mesure à nous ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 50). Ne pas s'arrêter sur les noms de modèles ni sur les H200 (les plus grosses cartes de datacenter) : les mots arrivent au lexique, les modèles au chapitre suivant. Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages. Les « 2 cartes » : deux de nos trois RTX PRO 6000, dédiées au code ; la troisième fait tourner le 27B du chat et les petits modèles (transcription, embeddings)
 
 #### Compléments
 
 - Comparaisons publiées par les éditeurs, à présenter comme telles : DeepSeek-V4-Flash-0731, Terminal Bench 2.1 82,7 contre 85,0 pour Opus 4.8 ; Flash-Next comparé à Opus 4.6 Max dans sa fiche
+- Deux scores Terminal-Bench pour Qwen3.8-27B, les deux exacts : 73,0 dans la fiche de Qwen (Terminal Bench 2.1, harness Terminus), 75,6 dans celle de NVIDIA pour le même modèle en BF16 (slide 31), évalué par NVIDIA avec ses propres réglages (fiches relues le 12/11/2026)
+- Question probable, « quelle évaluation interne ? » : les notes ne citent que le ressenti d'usage, pas de banc d'essai interne ; réponse de l'orateur _à compléter_
 - DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code (dépôt créé le 13 août 2026)
 - Également sortis en août : Qwen3.8-27B (le 5 ; Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche) et Qwen3.8-2.4T-A95B (le 8)
 

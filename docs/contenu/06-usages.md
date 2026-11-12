@@ -227,7 +227,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 56). Le « niveau Opus » des modèles d'août vient des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé. Par confort, pas par nécessité : les gros modèles du palier 2 s'en approchent (GLM d'Opus 5.0, DeepSeek-V4.1-Flash-1017 d'Opus 5.5), on pourrait tout basculer (repris slide 57)
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 56). Les comparaisons à Opus des modèles d'août viennent des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé. Par confort, pas par nécessité : les gros modèles du palier 2 s'en approchent (GLM d'Opus 5.0, DeepSeek-V4.1-Flash-1017 d'Opus 5.5), on pourrait tout basculer (repris slide 57)
 
 #### Compléments
 
