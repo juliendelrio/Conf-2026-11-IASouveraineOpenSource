@@ -247,7 +247,7 @@ titre : Le MoE : seuls quelques experts travaillent
 
 #### Progression
 
-arrivée : modèle dense, le même réseau que pour les poids, chaque couche s'allume en entier au passage du token ; clic 1 : MoE, les neurones de chaque couche se regroupent en experts, un seul s'allume par couche, les tokens sortent plus vite ; clic 2 : tous les experts restent en mémoire
+arrivée : modèle dense, le même réseau que pour les poids, chaque couche s'allume en entier au passage du token ; clic 1 : MoE, les neurones de chaque couche se regroupent en experts, un seul s'allume par couche, les tokens sortent plus vite ; clic 2 : tous les experts restent en mémoire. À l'arrêt, le chemin du dernier token reste allumé : tout le réseau pour le modèle dense, un expert par couche pour le MoE ; les tokens produits se comptent à droite
 
 #### À l'oral
 

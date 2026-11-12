@@ -12,7 +12,7 @@ const EXPERT_STEP = 120;
 const TOP = 30;
 /** Columns are drawn on slots; the slot before the last one is left empty for the « ⋯ » (dozens of layers). */
 const SLOT = { x: 260, width: 270 };
-const OUT = { x: 1450, y: 40, cols: 3, size: 44, gap: 12 };
+const OUT = { x: 1450, y: 50, cols: 3, size: 44, gap: 12 };
 
 const slotX = (slot: number) => SLOT.x + slot * SLOT.width;
 const neuronY = (expert: number, index: number) => TOP + expert * EXPERT_STEP + index * NEURON.step;
@@ -21,8 +21,11 @@ const NEURONS: { expert: number; y: number }[] = Array.from({ length: EXPERTS * 
   y: neuronY(Math.floor(index / PER_EXPERT), index % PER_EXPERT),
 }));
 
-/** A token goes through the layers one after the other; in each one, only `experts` work. */
-type Token = { start: number; perSlot: number; experts: number[][] };
+/**
+ * A token goes through the layers one after the other; in each one, only `experts` work. With `hold`, what it lit
+ * stays lit until that frame, so the slide at rest still shows what works.
+ */
+type Token = { start: number; perSlot: number; experts: number[][]; hold?: number };
 
 const ALL = Array.from({ length: EXPERTS }, (_, expert) => expert);
 /** The expert picked by the router, per MoE token and per layer: varied, deterministic. */
@@ -40,7 +43,8 @@ const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
  * Mixture of Experts, drawn like the network of the weights slide. Sections: the labels of the layers drawn (the last
  * one stands for « … the last layer », after a gap). Beats: a dense model, every neuron of every layer works for each
  * token, slowly; a MoE, the neurons of each layer are grouped into experts and the router picks one per layer, so
- * tokens come out faster; then every expert is outlined: they all stay in memory.
+ * tokens come out faster; then every expert is outlined: they all stay in memory. At rest, the last token's path stays
+ * lit: the whole network for the dense model, one expert per layer for the MoE.
  */
 export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2] }) => {
   const frame = useCurrentFrame();
@@ -48,10 +52,21 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
   const slots = sections.map((_, layer) => (layer === layers - 1 ? layer + 1 : layer));
   const xs = slots.map(slotX);
   const schedule: Token[] = [
-    ...[0, 1].map((index) => ({ start: s0 + 12 + index * 52, perSlot: 12, experts: sections.map(() => ALL) })),
-    ...PICKS.map((picks, index) => ({ start: s1 + 15 + index * 18, perSlot: 3, experts: sections.map((_, layer) => [picks[layer % picks.length]]) })),
+    ...[0, 1].map((index) => ({ start: s0 + 12 + index * 52, perSlot: 12, experts: sections.map(() => ALL), hold: index === 1 ? s1 : undefined })),
+    ...PICKS.map((picks, index) => ({
+      start: s1 + 15 + index * 18,
+      perSlot: 3,
+      experts: sections.map((_, layer) => [picks[layer % picks.length]]),
+      hold: index === PICKS.length - 1 ? Infinity : undefined,
+    })),
   ];
   const span = (token: Token) => (slots[layers - 1] + 1) * token.perSlot;
+  /** Lit from `at` for the time the token spends in a layer, or until the token's `hold`. */
+  const lit = (token: Token, at: number, lead: number) => {
+    const end = token.hold === undefined ? at + token.perSlot : Math.max(token.hold, at + token.perSlot);
+    if (end === Infinity) return interpolate(frame, [at - lead, at - lead + 1], [0, 1], clamp);
+    return interpolate(frame, [at - lead, at - lead + 1, end, end + 6], [0, 1, 1, 0], clamp);
+  };
 
   /** How lit an expert of a layer is: on while a token that uses it is in that layer. */
   const heat = (layer: number, expert: number) =>
@@ -59,10 +74,7 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
       0,
       ...schedule
         .filter((token) => token.experts[layer].includes(expert))
-        .map((token) => {
-          const at = token.start + slots[layer] * token.perSlot;
-          return interpolate(frame, [at, at + 1, at + token.perSlot, at + token.perSlot + 4], [0, 1, 1, 0], clamp);
-        }),
+        .map((token) => lit(token, token.start + slots[layer] * token.perSlot, 0)),
     );
   /** How lit the connections from one expert to the next layer's expert are: while the token crosses them. */
   const linkHeat = (layer: number, from: number, to: number) =>
@@ -70,10 +82,7 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
       0,
       ...schedule
         .filter((token) => token.experts[layer].includes(from) && token.experts[layer + 1].includes(to))
-        .map((token) => {
-          const at = token.start + slots[layer + 1] * token.perSlot;
-          return interpolate(frame, [at - 1, at, at + token.perSlot, at + token.perSlot + 4], [0, 1, 1, 0], clamp);
-        }),
+        .map((token) => lit(token, token.start + slots[layer + 1] * token.perSlot, 1)),
     );
 
   const grouped = progress(frame, s1, 15);
@@ -87,7 +96,7 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
       {/* The experts: groups of neurons, shown when the model becomes a MoE */}
       {xs.map((x, layer) =>
         ALL.map((expert) => {
-          const lit = heat(layer, expert) * grouped;
+          const active = heat(layer, expert) * grouped;
           return (
             <rect
               key={`${layer}-${expert}`}
@@ -98,7 +107,7 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
               rx={16}
               style={{
                 fill: COLORS.accent,
-                fillOpacity: 0.08 + lit * 0.25,
+                fillOpacity: 0.08 + active * 0.25,
                 stroke: memory > 0 ? COLORS.chartHighlight : COLORS.accent,
                 strokeWidth: 2 + memory * 3,
                 opacity: grouped,
@@ -108,40 +117,39 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
         }),
       )}
 
-      {/* Connections between consecutive layers drawn side by side (none across the gap) */}
+      {/* Connections between consecutive layers; the ones across the gap run behind the « ⋯ » */}
       {xs.slice(0, -1).map((_, layer) =>
-        slots[layer + 1] !== slots[layer] + 1
-          ? null
-          : NEURONS.flatMap((from, i) =>
-              NEURONS.map((to, j) => {
-                const lit = linkHeat(layer, from.expert, to.expert);
-                const a = point(layer, from.y);
-                const b = point(layer + 1, to.y);
-                return (
-                  <line
-                    key={`${layer}-${i}-${j}`}
-                    x1={a.x}
-                    y1={a.y}
-                    x2={b.x}
-                    y2={b.y}
-                    style={{ stroke: lit > 0 ? COLORS.chartBar : COLORS.border, strokeWidth: 1.5 + lit, opacity: columnIn(layer + 1) * (0.5 + lit * 0.5) }}
-                  />
-                );
-              }),
-            ),
+        NEURONS.flatMap((from, i) =>
+          NEURONS.map((to, j) => {
+            const active = linkHeat(layer, from.expert, to.expert);
+            const a = point(layer, from.y);
+            const b = point(layer + 1, to.y);
+            return (
+              <line
+                key={`${layer}-${i}-${j}`}
+                x1={a.x}
+                y1={a.y}
+                x2={b.x}
+                y2={b.y}
+                style={{ stroke: active > 0 ? COLORS.chartBar : COLORS.muted, strokeWidth: 1.5 + active, opacity: columnIn(layer + 1) * (0.28 + active * 0.72) }}
+              />
+            );
+          }),
+        ),
       )}
+      <rect x={slotX(layers - 1) - 80} y={0} width={160} height={neuronY(EXPERTS - 1, PER_EXPERT - 1) + TOP} style={{ fill: COLORS.background }} />
 
       {/* Neurons, lit while a token goes through their expert */}
       {xs.map((x, layer) =>
         NEURONS.map((neuron, index) => {
-          const lit = heat(layer, neuron.expert);
+          const active = heat(layer, neuron.expert);
           return (
             <circle
               key={`${layer}-${index}`}
               cx={x}
               cy={neuron.y}
               r={NEURON.radius}
-              style={{ fill: lit > 0.5 ? COLORS.chartBar : COLORS.background, stroke: COLORS.muted, strokeWidth: 3, opacity: columnIn(layer) }}
+              style={{ fill: active > 0.5 ? COLORS.chartBar : COLORS.background, stroke: COLORS.muted, strokeWidth: 3, opacity: columnIn(layer) * (1 - 0.55 * grouped * (1 - active)) }}
             />
           );
         }),
@@ -159,6 +167,9 @@ export const ExpertsScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, 
       ))}
 
       {/* The tokens written so far */}
+      <text x={OUT.x} y={OUT.y - 16} style={{ fontSize: 26, fontWeight: 700, fill: COLORS.muted, opacity: progress(frame, s0 + 10) }}>
+        {fr('Tokens produits')}
+      </text>
       {Array.from({ length: done }, (_, index) => (
         <rect
           key={index}
