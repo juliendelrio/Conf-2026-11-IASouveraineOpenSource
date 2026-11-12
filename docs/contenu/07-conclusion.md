@@ -161,7 +161,8 @@ la réponse à la question de l'ouverture (slide 3). La preuve est là, et c'est
 
 #### Compléments
 
-nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 19)
+- nuance possible pour les questions : les poids sont chez nous, mais la licence suit (slide 19)
+- « chez nous » au sens défini à la slide 4 : données et modèles chez nous ou chez des hébergeurs français ; restent les cartes NVIDIA et des modèles d'éditeurs chinois
 
 ## thanks
 type : merci

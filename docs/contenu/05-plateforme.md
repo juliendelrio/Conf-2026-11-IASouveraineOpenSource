@@ -224,18 +224,18 @@ type : étapes
 rubrique : La plateforme
 titre : Les données : la PSSI décide
 numérotées : non
-pied : La passerelle permet d'appliquer la règle : qui envoie quelles données à quel palier
+pied : Le critère : la juridiction et la qualification de l'hébergeur (SecNumCloud), pas seulement la localisation
 
 ### 100 % maîtrisé, en local
 texte : Nos cartes
 détail : Palier 1
 surligné : oui
 
-### 100 % maîtrisé, en dédié externe
+### Dédié, en France
 texte : Des GPU loués en France
 détail : Palier 2
 
-### 100 % français, mutualisé
+### Mutualisé, en France
 texte : Les API des hébergeurs français
 détail : Palier 2
 
@@ -245,15 +245,18 @@ détail : Palier 3
 
 #### Progression
 
-arrivée : 100 % maîtrisé en local ; clics 1 à 3 : en dédié externe, français mutualisé, hors France et UE ; clic 4 : le pied de slide
+arrivée : 100 % maîtrisé en local ; clics 1 à 3 : dédié en France, mutualisé en France, hors France et UE ; clic 4 : le pied de slide (le critère)
 
 #### À l'oral
 
-le tout-cloud expose les données à un tiers. La règle des données n'est pas technique : c'est la PSSI de l'entreprise qui décide, entre ces quatre niveaux, ce qui peut aller où. La passerelle permet ensuite de l'appliquer
+le tout-cloud expose les données à un tiers. La règle des données n'est pas technique : c'est la PSSI de l'entreprise qui décide, entre ces quatre niveaux, ce qui peut aller où. La passerelle permet ensuite de l'appliquer : qui envoie quelles données à quel palier. « 100 % maîtrisé » ne vaut que pour nos cartes : dès qu'on loue, même en dédié, on dépend d'un tiers. Et la localisation ne suffit pas : ce qui compte, c'est la juridiction dont relève l'hébergeur et sa qualification
 
 #### Compléments
 
-PSSI : la politique de sécurité des systèmes d'information de l'entreprise
+- PSSI : la politique de sécurité des systèmes d'information de l'entreprise
+- Réserve pour les questions. SecNumCloud : la qualification de l'ANSSI pour les offres cloud, qui exige notamment d'être à l'abri des lois extraterritoriales. CLOUD Act : la loi américaine qui permet d'exiger d'un fournisseur soumis au droit américain les données qu'il détient, où qu'elles soient hébergées ; un datacenter en France ne suffit donc pas si l'hébergeur relève du droit américain
+- Qualifications des hébergeurs du palier 2 (relevé du 03/11/2026, à revérifier) : Cloud Temple SecNumCloud 3.2 et HDS, seul qualifié ; Scaleway ISO 27001 et HDS, SecNumCloud en cours ; OVHcloud ISO 27001, SOC 2, HDS ; Mistral AI SOC 2, ISO 27001 / 27701. Selon la sensibilité des données, la PSSI peut donc exiger un hébergeur qualifié, ou tout garder au palier 1
+- Ancien pied de slide, repris à l'oral : « La passerelle permet d'appliquer la règle : qui envoie quelles données à quel palier »
 
 ## platform-trio
 type : trio

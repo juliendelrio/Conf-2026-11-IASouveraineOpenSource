@@ -43,7 +43,7 @@ Les chapitres ne gardent que ce qui va sur les slides. Les sources, les chiffres
 | 0.1 | Titre | Titre, orateur, Capitole du Libre 2026 (déjà construite) |
 | 0.2 | L'aveu | Tout a été conçu avec l'aide de Claude, ces slides comprises. « Cynique, mais opérationnel et efficace. » (remplace « Et globalement, je recommande », chaque phrase au clic) |
 | 0.3 | L'enjeu (animation) | Les requêtes partent vers un cloud US ; « Et si demain on vous coupe l'accès, » (l'accès est coupé) « ou si les prix doublent ? » (le prix double). Illustration en motion design ; la réponse explicite vient au message final |
-| 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next) |
+| 0.4 | La promesse | Une IA 100 % souveraine, c'est possible dès maintenant. Budget : 50 à 70 k€ en interne (2 RTX PRO 6000) ; en location, de 0,5 k€ par mois (une L4 pour du RAG ou de la transcription) à 9 k€ par mois (l'équivalent de 2 RTX PRO 6000 pour Flash-Next). En pied, la définition : données et modèles chez nous ou chez des hébergeurs français ; dépendances assumées : les cartes NVIDIA, des modèles d'éditeurs chinois |
 | 0.5 | Août 2026, le cap franchi | L'accroche, déplacée du chapitre 2 : DeepSeek-V4-Flash-0731 et Qwen3.8-Flash-Next tournent sur 2 cartes, autour d'Opus 4.6 à 4.8 : les premiers modèles vraiment utilisables en entreprise, codage compris. Les harness arrivent en même temps (DeepSeek Harness). Présentée en frise, avec Qwen3.8-27B (5 août, niveau Haiku à Sonnet) |
 | 0.6 | Le fil rouge | L'ordre où il faut se poser les questions : modèles, matériel, moteurs, plateforme, usages |
 
@@ -169,7 +169,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | 4 | LiteLLM : communautaire ou entreprise ? | La communautaire (droits, budgets, suivi, bascules) suffit en interne. L'entreprise ajoute organisations, SSO, logs avancés, rotation des clés, compatibilité avec les gestionnaires de secrets : nécessaire pour une offre Model as a Service | Communautaire testée ; entreprise d'après la doc |
 | 5 | Les paliers, une question de gouvernance | Interne, puis hébergeurs français, puis clouds US. Une fois la passerelle en place, tout est possible fonctionnellement : qui accède à quel modèle, quand on bascule, avec quelles données | Testé |
 | 6 | La passerelle en action (animation) | Tout va au palier 1 ; nos cartes saturent et le surplus déborde vers le palier 2 ; le développement agentique part au palier 3 | Illustration |
-| 7 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; 100 % maîtrisé en dédié externe ; 100 % français mais mutualisé ; cloud hors France et UE. La passerelle permet d'appliquer la règle | |
+| 7 | Les données : la PSSI décide | Quatre niveaux fixés par la PSSI de l'entreprise : 100 % maîtrisé en local ; dédié, en France ; mutualisé, en France ; cloud hors France et UE. Le critère : la juridiction et la qualification de l'hébergeur (SecNumCloud), pas seulement la localisation. La passerelle permet d'appliquer la règle | |
 | 8 | Objectif, piège, leçon | Voir ci-dessous | |
 
 - Ce qu'on voulait faire : délivrer facilement les modèles sur un point unique, avec un haut niveau de gestion des droits et une bonne capacité à monitorer

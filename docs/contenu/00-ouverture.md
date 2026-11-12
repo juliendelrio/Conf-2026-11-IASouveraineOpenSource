@@ -68,7 +68,7 @@ Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
 type : cartes
 rubrique : La promesse
 titre : Une IA 100 % souveraine, c'est possible dès maintenant
-pied : Pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk
+pied : Souveraine : données et modèles chez nous ou chez des hébergeurs français. Dépendances assumées : les cartes NVIDIA, des modèles d'éditeurs chinois
 
 ### En interne
 valeur : 50 – 70 k€
@@ -80,11 +80,11 @@ légende : chez OVH ou Scaleway
 
 #### Progression
 
-arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; clic 2 : le pied de slide
+arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; clic 2 : le pied de slide (la définition et les dépendances assumées)
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté, c'est le pied de slide : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance, et on l'assume : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Ce n'est pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk. Le critère des hébergeurs (juridiction, qualification) vient au chapitre plateforme (slide 40). Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000
 
 #### Compléments
 
