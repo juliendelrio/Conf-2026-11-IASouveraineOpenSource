@@ -20,8 +20,10 @@ import { beatStarts } from '../slides/scenes/kit';
 import { ChapterSlide } from '../slides/ChapterSlide';
 import { ConfessionSlide } from '../slides/ConfessionSlide';
 import { MoeSlide } from '../slides/MoeSlide';
+import { ScaleSlide } from '../slides/ScaleSlide';
 import { SpeedCeilingSlide } from '../slides/SpeedCeilingSlide';
 import { SpeedFormulaSlide } from '../slides/SpeedFormulaSlide';
+import { StairsSlide } from '../slides/StairsSlide';
 import { ThanksSlide } from '../slides/ThanksSlide';
 import { TitleSlide } from '../slides/TitleSlide';
 import { type Block, ContentError, type Key, parseBadges, type SlideContent } from './parse';
@@ -119,6 +121,32 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
         highlight: yes(section.fields['surligné']),
       }));
       return { component: () => <CompareSlide {...common()} cards={cards} />, groups: cards.length + footer, defaultClicks: 'tous' };
+    }
+    case 'escalier': {
+      const stairs = slide.sections.map((section) => ({
+        title: section.title,
+        text: section.fields.texte,
+        detail: section.fields['détail'],
+        value: section.fields.valeur,
+        caption: section.fields['légende'],
+        status: parseBadges(section.fields.badges),
+        highlight: yes(section.fields['surligné']),
+      }));
+      return { component: () => <StairsSlide {...common()} stairs={stairs} />, groups: stairs.length + footer, defaultClicks: 'tous' };
+    }
+    case 'échelle': {
+      const rungs = needTable(slide).rows.map(([label, memory, price, badge]) => ({
+        label,
+        memory,
+        // « 8 × 141 Go » → 1128: the product of the numbers written
+        amount: (memory.match(/\d+(?:[.,]\d+)?/g) ?? fail(`mémoire « ${memory} » sans nombre`)).reduce((product, text) => product * number(text, 'mémoire'), 1),
+        price,
+        tested: parseBadges(badge).some((status) => status.kind === 'tested'),
+      }));
+      if (rungs.length < 2) fail('une échelle a au moins 2 lignes');
+      // The last machine is out of scale: the one before it gives the full width
+      const scale = rungs[rungs.length - 2].amount / 0.7;
+      return { component: () => <ScaleSlide {...common()} rungs={rungs} scale={scale} />, groups: rungs.length + footer, defaultClicks: 'tous' };
     }
     case 'chiffre': {
       const props = { ...common(), figure: need(slide, 'chiffre'), caption: need(slide, 'légende') };
@@ -242,7 +270,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     }
     default:
       return fail(
-        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, intercalaire, merci)`,
+        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, escalier, échelle, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, intercalaire, merci)`,
       );
   }
 };

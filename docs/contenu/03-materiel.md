@@ -19,11 +19,10 @@ pas de clic : l'intercalaire s'affiche puis on passe
 rien, ou juste le nom du chapitre
 
 ## rent-first
-type : tableau
+type : échelle
 rubrique : Le matériel
 titre : Louer avant d'acheter
-largeurs : 1.2fr 1fr 1.4fr 1.2fr
-taille : 36
+badges : {testé: Testé} {extrapolé: Catalogue}
 clics : 3, 6
 pied : Tarifs publics OVH et Scaleway, hors taxes, octobre 2026 : de quoi tester toute la stack sans immobiliser de budget
 
@@ -37,7 +36,7 @@ pied : Tarifs publics OVH et Scaleway, hors taxes, octobre 2026 : de quoi tester
 
 #### Progression
 
-arrivée : L4 et L40S (testées) s'enchaînent ; clic 1 : H100, 4 × L40S et 8 × H200 (catalogue) ; clic 2 : le pied de slide
+arrivée : les barres de la L4 et de la L40S (pleines : testées) s'enchaînent ; clic 1 : H100, 4 × L40S et 8 × H200 (en pointillé : catalogue), la dernière barre sort de l'échelle ; clic 2 : le pied de slide
 
 #### À l'oral
 
@@ -119,22 +118,39 @@ un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comm
 - Grâce à l'attention hybride, le KV cache de ces modèles est plusieurs fois plus petit qu'avec une attention classique
 
 ## hardware-by-category
-type : tableau
+type : escalier
 rubrique : Le matériel
 titre : Le matériel par catégorie de modèles
-largeurs : 1.3fr 1.5fr 0.9fr 1.1fr 1.4fr
 pied : Interne : ordres de grandeur, carte et serveur compris ; seul le montant de la catégorie 3 est le nôtre
 
-| Catégorie | Matériel | Interne | Location / mois | |
-|---|---|---|---|---|
-| 1. Petits modèles | L4, RTX PRO 4500 | ~10 – 20 k€ | 500 – 600 € | {testé: L4 testée} |
-| 2. Milieu de gamme | 1 RTX PRO 6000, L40S, H100 | ~25 – 35 k€ | 1 000 – 2 100 € | {testé: Testé} |
-| 3. Dev ready | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
-| 4. Hors de portée | 8 RTX PRO 6000 à 8 H200 et plus | 200 k€ – 1 M€ et plus | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
+### 1. Petits modèles
+texte : L4, RTX PRO 4500
+valeur : ~10 – 20 k€
+légende : ou 500 – 600 € / mois
+badges : {testé: L4 testée}
+
+### 2. Milieu de gamme
+texte : 1 RTX PRO 6000, L40S, H100
+valeur : ~25 – 35 k€
+légende : ou 1 000 – 2 100 € / mois
+badges : {testé: Testé}
+
+### 3. Dev ready
+texte : 2 RTX PRO 6000
+valeur : 50 – 70 k€
+légende : ou 3 900 – 9 300 € / mois
+badges : {testé: Interne testé} {extrapolé: Location extrapolée}
+surligné : oui
+
+### 4. Hors de portée
+texte : 8 RTX PRO 6000 à 8 H200 et plus
+valeur : 200 k€ – 1 M€ et plus
+légende : ou 30 700 – 43 800 € / mois
+badges : {extrapolé: Extrapolé}
 
 #### Progression
 
-arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 ; clic 4 : le pied de slide
+arrivée : la première marche, catégorie 1 ; clics 1 à 3 : les marches des catégories 2, 3 et 4 ; clic 4 : le pied de slide. Sur chaque marche : le matériel, le montant en interne, puis la location par mois
 
 #### À l'oral
 

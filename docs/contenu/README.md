@@ -89,6 +89,8 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `étapes` | `rubrique`, `titre`, `badges`, `pied`, `numérotées : non` (frise sans numéros) | une section `### Étape` par étape, avec `texte`, `détail` (ligne grise), `surligné : oui` | les étapes, puis le pied |
 | `cartes` | `rubrique`, `titre`, `badges`, `pied` | une section `### Carte` par carte, avec `valeur` (grand chiffre), `légende`, `badges`, `surligné : oui` et des points `- …` | les cartes, puis le pied |
 | `chiffre` | `rubrique`, `titre`, `badges`, `chiffre`, `légende`, `pied` | — | le chiffre, puis le pied |
+| `escalier` | `rubrique`, `titre`, `badges`, `pied` | une section `### Marche` par marche, de la plus basse à la plus haute : `texte`, `détail` (en gris), ou `valeur` (en gros) et `légende`, `badges`, `surligné` | une par marche, puis le pied |
+| `échelle` | `rubrique`, `titre`, `badges` (la légende : plein = testé, pointillé = le reste), `pied` | un tableau `Machine \| Mémoire \| Prix \| badge` : la barre a la longueur de la mémoire (« 8 × 141 Go » = 1 128), pleine si le badge est `testé` ; l'avant-dernière ligne donne l'échelle, la dernière en sort | une par ligne, puis le pied |
 | `trio` | `rubrique` (affichée en titre, sous le surtitre « Objectif, piège, leçon »), `objectif`, `piège`, `leçon` | — | 3 |
 | `déclaration` | `rubrique` (facultatif) | une ligne `- …` par phrase | une par phrase |
 | `lexique` | `rubrique`, `titre` | une ligne `- Terme` par terme, défini dans `lexique.md` | un par terme |

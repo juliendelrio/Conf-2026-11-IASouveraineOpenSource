@@ -19,24 +19,35 @@ pas de clic : l'intercalaire s'affiche puis on passe
 rien, ou juste le nom du chapitre
 
 ## categories
-type : tableau
+type : escalier
 rubrique : Les modèles
 titre : Quatre catégories pour décider
-largeurs : 1.1fr 1.4fr 2fr 1.1fr
-taille : 28
-ligne-surlignée : 3
 pied : Catégorie 4 : un vrai datacenter, jusqu'à plus d'un million d'euros. Les trois autres : moins de 100 k€ en interne, et une location accessible à une PME
 
-| Catégorie | Pour quoi faire | Modèles | Chez nous |
-|---|---|---|---|
-| 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: Testé} |
-| 2. Milieu de gamme | Un généraliste sur une seule carte | Qwen3.8-27B | {testé: Testé} |
-| 3. Dev ready | De vraies tâches de dev, et les tâches générales | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
-| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro et V4.1-Flash, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
+### 1. Petits modèles
+texte : RAG, transcription, résumé, traduction
+détail : Qwen3.6-35B, Mistral Small 3.2…
+badges : {testé: Testé}
+
+### 2. Milieu de gamme
+texte : Un généraliste sur une seule carte
+détail : Qwen3.8-27B
+badges : {testé: Testé}
+
+### 3. Dev ready
+texte : De vraies tâches de dev, et les tâches générales
+détail : Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731
+badges : {testé: Testé}
+surligné : oui
+
+### 4. Hors de portée
+texte : Les plus gros modèles open weights
+détail : DeepSeek V4-Pro, GLM-5.x, Mistral Large 4…
+badges : {extrapolé: Non testé}
 
 #### Progression
 
-arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 ; clic 4 : le message budget
+arrivée : la première marche, catégorie 1 ; clics 1 à 3 : les marches des catégories 2, 3 et 4 ; clic 4 : le message budget
 
 #### À l'oral
 
@@ -44,6 +55,8 @@ on commence par les modèles parce que c'est la finalité (la démarche du fil r
 
 #### Compléments
 
+- Modèles par catégorie, la liste complète (l'écran n'en garde que deux ou trois) : 1. Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 ; 2. Qwen3.8-27B ; 3. Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 ; 4. DeepSeek V4-Pro et V4.1-Flash, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3…
+- L'escalier est une image : la hauteur des marches n'est pas à l'échelle. Il revient à la slide 25 avec le matériel et les budgets
 - Catégorie 1 testée en tant que catégorie, pas chaque modèle. Ce qu'on a testé : Qwen 35B ; Gemma 4 et gpt-oss-20b, limités, et c'est justement ce qui les place en catégorie 1 ; Qwen3.5-9B et Mistral Small 3.2 pas testés directement
 - Sur une carte de 24 Go comme la L4, Qwen3.6-35B et Mistral Small 3.2 ne tiennent qu'en 4 bits ; sur une L40S (48 Go), en 8 bits
 - Mistral Large 4 : poids publiés le 29/10/2026 sur Hugging Face, ~1,06 To en FP8 (1T paramètres, 49B actifs, multimodal, contexte 1M tokens), aussi en NVFP4. Licence « Mistral Ecosystem Open-Weight License », une MIT modifiée : licence séparée avec Mistral pour du Model as a Service (relevé le 02/11/2026)

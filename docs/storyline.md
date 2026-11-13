@@ -1234,3 +1234,60 @@ le cycle observé, d'où l'intérêt de la veille (slide suivante)
 
 le même cycle vaut pour les modèles : Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une version stable (vLLM 0.30.0, adoptée le 25/09)
 ```
+
+### Tableaux remplacés par des visuels (issue #25, novembre 2026)
+
+Pour casser le tunnel de tableaux entre les chapitres modèles et moteurs : les catégories (slide 16) et le matériel par catégorie (slide 25) deviennent le même escalier, montré deux fois ; « Louer avant d'acheter » (slide 22) devient une échelle mémoire / prix. Aucun chiffre changé ; la slide 16 n'affiche plus que deux ou trois modèles par catégorie, la liste complète est dans ses compléments. Contenus d'origine :
+
+```markdown
+## categories
+type : tableau
+rubrique : Les modèles
+titre : Quatre catégories pour décider
+largeurs : 1.1fr 1.4fr 2fr 1.1fr
+taille : 28
+ligne-surlignée : 3
+pied : Catégorie 4 : un vrai datacenter, jusqu'à plus d'un million d'euros. Les trois autres : moins de 100 k€ en interne, et une location accessible à une PME
+
+| Catégorie | Pour quoi faire | Modèles | Chez nous |
+|---|---|---|---|
+| 1. Petits modèles | RAG, transcription, résumé, traduction | Qwen3.6-35B, Qwen3.5-9B, Gemma 4, gpt-oss-20b, Mistral Small 3.2 | {testé: Testé} |
+| 2. Milieu de gamme | Un généraliste sur une seule carte | Qwen3.8-27B | {testé: Testé} |
+| 3. Dev ready | De vraies tâches de dev, et les tâches générales | Qwen3.8-Flash-Next, DeepSeek-V4-Flash-0731 | {testé: Testé} |
+| 4. Hors de portée | Les plus gros modèles open weights | DeepSeek V4-Pro et V4.1-Flash, Kimi K2.6, GLM-5.x, Mistral Large 4, Qwen3.8-2.4T, MiniMax M3… | {extrapolé: Non testé} |
+```
+
+```markdown
+## rent-first
+type : tableau
+rubrique : Le matériel
+titre : Louer avant d'acheter
+largeurs : 1.2fr 1fr 1.4fr 1.2fr
+taille : 36
+clics : 3, 6
+pied : Tarifs publics OVH et Scaleway, hors taxes, octobre 2026 : de quoi tester toute la stack sans immobiliser de budget
+
+| Machine | Mémoire | Prix par mois | |
+|---|---|---|---|
+| 1 × L4 | 24 Go | 500 – 600 € | {testé: Testé} |
+| 1 × L40S | 48 Go | 1 000 – 1 100 € | {testé: Testé} |
+| 1 × H100 | 80 Go | 1 900 – 2 100 € | {extrapolé: Catalogue} |
+| 4 × L40S | 192 Go | 4 000 – 4 300 € | {extrapolé: Catalogue} |
+| 8 × H200 | 8 × 141 Go | ~30 700 € | {extrapolé: Catalogue} |
+```
+
+```markdown
+## hardware-by-category
+type : tableau
+rubrique : Le matériel
+titre : Le matériel par catégorie de modèles
+largeurs : 1.3fr 1.5fr 0.9fr 1.1fr 1.4fr
+pied : Interne : ordres de grandeur, carte et serveur compris ; seul le montant de la catégorie 3 est le nôtre
+
+| Catégorie | Matériel | Interne | Location / mois | |
+|---|---|---|---|---|
+| 1. Petits modèles | L4, RTX PRO 4500 | ~10 – 20 k€ | 500 – 600 € | {testé: L4 testée} |
+| 2. Milieu de gamme | 1 RTX PRO 6000, L40S, H100 | ~25 – 35 k€ | 1 000 – 2 100 € | {testé: Testé} |
+| 3. Dev ready | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
+| 4. Hors de portée | 8 RTX PRO 6000 à 8 H200 et plus | 200 k€ – 1 M€ et plus | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
+```
