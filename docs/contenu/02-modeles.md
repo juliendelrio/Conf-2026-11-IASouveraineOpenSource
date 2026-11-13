@@ -72,7 +72,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement. Deux mots à dire au passage : le KV cache, c'est la mémoire que prend la conversation en cours, en plus des poids (slide 23) ; le palier 2, ce sont ces hébergeurs français, qu'on retrouve au chapitre plateforme
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 37). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement. Deux mots à dire au passage : le KV cache, c'est la mémoire que prend la conversation en cours, en plus des poids (slide 23) ; le palier 2, ce sont ces hébergeurs français, qu'on retrouve au chapitre plateforme
 
 #### Compléments
 
@@ -111,7 +111,7 @@ Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui
 #### Compléments
 
 - Le Flash-Next tourne exclusivement sur les RTX PRO 6000 et en réserve 2 sur 3 ; pour les tests, ça suffit. La troisième porte le 27B du chat
-- D'où vient la fourchette « 5 à 10 développeurs » : la limite mesurée est en conversations, pas en personnes. ~6 conversations au contexte maximal de 196k tokens, bien plus quand elles sont courtes (slide 24) ; un développeur dont le harness lance des sous-agents en occupe plusieurs à la fois (slide 46). La fourchette reste une estimation d'usage
+- D'où vient la fourchette « 5 à 10 développeurs » : la limite mesurée est en conversations, pas en personnes. ~6 conversations au contexte maximal de 196k tokens, bien plus quand elles sont courtes (slide 24) ; un développeur dont le harness lance des sous-agents en occupe plusieurs à la fois (slide 45). La fourchette reste une estimation d'usage
 - En conversations simultanées : 6 à 10 sur Flash-Next, 19 à 48 sur le 27B (19 aujourd'hui sur une carte partagée, jusqu'à 48 avec toute la carte, estimation)
 
 ## license

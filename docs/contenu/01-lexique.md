@@ -220,16 +220,16 @@ arrivée : 16 bits, le modèle déborde de la carte ; clic 1 : 8 bits, toujours 
 
 #### À l'oral
 
-le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le modèle rétrécit jusqu'à tenir sur une seule carte. On perd un peu de qualité : quasi rien en 8 bits (moins de 1 % en FP8, le format 8 bits qu'on utilise), 1 à 3 % sur les benchmarks en 4 bits, davantage sur les contextes très longs. C'est ce qui permet de loger un 27B sur une carte de 24 Go comme la L4 (calculé : nos 27B ont tourné sur L40S). Et la perte se réduit : des formats récents comme NVFP4, de NVIDIA, quantizent en 4 bits en limitant la perte ; NVIDIA a publié Qwen3.8-27B en NVFP4, qui ne perd que 1 à 1,6 point sur ses benchmarks (on y revient avec la veille, slide 31)
+le même poids, écrit avec de moins en moins de bits : il s'arrondit, et le modèle rétrécit jusqu'à tenir sur une seule carte. On perd un peu de qualité : quasi rien en 8 bits (moins de 1 % en FP8, le format 8 bits qu'on utilise), 1 à 3 % sur les benchmarks en 4 bits, davantage sur les contextes très longs. C'est ce qui permet de loger un 27B sur une carte de 24 Go comme la L4 (calculé : nos 27B ont tourné sur L40S). Et la perte se réduit : des formats récents comme NVFP4, de NVIDIA, quantizent en 4 bits en limitant la perte ; NVIDIA a publié Qwen3.8-27B en NVFP4, qui ne perd que 1 à 1,6 point sur ses benchmarks (on y revient avec la veille, slide 30)
 
 #### Compléments
 
 - Illustration en motion design, pas une mesure. Issue #6. Les valeurs du poids sont illustratives (un vrai format 8 ou 4 bits n'arrondit pas en décimal)
-- Pertes, ordres de grandeur extrapolés d'études publiées, pas mesurés chez nous : Red Hat / Neural Magic, « We ran over half a million evaluations on quantized LLMs » (17/10/2024) et l'article associé (arXiv 2411.02355, famille Llama 3.1) : FP8 sans perte notable, INT8 1 à 3 % au pire, INT4 (poids seuls) proche de l'INT8 ; mais en 4 bits à 128K tokens de contexte, ~85 à 88 % de la qualité seulement (Red Hat, contexte long). NVFP4 : scores publiés par NVIDIA pour nvidia/Qwen3.8-27B-NVFP4, BF16 → NVFP4 : GPQA Diamond 88,9 → 88,0, Terminal-Bench 75,6 → 74,0, IFBench 80,1 → 78,9 (voir slide 31)
+- Pertes, ordres de grandeur extrapolés d'études publiées, pas mesurés chez nous : Red Hat / Neural Magic, « We ran over half a million evaluations on quantized LLMs » (17/10/2024) et l'article associé (arXiv 2411.02355, famille Llama 3.1) : FP8 sans perte notable, INT8 1 à 3 % au pire, INT4 (poids seuls) proche de l'INT8 ; mais en 4 bits à 128K tokens de contexte, ~85 à 88 % de la qualité seulement (Red Hat, contexte long). NVFP4 : scores publiés par NVIDIA pour nvidia/Qwen3.8-27B-NVFP4, BF16 → NVFP4 : GPQA Diamond 88,9 → 88,0, Terminal-Bench 75,6 → 74,0, IFBench 80,1 → 78,9 (voir slide 30)
 - ~54 Go calculé (27 milliards de paramètres × 2 octets) ; ~31 Go en FP8 et ~16 Go en 4 bits repris du chapitre matériel (slide 25) : ce sont les tailles des fichiers publiés, au-dessus du calcul simple (27 Go à 1 octet par poids, 13,5 Go à 4 bits). D'où « 3 à 4 fois plus léger » à la slide 12 : 54 → 16 Go, soit 3,4 fois
 - « Moins de 1 % » vaut pour le FP8 ; l'étude donne 1 à 3 % au pire pour l'INT8, et l'INT4 proche de l'INT8
 - L4 : 24 Go, louée et testée (slide 22), mais avec d'autres modèles : le 27B en 4 bits sur une L4 est calculé, pas testé : le 27B n'a tourné que sur L40S. Il faut encore loger le KV cache
-- 16 Go ici, 22 Go pour la version NVFP4 de la slide 31 : NVFP4 garde l'attention en FP8
+- 16 Go ici, 22 Go pour la version NVFP4 de la slide 30 : NVFP4 garde l'attention en FP8
 
 ## experts
 type : animation

@@ -147,7 +147,7 @@ Principe : comme aux chapitres précédents, distinguer **ce qu'on a testé** de
 | # | Slide | Contenu | Testé ou extrapolé |
 |---|---|---|---|
 | 1 | Nos moteurs | vLLM principalement, SGLang ponctuellement. Certains modèles sont mieux servis par l'un que par l'autre, et le matériel compte : sur Mac, un moteur dédié (MLX). Le petit nouveau : DeepInfer, le moteur de DeepSeek, nativement compatible Huawei Ascend. En dessous : llama.cpp, Ollama, LM Studio, TensorRT-LLM, LMDeploy… | vLLM et SGLang testés ; MLX extrapolé ; DeepInfer non testé (dépôt officiel) |
-| 2 | Un paysage qui bouge vite | Une optimisation apparaît, souvent dans un nouveau moteur, puis les moteurs leaders l'intègrent rapidement | Veille |
+| 2 | Un paysage qui bouge vite | Une optimisation apparaît, souvent dans un nouveau moteur, puis les moteurs leaders l'intègrent rapidement | Veille ; fusionnée dans « La veille paie », dite à l'oral (novembre 2026) |
 | 3 | La veille paie | Deux cartes. Le moteur : le passage à vLLM 0.30.0 a suffi à faire gagner 11 % de vitesse de génération sur Qwen3.8-Flash-Next (180 → 200 tok/s). Les modèles quantizés : Qwen3.8-27B en NVFP4 publié par NVIDIA, ~22 Go au lieu de ~31 en FP8, des scores très proches, Blackwell seulement | Testé |
 | 4 | Objectif, piège, leçon | Voir ci-dessous | |
 
@@ -1203,4 +1203,34 @@ deux modèles de même niveau, mais une licence ouverte d'un côté, une licence
 Flash-Next a aussi 51B d'embeddings n-gram et 4B de MTP (décodage spéculatif intégré) ; DeepSeek a son module de décodage spéculatif DSpark, activable dans vLLM et SGLang. Chiffres tirés des fiches des éditeurs
 
 Poids par paramètre (config.json de DeepSeek-V4-Flash-0731 sur Hugging Face, lu le 05/11/2026) : experts en FP4 (`expert_dtype: fp4`, ½ octet), le reste en FP8 ; les 256 experts des 43 couches font ~277B des 284B paramètres (calcul de l'orateur), d'où ~167 Go, soit ~0,6 octet par paramètre. Qwen3.8-Flash-Next est publié tout en FP8 (1 octet) : 125B + 51B d'embeddings + 4B de MTP ≈ 180B, d'où ~186 Go
+```
+
+### Slide « Un paysage qui bouge vite » fusionnée (novembre 2026)
+
+Fusionnée avec « La veille paie » (slide 30) : ses deux étapes sont dites à l'oral, son complément y est repris. Le lien « Les slides » de la slide de remerciements est remplacé par un QR code. Contenu d'origine :
+
+```markdown
+## engine-cycle
+type : étapes
+rubrique : Les moteurs
+titre : Un paysage qui bouge vite
+
+### Une optimisation apparaît
+texte : Souvent sous la forme d’un nouveau moteur
+
+### Les moteurs leaders l’intègrent
+texte : Rapidement
+surligné : oui
+
+#### Progression
+
+arrivée : une optimisation apparaît ; clic 1 : les moteurs leaders l'intègrent
+
+#### À l'oral
+
+le cycle observé, d'où l'intérêt de la veille (slide suivante)
+
+#### Compléments
+
+le même cycle vaut pour les modèles : Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une version stable (vLLM 0.30.0, adoptée le 25/09)
 ```

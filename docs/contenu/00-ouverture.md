@@ -30,7 +30,7 @@ arrivée : « Un talk sur une IA 100 % souveraine, avec des outils open source�
 
 #### À l'oral
 
-l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 56)
+l'aveu, sur un ton léger et honnête, en ménageant l'effet à chaque clic. Ce n'est pas un running gag : on n'y revient qu'une fois, en conclusion (slide 55)
 
 #### Compléments
 
@@ -58,7 +58,7 @@ arrivée : les requêtes partent vers le cloud US ; clic 1 : « Et si demain on 
 
 #### À l'oral
 
-la situation de beaucoup d'équipes aujourd'hui. Laisser l'animation parler, et poser la question au public : laisser un temps. Tout le talk y répond ; la même scène revient en conclusion, avec la réponse (slide 57)
+la situation de beaucoup d'équipes aujourd'hui. Laisser l'animation parler, et poser la question au public : laisser un temps. Tout le talk y répond ; la même scène revient en conclusion, avec la réponse (slide 56)
 
 #### Compléments
 
@@ -84,7 +84,7 @@ arrivée : la carte « En interne » ; clic 1 : la carte « En location » ; cli
 
 #### À l'oral
 
-l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté, c'est le pied de slide : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance, et on l'assume : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Ce n'est pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk. Le critère des hébergeurs (juridiction, qualification) vient au chapitre plateforme (slide 40). Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000 et à leur serveur : c'est le ticket d'entrée pour le code, pas le coût de toute la plateforme
+l'objectif du talk, démontrer qu'on peut dès maintenant avoir une IA 100 % souveraine et faire des choses vraiment bien avec. « Possible à 100 % » : le palier 3 (clouds US) reste un choix, pas une dépendance. Dire une fois ce qu'on entend par souveraineté, c'est le pied de slide : les données et les modèles restent chez nous ou chez des hébergeurs français, et on peut continuer à fonctionner seuls. Ce qui reste une dépendance, et on l'assume : NVIDIA pour les cartes, et des modèles publiés par des éditeurs chinois. Ce n'est pas le très haut de gamme, mais on fait déjà des choses très bien : c'est le sujet du talk. Le critère des hébergeurs (juridiction, qualification) vient au chapitre plateforme (slide 39). Donner les ordres de grandeur du budget dès le départ : en location, on commence petit, une L4 suffit pour du RAG ou de la transcription (500 – 600 €), une L40S fait tourner le 27B (1 000 – 1 100 €) ; pour Flash-Next, il faut l'équivalent de nos 2 RTX PRO 6000 (3 900 – 9 300 €). En interne, les 50 – 70 k€ correspondent à ces 2 RTX PRO 6000 et à leur serveur : c'est le ticket d'entrée pour le code, pas le coût de toute la plateforme
 
 #### Compléments
 
@@ -121,12 +121,12 @@ frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le
 
 #### À l'oral
 
-c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. « Proche d'Opus 4.8 », c'est la comparaison publiée par l'éditeur, sur un benchmark de code ; notre ressenti d'usage va dans le même sens, mais ce n'est pas une mesure à nous ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 50). Ne pas s'arrêter sur les noms de modèles ni sur les H200 (les plus grosses cartes de datacenter) : les mots arrivent au lexique, les modèles au chapitre suivant. Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages. Les « 2 cartes » : deux de nos trois RTX PRO 6000, dédiées au code ; la troisième fait tourner le 27B du chat et les petits modèles (transcription, embeddings)
+c'est l'accroche du talk, à placer tôt. Plus besoin d'un cluster de H200 pour des tâches générales. Août, ce n'est pas seulement de meilleurs modèles, ce sont aussi les outils pour les exploiter. « Proche d'Opus 4.8 », c'est la comparaison publiée par l'éditeur, sur un benchmark de code ; notre ressenti d'usage va dans le même sens, mais ce n'est pas une mesure à nous ; sur les tâches les plus exigeantes, Claude reste utilisé (slide 49). Ne pas s'arrêter sur les noms de modèles ni sur les H200 (les plus grosses cartes de datacenter) : les mots arrivent au lexique, les modèles au chapitre suivant. Le harness, c'est l'application autour du modèle (ses outils, ses prompts) : on y revient au chapitre usages. Les « 2 cartes » : deux de nos trois RTX PRO 6000, dédiées au code ; la troisième fait tourner le 27B du chat et les petits modèles (transcription, embeddings)
 
 #### Compléments
 
 - Comparaisons publiées par les éditeurs, à présenter comme telles : DeepSeek-V4-Flash-0731, Terminal Bench 2.1 82,7 contre 85,0 pour Opus 4.8 ; Flash-Next comparé à Opus 4.6 Max dans sa fiche
-- Deux scores Terminal-Bench pour Qwen3.8-27B, les deux exacts : 73,0 dans la fiche de Qwen (Terminal Bench 2.1, harness Terminus), 75,6 dans celle de NVIDIA pour le même modèle en BF16 (slide 31), évalué par NVIDIA avec ses propres réglages (fiches relues le 12/11/2026)
+- Deux scores Terminal-Bench pour Qwen3.8-27B, les deux exacts : 73,0 dans la fiche de Qwen (Terminal Bench 2.1, harness Terminus), 75,6 dans celle de NVIDIA pour le même modèle en BF16 (slide 30), évalué par NVIDIA avec ses propres réglages (fiches relues le 12/11/2026)
 - Question probable, « quelle évaluation interne ? » : quelques prompts de test dont on regarde le résultat, notamment des prompts de jeux vidéo. Ce n'est pas parfait, mais c'est assez parlant à notre niveau
 - DeepSeek Harness a été publié dans la foulée de DeepSeek-V4-Flash-0731 comme démonstrateur de code (dépôt créé le 13 août 2026)
 - Également sortis en août : Qwen3.8-27B (le 5 ; Terminal Bench 2.1 : 73,0 contre 78,2 pour Opus 4.6 Max selon la fiche) et Qwen3.8-2.4T-A95B (le 8)

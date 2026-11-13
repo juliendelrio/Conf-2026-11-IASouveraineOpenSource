@@ -127,7 +127,7 @@ arrivée : la boucle d'un agent tourne quatre fois, jusqu'aux tests au vert ; cl
 
 #### À l'oral
 
-ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il boucle jusqu'au résultat. Chaque boucle consomme des tokens ; en auto-hébergé, on ne compte plus au jeton, la limite devient le nombre de conversations que nos cartes tiennent en même temps. Spécificité des environnements de développement : le harness tourne sur le poste du développeur, pas chez nous ; et tous les harness ont maintenant des stratégies multi-sous-agents, qui lancent autant de requêtes en parallèle. Un seul développeur peut donc occuper plusieurs conversations à la fois, et quelques-uns suffisent à remplir nos cartes. C'est là que le pilotage par équipe (slide 36) et le débord vers le palier 2 (slide 39) prennent tout leur sens
+ce que veut dire « agentique » en image : l'agent ne répond pas une fois, il boucle jusqu'au résultat. Chaque boucle consomme des tokens ; en auto-hébergé, on ne compte plus au jeton, la limite devient le nombre de conversations que nos cartes tiennent en même temps. Spécificité des environnements de développement : le harness tourne sur le poste du développeur, pas chez nous ; et tous les harness ont maintenant des stratégies multi-sous-agents, qui lancent autant de requêtes en parallèle. Un seul développeur peut donc occuper plusieurs conversations à la fois, et quelques-uns suffisent à remplir nos cartes. C'est là que le pilotage par équipe (slide 35) et le débord vers le palier 2 (slide 38) prennent tout leur sens
 
 #### Compléments
 
@@ -227,7 +227,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 56). Les comparaisons à Opus des modèles d'août viennent des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé. Par confort, pas par nécessité : les gros modèles du palier 2 s'en approchent (GLM d'Opus 5.0, DeepSeek-V4.1-Flash-1017 d'Opus 5.5), on pourrait tout basculer (repris slide 57)
+le piège rappelle l'aveu du début : Claude reste notre palier 3 (repris en conclusion, slide 55). Les comparaisons à Opus des modèles d'août viennent des éditeurs et de notre ressenti : c'est sur les tâches les plus exigeantes, architecture et lead, que Claude reste utilisé. Par confort, pas par nécessité : les gros modèles du palier 2 s'en approchent (GLM d'Opus 5.0, DeepSeek-V4.1-Flash-1017 d'Opus 5.5), on pourrait tout basculer (repris slide 56)
 
 #### Compléments
 

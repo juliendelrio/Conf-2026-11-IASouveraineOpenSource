@@ -56,30 +56,6 @@ le modèle et le matériel orientent le choix du moteur : certains modèles sont
 - DeepInfer (dépôt deepseek-ai/DeepInfer, lu le 05/11/2026) : Apache 2.0, ouvert vers le 20/10/2026, le moteur derrière l'API de DeepSeek, construit au départ sur vLLM. Un seul modèle, DeepSeek-V4.1-Flash-1017 ; matériel : GPU NVIDIA SM100 (B200, B300) avec CUDA 13, et Huawei Ascend 950 avec CANN 9.2. Inférence hors ligne seulement dans cette version : le système de KV cache, la séparation lecture / écriture et la répartition de charge ne sont pas publiés. Nos RTX PRO 6000 ne sont pas dans la liste
 - Les autres : llama.cpp (C/C++, formats GGUF, CPU et toutes cartes), Ollama et LM Studio (outils de poste de travail autour de llama.cpp), TensorRT-LLM (NVIDIA), LMDeploy (InternLM)
 
-## engine-cycle
-type : étapes
-rubrique : Les moteurs
-titre : Un paysage qui bouge vite
-
-### Une optimisation apparaît
-texte : Souvent sous la forme d’un nouveau moteur
-
-### Les moteurs leaders l’intègrent
-texte : Rapidement
-surligné : oui
-
-#### Progression
-
-arrivée : une optimisation apparaît ; clic 1 : les moteurs leaders l'intègrent
-
-#### À l'oral
-
-le cycle observé, d'où l'intérêt de la veille (slide suivante)
-
-#### Compléments
-
-le même cycle vaut pour les modèles : Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une version stable (vLLM 0.30.0, adoptée le 25/09)
-
 ## engine-watch
 type : cartes
 rubrique : Les moteurs
@@ -106,7 +82,7 @@ arrivée : les versions du moteur, « +11 % » ; clic 1 : les modèles quantizé
 
 #### À l'oral
 
-une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 13). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches (ceux publiés par NVIDIA, on ne les a pas remesurés) ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000. Pourquoi 22 Go et pas les 16 Go de la slide 13 : NVFP4 ne passe pas tout en 4 bits, l'attention reste en FP8
+le paysage bouge vite, et toujours selon le même cycle : une optimisation apparaît, souvent sous la forme d'un nouveau moteur, puis les moteurs leaders l'intègrent rapidement. D'où l'intérêt de la veille : une simple mise à jour du moteur peut apporter un gain notable. La veille vaut aussi pour les modèles : des versions quantizées sortent après le modèle d'origine, publiées par exemple par NVIDIA ou Unsloth sur Hugging Face. Des modèles bien plus petits pour des performances très proches : de quoi tenir sur moins de cartes, ou laisser plus de place au KV cache (la quantization de la slide 13). Exemple, testé chez nous : NVIDIA a publié Qwen3.8-27B en NVFP4, ~22 Go au lieu de ~31 en FP8, pour des scores très proches (ceux publiés par NVIDIA, on ne les a pas remesurés) ; mais ce format 4 bits ne tourne que sur la génération Blackwell, comme nos RTX PRO 6000. Pourquoi 22 Go et pas les 16 Go de la slide 13 : NVFP4 ne passe pas tout en 4 bits, l'attention reste en FP8
 
 #### Compléments (le vécu sur Blackwell, pour les questions)
 
@@ -114,6 +90,7 @@ une simple mise à jour du moteur peut apporter un gain notable. La veille vaut 
 - Les cartes récentes sont moins bien servies : pas de réglages MoE fournis pour la RTX PRO 6000, compilations à la volée au premier passage de certaines formes de calcul
 - Sans NVLink, un réglage par défaut ne convient pas : depuis vLLM 0.29, un nouvel algorithme d'échange entre cartes est actif par défaut ; il a fallu revenir à NCCL seul
 - Décodage spéculatif MTP : 3 tokens proposés, 61 % d'acceptation, 2,8 tokens produits par passe
+- Le même cycle vaut pour les modèles : Flash-Next a d'abord tourné sur une image vLLM dédiée au modèle, avant que son support arrive dans une version stable (vLLM 0.30.0, adoptée le 25/09)
 - nvidia/Qwen3.8-27B-NVFP4 (Hugging Face, lu le 05/11/2026) : publié en septembre 2026, Apache 2.0, NVFP4 pour les couches MLP et la tête de sortie, FP8 pour l'attention ; ~21,9 Go de poids (~54 Go en BF16) ; matériel supporté : Blackwell seulement ; vLLM et SGLang. Scores publiés par NVIDIA, BF16 → NVFP4 : GPQA Diamond 88,9 → 88,0, Terminal-Bench 75,6 → 74,0, IFBench 80,1 → 78,9. Unsloth publie aussi une version NVFP4 (unsloth/Qwen3.8-27B-NVFP4), pas vérifiée. Testé chez nous (d'après l'orateur) ; les scores sont ceux de NVIDIA
 
 ## engines-trio
@@ -133,4 +110,4 @@ deux histoires vécues, 20 secondes chacune. Le fork : avant Qwen, un autre gros
 
 #### Compléments
 
-voir les compléments de la slide 31
+voir les compléments de la slide 30

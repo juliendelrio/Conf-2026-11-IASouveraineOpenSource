@@ -27,6 +27,7 @@ const KEYS = [
   'exemple',
   'mesure',
   'scène',
+  'qr',
 ] as const;
 
 export type Key = (typeof KEYS)[number];

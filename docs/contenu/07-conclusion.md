@@ -89,7 +89,7 @@ reprendre rapidement les leçons, en 30 secondes au plus
 
 #### Compléments
 
-formulations complètes dans les slides 20, 27, 32, 41, 45, 50 et 52
+formulations complètes dans les slides 20, 27, 31, 40, 44, 49 et 51
 
 ## confession-callback
 type : déclaration
@@ -143,7 +143,7 @@ la scène de l'ouverture (slide 3), rejouée avec ce qu'on a construit : la pass
 #### Compléments
 
 - Illustration en motion design, pas une mesure ni un incident vécu. Issue #6
-- Réserve pour les questions (« que bascule-t-on pour les tâches d'architecte et de lead ? ») : GLM-5.3 et DeepSeek-V4.1-Flash-1017 sont au catalogue d'hébergeurs français (Scaleway, Mistral AI, relevé du 03/11/2026, slide 17). Les comparaisons à Opus 5.0 et 5.5 sont l'appréciation de l'orateur : source à préciser. Le débord vers le palier 2 n'a été essayé que sur quelques projets (slide 39)
+- Réserve pour les questions (« que bascule-t-on pour les tâches d'architecte et de lead ? ») : GLM-5.3 et DeepSeek-V4.1-Flash-1017 sont au catalogue d'hébergeurs français (Scaleway, Mistral AI, relevé du 03/11/2026, slide 17). Les comparaisons à Opus 5.0 et 5.5 sont l'appréciation de l'orateur : source à préciser. Le débord vers le palier 2 n'a été essayé que sur quelques projets (slide 38)
 
 ## final-message
 type : déclaration
@@ -172,10 +172,11 @@ titre : Merci !
 sous-titre : À vos questions
 signature : Julien Del Rio · Capitole du Libre 2026
 clics : aucun
+qr : juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource
+légende : Les slides
 
 | Libellé | Lien |
 |---|---|
-| Les slides | juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource |
 | Le code | github.com/juliendelrio/Conf-2026-11-IASouveraineOpenSource |
 | Site | juliendelrio.fr |
 | LinkedIn | linkedin.com/in/juliendelrio |

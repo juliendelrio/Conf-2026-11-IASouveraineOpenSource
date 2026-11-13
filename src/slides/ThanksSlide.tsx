@@ -12,9 +12,11 @@ type ThanksSlideProps = {
   call?: string;
   links: { label: string; url: string }[];
   signature: string;
+  /** The address the QR code opens (without the scheme), and its caption. */
+  qr?: { url: string; label?: string };
 };
 
-/** The QR code of a URL as SVG, computed locally (no network): the first link, so the room can open the slides. */
+/** The QR code of a URL as SVG, computed locally (no network), so the room can open the slides. */
 const Qr: React.FC<{ url: string; size: number }> = ({ url, size }) => {
   const { modules } = QRCode.create(url, { errorCorrectionLevel: 'M' });
   const cells = modules.size;
@@ -31,7 +33,7 @@ const Qr: React.FC<{ url: string; size: number }> = ({ url, size }) => {
 };
 
 // Thanks and questions: the call for questions first, then the links one after the other, then the signature
-export const ThanksSlide: React.FC<ThanksSlideProps> = ({ kicker, title, call, links, signature }) => {
+export const ThanksSlide: React.FC<ThanksSlideProps> = ({ kicker, title, call, links, signature, qr }) => {
   const frame = useCurrentFrame();
   const linksStart = call ? 18 : 10;
 
@@ -40,10 +42,10 @@ export const ThanksSlide: React.FC<ThanksSlideProps> = ({ kicker, title, call, l
       {call && (
         <p style={{ fontSize: 120, fontWeight: 800, lineHeight: 1, color: COLORS.accent, margin: 0, ...fadeUp(frame, 6) }}>{fr(call)}</p>
       )}
-      {links.length > 0 && (
+      {qr && (
         <div style={{ position: 'absolute', right: 120, top: 250, textAlign: 'center', ...fadeUp(frame, linksStart) }}>
-          <Qr url={`https://${links[0].url}`} size={340} />
-          <p style={{ fontSize: 30, fontWeight: 600, margin: '12px 0 0' }}>{fr(links[0].label)}</p>
+          <Qr url={`https://${qr.url}`} size={340} />
+          {qr.label && <p style={{ fontSize: 30, fontWeight: 600, margin: '12px 0 0' }}>{fr(qr.label)}</p>}
         </div>
       )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: call ? 60 : 20 }}>

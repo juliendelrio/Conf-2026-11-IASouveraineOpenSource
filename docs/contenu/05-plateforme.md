@@ -116,7 +116,7 @@ arrivée : les trois équipes appellent leurs modèles par la passerelle ; clic 
 
 #### À l'oral
 
-ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel modèle : on limite certains modèles à certaines équipes. Et qui passe en premier : pas par une file de priorité, mais par les alias de modèles. Certaines équipes appellent un alias servi avec de la redondance, d'autres non. Préciser que cette redondance n'est pas sur notre infrastructure à 3 cartes. Les budgets existent aussi, mais c'est surtout ce pilotage qui nous sert
+ce qu'on fait vraiment des droits par équipe : piloter. Qui a accès à quel modèle : on limite certains modèles à certaines équipes. Et qui passe en premier : pas par une file de priorité, mais par les alias de modèles. Certaines équipes appellent un alias servi avec de la redondance, d'autres non. La redondance prend deux formes : un alias générique avec plusieurs modèles derrière, ou un même modèle sous plusieurs alias, pour garantir la disponibilité. Préciser que cette redondance n'est pas sur notre infrastructure à 3 cartes. Les budgets existent aussi, mais c'est surtout ce pilotage qui nous sert
 
 #### Compléments
 
@@ -182,7 +182,7 @@ ce n'est plus une question technique, c'est une question de gouvernance. C'est a
 
 #### Compléments
 
-- Le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 50 et 56)
+- Le palier 3 sert par exemple au développement agentique ; Claude y est utilisé aujourd'hui pour les profils architecte et lead (slides 49 et 55)
 - Mécanisme du débord, d'après la doc LiteLLM (relue le 12/11/2026) : des bascules (`fallbacks`) configurées par modèle, déclenchées sur erreur ou limite de débit atteinte ; une variante se déclenche quand le prompt dépasse le contexte du modèle (`context_window_fallbacks`). Ce qui est configuré chez nous : _à compléter_
 - Sécurité de LiteLLM, pour les questions : deux compromissions de la chaîne de publication en 2026, toutes deux par vol d'identifiants au démarrage de Python. Le 24/03/2026, les versions 1.82.7 et 1.82.8 sur PyPI, attribuées au groupe TeamPCP, retirées depuis (BleepingComputer, Help Net Security). Le 21/10/2026, la version 1.107.0 sur PyPI et des images Docker officielles, d'après Socket (https://socket.dev/blog/litellm-compromise), source unique à recouper. Pas touchés : en mars, on n'utilisait pas encore LiteLLM ; en octobre, on avait quelques versions de retard. Les questions probables sont réunies dans `docs/questions.md`
 

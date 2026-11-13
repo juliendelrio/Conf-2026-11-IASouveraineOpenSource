@@ -21,7 +21,7 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 - **Affinage** (*fine-tuning*) : réentraîner un modèle existant sur des données ciblées (ex. Chocolatine pour le français)
 - **Multimodal (vision)** : un modèle qui comprend aussi les images, pas seulement le texte
 - **STT** (*speech-to-text*, transcription) : transformer la parole en texte
-- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 19, puis slide 37)
+- **Model as a Service (MaaS)** : un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel (slide 19, puis slide 36)
 
 ### Le matériel
 
@@ -42,8 +42,8 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 
 ### Les usages
 
-- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 43)
-- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 47)
+- **Agentique** : Un modèle qui enchaîne des actions (lire, exécuter, corriger) au lieu de répondre une fois (slide 42)
+- **Harness** : L’application autour du modèle : ses outils, ses skills, ses prompts système. Le même modèle se comporte différemment selon son harness (slide 5, puis slide 46)
 
 ## Réserve pour les questions
 

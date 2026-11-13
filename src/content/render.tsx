@@ -237,7 +237,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
     }
     case 'merci': {
       const links = needTable(slide).rows.map(([label, url]) => ({ label, url }));
-      const props = { kicker: common().kicker, title: common().title, call: slide.fields['sous-titre'], links, signature: need(slide, 'signature') };
+      const props = { kicker: common().kicker, title: common().title, call: slide.fields['sous-titre'], links, signature: need(slide, 'signature'), qr: fields.qr ? { url: fields.qr, label: fields['légende'] } : undefined };
       return { component: () => <ThanksSlide {...props} />, groups: 3, defaultClicks: 'aucun' };
     }
     default:

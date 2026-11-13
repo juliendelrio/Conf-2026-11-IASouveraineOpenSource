@@ -111,7 +111,7 @@ un modèle 5 fois plus gros que le 27B relit 6 Go par token au lieu de 16 : comm
 
 - Comment on le fait tenir (pas de détail de configuration sur scène) : FP8 officiel réparti sur les 2 cartes ; les 51B d'embeddings n-gram déportés en RAM CPU ; 18,2 Gio de KV cache par carte, soit 1,17 million de tokens au total, environ 6 conversations simultanées au contexte maximal ; communication en PCIe, sans NVLink
 - Plafond théorique sans décodage spéculatif : ~265 tok/s. Le MTP produit 2,8 tokens par passe (61 % d'acceptation) ; ce sont les surcoûts (échanges entre cartes sans NVLink, kernels MoE non optimisés pour la carte) qui dominent. La formule donne un plafond, pas une prévision
-- Pourquoi le découpage tient sans NVLink : avec 6B de paramètres actifs, ce qui transite entre les cartes à chaque couche, ce sont des résultats intermédiaires de petite taille, pas les poids ; les deux cartes sont dans le même serveur, sur le même nœud NUMA. Le prix : ces échanges à chaque couche font partie des surcoûts qui nous tiennent loin du plafond théorique, et l'algorithme d'échange par défaut de vLLM 0.29 a dû être désactivé au profit de NCCL (slide 32)
+- Pourquoi le découpage tient sans NVLink : avec 6B de paramètres actifs, ce qui transite entre les cartes à chaque couche, ce sont des résultats intermédiaires de petite taille, pas les poids ; les deux cartes sont dans le même serveur, sur le même nœud NUMA. Le prix : ces échanges à chaque couche font partie des surcoûts qui nous tiennent loin du plafond théorique, et l'algorithme d'échange par défaut de vLLM 0.29 a dû être désactivé au profit de NCCL (slide 31)
 - Configuration en production : vLLM v0.30.0, les 2 cartes entièrement dédiées au Flash-Next, 90 % de leur VRAM réservée ; contexte maximal de 196 608 tokens par requête ; pool de KV cache de 1 175 552 tokens partagé entre les requêtes (relevé du 25/09/2026), soit ~6 requêtes au contexte maximal (5,95 selon vLLM). Le pool se remplit au nombre réel de tokens : des requêtes courtes passent bien au-delà de 6. Plafond de requêtes simultanées : non relevé
 - Production sur 3 semaines : ~9 400 requêtes, premier token en 0,64 s en moyenne, 10,4 s de bout en bout
 - 139 Go = 129 Gio de poids en VRAM, une fois les embeddings déportés ; le modèle complet fait ~186 Go
@@ -138,7 +138,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (le palier 2, slide 38)
+la réponse à la démarche annoncée au fil rouge : un budget, une catégorie, un matériel. Distinguer ce qu'on a testé de ce qui est extrapolé. Les montants internes des catégories 1, 2 et 4 sont des ordres de grandeur (carte et serveur, prix publics), seul celui de la catégorie 3 est le nôtre. Et sans matériel du tout, ces modèles se consomment à l'usage chez des hébergeurs français (le palier 2, slide 37)
 
 #### Compléments
 
@@ -197,7 +197,7 @@ arrivée : ce qu'on voulait faire ; clic 1 : le piège ; clic 2 : la leçon
 
 #### À l'oral
 
-_à compléter_ (le trio se suffit à lui-même ; ajouter une anecdote si besoin)
+le trio se suffit à lui-même
 
 #### Compléments
 
