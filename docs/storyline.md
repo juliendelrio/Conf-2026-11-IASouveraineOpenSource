@@ -1291,3 +1291,24 @@ pied : Interne : ordres de grandeur, carte et serveur compris ; seul le montant 
 | 3. Dev ready | 2 RTX PRO 6000 | 50 – 70 k€ | 3 900 – 9 300 € | {testé: Interne testé} {extrapolé: Location extrapolée} |
 | 4. Hors de portée | 8 RTX PRO 6000 à 8 H200 et plus | 200 k€ – 1 M€ et plus | 30 700 – 43 800 € | {extrapolé: Extrapolé} |
 ```
+
+### Tableau « 5 questions avant d'acheter » remplacé par un schéma (issues #11 et #25, novembre 2026)
+
+Les cinq questions sont posées sur un dessin de carte graphique, une par clic. La colonne « Ce que ça détermine » passe à l'oral. Contenu d'origine :
+
+```markdown
+## five-questions
+type : tableau
+rubrique : Le matériel
+titre : 5 questions avant d'acheter
+largeurs : 1.15fr 1fr 1.45fr
+taille : 30
+
+| La question | Ce qui joue | Ce que ça détermine |
+|---|---|---|
+| Est-ce que ça tourne ? | Les pilotes et l’écosystème : CUDA, ROCm, Metal | Si le modèle et le moteur fonctionnent sur la carte |
+| Est-ce que ça tient ? | La VRAM | La taille du modèle et du contexte (KV cache) qu’on peut loger |
+| Est-ce que ça lit vite ? | La puissance de calcul | La lecture du prompt : le délai avant le début de la réponse |
+| Est-ce que ça écrit vite ? | La bande passante mémoire | La vitesse de génération de la réponse |
+| Les cartes se parlent-elles bien ? | La liaison entre cartes : NVLink, PCIe ou réseau | Répartir un modèle sur plusieurs cartes sans trop perdre en vitesse |
+```

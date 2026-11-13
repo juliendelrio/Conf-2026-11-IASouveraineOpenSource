@@ -49,31 +49,47 @@ on a commencé par louer des L4 et des L40S chez des hébergeurs français, donc
 - Fourchettes intermédiaires : A100 ~1 100 € (OVH seulement), 2 × L40S 2 000 – 2 100 €, 2 × H100 3 900 – 4 800 €, 4 × H100 7 800 – 9 300 €, 8 × B300 ~43 800 €
 
 ## five-questions
-type : tableau
+type : animation
+scène : cinq questions
 rubrique : Le matériel
 titre : 5 questions avant d'acheter
-largeurs : 1.15fr 1fr 1.45fr
-taille : 30
+- Est-ce que ça tourne ? Les pilotes et l'écosystème décident
+- Est-ce que ça tient ? Le modèle et le contexte doivent loger en VRAM
+- Est-ce que ça lit vite ? Tout le prompt d'un coup : du calcul
+- Est-ce que ça écrit vite ? Un token à la fois : de la bande passante
+- Les cartes se parlent-elles bien ? Pour répartir un modèle sur plusieurs
 
-| La question | Ce qui joue | Ce que ça détermine |
-|---|---|---|
-| Est-ce que ça tourne ? | Les pilotes et l’écosystème : CUDA, ROCm, Metal | Si le modèle et le moteur fonctionnent sur la carte |
-| Est-ce que ça tient ? | La VRAM | La taille du modèle et du contexte (KV cache) qu’on peut loger |
-| Est-ce que ça lit vite ? | La puissance de calcul | La lecture du prompt : le délai avant le début de la réponse |
-| Est-ce que ça écrit vite ? | La bande passante mémoire | La vitesse de génération de la réponse |
-| Les cartes se parlent-elles bien ? | La liaison entre cartes : NVLink, PCIe ou réseau | Répartir un modèle sur plusieurs cartes sans trop perdre en vitesse |
+### Une carte graphique
+détail : Pilotes : CUDA, ROCm, Metal
+
+### VRAM
+texte : le modèle, le contexte
+détail : La taille de la VRAM
+
+### Puce
+texte : le calcul
+détail : Puissance de calcul
+
+### De la mémoire à la puce
+détail : Bande passante mémoire
+mesure : À chaque token, tous les poids repassent
+
+### Une autre carte
+détail : NVLink, PCIe ou réseau
 
 #### Progression
 
-arrivée : est-ce que ça tourne ? ; clics 1 à 4 : ça tient, ça lit vite, ça écrit vite, les cartes se parlent
+arrivée : une carte graphique, sa puce et sa VRAM, « est-ce que ça tourne ? » ; clic 1 : la VRAM s'allume, ça tient ; clic 2 : le prompt entre d'un bloc dans la puce, ça lit vite ; clic 3 : les poids défilent de la VRAM à la puce (en boucle tant qu'on n'a pas cliqué), ça écrit vite ; clic 4 : une seconde carte et la liaison entre les deux. Les étiquettes restent : au repos, le dessin porte les cinq réponses
 
 #### À l'oral
 
-la grille de lecture pour comparer des machines. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM. Sur « est-ce que ça tourne ? » : AMD et Huawei commencent à sortir des puces pour l'IA. Le souci, c'est le manque de compatibilité CUDA ; mais la concurrence commence à grignoter l'hégémonie de NVIDIA. Lire et écrire, c'est contre-intuitif : lire, c'est tout le prompt d'un coup, traité en parallèle en une seule relecture des poids, donc du calcul ; écrire, c'est un token à la fois en relisant tous les poids, donc de la bande passante. Réfléchir, c'est écrire (les tokens de réflexion). Chez nous, sur les mêmes cartes : 1 300 à 2 000 tok/s en lecture, ~127 tok/s en écriture
+la grille de lecture pour comparer des machines, sur un seul dessin : une question par clic, la partie concernée s'allume. Ce que chaque point détermine se dit à l'oral : si le modèle et le moteur fonctionnent sur la carte ; la taille du modèle et du contexte qu'on peut loger ; le délai avant le début de la réponse ; la vitesse de génération ; la possibilité de répartir un modèle sur plusieurs cartes sans trop perdre en vitesse. Expliquer bande passante mémoire, lecture du prompt / génération et NVLink en une phrase chacun. Contexte : tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue : plus elle est longue, plus elle consomme de VRAM. Sur « est-ce que ça tourne ? » : AMD et Huawei commencent à sortir des puces pour l'IA. Le souci, c'est le manque de compatibilité CUDA ; mais la concurrence commence à grignoter l'hégémonie de NVIDIA. Lire et écrire, c'est contre-intuitif : lire, c'est tout le prompt d'un coup, traité en parallèle en une seule relecture des poids, donc du calcul ; écrire, c'est un token à la fois en relisant tous les poids, donc de la bande passante. Réfléchir, c'est écrire (les tokens de réflexion). Chez nous, sur les mêmes cartes : 1 300 à 2 000 tok/s en lecture, ~127 tok/s en écriture
 
 #### Compléments
 
 « est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les Mac M5 ont beaucoup de bande passante mais peu de calcul : ils écrivent correctement mais lisent lentement les longs prompts. Nuances pour les questions : avec beaucoup d'utilisateurs simultanés, une même relecture des poids sert plusieurs conversations et l'écriture se rapproche d'une limite de calcul ; avec un très long contexte, l'écriture relit aussi le KV cache à chaque token, encore de la bande passante. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
+
+Illustration en motion design, pas une mesure. Issues #11 et #25
 
 ## moe
 type : moe

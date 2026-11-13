@@ -3,6 +3,7 @@ import { SlideLayout } from '../components/SlideLayout';
 import { AgentScene } from './scenes/AgentScene';
 import { CutScene } from './scenes/CutScene';
 import { ExpertsScene } from './scenes/ExpertsScene';
+import { HardwareScene } from './scenes/HardwareScene';
 import { SceneFrame } from './scenes/kit';
 import { NetworkScene } from './scenes/NetworkScene';
 import { PathScene } from './scenes/PathScene';
@@ -43,6 +44,7 @@ export const SCENES: Record<string, SceneSpec> = {
   arrondi: { component: RoundingScene, sections: [3], beats: () => [70, 70, 70] },
   tokens: { component: TokenScene, sections: [3], beats: () => [90, 80, 110], loops: [undefined, 30] },
   vram: { component: VramScene, sections: [5], beats: () => [80, 80, 100] },
+  'cinq questions': { component: HardwareScene, sections: [5], beats: () => [60, 60, 80, 90, 90], loops: [undefined, undefined, undefined, 30] },
   'boucle agent': { component: AgentScene, sections: [6], beats: () => [175, 85, 100], loops: [undefined, 30] },
 };
 
