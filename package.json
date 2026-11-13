@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@remotion/player": "4.0.536",
+    "qrcode": "1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "remotion": "4.0.536"
@@ -23,6 +24,7 @@
     "@remotion/bundler": "4.0.536",
     "@remotion/cli": "4.0.536",
     "@remotion/renderer": "4.0.536",
+    "@types/qrcode": "1.5.6",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.1.2",

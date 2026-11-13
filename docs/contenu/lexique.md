@@ -28,7 +28,7 @@ Pas sur une slide de lexique : à dire à l'oral (voir les notes « À l'oral »
 - **Contexte, KV cache** : Le contexte est tout ce que le modèle a sous les yeux. Le KV cache garde en mémoire la conversation déjà lue, le temps de la session : plus elle est longue, plus elle consomme de VRAM (slide 23)
 - **Bande passante mémoire** : la vitesse à laquelle la carte relit les poids ; fixe la vitesse de génération
 - **Lecture du prompt / génération** (*prefill* / *decode*) : deux phases limitées par des ressources différentes (calcul / bande passante)
-- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX 6000 Pro
+- **NVLink** : la liaison rapide entre GPU NVIDIA, absente des RTX PRO 6000
 
 ### Les moteurs
 

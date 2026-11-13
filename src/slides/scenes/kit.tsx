@@ -90,7 +90,7 @@ export const Box: React.FC<BoxProps> = ({ x, y, width, height, title, text, high
         {fr(title)}
       </text>
       {text && (
-        <text x={x + width / 2} y={y + height / 2 + 36} textAnchor="middle" style={{ fontSize: 27, fill: COLORS.muted }}>
+        <text x={x + width / 2} y={y + height / 2 + 36} textAnchor="middle" style={{ fontSize: 29, fill: COLORS.muted }}>
           {fr(text)}
         </text>
       )}

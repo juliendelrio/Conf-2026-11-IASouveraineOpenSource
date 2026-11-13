@@ -43,6 +43,7 @@ texte : un autre modèle
 ### Passerelle
 texte : maison
 détail : Jetons d'accès
+mesure : Sans jeton : refusé
 
 ### LiteLLM
 texte : open source

@@ -113,7 +113,7 @@ arrivée : la question découpée en tokens ; clic 1 : les tokens entrent dans l
 
 #### À l'oral
 
-un token, c'est environ 3/4 d'un mot ; les vitesses se comptent en tokens par seconde et les prix en euros par million de tokens. Le modèle écrit un token à la fois : c'est pour ça que la réponse s'affiche au fil de l'eau
+un token, c'est environ 3/4 d'un mot ; les vitesses se comptent en tokens par seconde et les prix en euros par million de tokens. Le modèle écrit un token à la fois : c'est pour ça que la réponse s'affiche au fil de l'eau. Ordre de grandeur : les 3/4 d'un mot valent pour l'anglais, c'est un peu moins en français
 
 #### Compléments
 
@@ -149,7 +149,7 @@ arrivée : la carte mère, le CPU et sa RAM ; clic 1 : la carte graphique arrive
 
 #### À l'oral
 
-la RAM de l'ordinateur et la VRAM de la carte graphique sont deux mémoires séparées. Le modèle doit tenir en entier dans la VRAM, avec en plus la place pour les conversations en cours : c'est la vraie ressource rare, et ce qui fixe le prix des cartes
+la RAM de l'ordinateur et la VRAM de la carte graphique sont deux mémoires séparées. Le modèle doit tenir en entier dans la VRAM, avec en plus la place pour les conversations en cours : c'est la vraie ressource rare, et ce qui fixe le prix des cartes. Simplification assumée : on verra au chapitre matériel qu'une petite partie du modèle peut rester en RAM de l'ordinateur (slide 24)
 
 #### Compléments
 

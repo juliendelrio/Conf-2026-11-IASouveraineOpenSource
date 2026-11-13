@@ -1,9 +1,11 @@
 import { useCurrentFrame } from 'remotion';
 import { COLORS } from '../../theme';
-import { Box, edge, Link, type Point, Stream, Tag } from './kit';
+import { along, Box, edge, Link, type Point, Stream, Tag } from './kit';
 import type { SceneProps } from './types';
 
-const TEAMS = [0, 215, 430].map((y) => ({ x: 30, y, width: 340, height: 130 }));
+const TEAMS = [0, 200, 400].map((y) => ({ x: 30, y, width: 340, height: 110 }));
+/** A team's tag sits clear below its box. */
+const TAG_BELOW = 40;
 const GATEWAY = { x: 680, y: 205, width: 320, height: 150 };
 const MODELS = [50, 360].map((y) => ({ x: 1310, y, width: 330, height: 150 }));
 /** Which model each team calls: A and B the first one, C the second one. */
@@ -28,6 +30,9 @@ export const TeamScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
   const toModel = (model: number): Point[] => [edge(GATEWAY, 'right'), edge(MODELS[model], 'left')];
   const route = (team: number) => [...toGateway(team), ...toModel(CALLS[team])];
   const queueEnd = edge(GATEWAY, 'left');
+  // The refused request runs beside team C's link and stops well before the links meet
+  const refusedPath = [toGateway(REFUSED)[0], along(toGateway(REFUSED), 0.55)].map((point) => ({ x: point.x, y: point.y - 24 }));
+  const refusedAt = refusedPath[1];
 
   return (
     <>
@@ -47,7 +52,7 @@ export const TeamScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
       <Stream path={route(REFUSED)} start={s0 + 25} gap={15} travel={45} />
 
       {/* Team C asks for a model it isn't allowed: turned away at the gateway */}
-      <Stream path={toGateway(REFUSED).map((point) => ({ x: point.x, y: point.y - 22 }))} start={s1 + 10} gap={30} travel={30} color={COLORS.danger} />
+      <Stream path={refusedPath} start={s1 + 10} gap={30} travel={30} color={COLORS.danger} />
 
       {/* Team B's requests waiting their turn in front of the gateway */}
       {load &&
@@ -71,18 +76,18 @@ export const TeamScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
 
       {frame > s1 && (
         <path
-          d={`M ${queueEnd.x - 34} ${queueEnd.y - 22 - 12} l 24 24 m 0 -24 l -24 24`}
-          style={{ stroke: COLORS.danger, strokeWidth: 6, strokeLinecap: 'round', opacity: frame > s1 + 35 ? 1 : 0 }}
+          d={`M ${refusedAt.x + 6} ${refusedAt.y - 18} l 30 30 m 0 -30 l -30 30`}
+          style={{ stroke: COLORS.danger, strokeWidth: 8, strokeLinecap: 'round', opacity: frame > s1 + 35 ? 1 : 0 }}
         />
       )}
       {frame > s1 && teams[REFUSED].detail && (
-        <Tag at={{ x: TEAMS[REFUSED].x + TEAMS[REFUSED].width / 2, y: TEAMS[REFUSED].y }} text={teams[REFUSED].detail} delay={s1 + 6} danger />
+        <Tag at={{ x: TEAMS[REFUSED].x + TEAMS[REFUSED].width / 2, y: TEAMS[REFUSED].y + TEAMS[REFUSED].height + TAG_BELOW }} text={teams[REFUSED].detail} delay={s1 + 6} danger />
       )}
       {load && teams[PRIORITY].detail && (
-        <Tag at={{ x: TEAMS[PRIORITY].x + TEAMS[PRIORITY].width / 2, y: TEAMS[PRIORITY].y + TEAMS[PRIORITY].height }} text={teams[PRIORITY].detail} delay={s2 + 4} />
+        <Tag at={{ x: TEAMS[PRIORITY].x + TEAMS[PRIORITY].width / 2, y: TEAMS[PRIORITY].y + TEAMS[PRIORITY].height + TAG_BELOW }} text={teams[PRIORITY].detail} delay={s2 + 4} />
       )}
       {load && teams[LIMITED].detail && (
-        <Tag at={{ x: TEAMS[LIMITED].x + TEAMS[LIMITED].width / 2, y: TEAMS[LIMITED].y + TEAMS[LIMITED].height }} text={teams[LIMITED].detail} delay={s2 + 10} />
+        <Tag at={{ x: TEAMS[LIMITED].x + TEAMS[LIMITED].width / 2, y: TEAMS[LIMITED].y + TEAMS[LIMITED].height + TAG_BELOW }} text={teams[LIMITED].detail} delay={s2 + 10} />
       )}
     </>
   );

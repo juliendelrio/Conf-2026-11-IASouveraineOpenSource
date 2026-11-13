@@ -305,7 +305,7 @@ export const TrioSlide: React.FC<TrioSlideProps> = ({ kicker, goal, pitfall, les
   ];
 
   return (
-    <SlideLayout kicker={kicker} title="Objectif, piège, leçon">
+    <SlideLayout kicker="Objectif, piège, leçon" title={kicker}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
         {parts.map((part, index) => (
           <div

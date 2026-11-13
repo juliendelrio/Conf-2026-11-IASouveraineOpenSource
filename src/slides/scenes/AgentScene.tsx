@@ -2,16 +2,16 @@ import { useCurrentFrame } from 'remotion';
 import { progress } from '../../components/animation';
 import { fr } from '../../components/typography';
 import { COLORS } from '../../theme';
-import { along, Box, Stream, type Point, Tag } from './kit';
+import { along, Box, Link, Stream, type Point, Tag } from './kit';
 import type { SceneProps } from './types';
 
 const NODE = { width: 280, height: 110 };
 const CENTERS: Point[] = [
-  { x: 330, y: 75 },
-  { x: 560, y: 450 },
-  { x: 100, y: 450 },
+  { x: 400, y: 65 },
+  { x: 630, y: 420 },
+  { x: 170, y: 420 },
 ];
-const HUB = { x: 330, y: 330 };
+const HUB = { x: 400, y: 305 };
 const ITERATIONS = 4;
 const EDGE = 12;
 const SLOTS = { cols: 4, rows: 3, width: 150, height: 86, gap: 20, x: 900, y: 80 };
@@ -82,7 +82,7 @@ export const AgentScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2
       {frame >= start && !done && <circle cx={pulse.x} cy={pulse.y} r={16} style={{ fill: COLORS.chartHighlight }} />}
       {done && frame <= s1 + 10 && steps[2].detail && (
         <g style={{ opacity: 1 - progress(frame, s1, 10) }}>
-          <Tag at={{ x: CENTERS[2].x, y: CENTERS[2].y + NODE.height / 2 + 30 }} text={steps[2].detail} delay={start + edges * EDGE} />
+          <Tag at={{ x: CENTERS[2].x, y: CENTERS[2].y + NODE.height / 2 + 44 }} text={steps[2].detail} delay={start + edges * EDGE} />
         </g>
       )}
 
@@ -90,6 +90,14 @@ export const AgentScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2
       {Array.from({ length: SLOTS.rows }, (_, row) =>
         frame > stationAt(row) ? (
           <g key={`station${row}`}>
+            <Link
+              path={[
+                { x: STATION.x + STATION.width, y: rowCenter(row) },
+                { x: SLOTS.x, y: rowCenter(row) },
+              ]}
+              delay={stationAt(row) + 4}
+              active
+            />
             <Stream
               path={[
                 { x: STATION.x + STATION.width, y: rowCenter(row) },

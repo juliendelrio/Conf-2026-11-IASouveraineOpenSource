@@ -1,4 +1,5 @@
 import { useCurrentFrame } from 'remotion';
+import { fr } from '../../components/typography';
 import { COLORS } from '../../theme';
 import { Box, edge, Link, type Point, Stream, Tag } from './kit';
 import type { SceneProps } from './types';
@@ -65,14 +66,25 @@ export const PathScene: React.FC<SceneProps> = ({ sections, starts: [s0, s1, s2]
         HOMEMADE.map((box, engine) => <Box key={`hb${engine}`} {...box} title={homemade.title} text={homemade.text} delay={s1 + 2} hide={s2} />)}
       {frame > s1 && frame <= s2 && (
         <path
-          d={`M ${HOMEMADE[0].x - 34} ${edge(HOMEMADE[0], 'left').y - 12} l 24 24 m 0 -24 l -24 24`}
-          style={{ stroke: COLORS.danger, strokeWidth: 6, strokeLinecap: 'round', opacity: frame > s1 + 50 ? 1 : 0 }}
+          d={`M ${HOMEMADE[0].x - 44} ${edge(HOMEMADE[0], 'left').y - 16} l 32 32 m 0 -32 l -32 32`}
+          style={{ stroke: COLORS.danger, strokeWidth: 8, strokeLinecap: 'round', opacity: frame > s1 + 50 ? 1 : 0 }}
         />
+      )}
+      {/* What the cross means, above the gateway that turns the request away */}
+      {homemade.measure && frame > s1 && frame <= s2 && (
+        <text
+          x={HOMEMADE[0].x + HOMEMADE[0].width / 2}
+          y={HOMEMADE[0].y - 22}
+          textAnchor="middle"
+          style={{ fontSize: 30, fontWeight: 700, fill: COLORS.danger, opacity: frame > s1 + 50 ? 1 : 0 }}
+        >
+          {fr(homemade.measure)}
+        </text>
       )}
       {homemade.detail &&
         frame > s1 &&
         frame <= s2 &&
-        HOMEMADE.map((box, engine) => <Tag key={`ht${engine}`} at={{ x: box.x + box.width / 2, y: box.y + box.height + 34 }} text={homemade.detail!} delay={s1 + 10} />)}
+        HOMEMADE.map((box, engine) => <Tag key={`ht${engine}`} at={{ x: box.x + box.width / 2, y: box.y + box.height + 42 }} text={homemade.detail!} delay={s1 + 10} />)}
 
       {/* Step 3: LiteLLM, a single entry point */}
       {SERVICES.map((_, service) => (

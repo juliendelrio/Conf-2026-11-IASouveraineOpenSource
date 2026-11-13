@@ -28,9 +28,9 @@ const BrickTag: React.FC<{ brick: Brick }> = ({ brick }) => (
   <span
     style={{
       display: 'inline-flex',
-      alignItems: 'baseline',
+      alignItems: 'center',
       gap: 10,
-      padding: '6px 16px',
+      padding: '6px 12px',
       borderRadius: 8,
       backgroundColor: COLORS.background,
       fontSize: 28,
@@ -38,7 +38,11 @@ const BrickTag: React.FC<{ brick: Brick }> = ({ brick }) => (
     }}
   >
     {fr(brick.name)}
-    {brick.licence && <span style={{ fontSize: 22, color: COLORS.muted }}>{fr(brick.licence)}</span>}
+    {brick.licence && (
+      <span style={{ fontSize: 23, fontWeight: 700, color: COLORS.accent, border: `2px solid ${COLORS.accent}`, borderRadius: 999, padding: '0 9px' }}>
+        {fr(brick.licence)}
+      </span>
+    )}
   </span>
 );
 
@@ -56,9 +60,9 @@ const LayerBox: React.FC<{ layer: Layer; style?: React.CSSProperties }> = ({ lay
       <span style={{ fontSize: 30, fontWeight: 700, color: layer.highlight ? COLORS.accent : COLORS.foreground }}>
         {fr(layer.title)}
       </span>
-      {layer.text && <span style={{ fontSize: 26, color: COLORS.muted }}>{fr(layer.text)}</span>}
+      {layer.text && <span style={{ fontSize: 28, color: COLORS.muted }}>{fr(layer.text)}</span>}
     </div>
-    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 12 }}>
+    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
       {layer.bricks.map((brick) => (
         <BrickTag key={brick.name} brick={brick} />
       ))}

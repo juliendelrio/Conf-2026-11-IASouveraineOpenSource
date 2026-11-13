@@ -2,7 +2,7 @@
 // renders the last frame (resting state) of every slide to out/stills/<id>.png, then assembles them in deck order.
 // An animation gets one image per step (the frame where the presenter waits for each click, then the end state),
 // out/stills/<id>-1.png, <id>-2.png…, so the PPTX tells the same story as the presenter.
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { bundle } from '@remotion/bundler';
 import { getCompositions, renderStill } from '@remotion/renderer';
@@ -11,6 +11,8 @@ import { createServer } from 'vite';
 import { webpackOverride } from '../remotion/webpack-override.mjs';
 
 const STILLS_DIR = 'out/stills';
+// Start from an empty folder, so no still of a removed or renamed slide is left behind
+rmSync(STILLS_DIR, { recursive: true, force: true });
 mkdirSync(STILLS_DIR, { recursive: true });
 
 // The click steps come from src/deck.ts, loaded through Vite like npm run check (same `?raw` imports)

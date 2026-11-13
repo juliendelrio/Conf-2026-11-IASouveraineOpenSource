@@ -11,7 +11,7 @@ Slides for the Capitole du Libre 2026 talk by Julien Del Rio.
 - **Language**: French (slide content in French; code, comments and commits in English)
 - **Abstract**: https://capitoledulibre.org/programme/talk/LSBRQY/
 - **Storyline**: an on-demand AI platform covering the whole chain, from local GPUs to large clouds, with a fully open source orchestration layer:
-  - 3× RTX 6000 Pro running open-weights Qwen-family models served by **vLLM**
+  - 3× RTX PRO 6000 running open-weights Qwen-family models served by **vLLM**
   - **LiteLLM** as the single OpenAI-compatible gateway
   - Self-hosted chat interfaces: **LibreChat** for end users (simpler), **Open WebUI** kept for the AI team (many options for testing)
   - Tiered routing: internal models first, then larger models hosted in France, US clouds only when needed (e.g. agentic development)

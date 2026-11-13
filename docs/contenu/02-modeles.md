@@ -40,7 +40,7 @@ arrivée : l'en-tête et la catégorie 1 ; clics 1 à 3 : catégories 2, 3 et 4 
 
 #### À l'oral
 
-on commence par les modèles parce que c'est la finalité (la démarche du fil rouge) : on fixe un budget, on le met en rapport avec ces catégories. Catégorie 3, « Dev ready » : depuis les modèles d'août, on peut commencer à leur confier de vraies tâches de développement. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4. Ne citer que quelques noms de la catégorie 4, en abrégé : DeepSeek, Kimi, GLM, Mistral, Qwen
+on commence par les modèles parce que c'est la finalité (la démarche du fil rouge) : on fixe un budget, on le met en rapport avec ces catégories. Catégorie 3, « Dev ready » : depuis les modèles d'août, on peut commencer à leur confier de vraies tâches de développement. La catégorie 4 demande un vrai datacenter : le bas de la catégorie tiendrait sur 8 RTX PRO 6000, mais l'alimentation et le refroidissement dépassent une salle serveur de PME ; le haut dépasse le million d'euros. Pour les trois autres, on a des propositions en dessous de 100 k€, voire bien en dessous. Attention : le successeur du Flash, DeepSeek-V4.1-Flash (~510 Go), passe en catégorie 4. Ne citer que quelques noms de la catégorie 4, en abrégé : DeepSeek, Kimi, GLM, Mistral, Qwen. Si on demande pourquoi Qwen3.6-35B est un « petit » modèle : c'est un MoE, 3 milliards de paramètres actifs seulement à chaque token (slide 14)
 
 #### Compléments
 
@@ -72,7 +72,7 @@ arrivée : la carte catégorie 4 ; clic 1 : la carte palier 2
 
 #### À l'oral
 
-les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement
+les plus gros modèles restent accessibles sans quitter la France. C'est la mise à l'échelle, et le lien avec le recours par paliers du chapitre plateforme (slide 38). Flash-Next n'est chez aucun hébergeur français, mais DeepSeek-V4.1-Flash le remplace largement. Deux mots à dire au passage : le KV cache, c'est la mémoire que prend la conversation en cours, en plus des poids (slide 23) ; le palier 2, ce sont ces hébergeurs français, qu'on retrouve au chapitre plateforme
 
 #### Compléments
 
