@@ -1312,3 +1312,21 @@ taille : 30
 | Est-ce que ça écrit vite ? | La bande passante mémoire | La vitesse de génération de la réponse |
 | Les cartes se parlent-elles bien ? | La liaison entre cartes : NVLink, PCIe ou réseau | Répartir un modèle sur plusieurs cartes sans trop perdre en vitesse |
 ```
+
+### Liste « Open weights ≠ open source » remplacée par trois cartes (14 novembre 2026)
+
+Une carte par modèle, le nom de la licence en grand ; les versions 3.5 et 3.6, le détail de la licence séparée et la question sur Qwen 4 passent à l'oral. Contenu d'origine :
+
+```markdown
+## license
+type : liste
+rubrique : Les modèles
+titre : Open weights ≠ open source
+pied : On lit la licence avant de choisir un modèle, comme pour toute dépendance
+- Qwen était sous Apache 2.0 : 3.5, 3.6, et encore le 3.8-27B
+- Flash-Next passe à une licence maison, « Qwen Community 1.0 »
+- Usage interne libre, tant que rien n’est mis à disposition de tiers
+- Licence séparée pour du Model as a Service ou un assistant de code, quelle que soit la taille
+- DeepSeek-V4-Flash, lui, reste sous MIT
+- Et Qwen 4, annoncé, mais sans date ni licence ?
+```

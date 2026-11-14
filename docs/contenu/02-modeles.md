@@ -128,24 +128,33 @@ Opus 4.6 / 4.7 étaient déjà très utilisables au quotidien ; on a aujourd'hui
 - En conversations simultanées : 6 à 10 sur Flash-Next, 19 à 48 sur le 27B (19 aujourd'hui sur une carte partagée, jusqu'à 48 avec toute la carte, estimation)
 
 ## license
-type : liste
+type : cartes
 rubrique : Les modèles
 titre : Open weights ≠ open source
 pied : On lit la licence avant de choisir un modèle, comme pour toute dépendance
-- Qwen était sous Apache 2.0 : 3.5, 3.6, et encore le 3.8-27B
-- Flash-Next passe à une licence maison, « Qwen Community 1.0 »
-- Usage interne libre, tant que rien n’est mis à disposition de tiers
-- Licence séparée pour du Model as a Service ou un assistant de code, quelle que soit la taille
-- DeepSeek-V4-Flash, lui, reste sous MIT
-- Et Qwen 4, annoncé, mais sans date ni licence ?
+
+### Qwen3.8-27B
+valeur : Apache 2.0
+légende : Licence permissive
+
+### DeepSeek-V4-Flash
+valeur : MIT
+légende : Licence permissive
+
+### Qwen3.8-Flash-Next
+surligné : oui
+valeur : Licence maison
+légende : « Qwen Community 1.0 »
+- Usage interne libre
+- Licence séparée pour servir des tiers
 
 #### Progression
 
-arrivée : Qwen sous Apache 2.0 ; clics 1 à 5 : licence maison, usage interne libre, licence séparée, DeepSeek reste sous MIT, et Qwen 4 ? ; clic 6 : « on lit la licence… »
+arrivée : la carte Qwen3.8-27B (Apache 2.0) ; clic 1 : la carte DeepSeek-V4-Flash (MIT) ; clic 2 : la carte Qwen3.8-Flash-Next (licence maison) ; clic 3 : « on lit la licence… »
 
 #### À l'oral
 
-point très important. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Le Model as a Service, c'est un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Les deux modèles d'août sont de même niveau, mais l'un est sous MIT, l'autre sous licence maison. Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
+point très important. Qwen était sous Apache 2.0 pour les 3.5 et 3.6, et encore pour le 3.8-27B ; Flash-Next passe à une licence maison. La licence séparée vise le Model as a Service et les assistants de code, quelle que soit la taille de l'entreprise. Pour une plateforme interne, ça semble passer ; pour un hébergeur ou un éditeur d'assistant de code, beaucoup moins. Le Model as a Service, c'est un modèle consommé par API chez un hébergeur, facturé au token, sans gérer le matériel. Préciser que ce n'est pas un avis juridique : la licence vise aussi les réponses du modèle mises à disposition de tiers, et ne définit pas « tiers ». Les deux modèles d'août sont de même niveau, mais l'un est sous MIT, l'autre sous licence maison. Flash-Next est un aperçu de l'architecture Qwen 4, annoncée sans date ni licence : restera-t-elle sous Apache 2.0 ?
 
 #### Compléments
 
