@@ -86,7 +86,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `aveu` | — | une ligne `- …` par phrase | une par phrase |
 | `liste` | `rubrique`, `titre`, `badges`, `pied` | une ligne `- …` par point | les points, puis le pied |
 | `tableau` | `rubrique`, `titre`, `badges`, `pied`, `largeurs` (ex. `1fr 2fr`), `taille` (police, 32 par défaut), `ligne-surlignée` (numéro de ligne) | un tableau | les lignes, puis le pied |
-| `étapes` | `rubrique`, `titre`, `badges`, `pied`, `numérotées : non` (frise sans numéros) | une section `### Étape` par étape, avec `texte`, `détail` (ligne grise), `surligné : oui`, `décalé : oui` (une étape d'une autre nature : son texte descend sous la ligne des autres, au bout d'un trait) | les étapes, puis le pied |
+| `étapes` | `rubrique`, `titre`, `badges`, `pied`, `numérotées : non` (frise sans numéros) | une section `### Étape` par étape, avec `texte`, `détail` (ligne grise), `surligné : oui`, `décalé : oui` (une étape d'une autre nature : elle part sur une branche qui se détache de la ligne des autres et court en dessous, dans une autre couleur) | les étapes, puis le pied |
 | `cartes` | `rubrique`, `titre`, `badges`, `pied` | une section `### Carte` par carte, avec `valeur` (grand chiffre), `légende`, `badges`, `surligné : oui` et des points `- …` | les cartes, puis le pied |
 | `chiffre` | `rubrique`, `titre`, `badges`, `chiffre`, `légende`, `pied` | — | le chiffre, puis le pied |
 | `escalier` | `rubrique`, `titre`, `badges`, `pied` | une section `### Marche` par marche, de la plus basse à la plus haute : `texte`, `détail` (en gris), ou `valeur` (en gros) et `légende`, `badges`, `surligné` | une par marche, puis le pied |

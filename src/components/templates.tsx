@@ -121,7 +121,7 @@ export const TableSlide: React.FC<TableSlideProps> = ({ columns, widths, rows, f
 
 // --- Steps -------------------------------------------------------------------
 
-/** `offset`: a step of another kind (a tool among model releases), hung lower at the end of a stem. */
+/** `offset`: a step of another kind (a tool among model releases), on a branch forking below the line, in its own color. */
 export type Step = { label: string; text?: string; sub?: string; highlight?: boolean; offset?: boolean };
 
 type StepsSlideProps = Common & {
@@ -131,12 +131,17 @@ type StepsSlideProps = Common & {
 };
 
 const STEP_GAP = 40;
-/** How far an offset step hangs below the line of the others. */
-const STEP_DROP = 130;
+/** The branch of an offset step: how far its line runs below the main one, where it forks and where its marker sits. */
+const BRANCH_DROP = 150;
+const BRANCH_FORK = -80;
+const BRANCH_INSET = 48;
 
 export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, ...common }) => {
   const frame = useCurrentFrame();
   const marker = 56;
+  const line = marker / 2;
+  const branchLine = line + BRANCH_DROP;
+  const bend = (BRANCH_FORK + BRANCH_INSET) / 2;
 
   return (
     <SlideLayout {...common} footerDelay={itemStart(steps.length)}>
@@ -152,46 +157,71 @@ export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, 
                     top: marker / 2 - 2,
                     left: marker,
                     height: 4,
-                    width: `calc((100% + ${STEP_GAP - marker}px) * ${progress(frame, itemStart(index + 1))})`,
+                    // An offset step has no marker on this line: the connector runs on to where its own starts
+                    width: `calc((100% + ${STEP_GAP - (steps[index + 1].offset ? 0 : marker)}px) * ${progress(frame, itemStart(index + 1))})`,
                     backgroundColor: COLORS.border,
                   }}
                 />
               )}
-              <div
-                style={{
-                  position: 'relative',
-                  width: marker,
-                  height: marker,
-                  boxSizing: 'border-box',
-                  borderRadius: '50%',
-                  display: 'grid',
-                  placeItems: 'center',
-                  fontSize: 28,
-                  fontWeight: 700,
-                  backgroundColor: step.highlight ? COLORS.accent : COLORS.background,
-                  color: step.highlight ? COLORS.background : COLORS.foreground,
-                  border: `4px solid ${step.highlight ? COLORS.accent : COLORS.muted}`,
-                }}
-              >
-                {numbered ? index + 1 : ''}
-              </div>
               {step.offset && (
-                // The stem down to the text of an offset step
-                <div style={{ marginLeft: marker / 2 - 2, width: 0, height: STEP_DROP, borderLeft: `4px solid ${COLORS.border}` }} />
+                <>
+                  {/* The branch: it forks from the main line, drops to its own line and runs on past its marker */}
+                  <svg style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }} width={1} height={1}>
+                    <path
+                      d={`M ${BRANCH_FORK} ${line} C ${bend} ${line}, ${bend} ${branchLine}, ${BRANCH_INSET} ${branchLine}`}
+                      fill="none"
+                      stroke={COLORS.chartHighlight}
+                      strokeWidth={4}
+                      pathLength={1}
+                      strokeDasharray={1}
+                      strokeDashoffset={1 - progress(frame, itemStart(index))}
+                    />
+                  </svg>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: branchLine - 2,
+                      left: BRANCH_INSET + marker,
+                      right: 0,
+                      height: 4,
+                      background: `linear-gradient(to right, ${COLORS.chartHighlight}, transparent)`,
+                    }}
+                  />
+                </>
               )}
-              <div
-                style={{
-                  fontSize: 36,
-                  fontWeight: 700,
-                  marginTop: step.offset ? 14 : 28,
-                  lineHeight: 1.2,
-                  color: step.highlight ? COLORS.accent : COLORS.foreground,
-                }}
-              >
-                {fr(step.label)}
+              <div style={step.offset ? { marginTop: BRANCH_DROP, marginLeft: BRANCH_INSET } : undefined}>
+                <div
+                  style={{
+                    position: 'relative',
+                    width: marker,
+                    height: marker,
+                    boxSizing: 'border-box',
+                    borderRadius: '50%',
+                    display: 'grid',
+                    placeItems: 'center',
+                    fontSize: 28,
+                    fontWeight: 700,
+                    backgroundColor: step.highlight ? COLORS.accent : COLORS.background,
+                    color: step.highlight ? COLORS.background : COLORS.foreground,
+                    border: `4px solid ${step.offset ? COLORS.chartHighlight : step.highlight ? COLORS.accent : COLORS.muted}`,
+                  }}
+                >
+                  {numbered ? index + 1 : ''}
+                </div>
+                <div
+                  style={{
+                    fontSize: 36,
+                    fontWeight: 700,
+                    marginTop: step.offset ? 14 : 28,
+                    lineHeight: 1.2,
+                    color: step.offset ? COLORS.chartHighlight : step.highlight ? COLORS.accent : COLORS.foreground,
+                  }}
+                >
+                  {fr(step.label)}
+                </div>
+                {step.text && <div style={{ fontSize: 30, lineHeight: 1.35, marginTop: 14 }}>{fr(step.text)}</div>}
+                {step.sub && <div style={{ fontSize: 26, marginTop: 12, color: COLORS.muted }}>{fr(step.sub)}</div>}
               </div>
-              {step.text && <div style={{ fontSize: 30, lineHeight: 1.35, marginTop: 14 }}>{fr(step.text)}</div>}
-              {step.sub && <div style={{ fontSize: 26, marginTop: 12, color: COLORS.muted }}>{fr(step.sub)}</div>}
             </div>
           ))}
         </div>
