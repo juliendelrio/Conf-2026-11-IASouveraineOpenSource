@@ -77,6 +77,7 @@ Open WebUI, anciennement Ollama WebUI, était le candidat naturel. On est parti 
 ## chat-trio
 type : trio
 rubrique : Usages · le chat
+fil : Chat
 objectif : Proposer un ChatGPT interne
 piège : Partir sur le candidat naturel, Open WebUI, trop complexe pour des utilisateurs standards
 leçon : Pour les utilisateurs finaux, il faut faire simple et ergonomique
@@ -217,6 +218,7 @@ expliquer « multimodal » en une phrase : un modèle qui comprend aussi les ima
 ## dev-trio
 type : trio
 rubrique : Usages · les développeurs
+fil : Développeurs
 objectif : Un agent de code assez bon pour que le gain soit significatif
 piège : La capacité des modèles : on garde Claude pour les profils architecte et lead
 leçon : Le harness est un levier aussi important que le modèle ; en proposer deux contourne les limites de chacun
@@ -263,6 +265,7 @@ la maturité n'est pas la même. L'assistant de réunion est le plus mature. Le 
 ## integrations-trio
 type : trio
 rubrique : Usages · les intégrations
+fil : Intégrations
 objectif : Des outils pour augmenter la productivité : d'où l'assistant de réunion en premier
 piège : Penser que l'IA est magique : en souverain, ça demande de la veille et de l'adaptation
 leçon : Malgré tout, on peut faire des choses impressionnantes en souverain

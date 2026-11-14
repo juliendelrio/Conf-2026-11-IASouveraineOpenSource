@@ -265,6 +265,7 @@ le tout-cloud expose les données à un tiers. La règle des données n'est pas 
 ## platform-trio
 type : trio
 rubrique : La plateforme
+fil : Plateforme
 objectif : Délivrer les modèles sur un point unique, avec une gestion fine des droits et un bon suivi
 piège : Partir en direct sur les moteurs, ou sur une passerelle maison
 leçon : Avec une passerelle centralisée, le routage par paliers n'est plus technique : c'est de la gouvernance

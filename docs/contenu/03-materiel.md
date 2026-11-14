@@ -219,6 +219,7 @@ la première peut servir à l'interne et aux labs ; la seconde est obligatoire p
 ## hardware-trio
 type : trio
 rubrique : Le matériel
+fil : Matériel
 objectif : Des preuves de faisabilité à moindre coût, pour convaincre d'investir plus
 piège : Obtenir de petits volumes de cartes est compliqué : un fournisseur nous a aidés avec son offre « try and buy »
 leçon : Passer par la location permet d'y aller petit à petit

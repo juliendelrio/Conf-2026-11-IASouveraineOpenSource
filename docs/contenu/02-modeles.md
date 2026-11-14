@@ -159,6 +159,7 @@ point très important. Pour une plateforme interne, ça semble passer ; pour un 
 ## models-trio
 type : trio
 rubrique : Les modèles
+fil : Modèles
 objectif : Un modèle assez bon pour un usage quotidien, code compris, sur notre propre matériel
 piège : Le rythme des sorties : déployer pour les utilisateurs tout en testant les nouveaux, c'est exigeant et chronophage
 leçon : Un saut de version tous les 3 mois : aujourd'hui, les progrès des modèles compensent l'obsolescence des GPU

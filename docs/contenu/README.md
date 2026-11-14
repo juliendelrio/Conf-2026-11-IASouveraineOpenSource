@@ -91,7 +91,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `chiffre` | `rubrique`, `titre`, `badges`, `chiffre`, `légende`, `pied` | — | le chiffre, puis le pied |
 | `escalier` | `rubrique`, `titre`, `badges`, `pied` | une section `### Marche` par marche, de la plus basse à la plus haute : `texte`, `détail` (en gris), ou `valeur` (en gros) et `légende`, `badges`, `surligné` | une par marche, puis le pied |
 | `échelle` | `rubrique`, `titre`, `badges` (la légende : plein = testé, pointillé = le reste), `pied` | un tableau `Machine \| Mémoire \| Prix \| badge` : la barre a la longueur de la mémoire (« 8 × 141 Go » = 1 128), pleine si le badge est `testé` ; l'avant-dernière ligne donne l'échelle, la dernière en sort | une par ligne, puis le pied |
-| `trio` | `rubrique` (affichée en titre, sous le surtitre « Objectif, piège, leçon »), `objectif`, `piège`, `leçon` | — | 3 |
+| `trio` | `rubrique` (affichée en titre, sous le surtitre « Objectif, piège, leçon »), `fil` (nom court du chapitre dans le fil des bilans, en bas de slide), `objectif`, `piège`, `leçon` | — | 3 (une carte à pictogramme par temps ; le fil est là dès l'arrivée) |
 | `déclaration` | `rubrique` (facultatif) | une ligne `- …` par phrase | une par phrase |
 | `lexique` | `rubrique`, `titre` | une ligne `- Terme` par terme, défini dans `lexique.md` | un par terme |
 | `formule` | `rubrique`, `titre`, `pied` | exactement 3 sections `### Terme` avec `exemple` : a ÷ b = c | 3, puis le pied |

@@ -96,6 +96,7 @@ le paysage bouge vite, et toujours selon le même cycle : une optimisation appar
 ## engines-trio
 type : trio
 rubrique : Les moteurs
+fil : Moteurs
 objectif : Tout simplement tester les modèles
 piège : L'inférence, c'est très technique : se plonger dans la documentation devient utile pour tirer le meilleur de nos cartes
 leçon : Faire de la veille : une mise à jour peut apporter un gain notable, sans changer de matériel

@@ -25,6 +25,7 @@ const KEYS = [
   'objectif',
   'piège',
   'leçon',
+  'fil',
   'exemple',
   'mesure',
   'scène',

@@ -332,36 +332,87 @@ type TrioSlideProps = {
   goal: string;
   pitfall: string;
   lesson: string;
+  /** The thread of the summaries: the short name of every chapter that has one, and which one this is. */
+  thread: string[];
+  current: number;
 };
 
-export const TrioSlide: React.FC<TrioSlideProps> = ({ kicker, goal, pitfall, lesson }) => {
+const PICTOGRAM = { width: 120, height: 120, viewBox: '0 0 120 120', fill: 'none', strokeLinejoin: 'round', strokeLinecap: 'round' } as const;
+
+const Target: React.FC<{ color: string }> = ({ color }) => (
+  <svg {...PICTOGRAM} stroke={color} strokeWidth={6}>
+    <circle cx={60} cy={60} r={52} />
+    <circle cx={60} cy={60} r={31} />
+    <circle cx={60} cy={60} r={10} fill={color} stroke="none" />
+  </svg>
+);
+
+const Warning: React.FC<{ color: string }> = ({ color }) => (
+  <svg {...PICTOGRAM} stroke={color} strokeWidth={7}>
+    <path d="M60 12 L112 104 H8 Z" />
+    <path d="M60 46 V74" />
+    <circle cx={60} cy={88} r={4.5} fill={color} stroke="none" />
+  </svg>
+);
+
+const Bulb: React.FC<{ color: string }> = ({ color }) => (
+  <svg {...PICTOGRAM} stroke={color} strokeWidth={6}>
+    <path d="M60 10 C36 10 20 27 20 48 C20 63 29 72 37 80 C41 84 43 88 43 92 H77 C77 88 79 84 83 80 C91 72 100 63 100 48 C100 27 84 10 60 10 Z" />
+    <path d="M46 105 H74 M52 116 H68" />
+  </svg>
+);
+
+export const TrioSlide: React.FC<TrioSlideProps> = ({ kicker, goal, pitfall, lesson, thread, current }) => {
   const frame = useCurrentFrame();
   const parts = [
-    { label: "Ce qu'on voulait faire", text: goal },
-    { label: 'Le piège', text: pitfall },
-    { label: "Ce qu'on en retient", text: lesson, highlight: true },
+    { label: "Ce qu'on voulait faire", text: goal, pictogram: <Target color={COLORS.muted} />, background: COLORS.surface },
+    {
+      label: 'Le piège',
+      text: pitfall,
+      pictogram: <Warning color={COLORS.danger} />,
+      background: `color-mix(in srgb, ${COLORS.danger} 13%, ${COLORS.background})`,
+      labelColor: COLORS.danger,
+    },
+    { label: "Ce qu'on en retient", text: lesson, pictogram: <Bulb color={COLORS.background} />, background: COLORS.accent, highlight: true },
   ];
 
   return (
     <SlideLayout kicker="Objectif, piège, leçon" title={kicker}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
         {parts.map((part, index) => (
           <div
             key={part.label}
             style={{
-              display: 'grid',
-              gridTemplateColumns: '420px 1fr',
-              alignItems: 'center',
-              gap: 40,
-              padding: '28px 40px',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: 44,
               borderRadius: 16,
-              backgroundColor: part.highlight ? COLORS.accent : COLORS.surface,
+              backgroundColor: part.background,
               color: part.highlight ? COLORS.background : COLORS.foreground,
               ...fadeUp(frame, itemStart(index)),
             }}
           >
-            <span style={{ fontSize: 30, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2 }}>{fr(part.label)}</span>
-            <span style={{ fontSize: 38, lineHeight: 1.35, fontWeight: part.highlight ? 700 : 400 }}>{fr(part.text)}</span>
+            {part.pictogram}
+            <span style={{ fontSize: 26, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginTop: 32, color: part.labelColor }}>
+              {fr(part.label)}
+            </span>
+            <span style={{ fontSize: 35, lineHeight: 1.35, marginTop: 20, fontWeight: part.highlight ? 700 : 400 }}>{fr(part.text)}</span>
+          </div>
+        ))}
+      </div>
+      {/* The thread: past chapters tinted, this one lit; it is there on arrival and fills up from summary to summary */}
+      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${thread.length}, 1fr)`, gap: 12, marginTop: 44, ...fadeUp(frame, 0) }}>
+        {thread.map((name, index) => (
+          <div key={name} style={{ fontSize: 22, fontWeight: index === current ? 700 : 400, color: index === current ? COLORS.accent : index < current ? COLORS.foreground : COLORS.muted }}>
+            <div
+              style={{
+                height: 8,
+                borderRadius: 4,
+                marginBottom: 12,
+                backgroundColor: index === current ? COLORS.accent : index < current ? `color-mix(in srgb, ${COLORS.accent} 45%, ${COLORS.background})` : COLORS.border,
+              }}
+            />
+            {fr(name)}
           </div>
         ))}
       </div>

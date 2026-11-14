@@ -50,7 +50,7 @@ const toBrick = (item: string) => {
 
 const toCell = (text: string): Cell => (/\{(testé|extrapolé)\s*:/.test(text) ? { status: parseBadges(text) } : text);
 
-const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
+const build = (slide: SlideContent, glossary: Map<string, string>, thread: string[]): Built => {
   const fail = (message: string): never => {
     throw new ContentError(`${slide.file} › ${slide.id} : ${message}`);
   };
@@ -154,7 +154,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
       return { component: () => <KeyFigureSlide {...props} />, groups: 1 + footer, defaultClicks: 'tous' };
     }
     case 'trio': {
-      const props = { kicker: need(slide, 'rubrique'), goal: need(slide, 'objectif'), pitfall: need(slide, 'piège'), lesson: need(slide, 'leçon') };
+      const props = { kicker: need(slide, 'rubrique'), goal: need(slide, 'objectif'), pitfall: need(slide, 'piège'), lesson: need(slide, 'leçon'), thread, current: thread.indexOf(need(slide, 'fil')) };
       return { component: () => <TrioSlide {...props} />, groups: 3, defaultClicks: 'tous' };
     }
     case 'déclaration': {
@@ -295,10 +295,12 @@ const pausesFor = (slide: SlideContent, built: Built): number[] => {
 
 export const buildSlides = (contents: SlideContent[], glossary: Map<string, string>): Slide[] => {
   const ids = new Set<string>();
+  // The summaries share a thread: the short name (`fil`) of each of them, in deck order
+  const thread = contents.filter((content) => content.fields.type === 'trio').map((content) => content.fields.fil ?? '');
   return contents.map((content) => {
     if (ids.has(content.id)) throw new ContentError(`${content.file} › ${content.id} : identifiant de slide déjà utilisé`);
     ids.add(content.id);
-    const built = build(content, glossary);
+    const built = build(content, glossary, thread);
     const durationInFrames = built.timeline?.duration ?? (content.fields.type === 'titre' ? TITLE_DURATION : framesFor(built.groups));
     return {
       id: content.id,
