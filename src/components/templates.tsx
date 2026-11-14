@@ -121,7 +121,8 @@ export const TableSlide: React.FC<TableSlideProps> = ({ columns, widths, rows, f
 
 // --- Steps -------------------------------------------------------------------
 
-export type Step = { label: string; text?: string; sub?: string; highlight?: boolean };
+/** `offset`: a step of another kind (a tool among model releases), hung lower at the end of a stem. */
+export type Step = { label: string; text?: string; sub?: string; highlight?: boolean; offset?: boolean };
 
 type StepsSlideProps = Common & {
   steps: Step[];
@@ -130,6 +131,8 @@ type StepsSlideProps = Common & {
 };
 
 const STEP_GAP = 40;
+/** How far an offset step hangs below the line of the others. */
+const STEP_DROP = 130;
 
 export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, ...common }) => {
   const frame = useCurrentFrame();
@@ -159,6 +162,7 @@ export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, 
                   position: 'relative',
                   width: marker,
                   height: marker,
+                  boxSizing: 'border-box',
                   borderRadius: '50%',
                   display: 'grid',
                   placeItems: 'center',
@@ -171,11 +175,15 @@ export const StepsSlide: React.FC<StepsSlideProps> = ({ steps, numbered = true, 
               >
                 {numbered ? index + 1 : ''}
               </div>
+              {step.offset && (
+                // The stem down to the text of an offset step
+                <div style={{ marginLeft: marker / 2 - 2, width: 0, height: STEP_DROP, borderLeft: `4px solid ${COLORS.border}` }} />
+              )}
               <div
                 style={{
                   fontSize: 36,
                   fontWeight: 700,
-                  marginTop: 28,
+                  marginTop: step.offset ? 14 : 28,
                   lineHeight: 1.2,
                   color: step.highlight ? COLORS.accent : COLORS.foreground,
                 }}

@@ -109,6 +109,7 @@ détail : Plus petit, niveau Haiku à Sonnet
 ### 13 août
 texte : DeepSeek Harness
 détail : Les outils suivent
+décalé : oui
 
 ### 24 août
 texte : Qwen3.8-Flash-Next
@@ -117,7 +118,7 @@ surligné : oui
 
 #### Progression
 
-frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le 13 août (DeepSeek Harness), puis le 24 août ; clic 4 : le pied de slide
+frise : arrivée sur le 31 juillet ; clics 1 à 3 : le 5 août (Qwen3.8-27B), le 13 août (DeepSeek Harness, décalé sous la ligne des modèles : c'est un outil), puis le 24 août ; clic 4 : le pied de slide
 
 #### À l'oral
 

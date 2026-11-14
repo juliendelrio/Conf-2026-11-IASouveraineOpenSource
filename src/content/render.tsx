@@ -103,6 +103,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>): Built => {
         text: section.fields.texte,
         sub: section.fields['détail'],
         highlight: yes(section.fields['surligné']),
+        offset: yes(section.fields['décalé']),
       }));
       const numbered = fields['numérotées']?.trim().toLowerCase() !== 'non';
       return {

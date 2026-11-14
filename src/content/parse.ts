@@ -20,6 +20,7 @@ const KEYS = [
   'texte',
   'détail',
   'surligné',
+  'décalé',
   'chiffre',
   'objectif',
   'piège',
