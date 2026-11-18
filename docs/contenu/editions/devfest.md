@@ -36,7 +36,7 @@ Julien Briault devait donner ici « CoeurIA : Refaire ChatGPT au service de la S
 - la vidéo est l'enregistrement de PlatformCon Live Day Paris 2026, publié par WeScale : « CoeurIA : Et si on refaisait ChatGPT au service de la SolidarIT ? - Julien Briault, Deezer »
 - Julien Briault : ingénieur réseau / SRE chez Deezer, et responsable bénévole de l'infrastructure aux Restos du Cœur (fiche DevFest Toulouse et bio Voxxed Days Luxembourg 2026)
 
-<!-- Créneau de 45 minutes : neuf slides retirées pour viser 32 à 34 minutes (décidé le 18/11/2026) -->
+<!-- Créneau de 45 minutes : onze slides retirées pour viser 32 à 34 minutes (décidé les 18 et 19/11/2026) -->
 
 ## chapter-glossary
 - ==Poids==
@@ -100,6 +100,23 @@ retirer : oui
 retirer : oui
 
 ## editions
+retirer : oui
+
+## harness
+pied : Nous en proposons deux, open source : OpenCode et DeepSeek Harness. Chacun a ses limites
+
+#### Progression
+
+arrivée : ce qu'est le harness ; clics 1 à 4 : il pousse le modèle, plus d'itérations, la capacité, l'électricité ; clic 5 : le pied, nos deux harness
+
+#### À l'oral
+
+le harness compte autant que le modèle. En auto-hébergé, on n'est plus limité à compter les tokens dont on a besoin : la limite devient la capacité des cartes. Les slides ne chiffrent que l'écriture, mais pour un agent, c'est la lecture du prompt qui compte le plus : 1 300 à 2 000 tok/s chez nous en usage courant. Au pied de slide, nos deux harness, tous deux sous licence MIT (la slide « Deux harness open source » est retirée dans cette édition) : OpenCode gère encore mal l'arrivée en limite de contexte ; DeepSeek Harness, sorti en août 2026, est jeune et tout en web, mais avec de très belles promesses. En proposer deux permet de s'adapter aux limites de chacun
+
+## two-harnesses
+retirer : oui
+
+## vision
 retirer : oui
 
 ## thanks
