@@ -76,7 +76,12 @@ const build = (slide: SlideContent, glossary: Map<string, string>, thread: strin
 
   switch (type) {
     case 'titre': {
-      const props = { title: need(slide, 'titre'), subtitle: need(slide, 'sous-titre'), signature: need(slide, 'signature') };
+      const props = {
+        title: need(slide, 'titre'),
+        subtitle: need(slide, 'sous-titre'),
+        signature: need(slide, 'signature'),
+        notice: fields.annonce ? { label: fields.rubrique, text: fields.annonce } : undefined,
+      };
       return { component: () => <TitleSlide {...props} />, groups: 1, defaultClicks: 'aucun' };
     }
     case 'aveu': {

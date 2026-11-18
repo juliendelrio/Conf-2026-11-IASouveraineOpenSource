@@ -3,7 +3,13 @@
 Jeudi 19 novembre 2026, 12:00 – 12:45, salle Agora, en remplacement de la conférence de Julien Briault. Ce fichier ne contient que ce qui change par rapport au deck de `docs/contenu/` (syntaxe dans `docs/contenu/README.md`, « Les éditions »).
 
 ## title
+rubrique : Changement de programme
+annonce : Cette conférence remplace **« CoeurIA : Refaire ChatGPT au service de la SolidarIT ? »** de Julien Briault, qui n'a pas pu venir
 signature : Julien Del Rio · DevFest Toulouse 2026
+
+#### Progression
+
+pas de clic, tout apparaît à l'arrivée ; c'est la slide d'attente, affichée pendant que la salle s'installe : l'annonce du remplacement est au-dessus du titre
 
 ## replaced-talk
 type : mention

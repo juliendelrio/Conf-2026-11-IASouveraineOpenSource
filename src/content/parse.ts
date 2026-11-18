@@ -31,6 +31,7 @@ const KEYS = [
   'scène',
   'qr',
   'photo',
+  'annonce',
   'après',
 ] as const;
 

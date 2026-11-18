@@ -22,7 +22,7 @@ Une édition est le même talk donné ailleurs. Elle tient dans un fichier de `e
 
 | Édition | Fichier | Ce qui change |
 |---|---|---|
-| `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : la signature du titre et des remerciements, le QR code, et une slide de mention de la conférence remplacée |
+| `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : l'annonce du remplacement sur la slide de titre (slide d'attente), la signature du titre et des remerciements, le QR code, et une slide de mention de la conférence remplacée |
 
 Pour la lancer : ajouter `?edition=devfest` à l'adresse du présentateur (combinable avec les autres paramètres, repris par la vue orateur) ; `npm run check -- devfest` liste ses slides ; `npm run pptx -- devfest` écrit `out/slides-devfest.pptx` et `out/stills-devfest/`. Sans paramètre, tout reste le deck du Capitole du Libre. Les numéros de slide cités dans les notes sont ceux du deck d'origine. Une nouvelle édition demande un fichier et une ligne dans `src/content/index.ts`.
 
@@ -95,7 +95,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 
 | Type | Champs | Corps | Éléments (pour les clics) |
 |---|---|---|---|
-| `titre` | `titre`, `sous-titre`, `signature` | — | 1 |
+| `titre` | `titre`, `sous-titre`, `signature` ; facultatifs : `annonce` (un encart au-dessus du titre, pour une slide d'attente) et sa `rubrique` (le libellé de l'encart) | — | 1 |
 | `aveu` | — | une ligne `- …` par phrase | une par phrase |
 | `liste` | `rubrique`, `titre`, `badges`, `pied` | une ligne `- …` par point | les points, puis le pied |
 | `tableau` | `rubrique`, `titre`, `badges`, `pied`, `largeurs` (ex. `1fr 2fr`), `taille` (police, 32 par défaut), `ligne-surlignée` (numéro de ligne) | un tableau | les lignes, puis le pied |
