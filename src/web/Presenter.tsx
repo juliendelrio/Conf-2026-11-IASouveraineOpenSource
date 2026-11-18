@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { SLIDES } from '../deck';
 import { COLORS, themeVariables } from '../theme';
-import { targetFrame } from './deck-state';
+import { editionLabel, targetFrame } from './deck-state';
 import { SlidePlayer } from './SlidePlayer';
 import { useDeck } from './useDeck';
 
@@ -45,7 +45,7 @@ export const Presenter: React.FC = () => {
     openSpeakerView();
     return true;
   }, []);
-  const { position, theme, mode, forward, backward, toggleTheme, toggleMode } = useDeck({ onKey });
+  const { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey });
   // Touch screens: tap the left half to go back, the right half to go forward. A mouse click still goes forward
   const pointerType = useRef('mouse');
   const onTap = useCallback(
@@ -76,9 +76,12 @@ export const Presenter: React.FC = () => {
       <div key={slide.id} className={mode === 'slide' ? 'slide-in' : undefined} style={{ width: '100%', height: '100%' }}>
         <SlidePlayer slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
       </div>
-      {/* Theme and navigation switches on the title slide only, to keep the other slides clean; d and c work everywhere */}
+      {/* Edition, theme and navigation switches on the title slide only, to keep the other slides clean; d and c work everywhere */}
       {position.slide === 0 && (
         <div style={{ position: 'fixed', top: 12, right: 12, display: 'flex', gap: 8, opacity: 0.6 }}>
+          <ControlButton onClick={switchEdition} title="Passer à l'autre édition du talk (recharge la page sur la première slide)">
+            Édition : {editionLabel()}
+          </ControlButton>
           <ControlButton onClick={toggleMode} title="Avancer clic par clic ou slide par slide (touche c)">
             {mode === 'click' ? 'Navigation : par clic' : 'Navigation : par slide'}
           </ControlButton>

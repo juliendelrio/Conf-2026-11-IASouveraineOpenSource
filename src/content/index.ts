@@ -31,6 +31,10 @@ const EDITIONS: Record<string, string> = { devfest };
 
 export const EDITION_NAMES = Object.keys(EDITIONS);
 
+/** How the presenter names each edition; the deck without edition is the Capitole du Libre talk. */
+export const DEFAULT_EDITION_LABEL = 'Capitole du Libre';
+export const EDITION_LABELS: Record<string, string> = { devfest: 'DevFest Toulouse' };
+
 /** The slides of the deck, or of one of its editions. */
 export const contentSlides = (edition?: string) => {
   const base = FILES.flatMap(([file, source]) => parseSlides(file, source));

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Thumbnail } from '@remotion/player';
 import { SLIDES } from '../deck';
 import { themeVariables, VIDEO } from '../theme';
-import { lastStep, nextPosition, targetFrame } from './deck-state';
+import { editionLabel, lastStep, nextPosition, targetFrame } from './deck-state';
 import { Notes } from './Notes';
 import { SlidePlayer } from './SlidePlayer';
 import { useDeck } from './useDeck';
@@ -70,7 +70,7 @@ const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 // The speaker view (?vue=orateur): current slide, what the next click shows, notes, timer and clock
 export const SpeakerView: React.FC = () => {
-  const { position, theme, mode, forward, backward, toggleTheme, toggleMode } = useDeck({ onKey: (key) => key === 'p' });
+  const { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey: (key) => key === 'p' });
   const [moved, setMoved] = useState(false);
   const timer = useTimer(moved);
 
@@ -127,6 +127,15 @@ export const SpeakerView: React.FC = () => {
         </button>
         <button type="button" tabIndex={-1} style={buttonStyle} onClick={forward} title="Flèche droite">
           ▶
+        </button>
+        <button
+          type="button"
+          tabIndex={-1}
+          style={buttonStyle}
+          onClick={switchEdition}
+          title="Passer à l'autre édition du talk : les deux fenêtres rechargent sur la première slide, le chronomètre repart de zéro"
+        >
+          Édition : {editionLabel()}
         </button>
         <button type="button" tabIndex={-1} style={buttonStyle} onClick={toggleMode} title="Touche c">
           {mode === 'click' ? 'Par clic' : 'Par slide'}

@@ -1,4 +1,6 @@
+import { EDITION_LABELS, EDITION_NAMES, DEFAULT_EDITION_LABEL } from '../content';
 import { type Slide, SLIDES } from '../deck';
+import { EDITION } from '../edition';
 import type { ThemeName } from '../theme';
 
 const THEME_STORAGE_KEY = 'slides-theme';
@@ -86,3 +88,21 @@ export const storeTheme = (theme: ThemeName) => store(THEME_STORAGE_KEY, theme);
 export const readInitialMode = (): NavigationMode =>
   URL_MODES[readUrlParam('navigation') ?? ''] ?? (readStored(MODE_STORAGE_KEY) === 'slide' ? 'slide' : 'click');
 export const storeMode = (mode: NavigationMode) => store(MODE_STORAGE_KEY, mode);
+
+// Editions: the deck is built when the page loads, so changing edition reloads the page at the new address
+/** The edition after the current one, going round: the Capitole du Libre deck (no edition), then each edition. */
+export const nextEdition = (): string | undefined => {
+  const all: (string | undefined)[] = [undefined, ...EDITION_NAMES];
+  return all[(all.indexOf(EDITION) + 1) % all.length];
+};
+
+export const editionLabel = (edition: string | undefined = EDITION) => (edition === undefined ? DEFAULT_EDITION_LABEL : (EDITION_LABELS[edition] ?? edition));
+
+/** Reloads this window on the first slide of an edition, keeping the other parameters (view, theme, navigation). */
+export const openEdition = (edition: string | undefined) => {
+  const params = new URLSearchParams(window.location.search);
+  if (edition === undefined) params.delete('edition');
+  else params.set('edition', edition);
+  const query = params.toString();
+  window.location.assign(`${window.location.pathname}${query ? `?${query}` : ''}#1`);
+};

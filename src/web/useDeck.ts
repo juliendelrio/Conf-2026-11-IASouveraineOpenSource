@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SLIDES } from '../deck';
+import { EDITION } from '../edition';
 import type { ThemeName } from '../theme';
 import {
   arrivalStep,
   initialPosition,
   lastStep,
   type NavigationMode,
+  nextEdition,
   nextPosition,
+  openEdition,
   type Position,
   previousPosition,
   readInitialMode,
@@ -22,6 +25,8 @@ type Message =
   | { type: 'position'; position: Position }
   | { type: 'theme'; theme: ThemeName }
   | { type: 'mode'; mode: NavigationMode }
+  /** The other window switched edition (`null`: the deck without edition): follow it. */
+  | { type: 'edition'; edition: string | null }
   /** Sent by a window that just opened, to get the current position and theme. */
   | { type: 'hello' };
 
@@ -60,6 +65,9 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
       if (data.type === 'position') setPosition({ ...data.position, remote: true });
       else if (data.type === 'theme') setTheme(data.theme);
       else if (data.type === 'mode') setMode(data.mode);
+      else if (data.type === 'edition') {
+        if ((data.edition ?? undefined) !== EDITION) openEdition(data.edition ?? undefined);
+      }
       else if (data.type === 'hello') {
         // Answer with our state, without animation, so the new window shows the same thing right away
         sync.postMessage({ type: 'position', position: { ...latest.current.position, animate: false } } satisfies Message);
@@ -100,6 +108,13 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
     if (next === 'slide') setPosition((current) => ({ slide: current.slide, step: lastStep(current.slide), animate: false }));
   }, []);
 
+  // Both windows move to the next edition, each reloading on its first slide
+  const switchEdition = useCallback(() => {
+    const next = nextEdition();
+    channel.current?.postMessage({ type: 'edition', edition: next ?? null } satisfies Message);
+    openEdition(next);
+  }, []);
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (onKey?.(event.key)) return;
@@ -115,5 +130,5 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [forward, backward, goTo, toggleTheme, toggleMode, onKey]);
 
-  return { position, theme, mode, forward, backward, toggleTheme, toggleMode };
+  return { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition };
 };

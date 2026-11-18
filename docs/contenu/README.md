@@ -24,7 +24,7 @@ Une édition est le même talk donné ailleurs. Elle tient dans un fichier de `e
 |---|---|---|
 | `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : l'annonce du remplacement sur la slide de titre (slide d'attente), la signature du titre et des remerciements, le QR code, et une slide de mention de la conférence remplacée |
 
-Pour la lancer : ajouter `?edition=devfest` à l'adresse du présentateur (combinable avec les autres paramètres, repris par la vue orateur) ; `npm run check -- devfest` liste ses slides ; `npm run pptx -- devfest` écrit `out/slides-devfest.pptx` et `out/stills-devfest/`. Sans paramètre, tout reste le deck du Capitole du Libre. Les numéros de slide cités dans les notes sont ceux du deck d'origine. Une nouvelle édition demande un fichier et une ligne dans `src/content/index.ts`.
+Pour la lancer : cliquer sur le bouton **Édition** (en haut de la vue orateur, et en haut à droite de la première slide), qui passe d'une édition à l'autre : les deux fenêtres rechargent sur la première slide, le chronomètre repart de zéro et le plein écran est à remettre (`f`) ; ou ajouter `?edition=devfest` à l'adresse du présentateur (combinable avec les autres paramètres, repris par la vue orateur) ; `npm run check -- devfest` liste ses slides ; `npm run pptx -- devfest` écrit `out/slides-devfest.pptx` et `out/stills-devfest/`. Sans paramètre, tout reste le deck du Capitole du Libre. Les numéros de slide cités dans les notes sont ceux du deck d'origine. Une nouvelle édition demande un fichier et une ligne dans `src/content/index.ts`.
 
 ## Pendant la présentation
 
