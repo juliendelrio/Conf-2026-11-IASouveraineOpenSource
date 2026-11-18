@@ -1,7 +1,8 @@
 import type { ComponentType } from 'react';
 import { withPageNumber } from './components/PageNumber';
-import { CONTENT_SLIDES } from './content';
+import { contentSlides } from './content';
 import type { Note } from './content/parse';
+import { EDITION } from './edition';
 
 export type Slide = {
   /** Unique id, also used as Remotion composition id and PPTX still name. */
@@ -33,6 +34,12 @@ export type Slide = {
 // The deck is written in docs/contenu/*.md (order, texts, click steps); see docs/contenu/README.md.
 // Every slide but the title gets its page number and the total in the bottom-right corner, and its planned start
 // time in the top-right corner (to compare with the speaker view's timer).
-export const SLIDES: Slide[] = CONTENT_SLIDES.map((slide, index) =>
-  index === 0 ? slide : { ...slide, component: withPageNumber(slide.component, index + 1, CONTENT_SLIDES.length, slide.plannedStart) },
-);
+export const deckFor = (edition?: string): Slide[] => {
+  const slides = contentSlides(edition);
+  return slides.map((slide, index) =>
+    index === 0 ? slide : { ...slide, component: withPageNumber(slide.component, index + 1, slides.length, slide.plannedStart) },
+  );
+};
+
+// The edition comes from the address (`?edition=devfest`) or from REMOTION_EDITION, see src/edition.ts
+export const SLIDES: Slide[] = deckFor(EDITION);

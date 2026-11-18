@@ -4,6 +4,7 @@ Slides de la conférence de Julien Del Rio au [Capitole du Libre 2026](https://c
 
 - **En ligne** : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/
 - **Hors ligne** : `out/slides.pptx`, généré via `npm run pptx`
+- **Édition DevFest Toulouse 2026** (jeudi 19 novembre 2026, 12h00, salle Agora) : https://juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/?edition=devfest, et `npm run pptx -- devfest` pour le PPTX (`out/slides-devfest.pptx`)
 
 ## Stack
 

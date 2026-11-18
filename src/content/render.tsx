@@ -1,5 +1,6 @@
 // Turns the parsed content of docs/contenu/ into deck slides: one template per `type`.
 import type { ComponentType } from 'react';
+import { PHOTOS } from '../assets/photos';
 import { BODY_START, clicksBefore, framesFor } from '../components/animation';
 import { emphasized } from '../components/inline';
 import {
@@ -19,6 +20,7 @@ import { ArchitectureSlide, type Layer } from '../slides/ArchitectureSlide';
 import { beatStarts } from '../slides/scenes/kit';
 import { ChapterSlide } from '../slides/ChapterSlide';
 import { ConfessionSlide } from '../slides/ConfessionSlide';
+import { MentionSlide } from '../slides/MentionSlide';
 import { MoeSlide } from '../slides/MoeSlide';
 import { ScaleSlide } from '../slides/ScaleSlide';
 import { SpeedCeilingSlide } from '../slides/SpeedCeilingSlide';
@@ -264,6 +266,19 @@ const build = (slide: SlideContent, glossary: Map<string, string>, thread: strin
       };
       return { component: () => <ChapterSlide {...props} />, groups: 1, defaultClicks: 'aucun' };
     }
+    case 'mention': {
+      const photo = fields.photo;
+      const props = {
+        kicker: need(slide, 'rubrique'),
+        title: need(slide, 'titre'),
+        photo: photo ? (PHOTOS[photo] ?? fail(`photo inconnue « ${photo} » (photos possibles : ${Object.keys(PHOTOS).join(', ')})`)) : undefined,
+        name: need(slide, 'signature'),
+        affiliation: fields['sous-titre'],
+        text: fields.texte,
+        qr: fields.qr ? { url: fields.qr, label: fields['légende'] } : undefined,
+      };
+      return { component: () => <MentionSlide {...props} />, groups: 1, defaultClicks: 'aucun' };
+    }
     case 'merci': {
       const links = needTable(slide).rows.map(([label, url]) => ({ label, url }));
       const props = { kicker: common().kicker, title: common().title, call: slide.fields['sous-titre'], links, signature: need(slide, 'signature'), qr: fields.qr ? { url: fields.qr, label: fields['légende'] } : undefined };
@@ -271,7 +286,7 @@ const build = (slide: SlideContent, glossary: Map<string, string>, thread: strin
     }
     default:
       return fail(
-        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, escalier, échelle, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, intercalaire, merci)`,
+        `type inconnu « ${type} » (types possibles : titre, aveu, liste, tableau, étapes, cartes, escalier, échelle, chiffre, trio, déclaration, lexique, formule, plafonds, moe, architecture, animation, intercalaire, mention, merci)`,
       );
   }
 };

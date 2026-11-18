@@ -13,6 +13,19 @@ Les slides sont écrites ici, en Markdown. Le code (`src/`) ne contient plus de 
 
 L'ordre du deck est celui des fichiers (`00` à `07`), puis celui des slides dans chaque fichier. Pour déplacer une slide, on déplace sa section ; pour en ajouter une, on ajoute une section `## identifiant`. Ajouter un fichier demande une ligne dans `src/content/index.ts`.
 
+## Les éditions
+
+Une édition est le même talk donné ailleurs. Elle tient dans un fichier de `editions/` qui ne contient que ce qui change :
+
+- une slide dont l'identifiant existe déjà **modifie** celle du deck : seuls les champs écrits sont remplacés (ses points, sections et tableau aussi, s'il y en a) ; une note `####` de même titre remplace la note d'origine, les autres s'ajoutent
+- une slide nouvelle dit où elle se place avec `après : identifiant` ; elle rejoint le chapitre de la slide qu'elle suit, dont elle partage la durée
+
+| Édition | Fichier | Ce qui change |
+|---|---|---|
+| `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : la signature du titre et des remerciements, le QR code, et une slide de mention de la conférence remplacée |
+
+Pour la lancer : ajouter `?edition=devfest` à l'adresse du présentateur (combinable avec les autres paramètres, repris par la vue orateur) ; `npm run check -- devfest` liste ses slides ; `npm run pptx -- devfest` écrit `out/slides-devfest.pptx` et `out/stills-devfest/`. Sans paramètre, tout reste le deck du Capitole du Libre. Les numéros de slide cités dans les notes sont ceux du deck d'origine. Une nouvelle édition demande un fichier et une ligne dans `src/content/index.ts`.
+
 ## Pendant la présentation
 
 - Chaque clic (flèche droite, Espace, Entrée, Page suivante, télécommande ou clic de souris) fait apparaître l'élément suivant ; quand tout est affiché, le clic suivant passe à la slide suivante. La flèche gauche retire le dernier élément affiché, ou revient à la slide précédente complète. Le PPTX et Remotion Studio montrent toujours la slide complète
@@ -100,6 +113,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `architecture` | `rubrique`, `titre`, `badges`, `pied` | une section `### Couche` par couche : la 1re en haut, la 2e au milieu (la passerelle), les suivantes côte à côte en bas ; chacune avec `texte`, `surligné` et des briques `- Nom : licence` (licence facultative) | le haut, le milieu, le bas, puis le pied |
 | `animation` | `rubrique`, `titre`, `scène` : `coupure` (2 sections : nos usages, le fournisseur ; ou 4 : nos usages, la passerelle, le fournisseur, le secours), `routage` (5 : les requêtes, la passerelle, paliers 1 à 3), `relecture des poids` (3 : les poids, la bande passante, le texte écrit), `experts` (4 : les libellés des couches dessinées sur le réseau des poids, la dernière après « ⋯ »), `quantification` (4 : une par précision avec `texte` la taille, `détail` un poids et `mesure` la perte de qualité, puis la carte), `chemin` (7 : trois services, deux moteurs, la passerelle maison avec en `détail` son étiquette et en `mesure` la légende de la requête refusée, LiteLLM), `cinq questions` (5 : la carte, sa VRAM, sa puce, le chemin de l'une à l'autre avec en `mesure` ce qui y passe, une autre carte ; le `détail` de chacune est l'étiquette de ce qui joue), `pilotage` (6 : trois équipes, avec en `détail` l'étiquette de A l'alias redondé, de B sans redondance et de C la refusée, la passerelle, deux modèles), `boucle agent` (5 : les trois étapes, le compteur, les conversations simultanées), `réseau` (4 : trois réseaux de taille croissante, titre la taille et `texte` sa qualification, puis le poids épinglé en `détail`), `boîte noire` (4 : les données, l'entraînement, les poids avec en `détail` l'étiquette finale, la boîte noire), `tokens` (3 : la question en `texte` découpée par des `|`, le modèle, la réponse découpée de même), `vram` (5 : CPU, RAM, GPU, VRAM, le modèle, chacun avec `texte`), `arrondi` (3 : une par précision, avec en `détail` le poids arrondi) | une ligne `- …` par temps (la légende), des sections `### Élément` avec `texte` et `détail` (étiquette qui apparaît) | un par temps ; chaque temps a sa propre durée |
 | `intercalaire` | `chiffre` (le numéro du chapitre, facultatif), `titre` | une ligne `- …` par étape du fil rouge, l'étape en cours écrite `- ==…==` (aucune : toutes sont passées ; toutes : les mots d’un chapitre, comme le petit lexique) | aucun clic |
+| `mention` | `rubrique`, `titre` (la conférence citée), `photo` (un nom déclaré dans `src/assets/photos.ts`), `signature` (la personne), `sous-titre` (son affiliation), `texte`, `qr` (l'adresse du QR code, sans `https://`) et sa `légende` | — | aucun clic |
 | `merci` | `rubrique`, `titre`, `sous-titre` (l'appel aux questions, en grand), `signature`, `qr` (l'adresse du QR code, sans `https://`) et sa `légende` | un tableau `Libellé \| Lien` | l'appel, les liens, puis la signature |
 
 Les mises en page elles-mêmes (couleurs, tailles, animations) restent dans le code : `src/components/templates.tsx` pour les types courants, `src/slides/` pour les slides graphiques.

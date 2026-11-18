@@ -7,8 +7,10 @@ import moteurs from '../../docs/contenu/04-moteurs.md?raw';
 import plateforme from '../../docs/contenu/05-plateforme.md?raw';
 import usages from '../../docs/contenu/06-usages.md?raw';
 import conclusion from '../../docs/contenu/07-conclusion.md?raw';
+import devfest from '../../docs/contenu/editions/devfest.md?raw';
 import lexique from '../../docs/contenu/lexique.md?raw';
-import { parseGlossary, parseSlides } from './parse';
+import { applyEdition } from './edition';
+import { ContentError, parseGlossary, parseSlides } from './parse';
 import { buildSlides } from './render';
 import { chapterSeconds, withSchedule } from './schedule';
 
@@ -24,10 +26,21 @@ const FILES: [string, string][] = [
   ['07-conclusion.md', conclusion],
 ];
 
-const contents = FILES.flatMap(([file, source]) => parseSlides(file, source));
+// The editions: the same talk given elsewhere, each file holding only what changes (see ./edition.ts)
+const EDITIONS: Record<string, string> = { devfest };
 
-export const CONTENT_SLIDES = withSchedule(
-  buildSlides(contents, parseGlossary(lexique)),
-  contents,
-  new Map(FILES.map(([file, source]) => [file, chapterSeconds(file, source)])),
-);
+export const EDITION_NAMES = Object.keys(EDITIONS);
+
+/** The slides of the deck, or of one of its editions. */
+export const contentSlides = (edition?: string) => {
+  const base = FILES.flatMap(([file, source]) => parseSlides(file, source));
+  if (edition !== undefined && !(edition in EDITIONS)) {
+    throw new ContentError(`édition inconnue « ${edition} » (éditions possibles : ${EDITION_NAMES.join(', ')})`);
+  }
+  const contents = edition === undefined ? base : applyEdition(base, parseSlides(`editions/${edition}.md`, EDITIONS[edition]));
+  return withSchedule(
+    buildSlides(contents, parseGlossary(lexique)),
+    contents,
+    new Map(FILES.map(([file, source]) => [file, chapterSeconds(file, source)])),
+  );
+};
