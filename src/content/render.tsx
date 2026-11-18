@@ -143,17 +143,20 @@ const build = (slide: SlideContent, glossary: Map<string, string>, thread: strin
       return { component: () => <StairsSlide {...common()} stairs={stairs} />, groups: stairs.length + footer, defaultClicks: 'tous' };
     }
     case 'échelle': {
-      const rungs = needTable(slide).rows.map(([label, memory, price, badge]) => ({
+      const rungs = needTable(slide).rows.map(([label, memory, price, badge, bought]) => ({
         label,
         memory,
         // « 8 × 141 Go » → 1128: the product of the numbers written
         amount: (memory.match(/\d+(?:[.,]\d+)?/g) ?? fail(`mémoire « ${memory} » sans nombre`)).reduce((product, text) => product * number(text, 'mémoire'), 1),
         price,
         tested: parseBadges(badge).some((status) => status.kind === 'tested'),
+        bought: yes(bought),
       }));
       if (rungs.length < 2) fail('une échelle a au moins 2 lignes');
-      // The last machine is out of scale: the one before it gives the full width
-      const scale = rungs[rungs.length - 2].amount / 0.7;
+      // The last rented machine is out of scale: the one before it gives the full width
+      const rented = rungs.filter((rung) => !rung.bought);
+      if (rented.length < 2) fail('une échelle a au moins 2 machines louées');
+      const scale = rented[rented.length - 2].amount / 0.7;
       return { component: () => <ScaleSlide {...common()} rungs={rungs} scale={scale} />, groups: rungs.length + footer, defaultClicks: 'tous' };
     }
     case 'chiffre': {

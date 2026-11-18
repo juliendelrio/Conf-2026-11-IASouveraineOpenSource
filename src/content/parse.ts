@@ -33,6 +33,7 @@ const KEYS = [
   'photo',
   'annonce',
   'après',
+  'retirer',
 ] as const;
 
 export type Key = (typeof KEYS)[number];

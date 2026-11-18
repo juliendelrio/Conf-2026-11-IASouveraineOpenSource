@@ -18,11 +18,13 @@ L'ordre du deck est celui des fichiers (`00` à `07`), puis celui des slides dan
 Une édition est le même talk donné ailleurs. Elle tient dans un fichier de `editions/` qui ne contient que ce qui change :
 
 - une slide dont l'identifiant existe déjà **modifie** celle du deck : seuls les champs écrits sont remplacés (ses points, sections et tableau aussi, s'il y en a) ; une note `####` de même titre remplace la note d'origine, les autres s'ajoutent
-- une slide nouvelle dit où elle se place avec `après : identifiant` ; elle rejoint le chapitre de la slide qu'elle suit, dont elle partage la durée
+- une slide du deck se retire avec `retirer : oui`
+- une slide nouvelle dit où elle se place avec `après : identifiant` ; elle rejoint le chapitre de la slide qu'elle suit
+- le minutage garde le rythme du deck : un chapitre qui perd des slides raccourcit d'autant, et le chronomètre de la vue orateur vise la durée de l'édition
 
 | Édition | Fichier | Ce qui change |
 |---|---|---|
-| `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : l'annonce du remplacement sur la slide de titre (slide d'attente), la signature du titre et des remerciements, le QR code, et une slide de mention de la conférence remplacée |
+| `devfest` | `editions/devfest.md` | DevFest Toulouse 2026 : l'annonce du remplacement sur la slide de titre (slide d'attente), la signature du titre et des remerciements, le QR code, une slide de mention de la conférence remplacée ; pour le créneau de 45 minutes, neuf slides retirées (50 slides, environ 36 min 30) et « Louer avant d'acheter » devenue « Louer, ou acheter un poste IA » |
 
 Pour la lancer : cliquer sur le bouton **Édition** (en haut de la vue orateur, et en haut à droite de la première slide), qui passe d'une édition à l'autre : les deux fenêtres rechargent sur la première slide, le chronomètre repart de zéro et le plein écran est à remettre (`f`) ; ou ajouter `?edition=devfest` à l'adresse du présentateur (combinable avec les autres paramètres, repris par la vue orateur) ; `npm run check -- devfest` liste ses slides ; `npm run pptx -- devfest` écrit `out/slides-devfest.pptx` et `out/stills-devfest/`. Sans paramètre, tout reste le deck du Capitole du Libre. Les numéros de slide cités dans les notes sont ceux du deck d'origine. Une nouvelle édition demande un fichier et une ligne dans `src/content/index.ts`.
 
@@ -103,7 +105,7 @@ Les éléments du corps de la slide sont numérotés à partir de 1, dans l'ordr
 | `cartes` | `rubrique`, `titre`, `badges`, `pied` | une section `### Carte` par carte, avec `valeur` (grand chiffre), `légende`, `badges`, `surligné : oui` et des points `- …` | les cartes, puis le pied |
 | `chiffre` | `rubrique`, `titre`, `badges`, `chiffre`, `légende`, `pied` | — | le chiffre, puis le pied |
 | `escalier` | `rubrique`, `titre`, `badges`, `pied` | une section `### Marche` par marche, de la plus basse à la plus haute : `texte`, `détail` (en gris), ou `valeur` (en gros) et `légende`, `badges`, `surligné` | une par marche, puis le pied |
-| `échelle` | `rubrique`, `titre`, `badges` (la légende : plein = testé, pointillé = le reste), `pied` | un tableau `Machine \| Mémoire \| Prix \| badge` : la barre a la longueur de la mémoire (« 8 × 141 Go » = 1 128), pleine si le badge est `testé` ; l'avant-dernière ligne donne l'échelle, la dernière en sort | une par ligne, puis le pied |
+| `échelle` | `rubrique`, `titre`, `badges` (la légende : plein = testé, pointillé = le reste), `pied` | un tableau `Machine \| Mémoire \| Prix \| badge` : la barre a la longueur de la mémoire (« 8 × 141 Go » = 1 128), pleine si le badge est `testé` ; l'avant-dernière ligne donne l'échelle, la dernière en sort ; une 5e colonne `oui` marque une machine achetée et non louée (barre et prix en orange) | une par ligne, puis le pied |
 | `trio` | `rubrique` (affichée en titre, sous le surtitre « Objectif, piège, leçon »), `fil` (nom court du chapitre dans le fil des bilans, en bas de slide), `objectif`, `piège`, `leçon` | — | 3 (une carte à pictogramme par temps ; le fil est là dès l'arrivée) |
 | `déclaration` | `rubrique` (facultatif) | une ligne `- …` par phrase | une par phrase |
 | `lexique` | `rubrique`, `titre` | une ligne `- Terme` par terme, défini dans `lexique.md` | un par terme |

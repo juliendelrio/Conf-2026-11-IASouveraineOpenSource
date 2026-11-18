@@ -12,7 +12,7 @@ import lexique from '../../docs/contenu/lexique.md?raw';
 import { applyEdition } from './edition';
 import { ContentError, parseGlossary, parseSlides } from './parse';
 import { buildSlides } from './render';
-import { chapterSeconds, withSchedule } from './schedule';
+import { chapterPace, chapterSeconds, withSchedule } from './schedule';
 
 // Deck order: files in this order, then slides in the order they appear in each file
 const FILES: [string, string][] = [
@@ -41,10 +41,9 @@ export const contentSlides = (edition?: string) => {
   if (edition !== undefined && !(edition in EDITIONS)) {
     throw new ContentError(`édition inconnue « ${edition} » (éditions possibles : ${EDITION_NAMES.join(', ')})`);
   }
+  const glossary = parseGlossary(lexique);
+  // The pace of each chapter comes from the full deck: an edition that removes slides gets shorter, not slower
+  const pace = chapterPace(buildSlides(base, glossary), base, new Map(FILES.map(([file, source]) => [file, chapterSeconds(file, source)])));
   const contents = edition === undefined ? base : applyEdition(base, parseSlides(`editions/${edition}.md`, EDITIONS[edition]));
-  return withSchedule(
-    buildSlides(contents, parseGlossary(lexique)),
-    contents,
-    new Map(FILES.map(([file, source]) => [file, chapterSeconds(file, source)])),
-  );
+  return withSchedule(buildSlides(contents, glossary), contents, pace);
 };

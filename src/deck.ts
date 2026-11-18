@@ -27,6 +27,8 @@ export type Slide = {
   animated?: boolean;
   /** Planned start, in seconds from the start of the talk (from the chapter durations, see src/content/schedule.ts). */
   plannedStart?: number;
+  /** Planned time on this slide, in seconds. */
+  plannedSeconds?: number;
   /** Speaker notes (`#### …` under the slide in the content), shown in the speaker view. */
   notes: Note[];
 };
@@ -43,3 +45,6 @@ export const deckFor = (edition?: string): Slide[] => {
 
 // The edition comes from the address (`?edition=devfest`) or from REMOTION_EDITION, see src/edition.ts
 export const SLIDES: Slide[] = deckFor(EDITION);
+
+/** Planned length of the talk in seconds: what the speaker view's timer counts against. */
+export const TALK_SECONDS = SLIDES.reduce((sum, slide) => sum + (slide.plannedSeconds ?? 0), 0);

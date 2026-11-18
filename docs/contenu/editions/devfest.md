@@ -36,6 +36,72 @@ Julien Briault devait donner ici « CoeurIA : Refaire ChatGPT au service de la S
 - la vidéo est l'enregistrement de PlatformCon Live Day Paris 2026, publié par WeScale : « CoeurIA : Et si on refaisait ChatGPT au service de la SolidarIT ? - Julien Briault, Deezer »
 - Julien Briault : ingénieur réseau / SRE chez Deezer, et responsable bénévole de l'infrastructure aux Restos du Cœur (fiche DevFest Toulouse et bio Voxxed Days Luxembourg 2026)
 
+<!-- Créneau de 45 minutes : neuf slides retirées pour viser 32 à 34 minutes (décidé le 18/11/2026) -->
+
+## chapter-glossary
+- ==Poids==
+- ==Open weights==
+- ==Token==
+- ==VRAM==
+- ==Quantization==
+
+#### Progression
+
+aucun clic : les cinq mots apparaissent l'un après l'autre
+
+#### À l'oral
+
+« Avant d'entrer dans le vif du sujet, cinq mots qui vont revenir tout le long. »
+
+## rounding
+retirer : oui
+
+## experts
+retirer : oui
+
+## out-of-reach
+retirer : oui
+
+## code-versions
+retirer : oui
+
+## rent-first
+titre : Louer, ou acheter un poste IA
+clics : 3, 5, 7
+pied : Location au mois : tarifs publics OVH et Scaleway, hors taxes, octobre 2026. Postes IA : mémoire unifiée, mais plus lents que les GPU de datacenter
+
+| Machine | Mémoire | Prix par mois | | Achat |
+|---|---|---|---|---|
+| 1 × L4 | 24 Go | 500 – 600 € | {testé: Testé} | |
+| 1 × L40S | 48 Go | 1 000 – 1 100 € | {testé: Testé} | |
+| 4 × L40S | 192 Go | 4 000 – 4 300 € | {extrapolé: Catalogue} | |
+| 8 × H200 | 8 × 141 Go | ~30 700 € | {extrapolé: Catalogue} | |
+| DGX Spark | 128 Go | À l'achat | {extrapolé: Catalogue} | oui |
+| Mac Studio | ≤ 512 Go | À l'achat | {testé: Testé} | oui |
+
+#### Progression
+
+arrivée : les barres de la L4 et de la L40S (pleines : testées) s'enchaînent ; clic 1 : 4 × L40S et 8 × H200 (en pointillé : catalogue), la dernière barre sort de l'échelle ; clic 2 : les deux postes IA, en orange (à l'achat) ; clic 3 : le pied de slide
+
+#### À l'oral
+
+on a commencé par louer des L4 et des L40S chez des hébergeurs français, donc déjà dans l'esprit souverain. Excellente façon de tester toute la stack (moteur, plateforme, interface) malgré les limites de ces cartes, sans immobiliser de budget. L'autre porte d'entrée, c'est le poste IA qu'on achète : DGX Spark ou Mac Studio. CPU et GPU y partagent la même mémoire, donc beaucoup de place pour le modèle, mais c'est plus lent que des GPU de datacenter : pour l'interne et les labs, pas pour une offre aux clients. Testé sur Mac Studio : ça marche, mais l'écosystème NVIDIA reste le plus simple à exploiter. Les slides « matériel par catégorie » et « deux approches » sont retirées dans cette édition : donner ici, à l'oral, l'ordre de grandeur à l'achat de notre catégorie
+
+## moe
+retirer : oui
+
+## hardware-by-category
+retirer : oui
+
+## two-approaches
+retirer : oui
+
+## teams
+retirer : oui
+
+## editions
+retirer : oui
+
 ## thanks
 signature : Julien Del Rio · DevFest Toulouse 2026
 qr : juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/?edition=devfest

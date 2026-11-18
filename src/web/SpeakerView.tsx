@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Thumbnail } from '@remotion/player';
-import { SLIDES } from '../deck';
+import { SLIDES, TALK_SECONDS } from '../deck';
 import { themeVariables, VIDEO } from '../theme';
 import { editionLabel, lastStep, nextPosition, targetFrame } from './deck-state';
 import { Notes } from './Notes';
 import { SlidePlayer } from './SlidePlayer';
 import { useDeck } from './useDeck';
 
-/** Target length of the talk, for the timer. */
-const TALK_MINUTES = 44;
+/** Target length of the talk, for the timer: the planned length of this edition, rounded up to the minute. */
+const TALK_MINUTES = Math.ceil(TALK_SECONDS / 60);
 
 const UI = {
   background: '#0b1220',
