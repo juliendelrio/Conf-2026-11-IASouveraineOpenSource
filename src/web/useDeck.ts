@@ -27,20 +27,26 @@ type Message =
   | { type: 'mode'; mode: NavigationMode }
   /** The other window switched edition (`null`: the deck without edition): follow it. */
   | { type: 'edition'; edition: string | null }
+  /** Sent by the speaker view when it opens, answers a hello or closes, so the audience window knows it is there. */
+  | { type: 'speaker'; open: boolean }
   /** Sent by a window that just opened, to get the current position and theme. */
   | { type: 'hello' };
 
 type UseDeckOptions = {
   /** Extra keyboard shortcuts of the view (e.g. `p` to open the speaker view). */
   onKey?: (key: string) => boolean;
+  /** This window is the speaker view: it tells the audience window so. */
+  speaker?: boolean;
 };
 
 /** Position, theme, navigation mode, keyboard navigation and sync with the other window. */
-export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
+export const useDeck = ({ onKey, speaker = false }: UseDeckOptions = {}) => {
   // The starting position is marked remote so it isn't broadcast: a window that opens takes the other one's position
   const [mode, setMode] = useState(readInitialMode);
   const [position, setPosition] = useState<Position>(() => ({ ...initialPosition(mode), remote: true }));
   const [theme, setTheme] = useState(readInitialTheme);
+  // Whether a speaker view is open in another window
+  const [speakerOpen, setSpeakerOpen] = useState(false);
   const channel = useRef<BroadcastChannel | null>(null);
   const latest = useRef({ position, theme, mode });
   latest.current = { position, theme, mode };
@@ -65,6 +71,7 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
       if (data.type === 'position') setPosition({ ...data.position, remote: true });
       else if (data.type === 'theme') setTheme(data.theme);
       else if (data.type === 'mode') setMode(data.mode);
+      else if (data.type === 'speaker') setSpeakerOpen(data.open);
       else if (data.type === 'edition') {
         if ((data.edition ?? undefined) !== EDITION) openEdition(data.edition ?? undefined);
       }
@@ -73,14 +80,25 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
         sync.postMessage({ type: 'position', position: { ...latest.current.position, animate: false } } satisfies Message);
         sync.postMessage({ type: 'theme', theme: latest.current.theme } satisfies Message);
         sync.postMessage({ type: 'mode', mode: latest.current.mode } satisfies Message);
+        if (speaker) sync.postMessage({ type: 'speaker', open: true } satisfies Message);
       }
     };
     sync.postMessage({ type: 'hello' } satisfies Message);
+    // The speaker view says when it arrives and when it leaves (closed or reloaded)
+    const leave = () => sync.postMessage({ type: 'speaker', open: false } satisfies Message);
+    if (speaker) {
+      sync.postMessage({ type: 'speaker', open: true } satisfies Message);
+      window.addEventListener('pagehide', leave);
+    }
     return () => {
+      if (speaker) {
+        window.removeEventListener('pagehide', leave);
+        leave();
+      }
       sync.close();
       channel.current = null;
     };
-  }, []);
+  }, [speaker]);
 
   // Send our own moves to the other window (not the ones we just received from it)
   useEffect(() => {
@@ -130,5 +148,5 @@ export const useDeck = ({ onKey }: UseDeckOptions = {}) => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [forward, backward, goTo, toggleTheme, toggleMode, onKey]);
 
-  return { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition };
+  return { position, theme, mode, speakerOpen, forward, backward, toggleTheme, toggleMode, switchEdition };
 };

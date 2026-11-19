@@ -70,7 +70,7 @@ const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 // The speaker view (?vue=orateur): current slide, what the next click shows, notes, timer and clock
 export const SpeakerView: React.FC = () => {
-  const { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey: (key) => key === 'p' });
+  const { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey: (key) => key === 'p', speaker: true });
   const [moved, setMoved] = useState(false);
   const timer = useTimer(moved);
 

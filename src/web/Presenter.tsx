@@ -45,7 +45,7 @@ export const Presenter: React.FC = () => {
     openSpeakerView();
     return true;
   }, []);
-  const { position, theme, mode, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey });
+  const { position, theme, mode, speakerOpen, forward, backward, toggleTheme, toggleMode, switchEdition } = useDeck({ onKey });
   // Touch screens: tap the left half to go back, the right half to go forward. A mouse click still goes forward
   const pointerType = useRef('mouse');
   const onTap = useCallback(
@@ -76,8 +76,9 @@ export const Presenter: React.FC = () => {
       <div key={slide.id} className={mode === 'slide' ? 'slide-in' : undefined} style={{ width: '100%', height: '100%' }}>
         <SlidePlayer slide={slide} target={targetFrame(slide, position.step)} animate={position.animate} />
       </div>
-      {/* Edition, theme and navigation switches on the title slide only, to keep the other slides clean; d and c work everywhere */}
-      {position.slide === 0 && (
+      {/* Edition, theme and navigation switches on the title slide only, to keep the other slides clean; d and c work
+          everywhere. Hidden while a speaker view is open: it has the same buttons, and this window is on the projector */}
+      {position.slide === 0 && !speakerOpen && (
         <div style={{ position: 'fixed', top: 12, right: 12, display: 'flex', gap: 8, opacity: 0.6 }}>
           <ControlButton onClick={switchEdition} title="Passer à l'autre édition du talk (recharge la page sur la première slide)">
             Édition : {editionLabel()}
