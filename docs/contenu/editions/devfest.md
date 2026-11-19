@@ -129,3 +129,9 @@ retirer : oui
 ## thanks
 signature : Julien Del Rio · DevFest Toulouse 2026
 qr : juliendelrio.github.io/Conf-2026-11-IASouveraineOpenSource/?edition=devfest
+qr-avis : devfesttoulouse.fr/fr/conferences/une-plateforme-ia-a-la-demande-100-open-source-du-gpu-local-au-cloud-souverain
+légende-avis : Votre avis sur la conférence
+
+#### À l'oral
+
+place aux questions. Inviter la salle à donner son avis sur la conférence : le second QR code mène à sa page sur le site du DevFest
