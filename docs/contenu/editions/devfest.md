@@ -68,20 +68,27 @@ retirer : oui
 ## rent-first
 titre : Louer, ou acheter un poste IA
 clics : 3, 5, 7
-pied : Location au mois : tarifs publics OVH et Scaleway, hors taxes, octobre 2026. Postes IA : mémoire unifiée, mais plus lents que les GPU de datacenter
+pied : En bleu et gris, la location au mois, hors taxes (OVH, Scaleway, octobre 2026). En orange, l'achat, TTC (novembre 2026) : mémoire unifiée, mais plus lents que les GPU de datacenter
 
-| Machine | Mémoire | Prix par mois | | Achat |
+| Machine | Mémoire | Prix | | Achat |
 |---|---|---|---|---|
 | 1 × L4 | 24 Go | 500 – 600 € | {testé: Testé} | |
 | 1 × L40S | 48 Go | 1 000 – 1 100 € | {testé: Testé} | |
 | 4 × L40S | 192 Go | 4 000 – 4 300 € | {extrapolé: Catalogue} | |
 | 8 × H200 | 8 × 141 Go | ~30 700 € | {extrapolé: Catalogue} | |
-| DGX Spark | 128 Go | À l'achat | {extrapolé: Catalogue} | oui |
-| Mac Studio | ≤ 512 Go | À l'achat | {testé: Testé} | oui |
+| DGX Spark | 128 Go | 6 000 – 7 500 € | {extrapolé: Catalogue} | oui |
+| Mac Studio | 512 Go | ~25 000 € | {testé: Testé} | oui |
 
 #### Progression
 
-arrivée : les barres de la L4 et de la L40S (pleines : testées) s'enchaînent ; clic 1 : 4 × L40S et 8 × H200 (en pointillé : catalogue), la dernière barre sort de l'échelle ; clic 2 : les deux postes IA, en orange (à l'achat) ; clic 3 : le pied de slide
+arrivée : les barres de la L4 et de la L40S (pleines : testées) s'enchaînent ; clic 1 : 4 × L40S et 8 × H200 (en pointillé : catalogue), la dernière barre sort de l'échelle ; clic 2 : les deux postes IA, en orange, avec leur prix à l'achat ; clic 3 : le pied de slide
+
+#### Compléments
+
+- Les prix en orange sont des prix d'achat, une fois, alors que les autres sont des loyers mensuels : le dire à l'oral
+- DGX Spark 128 Go, prix publics TTC relevés sur le web le 19/11/2026 : environ 6 100 € chez un revendeur (PNY, fin septembre 2026), 7 490 € sur la boutique NVIDIA France (mi-octobre 2026) ; fourchette européenne de 5 500 à 7 000 € HT selon un revendeur. Le prix a nettement monté depuis le lancement (pénurie de mémoire) ; une version 64 Go existe autour de 5 000 €
+- Mac Studio M5 Ultra 512 Go : à partir de 25 079 € TTC avec 1 To de stockage, jusqu'à 33 329 € avec 16 To (option disponible depuis le 28/10/2026, selon la presse spécialisée) ; la configuration 96 Go démarre à 6 599 €
+- À revérifier avant toute citation précise : ces prix viennent de sites d'actualité et de revendeurs, pas des pages officielles
 
 #### À l'oral
 
