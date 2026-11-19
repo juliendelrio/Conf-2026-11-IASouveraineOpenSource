@@ -143,15 +143,18 @@ const build = (slide: SlideContent, glossary: Map<string, string>, thread: strin
       return { component: () => <StairsSlide {...common()} stairs={stairs} />, groups: stairs.length + footer, defaultClicks: 'tous' };
     }
     case 'échelle': {
-      const rungs = needTable(slide).rows.map(([label, memory, price, badge, bought]) => ({
-        label,
-        memory,
-        // « 8 × 141 Go » → 1128: the product of the numbers written
-        amount: (memory.match(/\d+(?:[.,]\d+)?/g) ?? fail(`mémoire « ${memory} » sans nombre`)).reduce((product, text) => product * number(text, 'mémoire'), 1),
-        price,
-        tested: parseBadges(badge).some((status) => status.kind === 'tested'),
-        bought: yes(bought),
-      }));
+      const rungs = needTable(slide).rows.map(([label, memory, price, badge, bought]) => {
+        const numbers = (memory.match(/\d+(?:[.,]\d+)?/g) ?? fail(`mémoire « ${memory} » sans nombre`)).map((text) => number(text, 'mémoire'));
+        return {
+          label,
+          memory,
+          // « 8 × 141 Go » → 1128: the product of the numbers written; « 36 – 512 Go » → 512: the top of a range
+          amount: /\d\s*[–-]\s*\d/.test(memory) ? Math.max(...numbers) : numbers.reduce((product, value) => product * value, 1),
+          price,
+          tested: parseBadges(badge).some((status) => status.kind === 'tested'),
+          bought: yes(bought),
+        };
+      });
       if (rungs.length < 2) fail('une échelle a au moins 2 lignes');
       // The last rented machine is out of scale: the one before it gives the full width
       const rented = rungs.filter((rung) => !rung.bought);

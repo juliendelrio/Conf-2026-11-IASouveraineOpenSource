@@ -77,7 +77,7 @@ pied : En bleu et gris, la location au mois, hors taxes (OVH, Scaleway, octobre 
 | 4 × L40S | 192 Go | 4 000 – 4 300 € | {extrapolé: Catalogue} | |
 | 8 × H200 | 8 × 141 Go | ~30 700 € | {extrapolé: Catalogue} | |
 | DGX Spark | 128 Go | 6 000 – 7 500 € | {extrapolé: Catalogue} | oui |
-| Mac Studio | 512 Go | ~25 000 € | {testé: Testé} | oui |
+| Mac Studio | 36 – 512 Go | 3 000 – 25 000 € | {testé: Testé} | oui |
 
 #### Progression
 
@@ -87,7 +87,7 @@ arrivée : les barres de la L4 et de la L40S (pleines : testées) s'enchaînent 
 
 - Les prix en orange sont des prix d'achat, une fois, alors que les autres sont des loyers mensuels : le dire à l'oral
 - DGX Spark 128 Go, prix publics TTC relevés sur le web le 19/11/2026 : environ 6 100 € chez un revendeur (PNY, fin septembre 2026), 7 490 € sur la boutique NVIDIA France (mi-octobre 2026) ; fourchette européenne de 5 500 à 7 000 € HT selon un revendeur. Le prix a nettement monté depuis le lancement (pénurie de mémoire) ; une version 64 Go existe autour de 5 000 €
-- Mac Studio M5 Ultra 512 Go : à partir de 25 079 € TTC avec 1 To de stockage, jusqu'à 33 329 € avec 16 To (option disponible depuis le 28/10/2026, selon la presse spécialisée) ; la configuration 96 Go démarre à 6 599 €
+- Mac Studio, la fourchette de la slide va de l'entrée de gamme à la plus grande mémoire : M5 Max 36 Go (512 Go de stockage) à 2 999 € TTC, il n'existe pas de configuration 32 Go ; M5 Ultra 96 Go à partir de 6 599 € ; M5 Ultra 512 Go à partir de 25 079 € TTC avec 1 To de stockage, jusqu'à 33 329 € avec 16 To (option disponible depuis le 28/10/2026, selon la presse spécialisée). La barre a la longueur des 512 Go
 - À revérifier avant toute citation précise : ces prix viennent de sites d'actualité et de revendeurs, pas des pages officielles
 
 #### À l'oral
