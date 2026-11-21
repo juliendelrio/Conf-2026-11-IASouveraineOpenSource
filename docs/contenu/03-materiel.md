@@ -89,8 +89,6 @@ la grille de lecture pour comparer des machines, sur un seul dessin : une questi
 
 « est-ce que ça tourne » demande parfois une compilation dédiée du modèle pour la carte. La lecture du prompt est là où les Mac et les petites machines décrochent le plus. Les Mac M5 ont beaucoup de bande passante mais peu de calcul : ils écrivent correctement mais lisent lentement les longs prompts. Nuances pour les questions : avec beaucoup d'utilisateurs simultanés, une même relecture des poids sert plusieurs conversations et l'écriture se rapproche d'une limite de calcul ; avec un très long contexte, l'écriture relit aussi le KV cache à chaque token, encore de la bande passante. Les RTX PRO 6000 n'ont pas de NVLink, et passer d'un serveur à l'autre par le réseau est lent
 
-- La concurrence de NVIDIA, sources pour « est-ce que ça tourne ? » : Intel GPU D270 (ex-Crescent Island), conçu pour l'inférence : 160 Go de LPDDR5X, 1,5 To/s de bande passante, 350 W, refroidi par air, PCIe 5.0 ; pile logicielle ouverte (oneAPI, SYCL), avec des conteneurs vLLM et SGLang cités. Chiffres d'Intel, sur du silicium de pré-production, face à la RTX PRO 6000 Blackwell Server Edition (notre carte) : débit 1,12 fois supérieur sur Qwen3-30B-A3B en FP8. Ni date de disponibilité ni prix dans l'article (16/11/2026, lu le 21/11/2026) : https://www.intel.com/content/www/us/en/newsroom/news/data-center/why-intel-gpu-d270-belongs-in-the-hpc-conversation.html
-
 Illustration en motion design, pas une mesure. Issues #11 et #25
 
 ## moe
@@ -217,6 +215,7 @@ la première peut servir à l'interne et aux labs ; la seconde est obligatoire p
 - L4 : 72 W, alimentée par le seul port PCIe, demi-hauteur, une seule largeur de slot, refroidissement passif. Vieillissante ; dire « remplacée par la RTX PRO 4500 Server Edition » plutôt que « plus produite »
 - RTX PRO 4500 Server Edition : 32 Go, 800 Go/s, 165 W, une seule largeur de slot, passive
 - Nos RTX PRO 6000 Server Edition : refroidissement passif, châssis serveur obligatoire, 11 % de bande passante en moins que l'édition Workstation
+- La concurrence arrive aussi sur ce format : Intel GPU D270 (ex-Crescent Island), carte PCIe 5.0 de 350 W refroidie par air, 160 Go de LPDDR5X et 1,5 To/s de bande passante, conçue pour l'inférence ; des configurations de partenaires montent à 480 Go. Ni date de disponibilité ni prix dans l'article d'Intel (16/11/2026, lu le 21/11/2026) : https://www.intel.com/content/www/us/en/newsroom/news/data-center/why-intel-gpu-d270-belongs-in-the-hpc-conversation.html
 
 ## hardware-trio
 type : trio

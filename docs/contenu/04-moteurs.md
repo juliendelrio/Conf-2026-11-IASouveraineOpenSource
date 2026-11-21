@@ -48,12 +48,13 @@ arrivée : vLLM ; clic 1 : SGLang ; clic 2 : MLX ; clic 3 : DeepInfer ; clic 4 :
 
 #### À l'oral
 
-le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 23). Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
+le modèle et le matériel orientent le choix du moteur : certains modèles sont mieux optimisés sur un moteur que sur l'autre, et le matériel joue aussi. DeepInfer, le petit nouveau : le moteur de l'API de DeepSeek, ouvert en octobre, et nativement compatible avec les puces Huawei Ascend ; un signe de plus que la concurrence à NVIDIA s'organise (slide 23), comme le GPU D270 d'Intel, annoncé en novembre avec des conteneurs vLLM et SGLang. Mais il ne sert qu'un modèle et ne cible que les cartes de datacenter, pas les nôtres. Inférence : exécuter un modèle déjà entraîné pour obtenir des réponses, par opposition à l'entraînement
 
 #### Compléments
 
 - sur Mac, la vidéo sur la bande passante (annexe de la storyline) présente aussi Lithos et OMLX
 - DeepInfer (dépôt deepseek-ai/DeepInfer, lu le 05/11/2026) : Apache 2.0, ouvert vers le 20/10/2026, le moteur derrière l'API de DeepSeek, construit au départ sur vLLM. Un seul modèle, DeepSeek-V4.1-Flash-1017 ; matériel : GPU NVIDIA SM100 (B200, B300) avec CUDA 13, et Huawei Ascend 950 avec CANN 9.2. Inférence hors ligne seulement dans cette version : le système de KV cache, la séparation lecture / écriture et la répartition de charge ne sont pas publiés. Nos RTX PRO 6000 ne sont pas dans la liste
+- La concurrence à NVIDIA passe par nos moteurs : Intel annonce son GPU D270 (ex-Crescent Island, conçu pour l'inférence) avec une pile logicielle ouverte (oneAPI, SYCL) et cite des conteneurs vLLM et SGLang. Chiffre d'Intel, sur du silicium de pré-production, face à la RTX PRO 6000 Blackwell Server Edition (notre carte) : débit 1,12 fois supérieur sur Qwen3-30B-A3B en FP8, à 350 W contre 600 W. Article du 16/11/2026, lu le 21/11/2026 : https://www.intel.com/content/www/us/en/newsroom/news/data-center/why-intel-gpu-d270-belongs-in-the-hpc-conversation.html
 - Les autres : llama.cpp (C/C++, formats GGUF, CPU et toutes cartes), Ollama et LM Studio (outils de poste de travail autour de llama.cpp), TensorRT-LLM (NVIDIA), LMDeploy (InternLM)
 
 ## engine-watch
